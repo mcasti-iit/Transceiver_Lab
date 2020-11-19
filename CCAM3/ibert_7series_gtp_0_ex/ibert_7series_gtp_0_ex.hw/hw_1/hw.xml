@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Product Version: Vivado v2019.1 (64-bit)                     -->
+<!--                                                              -->
+<!-- Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.        -->
+
+<hwsession version="1" minor="2">
+  <device name="xc7a50t_0" gui_info="dashboard1=hw_vios[xc7a50t_0/hw_vio_1=VIO_PROBES_1;]"/>
+  <ObjectList object_type="hw_device" gui_info="">
+    <Object name="xc7a50t_0" gui_info="">
+      <Properties Property="FULL_PROBES.FILE" value="C:/Progetti/Transceiver/CCAM3/just_clock/just_clock.runs/impl_1/just_clock.ltx"/>
+      <Properties Property="PROBES.FILE" value="C:/Progetti/Transceiver/CCAM3/just_clock/just_clock.runs/impl_1/just_clock.ltx"/>
+      <Properties Property="PROGRAM.HW_BITSTREAM" value="$_project_name_.runs/impl_1/example_ibert_7series_gtp_0.bit"/>
+      <Properties Property="SLR.COUNT" value="1"/>
+    </Object>
+  </ObjectList>
+  <ObjectList object_type="hw_probe" gui_info="">
+    <Object name="freq[31:0]" gui_info="hw_vios/hw_vio_1=0"/>
+    <Object name="gtp_clk_locked" gui_info="hw_vios/hw_vio_1=1"/>
+    <Object name="gtp_clk_missing" gui_info="hw_vios/hw_vio_1=2"/>
+    <Object name="probe_out0[1:0]" gui_info="hw_vios/hw_vio_1=5_exp"/>
+    <Object name="sys_clk_locked" gui_info="hw_vios/hw_vio_1=3"/>
+    <Object name="sys_clk_missing" gui_info="hw_vios/hw_vio_1=4"/>
+  </ObjectList>
+  <ObjectList object_type="hw_sio_link" gui_info="">
+    <Object name="0_1_0/IBERT/Quad_216/MGT_X0Y0/TX->0_1_0/IBERT/Quad_216/MGT_X0Y0/RX" gui_info="">
+      <Attributes Attribute="RX_HANDLE" value="0_1_0/IBERT/Quad_216/MGT_X0Y0/RX"/>
+      <Attributes Attribute="TX_HANDLE" value="0_1_0/IBERT/Quad_216/MGT_X0Y0/TX"/>
+      <Properties Property="DESCRIPTION" value="Link 0"/>
+    </Object>
+  </ObjectList>
+  <ObjectList object_type="hw_sio_linkgroup" gui_info="">
+    <Object name="LINKGROUP_0" gui_info="">
+      <Attributes Attribute="LINK_HANDLE0" value="0_1_0/IBERT/Quad_216/MGT_X0Y0/TX->0_1_0/IBERT/Quad_216/MGT_X0Y0/RX"/>
+      <Properties Property="DESCRIPTION" value="Link Group 0"/>
+    </Object>
+  </ObjectList>
+  <probeset name="hw project" active="false">
+    <probe type="vio_input" busType="bus" source="netlist" spec="VIO_INPUT_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="ACTIVITY_PERSISTENCE" value="SHORT"/>
+        <Option Id="DISPLAY_HINT" value=""/>
+        <Option Id="DISPLAY_VISIBILITY" value=""/>
+        <Option Id="HW_VIO" value="VIO"/>
+        <Option Id="INPUT_VALUE_RADIX" value="UNSIGNED"/>
+        <Option Id="NAME.CUSTOM" value=""/>
+        <Option Id="NAME.SELECT" value="Long"/>
+        <Option Id="SOURCE" value="netlist"/>
+      </probeOptions>
+      <nets>
+        <net name="freq[31]"/>
+        <net name="freq[30]"/>
+        <net name="freq[29]"/>
+        <net name="freq[28]"/>
+        <net name="freq[27]"/>
+        <net name="freq[26]"/>
+        <net name="freq[25]"/>
+        <net name="freq[24]"/>
+        <net name="freq[23]"/>
+        <net name="freq[22]"/>
+        <net name="freq[21]"/>
+        <net name="freq[20]"/>
+        <net name="freq[19]"/>
+        <net name="freq[18]"/>
+        <net name="freq[17]"/>
+        <net name="freq[16]"/>
+        <net name="freq[15]"/>
+        <net name="freq[14]"/>
+        <net name="freq[13]"/>
+        <net name="freq[12]"/>
+        <net name="freq[11]"/>
+        <net name="freq[10]"/>
+        <net name="freq[9]"/>
+        <net name="freq[8]"/>
+        <net name="freq[7]"/>
+        <net name="freq[6]"/>
+        <net name="freq[5]"/>
+        <net name="freq[4]"/>
+        <net name="freq[3]"/>
+        <net name="freq[2]"/>
+        <net name="freq[1]"/>
+        <net name="freq[0]"/>
+      </nets>
+    </probe>
+    <probe type="vio_input" busType="net" source="netlist" spec="VIO_INPUT_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="ACTIVITY_PERSISTENCE" value="SHORT"/>
+        <Option Id="DISPLAY_HINT" value="InputDisplay:LED;LED_Low:128,128,128,;LED_High:0,255,0,;"/>
+        <Option Id="DISPLAY_VISIBILITY" value=""/>
+        <Option Id="HW_VIO" value="VIO"/>
+        <Option Id="INPUT_VALUE_RADIX" value="BINARY"/>
+        <Option Id="NAME.CUSTOM" value=""/>
+        <Option Id="NAME.SELECT" value="Long"/>
+        <Option Id="SOURCE" value="netlist"/>
+      </probeOptions>
+      <nets>
+        <net name="gtp_clk_locked"/>
+      </nets>
+    </probe>
+    <probe type="vio_input" busType="net" source="netlist" spec="VIO_INPUT_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="ACTIVITY_PERSISTENCE" value="SHORT"/>
+        <Option Id="DISPLAY_HINT" value="InputDisplay:LED;LED_Low:128,128,128,;LED_High:255,0,0,;"/>
+        <Option Id="DISPLAY_VISIBILITY" value=""/>
+        <Option Id="HW_VIO" value="VIO"/>
+        <Option Id="INPUT_VALUE_RADIX" value="BINARY"/>
+        <Option Id="NAME.CUSTOM" value=""/>
+        <Option Id="NAME.SELECT" value="Long"/>
+        <Option Id="SOURCE" value="netlist"/>
+      </probeOptions>
+      <nets>
+        <net name="gtp_clk_missing"/>
+      </nets>
+    </probe>
+    <probe type="vio_input" busType="net" source="netlist" spec="VIO_INPUT_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="ACTIVITY_PERSISTENCE" value="SHORT"/>
+        <Option Id="DISPLAY_HINT" value="InputDisplay:LED;LED_Low:128,128,128,;LED_High:0,255,0,;"/>
+        <Option Id="DISPLAY_VISIBILITY" value=""/>
+        <Option Id="HW_VIO" value="VIO"/>
+        <Option Id="INPUT_VALUE_RADIX" value="BINARY"/>
+        <Option Id="NAME.CUSTOM" value=""/>
+        <Option Id="NAME.SELECT" value="Long"/>
+        <Option Id="SOURCE" value="netlist"/>
+      </probeOptions>
+      <nets>
+        <net name="sys_clk_locked"/>
+      </nets>
+    </probe>
+    <probe type="vio_input" busType="net" source="netlist" spec="VIO_INPUT_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="ACTIVITY_PERSISTENCE" value="SHORT"/>
+        <Option Id="DISPLAY_HINT" value="InputDisplay:LED;LED_Low:128,128,128,;LED_High:255,0,0,;"/>
+        <Option Id="DISPLAY_VISIBILITY" value=""/>
+        <Option Id="HW_VIO" value="VIO"/>
+        <Option Id="INPUT_VALUE_RADIX" value="BINARY"/>
+        <Option Id="NAME.CUSTOM" value=""/>
+        <Option Id="NAME.SELECT" value="Long"/>
+        <Option Id="SOURCE" value="netlist"/>
+      </probeOptions>
+      <nets>
+        <net name="sys_clk_missing"/>
+      </nets>
+    </probe>
+    <probe type="vio_output" busType="bus" source="netlist" spec="VIO_OUTPUT_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="DISPLAY_HINT" value="0.OutputDisplay:Active_High;|1.OutputDisplay:Active_High;"/>
+        <Option Id="DISPLAY_VISIBILITY" value=""/>
+        <Option Id="HW_VIO" value="VIO"/>
+        <Option Id="NAME.CUSTOM" value=""/>
+        <Option Id="NAME.SELECT" value="Long"/>
+        <Option Id="OUTPUT_VALUE" value="0"/>
+        <Option Id="OUTPUT_VALUE_RADIX" value="HEX"/>
+        <Option Id="SOURCE" value="netlist"/>
+      </probeOptions>
+      <nets>
+        <net name="probe_out0[1]"/>
+        <net name="probe_out0[0]"/>
+      </nets>
+    </probe>
+  </probeset>
+</hwsession>

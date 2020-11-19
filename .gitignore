@@ -2,9 +2,11 @@
 !**.ltx
 # Vivado work folders
 **/*.cache
-**/*.hw
 **/*.ip_user_files
-# **/*.runs
+**/*.runs/*
+!**/*.runs/impl*
+**/*.runs/impl*/*
+!**/*.runs/impl*/*.ltx
 **/*.sim
 
 # Log files
@@ -14,8 +16,5 @@
 # Office Temp Files
 ~$*.*
 
-**/*.runs/*
-!**/*.runs/impl*
-**/*.runs/impl*/*
-!**/*.runs/impl*/*.ltx
+
 
