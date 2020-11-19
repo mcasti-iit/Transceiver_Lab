@@ -1,0 +1,15 @@
+# IGNORE FILE
+
+# Vivado work folders
+**/*.cache
+**/*.hw
+**/*.ip_user_files
+**/*.runs
+**/*.sim
+
+# Log files
+*.jou
+*.log
+
+# Office Temp Files
+~$*.*
