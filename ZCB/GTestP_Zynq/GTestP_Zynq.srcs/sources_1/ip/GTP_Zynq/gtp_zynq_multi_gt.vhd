@@ -101,14 +101,14 @@ port
     gt0_eyescandataerror_out                : out  std_logic;
     gt0_eyescantrigger_in                   : in   std_logic;
     ------------------ Receive Ports - FPGA RX Interface Ports -----------------
-    gt0_rxdata_out                          : out  std_logic_vector(31 downto 0);
+    gt0_rxdata_out                          : out  std_logic_vector(15 downto 0);
     gt0_rxusrclk_in                         : in   std_logic;
     gt0_rxusrclk2_in                        : in   std_logic;
     ------------------ Receive Ports - RX 8B/10B Decoder Ports -----------------
-    gt0_rxchariscomma_out                   : out  std_logic_vector(3 downto 0);
-    gt0_rxcharisk_out                       : out  std_logic_vector(3 downto 0);
-    gt0_rxdisperr_out                       : out  std_logic_vector(3 downto 0);
-    gt0_rxnotintable_out                    : out  std_logic_vector(3 downto 0);
+    gt0_rxchariscomma_out                   : out  std_logic_vector(1 downto 0);
+    gt0_rxcharisk_out                       : out  std_logic_vector(1 downto 0);
+    gt0_rxdisperr_out                       : out  std_logic_vector(1 downto 0);
+    gt0_rxnotintable_out                    : out  std_logic_vector(1 downto 0);
     ------------------------ Receive Ports - RX AFE Ports ----------------------
     gt0_gtprxn_in                           : in   std_logic;
     gt0_gtprxp_in                           : in   std_logic;
@@ -219,14 +219,14 @@ port
     eyescandataerror_out                    : out  std_logic;
     eyescantrigger_in                       : in   std_logic;
     ------------------ Receive Ports - FPGA RX Interface Ports -----------------
-    rxdata_out                              : out  std_logic_vector(31 downto 0);
+    rxdata_out                              : out  std_logic_vector(15 downto 0);
     rxusrclk_in                             : in   std_logic;
     rxusrclk2_in                            : in   std_logic;
     ------------------ Receive Ports - RX 8B/10B Decoder Ports -----------------
-    rxchariscomma_out                       : out  std_logic_vector(3 downto 0);
-    rxcharisk_out                           : out  std_logic_vector(3 downto 0);
-    rxdisperr_out                           : out  std_logic_vector(3 downto 0);
-    rxnotintable_out                        : out  std_logic_vector(3 downto 0);
+    rxchariscomma_out                       : out  std_logic_vector(1 downto 0);
+    rxcharisk_out                           : out  std_logic_vector(1 downto 0);
+    rxdisperr_out                           : out  std_logic_vector(1 downto 0);
+    rxnotintable_out                        : out  std_logic_vector(1 downto 0);
     ------------------------ Receive Ports - RX AFE Ports ----------------------
     gtprxn_in                               : in   std_logic;
     gtprxp_in                               : in   std_logic;

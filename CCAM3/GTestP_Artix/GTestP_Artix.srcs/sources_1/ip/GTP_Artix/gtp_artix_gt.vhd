@@ -108,11 +108,11 @@ port
     gttxreset_in                            : in   std_logic;
     txuserrdy_in                            : in   std_logic;
     ------------------ Transmit Ports - FPGA TX Interface Ports ----------------
-    txdata_in                               : in   std_logic_vector(31 downto 0);
+    txdata_in                               : in   std_logic_vector(15 downto 0);
     txusrclk_in                             : in   std_logic;
     txusrclk2_in                            : in   std_logic;
     ------------------ Transmit Ports - TX 8B/10B Encoder Ports ----------------
-    txcharisk_in                            : in   std_logic_vector(3 downto 0);
+    txcharisk_in                            : in   std_logic_vector(1 downto 0);
     --------------- Transmit Ports - TX Configurable Driver Ports --------------
     gtptxn_out                              : out  std_logic;
     gtptxp_out                              : out  std_logic;
@@ -145,6 +145,8 @@ architecture RTL of GTP_Artix_GT is
 
     -- TX Datapath signals
     signal txdata_i                         :   std_logic_vector(31 downto 0);
+    signal txkerr_float_i                   :   std_logic_vector(1 downto 0);
+    signal txrundisp_float_i                :   std_logic_vector(1 downto 0);
        
 --******************************** Main Body of Code***************************
                        
@@ -159,7 +161,7 @@ begin
 
     -------------------  GT Datapath byte mapping  -----------------
 
-    txdata_i    <=   (TXDATA_IN);
+    txdata_i    <=   (tied_to_ground_vec_i(15 downto 0) & TXDATA_IN);
 
 
 
@@ -373,7 +375,7 @@ begin
         TX_XCLK_SEL                             =>     ("TXOUT"),
 
        -------------------------FPGA TX Interface Attributes-------------------------
-        TX_DATA_WIDTH                           =>     (40),
+        TX_DATA_WIDTH                           =>     (20),
 
        -------------------------TX Configurable Driver Attributes-------------------------
         TX_DEEMPH0                              =>     ("000000"),
@@ -729,7 +731,8 @@ begin
         TX8B10BBYPASS                   =>      tied_to_ground_vec_i(3 downto 0),
         TXCHARDISPMODE                  =>      tied_to_ground_vec_i(3 downto 0),
         TXCHARDISPVAL                   =>      tied_to_ground_vec_i(3 downto 0),
-        TXCHARISK                       =>      txcharisk_in,
+        TXCHARISK(3 downto 2)           =>      tied_to_ground_vec_i(1 downto 0),
+        TXCHARISK(1 downto 0)           =>      txcharisk_in,
         ------------------ Transmit Ports - TX Buffer Bypass Ports -----------------
         TXDLYBYPASS                     =>      tied_to_vcc_i,
         TXDLYEN                         =>      tied_to_ground_i,

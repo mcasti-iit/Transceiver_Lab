@@ -739,10 +739,8 @@ process(STABLE_CLOCK)
             --Release of the MMCM-reset. Waiting for the MMCM to lock.
             check_tlock_max <= '1';
             
-            if rxpmaresetdone_sync = '1'  then
             mmcm_reset_i <= '0';
             reset_time_out  <= '0';
-            end if; 
          
             if mmcm_lock_reclocked = '1' then
               rx_state <= WAIT_FOR_RXUSRCLK;

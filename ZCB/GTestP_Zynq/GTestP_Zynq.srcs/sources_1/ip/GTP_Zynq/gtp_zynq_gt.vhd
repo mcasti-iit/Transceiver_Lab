@@ -103,14 +103,14 @@ port
     eyescandataerror_out                    : out  std_logic;
     eyescantrigger_in                       : in   std_logic;
     ------------------ Receive Ports - FPGA RX Interface Ports -----------------
-    rxdata_out                              : out  std_logic_vector(31 downto 0);
+    rxdata_out                              : out  std_logic_vector(15 downto 0);
     rxusrclk_in                             : in   std_logic;
     rxusrclk2_in                            : in   std_logic;
     ------------------ Receive Ports - RX 8B/10B Decoder Ports -----------------
-    rxchariscomma_out                       : out  std_logic_vector(3 downto 0);
-    rxcharisk_out                           : out  std_logic_vector(3 downto 0);
-    rxdisperr_out                           : out  std_logic_vector(3 downto 0);
-    rxnotintable_out                        : out  std_logic_vector(3 downto 0);
+    rxchariscomma_out                       : out  std_logic_vector(1 downto 0);
+    rxcharisk_out                           : out  std_logic_vector(1 downto 0);
+    rxdisperr_out                           : out  std_logic_vector(1 downto 0);
+    rxnotintable_out                        : out  std_logic_vector(1 downto 0);
     ------------------------ Receive Ports - RX AFE Ports ----------------------
     gtprxn_in                               : in   std_logic;
     gtprxp_in                               : in   std_logic;
@@ -259,6 +259,11 @@ end component;
 
     -- RX Datapath signals
     signal rxdata_i                         :   std_logic_vector(31 downto 0);      
+    signal rxchariscomma_float_i            :   std_logic_vector(1 downto 0);
+    signal rxcharisk_float_i                :   std_logic_vector(1 downto 0);
+    signal rxdisperr_float_i                :   std_logic_vector(1 downto 0);
+    signal rxnotintable_float_i             :   std_logic_vector(1 downto 0);
+    signal rxrundisp_float_i                :   std_logic_vector(1 downto 0);
 
     signal rxdatavalid_float_i              :   std_logic;
        
@@ -274,8 +279,7 @@ begin
     RXPMARESETDONE <=rxpmaresetdone_t;
 
     -------------------  GT Datapath byte mapping  -----------------
-    -- The GT provides little endian data (first byte received on RXDATA(7 downto 0))
-    RXDATA_OUT    <=   rxdata_i(31 downto 0);
+    RXDATA_OUT    <=   rxdata_i(15 downto 0);
 
 
 
@@ -365,7 +369,7 @@ begin
         ES_VERT_OFFSET                          =>     ("000000000"),
 
        -------------------------FPGA RX Interface Attributes-------------------------
-        RX_DATA_WIDTH                           =>     (40),
+        RX_DATA_WIDTH                           =>     (20),
 
        ---------------------------PMA Attributes----------------------------
         OUTREFCLK_SEL_INV                       =>     ("11"),
@@ -698,10 +702,14 @@ begin
         ------------------- Receive Ports - Pattern Checker ports ------------------
         RXPRBSCNTRESET                  =>      tied_to_ground_i,
         ------------------ Receive Ports - RX 8B/10B Decoder Ports -----------------
-        RXCHARISCOMMA                   =>      rxchariscomma_out,
-        RXCHARISK                       =>      rxcharisk_out,
-        RXDISPERR                       =>      rxdisperr_out,
-        RXNOTINTABLE                    =>      rxnotintable_out,
+        RXCHARISCOMMA(3 downto 2)       =>      rxchariscomma_float_i,
+        RXCHARISCOMMA(1 downto 0)       =>      rxchariscomma_out,
+        RXCHARISK(3 downto 2)           =>      rxcharisk_float_i,
+        RXCHARISK(1 downto 0)           =>      rxcharisk_out,
+        RXDISPERR(3 downto 2)           =>      rxdisperr_float_i,
+        RXDISPERR(1 downto 0)           =>      rxdisperr_out,
+        RXNOTINTABLE(3 downto 2)        =>      rxnotintable_float_i,
+        RXNOTINTABLE(1 downto 0)        =>      rxnotintable_out,
         ------------------------ Receive Ports - RX AFE Ports ----------------------
         GTPRXN                          =>      gtprxn_in,
         GTPRXP                          =>      gtprxp_in,

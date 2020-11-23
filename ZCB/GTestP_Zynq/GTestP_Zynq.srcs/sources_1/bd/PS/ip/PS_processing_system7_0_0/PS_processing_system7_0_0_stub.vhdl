@@ -1,10 +1,10 @@
 -- Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2019.1 (win64) Build 2552052 Fri May 24 14:49:42 MDT 2019
--- Date        : Thu Oct  8 10:22:38 2020
--- Host        : IITICUBWS052 running 64-bit major release  (build 9200)
+-- Date        : Thu Nov 19 15:31:24 2020
+-- Host        : IITICUBLAP127 running 64-bit major release  (build 9200)
 -- Command     : write_vhdl -force -mode synth_stub
---               D:/Projects/Transceiver/ZCB/GTestP_Zynq/GTestP_Zynq.srcs/sources_1/bd/PS/ip/PS_processing_system7_0_0/PS_processing_system7_0_0_stub.vhdl
+--               C:/Progetti/Transceiver_Lab/ZCB/GTestP_Zynq/GTestP_Zynq.srcs/sources_1/bd/PS/ip/PS_processing_system7_0_0/PS_processing_system7_0_0_stub.vhdl
 -- Design      : PS_processing_system7_0_0
 -- Purpose     : Stub declaration of top-level module interface
 -- Device      : xc7z015clg485-1

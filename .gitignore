@@ -1,6 +1,7 @@
 # IGNORE FILE
 !**.ltx
 # Vivado work folders
+**/.xil
 **/*.cache
 **/*.ip_user_files
 **/*.runs/*
@@ -8,6 +9,9 @@
 **/*.runs/impl*/*
 !**/*.runs/impl*/*.ltx
 **/*.sim
+
+# Vivado env files
+*.str
 
 # Log files
 *.jou

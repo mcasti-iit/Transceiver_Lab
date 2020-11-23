@@ -80,12 +80,12 @@ port
     gt0_eyescandataerror_out                : out  std_logic;
     gt0_eyescantrigger_in                   : in   std_logic;
     ------------------ Receive Ports - FPGA RX Interface Ports -----------------
-    gt0_rxdata_out                          : out  std_logic_vector(31 downto 0);
+    gt0_rxdata_out                          : out  std_logic_vector(15 downto 0);
     ------------------ Receive Ports - RX 8B/10B Decoder Ports -----------------
-    gt0_rxchariscomma_out                   : out  std_logic_vector(3 downto 0);
-    gt0_rxcharisk_out                       : out  std_logic_vector(3 downto 0);
-    gt0_rxdisperr_out                       : out  std_logic_vector(3 downto 0);
-    gt0_rxnotintable_out                    : out  std_logic_vector(3 downto 0);
+    gt0_rxchariscomma_out                   : out  std_logic_vector(1 downto 0);
+    gt0_rxcharisk_out                       : out  std_logic_vector(1 downto 0);
+    gt0_rxdisperr_out                       : out  std_logic_vector(1 downto 0);
+    gt0_rxnotintable_out                    : out  std_logic_vector(1 downto 0);
     ------------------------ Receive Ports - RX AFE Ports ----------------------
     gt0_gtprxn_in                           : in   std_logic;
     gt0_gtprxp_in                           : in   std_logic;
@@ -93,7 +93,6 @@ port
     gt0_rxbyteisaligned_out                 : out  std_logic;
     gt0_rxbyterealign_out                   : out  std_logic;
     gt0_rxcommadet_out                      : out  std_logic;
---    gt0_rxslide_in                          : in   std_logic;
     gt0_rxmcommaalignen_in                  : in   std_logic;
     gt0_rxpcommaalignen_in                  : in   std_logic;
     ------------ Receive Ports - RX Decision Feedback Equalizer(DFE) -----------
@@ -123,6 +122,7 @@ port
           sysclk_in                               : in   std_logic
 
 );
+
 end component;
 
 component PS is
@@ -139,9 +139,9 @@ COMPONENT ila_0
 
 PORT (
 	clk    : IN STD_LOGIC;
-	probe0 : IN STD_LOGIC_VECTOR(31 DOWNTO 0); 
-	probe1 : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
-	probe2 : IN STD_LOGIC_VECTOR(31 DOWNTO 0)
+	probe0 : IN STD_LOGIC_VECTOR(15 DOWNTO 0); 
+	probe1 : IN STD_LOGIC_VECTOR(15 DOWNTO 0);
+	probe2 : IN STD_LOGIC_VECTOR(15 DOWNTO 0)
 );
 END COMPONENT  ;
 
@@ -167,9 +167,9 @@ signal count_2 :  std_logic_vector(31 downto 0);
 signal count_3 :  std_logic_vector(31 downto 0);
 signal count_4 :  std_logic_vector(31 downto 0);
 
-signal rx_cnt   :  std_logic_vector(31 downto 0);
-signal rx_cnt_d :  std_logic_vector(31 downto 0);
-signal rx_cnt_m :  std_logic_vector(31 downto 0);
+signal rx_cnt   :  std_logic_vector(15 downto 0);
+signal rx_cnt_d :  std_logic_vector(15 downto 0);
+signal rx_cnt_m :  std_logic_vector(15 downto 0);
 signal rx_err   :  std_logic;
 signal rx_match :  std_logic;
 
@@ -202,12 +202,12 @@ signal gt0_rxuserrdy_in                        : std_logic;
 signal gt0_eyescandataerror_out                : std_logic;
 signal gt0_eyescantrigger_in                   : std_logic;
 ------------------ Receive Ports - FPGA RX Interface Ports -----------------
-signal gt0_rxdata_out                          : std_logic_vector(31 downto 0);
+signal gt0_rxdata_out                          : std_logic_vector(15 downto 0);
 ------------------ Receive Ports - RX 8B/10B Decoder Ports -----------------
-signal gt0_rxchariscomma_out                   : std_logic_vector(3 downto 0);
-signal gt0_rxcharisk_out                       : std_logic_vector(3 downto 0);
-signal gt0_rxdisperr_out                       : std_logic_vector(3 downto 0);
-signal gt0_rxnotintable_out                    : std_logic_vector(3 downto 0);
+signal gt0_rxchariscomma_out                   : std_logic_vector(1 downto 0);
+signal gt0_rxcharisk_out                       : std_logic_vector(1 downto 0);
+signal gt0_rxdisperr_out                       : std_logic_vector(1 downto 0);
+signal gt0_rxnotintable_out                    : std_logic_vector(1 downto 0);
 ------------------------ Receive Ports - RX AFE Ports ----------------------
 signal gt0_gtprxn_in                           : std_logic;
 signal gt0_gtprxp_in                           : std_logic;
@@ -244,14 +244,19 @@ signal GT0_PLL1OUTREFCLK_OUT                   : std_logic;
  
 signal sysclk                                  : std_logic;
 
+
 -- ------------------------------------------------------------------------
+-- ------------------------------------------------------------------------
+-- VIO
 signal probe_in0          : std_logic_vector(15 downto 0);
 signal probe_out0         : std_logic_vector(15 downto 0);
-signal probe2             : std_logic_vector(31 downto 0);
+
+-- ILA
+signal probe2             : std_logic_vector(15 downto 0);
+
+-- ------------------------------------------------------------------------
 
 signal gt0_rxslide_in_p   : std_logic;
-
-
 
 --**************************** Main Body of Code *******************************
 begin
@@ -386,7 +391,7 @@ PS_i : PS
   );
 
 
-probe2 <= "000000000000" & gt0_rxchariscomma_out & gt0_rxcharisk_out & gt0_rxdisperr_out & gt0_rxnotintable_out & '0' & gt0_rxbyterealign_out & gt0_rxcommadet_out & rx_match;
+probe2 <= "0000" & gt0_rxchariscomma_out & gt0_rxcharisk_out & gt0_rxdisperr_out & gt0_rxnotintable_out & '0' & gt0_rxbyterealign_out & gt0_rxcommadet_out & rx_match;
 
 
 ILA_0_i : ila_0
@@ -398,8 +403,8 @@ PORT MAP (
 );
 
 
-probe_in0 <= "0000000000000" & GT0_PLL0LOCK_OUT & rx_match & gt0_rxbyteisaligned_out;
-
+--probe_in0 <= "0000000000000" & GT0_PLL0LOCK_OUT & rx_match & gt0_rxbyteisaligned_out;
+probe_in0 <= "00" & GT0_PLL0LOCK_OUT & gt0_rxchariscomma_out & gt0_rxcharisk_out & gt0_rxdisperr_out & gt0_rxnotintable_out & '0' & gt0_rxbyterealign_out & gt0_rxcommadet_out & gt0_rxbyteisaligned_out & rx_match;
 VIO_i : VIO
   PORT MAP (
     clk => GT0_RXUSRCLK2_OUT,

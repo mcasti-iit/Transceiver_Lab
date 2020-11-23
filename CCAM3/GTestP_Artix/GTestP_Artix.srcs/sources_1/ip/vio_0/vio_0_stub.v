@@ -1,10 +1,10 @@
 // Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2019.1 (win64) Build 2552052 Fri May 24 14:49:42 MDT 2019
-// Date        : Thu Oct  8 10:20:55 2020
-// Host        : IITICUBWS052 running 64-bit major release  (build 9200)
+// Date        : Thu Nov 19 15:31:19 2020
+// Host        : IITICUBLAP127 running 64-bit major release  (build 9200)
 // Command     : write_verilog -force -mode synth_stub
-//               D:/Projects/Transceiver/CCAM3/GTestP_Artix/GTestP_Artix.srcs/sources_1/ip/vio_0/vio_0_stub.v
+//               C:/Progetti/Transceiver_Lab/CCAM3/GTestP_Artix/GTestP_Artix.srcs/sources_1/ip/vio_0/vio_0_stub.v
 // Design      : vio_0
 // Purpose     : Stub declaration of top-level module interface
 // Device      : xc7a50tcpg236-1

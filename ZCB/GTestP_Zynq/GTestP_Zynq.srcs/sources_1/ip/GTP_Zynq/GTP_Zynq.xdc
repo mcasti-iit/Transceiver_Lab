@@ -81,12 +81,8 @@ create_clock -period 6.4 [get_pins -filter {REF_PIN_NAME=~*RXOUTCLK} -of_objects
 #set_false_path -from [get_clocks -include_generated_clocks -of_objects [get_pins -hier -filter {name=~*gt_usrclk_source*DRP_CLK_BUFG*I}]] -to [get_clocks -include_generated_clocks -of_objects [get_pins -hier -filter {name=~*gt0_GTP_Zynq_i*gtpe2_i*RXOUTCLK}]]
 #set_false_path -from [get_clocks -include_generated_clocks -of_objects [get_pins -hier -filter {name=~*gt0_GTP_Zynq_i*gtpe2_i*RXOUTCLK}]] -to [get_clocks -include_generated_clocks -of_objects [get_pins -hier -filter {name=~*gt_usrclk_source*DRP_CLK_BUFG*I}]]
 
-#create_clock -name gt0_rxusrclk2_i -period 12.8 [get_pins -filter {REF_PIN_NAME=~*GT0_RXUSRCLK2_OUT} -of_objects [get_cells -hierarchical -filter {NAME =~ *gt_usrclk_source*}]]
 set_false_path -to [get_cells -hierarchical -filter {NAME =~ *data_sync_reg1}]
-set_false_path -to [get_cells -hierarchical -filter {NAME =~ *reset_sync1*}]
-set_false_path -to [get_cells -hierarchical -filter {NAME =~ *reset_sync2*}]
 
-set_false_path -to [get_cells -hierarchical -filter {NAME =~ *rxpmaresetdone_i_reg}]
 
 #set_false_path -to [get_cells -hierarchical -filter {NAME =~ *ack_sync_reg1}]
 #set_false_path -to [get_cells -hierarchical -filter {NAME =~ *common1_i/pll0_reset_r_reg}]

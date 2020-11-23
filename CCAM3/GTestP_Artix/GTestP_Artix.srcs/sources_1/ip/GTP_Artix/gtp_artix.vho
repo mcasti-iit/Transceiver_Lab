@@ -29,7 +29,6 @@ port
     GT0_TX_FSM_RESET_DONE_OUT               : out  std_logic;
     GT0_RX_FSM_RESET_DONE_OUT               : out  std_logic;
     GT0_DATA_VALID_IN                       : in   std_logic;
-    GT0_TX_MMCM_LOCK_OUT                    : out  std_logic;
  
     GT0_TXUSRCLK_OUT                        : out  std_logic;
     GT0_TXUSRCLK2_OUT                       : out  std_logic;
@@ -58,9 +57,9 @@ port
     gt0_gttxreset_in                        : in   std_logic;
     gt0_txuserrdy_in                        : in   std_logic;
     ------------------ Transmit Ports - FPGA TX Interface Ports ----------------
-    gt0_txdata_in                           : in   std_logic_vector(31 downto 0);
+    gt0_txdata_in                           : in   std_logic_vector(15 downto 0);
     ------------------ Transmit Ports - TX 8B/10B Encoder Ports ----------------
-    gt0_txcharisk_in                        : in   std_logic_vector(3 downto 0);
+    gt0_txcharisk_in                        : in   std_logic_vector(1 downto 0);
     --------------- Transmit Ports - TX Configurable Driver Ports --------------
     gt0_gtptxn_out                          : out  std_logic;
     gt0_gtptxp_out                          : out  std_logic;
@@ -97,7 +96,6 @@ port map
      GT0_TX_FSM_RESET_DONE_OUT => GT0_TX_FSM_RESET_DONE_OUT,
      GT0_RX_FSM_RESET_DONE_OUT => GT0_RX_FSM_RESET_DONE_OUT,
      GT0_DATA_VALID_IN => GT0_DATA_VALID_IN,
-     GT0_TX_MMCM_LOCK_OUT => GT0_TX_MMCM_LOCK_OUT,
  
      GT0_TXUSRCLK_OUT => GT0_TXUSRCLK_OUT,
      GT0_TXUSRCLK2_OUT => GT0_TXUSRCLK2_OUT,

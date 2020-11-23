@@ -91,8 +91,6 @@ port
     GT0_TX_FSM_RESET_DONE_OUT               : out  std_logic;
     GT0_RX_FSM_RESET_DONE_OUT               : out  std_logic;
     GT0_DATA_VALID_IN                       : in   std_logic;
-    GT0_TX_MMCM_LOCK_IN                     : in   std_logic;
-    GT0_TX_MMCM_RESET_OUT                   : out  std_logic;
     --_________________________________________________________________________
     --GT0  (X0Y0)
     --____________________________CHANNEL PORTS________________________________
@@ -118,11 +116,11 @@ port
     gt0_gttxreset_in                        : in   std_logic;
     gt0_txuserrdy_in                        : in   std_logic;
     ------------------ Transmit Ports - FPGA TX Interface Ports ----------------
-    gt0_txdata_in                           : in   std_logic_vector(31 downto 0);
+    gt0_txdata_in                           : in   std_logic_vector(15 downto 0);
     gt0_txusrclk_in                         : in   std_logic;
     gt0_txusrclk2_in                        : in   std_logic;
     ------------------ Transmit Ports - TX 8B/10B Encoder Ports ----------------
-    gt0_txcharisk_in                        : in   std_logic_vector(3 downto 0);
+    gt0_txcharisk_in                        : in   std_logic_vector(1 downto 0);
     --------------- Transmit Ports - TX Configurable Driver Ports --------------
     gt0_gtptxn_out                          : out  std_logic;
     gt0_gtptxp_out                          : out  std_logic;
@@ -193,11 +191,11 @@ port
     gt0_gttxreset_in                        : in   std_logic;
     gt0_txuserrdy_in                        : in   std_logic;
     ------------------ Transmit Ports - FPGA TX Interface Ports ----------------
-    gt0_txdata_in                           : in   std_logic_vector(31 downto 0);
+    gt0_txdata_in                           : in   std_logic_vector(15 downto 0);
     gt0_txusrclk_in                         : in   std_logic;
     gt0_txusrclk2_in                        : in   std_logic;
     ------------------ Transmit Ports - TX 8B/10B Encoder Ports ----------------
-    gt0_txcharisk_in                        : in   std_logic_vector(3 downto 0);
+    gt0_txcharisk_in                        : in   std_logic_vector(1 downto 0);
     --------------- Transmit Ports - TX Configurable Driver Ports --------------
     gt0_gtptxn_out                          : out  std_logic;
     gt0_gtptxp_out                          : out  std_logic;
@@ -487,9 +485,9 @@ gt0_txresetfsm_i:  GTP_Artix_TX_STARTUP_FSM
         PLL1REFCLKLOST                  =>      tied_to_ground_i,
         PLL1LOCK                        =>      tied_to_vcc_i,
         TXRESETDONE                     =>      gt0_txresetdone_i,
-        MMCM_LOCK                       =>      GT0_TX_MMCM_LOCK_IN,
+        MMCM_LOCK                       =>      tied_to_vcc_i,
         GTTXRESET                       =>      gt0_gttxreset_t,
-        MMCM_RESET                      =>      GT0_TX_MMCM_RESET_OUT,
+        MMCM_RESET                      =>      open,
         PLL0_RESET                      =>      gt0_pll0reset_t,
         PLL1_RESET                      =>      open,
         TX_FSM_RESET_DONE               =>      GT0_TX_FSM_RESET_DONE_OUT,

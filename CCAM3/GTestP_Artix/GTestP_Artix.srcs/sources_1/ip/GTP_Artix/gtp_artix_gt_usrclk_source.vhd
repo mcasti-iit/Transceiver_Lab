@@ -76,8 +76,6 @@ port
     GT0_TXUSRCLK_OUT             : out std_logic;
     GT0_TXUSRCLK2_OUT            : out std_logic;
     GT0_TXOUTCLK_IN              : in  std_logic;
-    GT0_TXCLK_LOCK_OUT           : out std_logic;
-    GT0_TX_MMCM_RESET_IN         : in std_logic;
     Q0_CLK0_GTREFCLK_PAD_N_IN               : in   std_logic;
     Q0_CLK0_GTREFCLK_PAD_P_IN               : in   std_logic;
     Q0_CLK0_GTREFCLK_OUT                    : out  std_logic
@@ -125,10 +123,6 @@ end component;
     attribute syn_noclockbuf of q0_clk0_gtrefclk : signal is true;
 
     signal  gt0_txusrclk_i                  : std_logic;
-    signal  gt0_txusrclk2_i                 : std_logic;
-    signal  txoutclk_mmcm0_locked_i         : std_logic;
-    signal  txoutclk_mmcm0_reset_i          : std_logic;
-    signal  gt0_txoutclk_to_mmcm_i          : std_logic;
 
 
 begin
@@ -157,34 +151,17 @@ begin
     
     -- Instantiate a MMCM module to divide the reference clock. Uses internal feedback
     -- for improved jitter performance, and to avoid consuming an additional BUFG
-    txoutclk_mmcm0_reset_i                       <= GT0_TX_MMCM_RESET_IN;
-    txoutclk_mmcm0_i : GTP_Artix_CLOCK_MODULE
-    generic map
-    (
-        MULT                            =>      4.0,
-        DIVIDE                          =>      1,
-        CLK_PERIOD                      =>      6.4,
-        OUT0_DIVIDE                     =>      8.0,
-        OUT1_DIVIDE                     =>      4,
-        OUT2_DIVIDE                     =>      1,
-        OUT3_DIVIDE                     =>      1
-    )
+    txoutclk_bufg0_i : BUFG
     port map
     (
-        CLK0_OUT                        =>      gt0_txusrclk2_i,
-        CLK1_OUT                        =>      gt0_txusrclk_i,
-        CLK2_OUT                        =>      open,
-        CLK3_OUT                        =>      open,
-        CLK_IN                          =>      gt0_txoutclk_i,
-        MMCM_LOCKED_OUT                 =>      txoutclk_mmcm0_locked_i,
-        MMCM_RESET_IN                   =>      txoutclk_mmcm0_reset_i
+        I                               =>      gt0_txoutclk_i,
+        O                               =>      gt0_txusrclk_i
     );
 
 
 
  
 GT0_TXUSRCLK_OUT                             <= gt0_txusrclk_i;
-GT0_TXUSRCLK2_OUT                            <= gt0_txusrclk2_i;
-GT0_TXCLK_LOCK_OUT                           <= txoutclk_mmcm0_locked_i;
+GT0_TXUSRCLK2_OUT                            <= gt0_txusrclk_i;
 end RTL;
 

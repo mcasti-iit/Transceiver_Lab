@@ -88,7 +88,6 @@ port
     GT0_TX_FSM_RESET_DONE_OUT               : out  std_logic;
     GT0_RX_FSM_RESET_DONE_OUT               : out  std_logic;
     GT0_DATA_VALID_IN                       : in   std_logic;
-    GT0_TX_MMCM_LOCK_OUT                    : out  std_logic;
  
     GT0_TXUSRCLK_OUT                        : out  std_logic;
     GT0_TXUSRCLK2_OUT                       : out  std_logic;
@@ -117,9 +116,9 @@ port
     gt0_gttxreset_in                        : in   std_logic;
     gt0_txuserrdy_in                        : in   std_logic;
     ------------------ Transmit Ports - FPGA TX Interface Ports ----------------
-    gt0_txdata_in                           : in   std_logic_vector(31 downto 0);
+    gt0_txdata_in                           : in   std_logic_vector(15 downto 0);
     ------------------ Transmit Ports - TX 8B/10B Encoder Ports ----------------
-    gt0_txcharisk_in                        : in   std_logic_vector(3 downto 0);
+    gt0_txcharisk_in                        : in   std_logic_vector(1 downto 0);
     --------------- Transmit Ports - TX Configurable Driver Ports --------------
     gt0_gtptxn_out                          : out  std_logic;
     gt0_gtptxp_out                          : out  std_logic;
@@ -158,8 +157,6 @@ port
     GT0_TX_FSM_RESET_DONE_OUT               : out  std_logic;
     GT0_RX_FSM_RESET_DONE_OUT               : out  std_logic;
     GT0_DATA_VALID_IN                       : in   std_logic;
-    GT0_TX_MMCM_LOCK_IN                     : in   std_logic;
-    GT0_TX_MMCM_RESET_OUT                   : out  std_logic;
 
     --_________________________________________________________________________
     --GT0  (X0Y0)
@@ -186,11 +183,11 @@ port
     gt0_gttxreset_in                        : in   std_logic;
     gt0_txuserrdy_in                        : in   std_logic;
     ------------------ Transmit Ports - FPGA TX Interface Ports ----------------
-    gt0_txdata_in                           : in   std_logic_vector(31 downto 0);
+    gt0_txdata_in                           : in   std_logic_vector(15 downto 0);
     gt0_txusrclk_in                         : in   std_logic;
     gt0_txusrclk2_in                        : in   std_logic;
     ------------------ Transmit Ports - TX 8B/10B Encoder Ports ----------------
-    gt0_txcharisk_in                        : in   std_logic_vector(3 downto 0);
+    gt0_txcharisk_in                        : in   std_logic_vector(1 downto 0);
     --------------- Transmit Ports - TX Configurable Driver Ports --------------
     gt0_gtptxn_out                          : out  std_logic;
     gt0_gtptxp_out                          : out  std_logic;
@@ -277,8 +274,6 @@ port
     GT0_TXUSRCLK_OUT             : out std_logic;
     GT0_TXUSRCLK2_OUT            : out std_logic;
     GT0_TXOUTCLK_IN              : in  std_logic;
-    GT0_TXCLK_LOCK_OUT           : out std_logic;
-    GT0_TX_MMCM_RESET_IN         : in std_logic;
     Q0_CLK0_GTREFCLK_PAD_N_IN               : in   std_logic;
     Q0_CLK0_GTREFCLK_PAD_P_IN               : in   std_logic;
     Q0_CLK0_GTREFCLK_OUT                    : out  std_logic
@@ -332,9 +327,9 @@ signal   reset_pulse                     : std_logic_vector(3 downto 0);
     signal  gt0_gttxreset_i                 : std_logic;
     signal  gt0_txuserrdy_i                 : std_logic;
     ------------------ Transmit Ports - FPGA TX Interface Ports ----------------
-    signal  gt0_txdata_i                    : std_logic_vector(31 downto 0);
+    signal  gt0_txdata_i                    : std_logic_vector(15 downto 0);
     ------------------ Transmit Ports - TX 8B/10B Encoder Ports ----------------
-    signal  gt0_txcharisk_i                 : std_logic_vector(3 downto 0);
+    signal  gt0_txcharisk_i                 : std_logic_vector(1 downto 0);
     --------------- Transmit Ports - TX Configurable Driver Ports --------------
     signal  gt0_gtptxn_i                    : std_logic;
     signal  gt0_gtptxp_i                    : std_logic;
@@ -386,8 +381,6 @@ signal   reset_pulse                     : std_logic_vector(3 downto 0);
     
     
     
-    signal    gt0_txmmcm_lock_i               : std_logic;
-    signal    gt0_txmmcm_reset_i              : std_logic;
     ----------------------------- Reference Clocks ----------------------------
     
 signal    q0_clk0_refclk_i                : std_logic;
@@ -406,7 +399,6 @@ tied_to_ground_vec_i                         <= x"0000000000000000";
 tied_to_vcc_i                                <= '1';
 tied_to_vcc_vec_i                            <= "11111111";
 
-     GT0_TX_MMCM_LOCK_OUT <= gt0_txmmcm_lock_i;
  
      gt0_pll0outclk_out <= gt0_pll0outclk_i;
      gt0_pll0outrefclk_out <= gt0_pll0outrefclk_i;
@@ -432,8 +424,6 @@ tied_to_vcc_vec_i                            <= "11111111";
         GT0_TXUSRCLK_OUT                =>      gt0_txusrclk_i,
         GT0_TXUSRCLK2_OUT               =>      gt0_txusrclk2_i,
         GT0_TXOUTCLK_IN                 =>      gt0_txoutclk_i,
-        GT0_TXCLK_LOCK_OUT              =>      gt0_txmmcm_lock_i,
-        GT0_TX_MMCM_RESET_IN            =>      gt0_txmmcm_reset_i,
         Q0_CLK0_GTREFCLK_PAD_N_IN       =>      Q0_CLK0_GTREFCLK_PAD_N_IN,
         Q0_CLK0_GTREFCLK_PAD_P_IN       =>      Q0_CLK0_GTREFCLK_PAD_P_IN,
         Q0_CLK0_GTREFCLK_OUT            =>      q0_clk0_refclk_i
@@ -501,8 +491,6 @@ sysclk_in_i <= sysclk_in;
         sysclk_in                       =>      sysclk_in_i,
         soft_reset_tx_in                =>      SOFT_RESET_TX_IN,
         dont_reset_on_data_error_in     =>      DONT_RESET_ON_DATA_ERROR_IN,
-        gt0_tx_mmcm_lock_in             =>      gt0_txmmcm_lock_i,
-        gt0_tx_mmcm_reset_out           =>      gt0_txmmcm_reset_i,
         gt0_tx_fsm_reset_done_out       =>      gt0_tx_fsm_reset_done_out,
         gt0_rx_fsm_reset_done_out       =>      gt0_rx_fsm_reset_done_out,
         gt0_data_valid_in               =>      gt0_data_valid_in,

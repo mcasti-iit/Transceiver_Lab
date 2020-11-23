@@ -88,7 +88,6 @@ port
     GT0_TX_FSM_RESET_DONE_OUT               : out  std_logic;
     GT0_RX_FSM_RESET_DONE_OUT               : out  std_logic;
     GT0_DATA_VALID_IN                       : in   std_logic;
-    GT0_RX_MMCM_LOCK_OUT                    : out  std_logic;
  
     GT0_RXUSRCLK_OUT                        : out  std_logic;
     GT0_RXUSRCLK2_OUT                       : out  std_logic;
@@ -110,12 +109,12 @@ port
     gt0_eyescandataerror_out                : out  std_logic;
     gt0_eyescantrigger_in                   : in   std_logic;
     ------------------ Receive Ports - FPGA RX Interface Ports -----------------
-    gt0_rxdata_out                          : out  std_logic_vector(31 downto 0);
+    gt0_rxdata_out                          : out  std_logic_vector(15 downto 0);
     ------------------ Receive Ports - RX 8B/10B Decoder Ports -----------------
-    gt0_rxchariscomma_out                   : out  std_logic_vector(3 downto 0);
-    gt0_rxcharisk_out                       : out  std_logic_vector(3 downto 0);
-    gt0_rxdisperr_out                       : out  std_logic_vector(3 downto 0);
-    gt0_rxnotintable_out                    : out  std_logic_vector(3 downto 0);
+    gt0_rxchariscomma_out                   : out  std_logic_vector(1 downto 0);
+    gt0_rxcharisk_out                       : out  std_logic_vector(1 downto 0);
+    gt0_rxdisperr_out                       : out  std_logic_vector(1 downto 0);
+    gt0_rxnotintable_out                    : out  std_logic_vector(1 downto 0);
     ------------------------ Receive Ports - RX AFE Ports ----------------------
     gt0_gtprxn_in                           : in   std_logic;
     gt0_gtprxp_in                           : in   std_logic;
@@ -171,8 +170,6 @@ port
     GT0_TX_FSM_RESET_DONE_OUT               : out  std_logic;
     GT0_RX_FSM_RESET_DONE_OUT               : out  std_logic;
     GT0_DATA_VALID_IN                       : in   std_logic;
-    GT0_RX_MMCM_LOCK_IN                     : in   std_logic;
-    GT0_RX_MMCM_RESET_OUT                   : out  std_logic;
 
     --_________________________________________________________________________
     --GT0  (X0Y2)
@@ -192,14 +189,14 @@ port
     gt0_eyescandataerror_out                : out  std_logic;
     gt0_eyescantrigger_in                   : in   std_logic;
     ------------------ Receive Ports - FPGA RX Interface Ports -----------------
-    gt0_rxdata_out                          : out  std_logic_vector(31 downto 0);
+    gt0_rxdata_out                          : out  std_logic_vector(15 downto 0);
     gt0_rxusrclk_in                         : in   std_logic;
     gt0_rxusrclk2_in                        : in   std_logic;
     ------------------ Receive Ports - RX 8B/10B Decoder Ports -----------------
-    gt0_rxchariscomma_out                   : out  std_logic_vector(3 downto 0);
-    gt0_rxcharisk_out                       : out  std_logic_vector(3 downto 0);
-    gt0_rxdisperr_out                       : out  std_logic_vector(3 downto 0);
-    gt0_rxnotintable_out                    : out  std_logic_vector(3 downto 0);
+    gt0_rxchariscomma_out                   : out  std_logic_vector(1 downto 0);
+    gt0_rxcharisk_out                       : out  std_logic_vector(1 downto 0);
+    gt0_rxdisperr_out                       : out  std_logic_vector(1 downto 0);
+    gt0_rxnotintable_out                    : out  std_logic_vector(1 downto 0);
     ------------------------ Receive Ports - RX AFE Ports ----------------------
     gt0_gtprxn_in                           : in   std_logic;
     gt0_gtprxp_in                           : in   std_logic;
@@ -301,8 +298,6 @@ port
     GT0_RXUSRCLK_OUT             : out std_logic;
     GT0_RXUSRCLK2_OUT            : out std_logic;
     GT0_RXOUTCLK_IN              : in  std_logic;
-    GT0_RXCLK_LOCK_OUT           : out std_logic;
-    GT0_RX_MMCM_RESET_IN         : in std_logic;
     Q0_CLK1_GTREFCLK_PAD_N_IN               : in   std_logic;
     Q0_CLK1_GTREFCLK_PAD_P_IN               : in   std_logic;
     Q0_CLK1_GTREFCLK_OUT                    : out  std_logic
@@ -350,12 +345,12 @@ signal   reset_pulse                     : std_logic_vector(3 downto 0);
     signal  gt0_eyescandataerror_i          : std_logic;
     signal  gt0_eyescantrigger_i            : std_logic;
     ------------------ Receive Ports - FPGA RX Interface Ports -----------------
-    signal  gt0_rxdata_i                    : std_logic_vector(31 downto 0);
+    signal  gt0_rxdata_i                    : std_logic_vector(15 downto 0);
     ------------------ Receive Ports - RX 8B/10B Decoder Ports -----------------
-    signal  gt0_rxchariscomma_i             : std_logic_vector(3 downto 0);
-    signal  gt0_rxcharisk_i                 : std_logic_vector(3 downto 0);
-    signal  gt0_rxdisperr_i                 : std_logic_vector(3 downto 0);
-    signal  gt0_rxnotintable_i              : std_logic_vector(3 downto 0);
+    signal  gt0_rxchariscomma_i             : std_logic_vector(1 downto 0);
+    signal  gt0_rxcharisk_i                 : std_logic_vector(1 downto 0);
+    signal  gt0_rxdisperr_i                 : std_logic_vector(1 downto 0);
+    signal  gt0_rxnotintable_i              : std_logic_vector(1 downto 0);
     ------------------------ Receive Ports - RX AFE Ports ----------------------
     signal  gt0_gtprxn_i                    : std_logic;
     signal  gt0_gtprxp_i                    : std_logic;
@@ -422,8 +417,6 @@ signal   reset_pulse                     : std_logic_vector(3 downto 0);
     
     
     
-    signal    gt0_rxmmcm_lock_i               : std_logic; 
-    signal    gt0_rxmmcm_reset_i              : std_logic;
     ----------------------------- Reference Clocks ----------------------------
     
 signal    q0_clk1_refclk_i                : std_logic;
@@ -442,7 +435,6 @@ tied_to_ground_vec_i                         <= x"0000000000000000";
 tied_to_vcc_i                                <= '1';
 tied_to_vcc_vec_i                            <= "11111111";
 
-    GT0_RX_MMCM_LOCK_OUT <= gt0_rxmmcm_lock_i;
  
     gt0_pll0reset_out <= commonreset_i or gt0_pll0reset_i;
      gt0_pll0outclk_out <= gt0_pll0outclk_i;
@@ -467,8 +459,6 @@ tied_to_vcc_vec_i                            <= "11111111";
         GT0_RXUSRCLK_OUT                =>      gt0_rxusrclk_i,
         GT0_RXUSRCLK2_OUT               =>      gt0_rxusrclk2_i,
         GT0_RXOUTCLK_IN                 =>      gt0_rxoutclk_i,
-        GT0_RXCLK_LOCK_OUT              =>      gt0_rxmmcm_lock_i,
-        GT0_RX_MMCM_RESET_IN            =>      gt0_rxmmcm_reset_i,
         Q0_CLK1_GTREFCLK_PAD_N_IN       =>      Q0_CLK1_GTREFCLK_PAD_N_IN,
         Q0_CLK1_GTREFCLK_PAD_P_IN       =>      Q0_CLK1_GTREFCLK_PAD_P_IN,
         Q0_CLK1_GTREFCLK_OUT            =>      q0_clk1_refclk_i
@@ -535,8 +525,6 @@ sysclk_in_i <= sysclk_in;
         sysclk_in                       =>      sysclk_in_i,
         soft_reset_rx_in                =>      SOFT_RESET_RX_IN,
         dont_reset_on_data_error_in     =>      DONT_RESET_ON_DATA_ERROR_IN,
-        gt0_rx_mmcm_lock_in             =>      gt0_rxmmcm_lock_i,
-        gt0_rx_mmcm_reset_out           =>      gt0_rxmmcm_reset_i,
         gt0_drp_busy_out                =>      open,
         gt0_tx_fsm_reset_done_out       =>      gt0_tx_fsm_reset_done_out,
         gt0_rx_fsm_reset_done_out       =>      gt0_rx_fsm_reset_done_out,

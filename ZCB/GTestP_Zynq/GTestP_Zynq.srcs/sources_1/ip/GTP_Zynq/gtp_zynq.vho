@@ -29,7 +29,6 @@ port
     GT0_TX_FSM_RESET_DONE_OUT               : out  std_logic;
     GT0_RX_FSM_RESET_DONE_OUT               : out  std_logic;
     GT0_DATA_VALID_IN                       : in   std_logic;
-    GT0_RX_MMCM_LOCK_OUT                    : out  std_logic;
  
     GT0_RXUSRCLK_OUT                        : out  std_logic;
     GT0_RXUSRCLK2_OUT                       : out  std_logic;
@@ -51,12 +50,12 @@ port
     gt0_eyescandataerror_out                : out  std_logic;
     gt0_eyescantrigger_in                   : in   std_logic;
     ------------------ Receive Ports - FPGA RX Interface Ports -----------------
-    gt0_rxdata_out                          : out  std_logic_vector(31 downto 0);
+    gt0_rxdata_out                          : out  std_logic_vector(15 downto 0);
     ------------------ Receive Ports - RX 8B/10B Decoder Ports -----------------
-    gt0_rxchariscomma_out                   : out  std_logic_vector(3 downto 0);
-    gt0_rxcharisk_out                       : out  std_logic_vector(3 downto 0);
-    gt0_rxdisperr_out                       : out  std_logic_vector(3 downto 0);
-    gt0_rxnotintable_out                    : out  std_logic_vector(3 downto 0);
+    gt0_rxchariscomma_out                   : out  std_logic_vector(1 downto 0);
+    gt0_rxcharisk_out                       : out  std_logic_vector(1 downto 0);
+    gt0_rxdisperr_out                       : out  std_logic_vector(1 downto 0);
+    gt0_rxnotintable_out                    : out  std_logic_vector(1 downto 0);
     ------------------------ Receive Ports - RX AFE Ports ----------------------
     gt0_gtprxn_in                           : in   std_logic;
     gt0_gtprxp_in                           : in   std_logic;
@@ -109,7 +108,6 @@ port map
      GT0_TX_FSM_RESET_DONE_OUT => GT0_TX_FSM_RESET_DONE_OUT,
      GT0_RX_FSM_RESET_DONE_OUT => GT0_RX_FSM_RESET_DONE_OUT,
      GT0_DATA_VALID_IN => GT0_DATA_VALID_IN,
-     GT0_RX_MMCM_LOCK_OUT => GT0_RX_MMCM_LOCK_OUT,
  
      GT0_RXUSRCLK_OUT => GT0_RXUSRCLK_OUT,
      GT0_RXUSRCLK2_OUT => GT0_RXUSRCLK2_OUT,

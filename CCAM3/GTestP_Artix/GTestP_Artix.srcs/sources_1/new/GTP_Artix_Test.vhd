@@ -62,8 +62,8 @@ end component;
 component ila_0
 port (
 	clk : in std_logic;
-	probe0 : in std_logic_vector(31 downto 0);
-	probe1 : in std_logic_vector(31 downto 0)
+	probe0 : in std_logic_vector(15 downto 0);
+	probe1 : in std_logic_vector(15 downto 0)
 );
 end component  ;
 
@@ -106,9 +106,9 @@ port
     gt0_gttxreset_in                        : in   std_logic;
     gt0_txuserrdy_in                        : in   std_logic;
     ------------------ Transmit Ports - FPGA TX Interface Ports ----------------
-    gt0_txdata_in                           : in   std_logic_vector(31 downto 0);
+    gt0_txdata_in                           : in   std_logic_vector(15 downto 0);
     ------------------ Transmit Ports - TX 8B/10B Encoder Ports ----------------
-    gt0_txcharisk_in                        : in   std_logic_vector(3 downto 0);
+    gt0_txcharisk_in                        : in   std_logic_vector(1 downto 0);
     --------------- Transmit Ports - TX Configurable Driver Ports --------------
     gt0_gtptxn_out                          : out  std_logic;
     gt0_gtptxp_out                          : out  std_logic;
@@ -173,9 +173,9 @@ signal     gt0_rxlpmreset_in                       : std_logic;
 signal     gt0_gttxreset_in                        : std_logic;
 signal     gt0_txuserrdy_in                        : std_logic;
 ------------------ Transmit Ports - FPGA TX Interface Ports ----------------
-signal     gt0_txdata_in                           : std_logic_vector(31 downto 0);
+signal     gt0_txdata_in                           : std_logic_vector(15 downto 0);
 ------------------ Transmit Ports - TX 8B/10B Encoder Ports ----------------
-signal     gt0_txcharisk_in                        : std_logic_vector(3 downto 0);
+signal     gt0_txcharisk_in                        : std_logic_vector(1 downto 0);
 --------------- Transmit Ports - TX Configurable Driver Ports --------------
 signal     gt0_gtptxn_out                          : std_logic;
 signal     gt0_gtptxp_out                          : std_logic;
@@ -196,17 +196,17 @@ signal     GT0_PLL1OUTREFCLK_OUT                   : std_logic;
 signal     sysclk_in                               : std_logic;
 signal     sysclk                                  : std_logic;
 
-signal     tx_cnt                                  : std_logic_vector(31 downto 0);
+signal     tx_cnt                                  : std_logic_vector(15 downto 0);
 
 
 -- -------------------------------------------------------------------------------------
 signal    probe_in0  : std_logic_vector(15 downto 0);
 signal    probe_out0 : std_logic_vector(15 downto 0);
-signal    probe0     : std_logic_vector(31 downto 0);
-signal    probe1     : std_logic_vector(31 downto 0);
+signal    probe0     : std_logic_vector(15 downto 0);
+signal    probe1     : std_logic_vector(15 downto 0);
 
 -- -------------------------------------------------------------------------------------
-signal    gt0_txcharisk_in_p  : std_logic_vector(3 downto 0);
+signal    gt0_txcharisk_in_p  : std_logic_vector(1 downto 0);
 signal    gt0_txcharisk_in_cg : std_logic;
 
 --**************************** Main Body of Code *******************************
@@ -329,28 +329,28 @@ MAIN_CLOCK : clk_wiz_0
 process(GT0_TXUSRCLK2_OUT)
 begin
   if rising_edge(GT0_TXUSRCLK2_OUT) then
-    gt0_txcharisk_in_p  <= probe_out0(3 downto 0);
+    gt0_txcharisk_in_p  <= probe_out0(1 downto 0);
     
     if (gt0_txcharisk_in_cg = '1') then
-      gt0_txcharisk_in <= probe_out0(3 downto 0);
+      gt0_txcharisk_in <= probe_out0(1 downto 0);
     else
       gt0_txcharisk_in <= (others => '0');
     end if;
   end if;	
 end process;
 
-gt0_txcharisk_in_cg <= '0' when (gt0_txcharisk_in_p = probe_out0(3 downto 0)) else '1';
+gt0_txcharisk_in_cg <= '0' when (gt0_txcharisk_in_p = probe_out0(1 downto 0)) else '1';
 
 process(GT0_TXUSRCLK2_OUT)
 begin
   if rising_edge(GT0_TXUSRCLK2_OUT) then
     if (gt0_txcharisk_in_cg = '1') then
-      if (probe_out0(3) = '1') then
-        tx_cnt(31 downto 24)  <= x"BC";
-      end if;
-      if (probe_out0(2) = '1') then
-        tx_cnt(23 downto 16) <= x"BC";
-      end if;
+--      if (probe_out0(3) = '1') then
+--        tx_cnt(31 downto 24)  <= x"BC";
+--      end if;
+--      if (probe_out0(2) = '1') then
+--        tx_cnt(23 downto 16) <= x"BC";
+--      end if;
       if (probe_out0(1) = '1') then
         tx_cnt(15 downto  8) <= x"BC";
       end if;
@@ -403,7 +403,7 @@ VIO_i : vio_0
 
 
 probe0 <= tx_cnt;
-probe1 <= "0000000000000000000000000000" & gt0_txcharisk_in;
+probe1 <= "00000000000000" & gt0_txcharisk_in;
 
 ILA_0_i : ila_0
 PORT MAP (

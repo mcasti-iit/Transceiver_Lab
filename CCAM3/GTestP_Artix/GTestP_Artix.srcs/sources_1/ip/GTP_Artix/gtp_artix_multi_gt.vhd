@@ -107,11 +107,11 @@ port
     gt0_gttxreset_in                        : in   std_logic;
     gt0_txuserrdy_in                        : in   std_logic;
     ------------------ Transmit Ports - FPGA TX Interface Ports ----------------
-    gt0_txdata_in                           : in   std_logic_vector(31 downto 0);
+    gt0_txdata_in                           : in   std_logic_vector(15 downto 0);
     gt0_txusrclk_in                         : in   std_logic;
     gt0_txusrclk2_in                        : in   std_logic;
     ------------------ Transmit Ports - TX 8B/10B Encoder Ports ----------------
-    gt0_txcharisk_in                        : in   std_logic_vector(3 downto 0);
+    gt0_txcharisk_in                        : in   std_logic_vector(1 downto 0);
     --------------- Transmit Ports - TX Configurable Driver Ports --------------
     gt0_gtptxn_out                          : out  std_logic;
     gt0_gtptxp_out                          : out  std_logic;
@@ -210,11 +210,11 @@ port
     gttxreset_in                            : in   std_logic;
     txuserrdy_in                            : in   std_logic;
     ------------------ Transmit Ports - FPGA TX Interface Ports ----------------
-    txdata_in                               : in   std_logic_vector(31 downto 0);
+    txdata_in                               : in   std_logic_vector(15 downto 0);
     txusrclk_in                             : in   std_logic;
     txusrclk2_in                            : in   std_logic;
     ------------------ Transmit Ports - TX 8B/10B Encoder Ports ----------------
-    txcharisk_in                            : in   std_logic_vector(3 downto 0);
+    txcharisk_in                            : in   std_logic_vector(1 downto 0);
     --------------- Transmit Ports - TX Configurable Driver Ports --------------
     gtptxn_out                              : out  std_logic;
     gtptxp_out                              : out  std_logic;

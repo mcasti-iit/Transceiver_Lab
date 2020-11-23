@@ -76,8 +76,6 @@ port
     GT0_RXUSRCLK_OUT             : out std_logic;
     GT0_RXUSRCLK2_OUT            : out std_logic;
     GT0_RXOUTCLK_IN              : in  std_logic;
-    GT0_RXCLK_LOCK_OUT           : out std_logic;
-    GT0_RX_MMCM_RESET_IN         : in std_logic;
     Q0_CLK1_GTREFCLK_PAD_N_IN               : in   std_logic;
     Q0_CLK1_GTREFCLK_PAD_P_IN               : in   std_logic;
     Q0_CLK1_GTREFCLK_OUT                    : out  std_logic
@@ -126,10 +124,6 @@ end component;
     attribute syn_noclockbuf of q0_clk1_gtrefclk : signal is true;
 
     signal  gt0_rxusrclk_i                  : std_logic;
-    signal  gt0_rxusrclk2_i                 : std_logic;
-    signal  rxoutclk_mmcm0_locked_i         : std_logic;
-    signal  rxoutclk_mmcm0_reset_i          : std_logic;
-    signal  gt0_rxoutclk_to_mmcm_i          : std_logic;
 
 
 begin
@@ -158,34 +152,17 @@ begin
     
     -- Instantiate a MMCM module to divide the reference clock. Uses internal feedback
     -- for improved jitter performance, and to avoid consuming an additional BUFG
-    rxoutclk_mmcm0_reset_i                       <= GT0_RX_MMCM_RESET_IN;
-    rxoutclk_mmcm0_i : GTP_Zynq_CLOCK_MODULE
-    generic map
-    (
-        MULT                            =>      4.0,
-        DIVIDE                          =>      1,
-        CLK_PERIOD                      =>      6.4,
-        OUT0_DIVIDE                     =>      8.0,
-        OUT1_DIVIDE                     =>      4,
-        OUT2_DIVIDE                     =>      1,
-        OUT3_DIVIDE                     =>      1
-    )
+    rxoutclk_bufg0_i : BUFG
     port map
     (
-        CLK0_OUT                        =>      gt0_rxusrclk2_i,
-        CLK1_OUT                        =>      gt0_rxusrclk_i,
-        CLK2_OUT                        =>      open,
-        CLK3_OUT                        =>      open,
-        CLK_IN                          =>      gt0_rxoutclk_i,
-        MMCM_LOCKED_OUT                 =>      rxoutclk_mmcm0_locked_i,
-        MMCM_RESET_IN                   =>      rxoutclk_mmcm0_reset_i
+        I                               =>      gt0_rxoutclk_i,
+        O                               =>      gt0_rxusrclk_i
     );
 
 
 
  
 GT0_RXUSRCLK_OUT                             <= gt0_rxusrclk_i;
-GT0_RXUSRCLK2_OUT                            <= gt0_rxusrclk2_i;
-GT0_RXCLK_LOCK_OUT                           <= rxoutclk_mmcm0_locked_i;
+GT0_RXUSRCLK2_OUT                            <= gt0_rxusrclk_i;
 end RTL;
 
