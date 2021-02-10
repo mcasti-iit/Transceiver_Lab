@@ -1,0 +1,470 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="AD9517_Manager_tb_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="AD9517_Manager_tb" />
+            <top_module name="glbl" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="1999976066666666fs"></ZoomStartTime>
+      <ZoomEndTime time="2000004906666667fs"></ZoomEndTime>
+      <Cursor1Time time="2000000100000000fs"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="311"></NameColumnWidth>
+      <ValueColumnWidth column_width="121"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="111" />
+   <wave_markers>
+      <marker time="1000000100000000" label="" />
+   </wave_markers>
+   <wvobject fp_name="/AD9517_Manager_tb/AD9517_Manager_i/CLK_i" type="logic">
+      <obj_property name="ElementShortName">CLK_i</obj_property>
+      <obj_property name="ObjectShortName">CLK_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/AD9517_Manager_i/EN1MS_i" type="logic">
+      <obj_property name="ElementShortName">EN1MS_i</obj_property>
+      <obj_property name="ObjectShortName">EN1MS_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/AD9517_Manager_i/RST_N_i" type="logic">
+      <obj_property name="ElementShortName">RST_N_i</obj_property>
+      <obj_property name="ObjectShortName">RST_N_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/AD9517_Manager_i/ERROR_o" type="array">
+      <obj_property name="ElementShortName">ERROR_o[2:0]</obj_property>
+      <obj_property name="ObjectShortName">ERROR_o[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/AD9517_Manager_i/CPOL_o" type="logic">
+      <obj_property name="ElementShortName">CPOL_o</obj_property>
+      <obj_property name="ObjectShortName">CPOL_o</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/AD9517_Manager_i/CPHA_o" type="logic">
+      <obj_property name="ElementShortName">CPHA_o</obj_property>
+      <obj_property name="ObjectShortName">CPHA_o</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/AD9517_Manager_i/W_nR_o" type="logic">
+      <obj_property name="ElementShortName">W_nR_o</obj_property>
+      <obj_property name="ObjectShortName">W_nR_o</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/AD9517_Manager_i/TX_CMD_o" type="array">
+      <obj_property name="ElementShortName">TX_CMD_o[15:0]</obj_property>
+      <obj_property name="ObjectShortName">TX_CMD_o[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/AD9517_Manager_i/TX_DATA_o" type="array">
+      <obj_property name="ElementShortName">TX_DATA_o[7:0]</obj_property>
+      <obj_property name="ObjectShortName">TX_DATA_o[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/AD9517_Manager_i/ENABLE_o" type="logic">
+      <obj_property name="ElementShortName">ENABLE_o</obj_property>
+      <obj_property name="ObjectShortName">ENABLE_o</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/AD9517_Manager_i/BUSY_i" type="logic">
+      <obj_property name="ElementShortName">BUSY_i</obj_property>
+      <obj_property name="ObjectShortName">BUSY_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/AD9517_Manager_i/RX_DATA_i" type="array">
+      <obj_property name="ElementShortName">RX_DATA_i[7:0]</obj_property>
+      <obj_property name="ObjectShortName">RX_DATA_i[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/AD9517_Manager_i/little_ram" type="array">
+      <obj_property name="ElementShortName">little_ram[31:0][21:0]</obj_property>
+      <obj_property name="ObjectShortName">little_ram[31:0][21:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/AD9517_Manager_i/we_ram" type="logic">
+      <obj_property name="ElementShortName">we_ram</obj_property>
+      <obj_property name="ObjectShortName">we_ram</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/AD9517_Manager_i/addr_rd_ram" type="array">
+      <obj_property name="ElementShortName">addr_rd_ram[4:0]</obj_property>
+      <obj_property name="ObjectShortName">addr_rd_ram[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/AD9517_Manager_i/din_ram" type="array">
+      <obj_property name="ElementShortName">din_ram[21:0]</obj_property>
+      <obj_property name="ObjectShortName">din_ram[21:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/AD9517_Manager_i/dout_ram" type="array">
+      <obj_property name="ElementShortName">dout_ram[21:0]</obj_property>
+      <obj_property name="ObjectShortName">dout_ram[21:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/AD9517_Manager_i/cpol" type="logic">
+      <obj_property name="ElementShortName">cpol</obj_property>
+      <obj_property name="ObjectShortName">cpol</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/AD9517_Manager_i/cpha" type="logic">
+      <obj_property name="ElementShortName">cpha</obj_property>
+      <obj_property name="ObjectShortName">cpha</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/AD9517_Manager_i/w_nr" type="logic">
+      <obj_property name="ElementShortName">w_nr</obj_property>
+      <obj_property name="ObjectShortName">w_nr</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/AD9517_Manager_i/tx_cmd" type="array">
+      <obj_property name="ElementShortName">tx_cmd[15:0]</obj_property>
+      <obj_property name="ObjectShortName">tx_cmd[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/AD9517_Manager_i/tx_data" type="array">
+      <obj_property name="ElementShortName">tx_data[7:0]</obj_property>
+      <obj_property name="ObjectShortName">tx_data[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/AD9517_Manager_i/enable" type="logic">
+      <obj_property name="ElementShortName">enable</obj_property>
+      <obj_property name="ObjectShortName">enable</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/AD9517_Manager_i/error" type="array">
+      <obj_property name="ElementShortName">error[2:0]</obj_property>
+      <obj_property name="ObjectShortName">error[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/AD9517_Manager_i/state" type="other">
+      <obj_property name="ElementShortName">state</obj_property>
+      <obj_property name="ObjectShortName">state</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/AD9517_Manager_i/pon_wait_cnt" type="array">
+      <obj_property name="ElementShortName">pon_wait_cnt[7:0]</obj_property>
+      <obj_property name="ObjectShortName">pon_wait_cnt[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/AD9517_Manager_i/busy_d" type="logic">
+      <obj_property name="ElementShortName">busy_d</obj_property>
+      <obj_property name="ObjectShortName">busy_d</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/AD9517_Manager_i/busy_dw" type="logic">
+      <obj_property name="ElementShortName">busy_dw</obj_property>
+      <obj_property name="ObjectShortName">busy_dw</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/AD9517_Manager_i/state_d" type="other">
+      <obj_property name="ElementShortName">state_d</obj_property>
+      <obj_property name="ObjectShortName">state_d</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/AD9517_Manager_i/state_ch" type="logic">
+      <obj_property name="ElementShortName">state_ch</obj_property>
+      <obj_property name="ObjectShortName">state_ch</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/AD9517_Manager_i/slaves" type="other">
+      <obj_property name="ElementShortName">slaves</obj_property>
+      <obj_property name="ObjectShortName">slaves</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/AD9517_Manager_i/cmd_width" type="other">
+      <obj_property name="ElementShortName">cmd_width</obj_property>
+      <obj_property name="ObjectShortName">cmd_width</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/AD9517_Manager_i/d_width" type="other">
+      <obj_property name="ElementShortName">d_width</obj_property>
+      <obj_property name="ObjectShortName">d_width</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/AD9517_Manager_i/CHIP_ID_ADDR_c" type="array">
+      <obj_property name="ElementShortName">CHIP_ID_ADDR_c[11:0]</obj_property>
+      <obj_property name="ObjectShortName">CHIP_ID_ADDR_c[11:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/AD9517_Manager_i/CHIP_ID_c" type="array">
+      <obj_property name="ElementShortName">CHIP_ID_c[7:0]</obj_property>
+      <obj_property name="ObjectShortName">CHIP_ID_c[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/AD9517_Manager_i/PON_DELAY_MS_c" type="other">
+      <obj_property name="ElementShortName">PON_DELAY_MS_c</obj_property>
+      <obj_property name="ObjectShortName">PON_DELAY_MS_c</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/AD9517_Manager_i/last_line_tab" type="logic">
+      <obj_property name="ElementShortName">last_line_tab</obj_property>
+      <obj_property name="ObjectShortName">last_line_tab</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/AD9517_Manager_i/reg_addr_tab" type="array">
+      <obj_property name="ElementShortName">reg_addr_tab[11:0]</obj_property>
+      <obj_property name="ObjectShortName">reg_addr_tab[11:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/AD9517_Manager_i/wr_reg_data_tab" type="array">
+      <obj_property name="ElementShortName">wr_reg_data_tab[7:0]</obj_property>
+      <obj_property name="ObjectShortName">wr_reg_data_tab[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/AD9517_Manager_i/w_nr_cmd_tab" type="logic">
+      <obj_property name="ElementShortName">w_nr_cmd_tab</obj_property>
+      <obj_property name="ObjectShortName">w_nr_cmd_tab</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/AD9517_Manager_i/addr_wr_ram" type="array">
+      <obj_property name="ElementShortName">addr_wr_ram[4:0]</obj_property>
+      <obj_property name="ObjectShortName">addr_wr_ram[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/pon_reset" type="logic">
+      <obj_property name="ElementShortName">pon_reset</obj_property>
+      <obj_property name="ObjectShortName">pon_reset</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/pon_reset_n" type="logic">
+      <obj_property name="ElementShortName">pon_reset_n</obj_property>
+      <obj_property name="ObjectShortName">pon_reset_n</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/TIME_MACHINE_i/pon_reset_cnt" type="array">
+      <obj_property name="ElementShortName">pon_reset_cnt[7:0]</obj_property>
+      <obj_property name="ObjectShortName">pon_reset_cnt[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/TIME_MACHINE_i/pon_reset" type="logic">
+      <obj_property name="ElementShortName">pon_reset</obj_property>
+      <obj_property name="ObjectShortName">pon_reset</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/TIME_MACHINE_i/pon_reset_n" type="logic">
+      <obj_property name="ElementShortName">pon_reset_n</obj_property>
+      <obj_property name="ObjectShortName">pon_reset_n</obj_property>
+   </wvobject>
+   <wvobject type="divider" fp_name="divider54">
+      <obj_property name="label">SPI Master</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/SPI_MASTER_i/sdio" type="logic">
+      <obj_property name="ElementShortName">sdio</obj_property>
+      <obj_property name="ObjectShortName">sdio</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/SPI_MASTER_i/ss_n" type="array">
+      <obj_property name="ElementShortName">ss_n[0:0]</obj_property>
+      <obj_property name="ObjectShortName">ss_n[0:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/SPI_MASTER_i/sclk" type="logic">
+      <obj_property name="ElementShortName">sclk</obj_property>
+      <obj_property name="ObjectShortName">sclk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/SPI_MASTER_i/busy" type="logic">
+      <obj_property name="ElementShortName">busy</obj_property>
+      <obj_property name="ObjectShortName">busy</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/SPI_MASTER_i/rx_data" type="array">
+      <obj_property name="ElementShortName">rx_data[7:0]</obj_property>
+      <obj_property name="ObjectShortName">rx_data[7:0]</obj_property>
+   </wvobject>
+   <wvobject type="divider" fp_name="divider54">
+      <obj_property name="label">TIME MACHINE</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/TIME_MACHINE_i/CLK_i" type="logic">
+      <obj_property name="ElementShortName">CLK_i</obj_property>
+      <obj_property name="ObjectShortName">CLK_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/TIME_MACHINE_i/RST_N_i" type="logic">
+      <obj_property name="ElementShortName">RST_N_i</obj_property>
+      <obj_property name="ObjectShortName">RST_N_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/TIME_MACHINE_i/PON_RESET_OUT_o" type="logic">
+      <obj_property name="ElementShortName">PON_RESET_OUT_o</obj_property>
+      <obj_property name="ObjectShortName">PON_RESET_OUT_o</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/TIME_MACHINE_i/PON_RESET_N_OUT_o" type="logic">
+      <obj_property name="ElementShortName">PON_RESET_N_OUT_o</obj_property>
+      <obj_property name="ObjectShortName">PON_RESET_N_OUT_o</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/TIME_MACHINE_i/EN200NS_o" type="logic">
+      <obj_property name="ElementShortName">EN200NS_o</obj_property>
+      <obj_property name="ObjectShortName">EN200NS_o</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/TIME_MACHINE_i/EN1US_o" type="logic">
+      <obj_property name="ElementShortName">EN1US_o</obj_property>
+      <obj_property name="ObjectShortName">EN1US_o</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/TIME_MACHINE_i/EN10US_o" type="logic">
+      <obj_property name="ElementShortName">EN10US_o</obj_property>
+      <obj_property name="ObjectShortName">EN10US_o</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/TIME_MACHINE_i/EN100US_o" type="logic">
+      <obj_property name="ElementShortName">EN100US_o</obj_property>
+      <obj_property name="ObjectShortName">EN100US_o</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/TIME_MACHINE_i/EN1MS_o" type="logic">
+      <obj_property name="ElementShortName">EN1MS_o</obj_property>
+      <obj_property name="ObjectShortName">EN1MS_o</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/TIME_MACHINE_i/EN10MS_o" type="logic">
+      <obj_property name="ElementShortName">EN10MS_o</obj_property>
+      <obj_property name="ObjectShortName">EN10MS_o</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/TIME_MACHINE_i/EN100MS_o" type="logic">
+      <obj_property name="ElementShortName">EN100MS_o</obj_property>
+      <obj_property name="ObjectShortName">EN100MS_o</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/TIME_MACHINE_i/EN1S_o" type="logic">
+      <obj_property name="ElementShortName">EN1S_o</obj_property>
+      <obj_property name="ObjectShortName">EN1S_o</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/TIME_MACHINE_i/en200ns_cnt" type="array">
+      <obj_property name="ElementShortName">en200ns_cnt[4:0]</obj_property>
+      <obj_property name="ObjectShortName">en200ns_cnt[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/TIME_MACHINE_i/en200ns_cnt_tc" type="logic">
+      <obj_property name="ElementShortName">en200ns_cnt_tc</obj_property>
+      <obj_property name="ObjectShortName">en200ns_cnt_tc</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/TIME_MACHINE_i/p_en200ns" type="logic">
+      <obj_property name="ElementShortName">p_en200ns</obj_property>
+      <obj_property name="ObjectShortName">p_en200ns</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/TIME_MACHINE_i/en200ns" type="logic">
+      <obj_property name="ElementShortName">en200ns</obj_property>
+      <obj_property name="ObjectShortName">en200ns</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/TIME_MACHINE_i/en1us_cnt" type="array">
+      <obj_property name="ElementShortName">en1us_cnt[2:0]</obj_property>
+      <obj_property name="ObjectShortName">en1us_cnt[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/TIME_MACHINE_i/en1us_cnt_tc" type="logic">
+      <obj_property name="ElementShortName">en1us_cnt_tc</obj_property>
+      <obj_property name="ObjectShortName">en1us_cnt_tc</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/TIME_MACHINE_i/p_en1us" type="logic">
+      <obj_property name="ElementShortName">p_en1us</obj_property>
+      <obj_property name="ObjectShortName">p_en1us</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/TIME_MACHINE_i/en1us" type="logic">
+      <obj_property name="ElementShortName">en1us</obj_property>
+      <obj_property name="ObjectShortName">en1us</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/TIME_MACHINE_i/en10us_cnt" type="array">
+      <obj_property name="ElementShortName">en10us_cnt[3:0]</obj_property>
+      <obj_property name="ObjectShortName">en10us_cnt[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/TIME_MACHINE_i/en10us_cnt_tc" type="logic">
+      <obj_property name="ElementShortName">en10us_cnt_tc</obj_property>
+      <obj_property name="ObjectShortName">en10us_cnt_tc</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/TIME_MACHINE_i/p_en10us" type="logic">
+      <obj_property name="ElementShortName">p_en10us</obj_property>
+      <obj_property name="ObjectShortName">p_en10us</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/TIME_MACHINE_i/en10us" type="logic">
+      <obj_property name="ElementShortName">en10us</obj_property>
+      <obj_property name="ObjectShortName">en10us</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/TIME_MACHINE_i/en100us_cnt" type="array">
+      <obj_property name="ElementShortName">en100us_cnt[3:0]</obj_property>
+      <obj_property name="ObjectShortName">en100us_cnt[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/TIME_MACHINE_i/en100us_cnt_tc" type="logic">
+      <obj_property name="ElementShortName">en100us_cnt_tc</obj_property>
+      <obj_property name="ObjectShortName">en100us_cnt_tc</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/TIME_MACHINE_i/p_en100us" type="logic">
+      <obj_property name="ElementShortName">p_en100us</obj_property>
+      <obj_property name="ObjectShortName">p_en100us</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/TIME_MACHINE_i/en100us" type="logic">
+      <obj_property name="ElementShortName">en100us</obj_property>
+      <obj_property name="ObjectShortName">en100us</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/TIME_MACHINE_i/en1ms_cnt" type="array">
+      <obj_property name="ElementShortName">en1ms_cnt[3:0]</obj_property>
+      <obj_property name="ObjectShortName">en1ms_cnt[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/TIME_MACHINE_i/en1ms_cnt_tc" type="logic">
+      <obj_property name="ElementShortName">en1ms_cnt_tc</obj_property>
+      <obj_property name="ObjectShortName">en1ms_cnt_tc</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/TIME_MACHINE_i/p_en1ms" type="logic">
+      <obj_property name="ElementShortName">p_en1ms</obj_property>
+      <obj_property name="ObjectShortName">p_en1ms</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/TIME_MACHINE_i/en1ms" type="logic">
+      <obj_property name="ElementShortName">en1ms</obj_property>
+      <obj_property name="ObjectShortName">en1ms</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/TIME_MACHINE_i/en10ms_cnt" type="array">
+      <obj_property name="ElementShortName">en10ms_cnt[3:0]</obj_property>
+      <obj_property name="ObjectShortName">en10ms_cnt[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/TIME_MACHINE_i/en10ms_cnt_tc" type="logic">
+      <obj_property name="ElementShortName">en10ms_cnt_tc</obj_property>
+      <obj_property name="ObjectShortName">en10ms_cnt_tc</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/TIME_MACHINE_i/p_en10ms" type="logic">
+      <obj_property name="ElementShortName">p_en10ms</obj_property>
+      <obj_property name="ObjectShortName">p_en10ms</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/TIME_MACHINE_i/en10ms" type="logic">
+      <obj_property name="ElementShortName">en10ms</obj_property>
+      <obj_property name="ObjectShortName">en10ms</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/TIME_MACHINE_i/en100ms_cnt" type="array">
+      <obj_property name="ElementShortName">en100ms_cnt[3:0]</obj_property>
+      <obj_property name="ObjectShortName">en100ms_cnt[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/TIME_MACHINE_i/en100ms_cnt_tc" type="logic">
+      <obj_property name="ElementShortName">en100ms_cnt_tc</obj_property>
+      <obj_property name="ObjectShortName">en100ms_cnt_tc</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/TIME_MACHINE_i/p_en100ms" type="logic">
+      <obj_property name="ElementShortName">p_en100ms</obj_property>
+      <obj_property name="ObjectShortName">p_en100ms</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/TIME_MACHINE_i/en100ms" type="logic">
+      <obj_property name="ElementShortName">en100ms</obj_property>
+      <obj_property name="ObjectShortName">en100ms</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/TIME_MACHINE_i/en1s_cnt" type="array">
+      <obj_property name="ElementShortName">en1s_cnt[3:0]</obj_property>
+      <obj_property name="ObjectShortName">en1s_cnt[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/TIME_MACHINE_i/en1s_cnt_tc" type="logic">
+      <obj_property name="ElementShortName">en1s_cnt_tc</obj_property>
+      <obj_property name="ObjectShortName">en1s_cnt_tc</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/TIME_MACHINE_i/p_en1s" type="logic">
+      <obj_property name="ElementShortName">p_en1s</obj_property>
+      <obj_property name="ObjectShortName">p_en1s</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/TIME_MACHINE_i/en1s" type="logic">
+      <obj_property name="ElementShortName">en1s</obj_property>
+      <obj_property name="ObjectShortName">en1s</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/TIME_MACHINE_i/pon_reset_cnt" type="array">
+      <obj_property name="ElementShortName">pon_reset_cnt[7:0]</obj_property>
+      <obj_property name="ObjectShortName">pon_reset_cnt[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/TIME_MACHINE_i/pon_reset" type="logic">
+      <obj_property name="ElementShortName">pon_reset</obj_property>
+      <obj_property name="ObjectShortName">pon_reset</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/TIME_MACHINE_i/pon_reset_n" type="logic">
+      <obj_property name="ElementShortName">pon_reset_n</obj_property>
+      <obj_property name="ObjectShortName">pon_reset_n</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/TIME_MACHINE_i/CLK_PERIOD_g" type="other">
+      <obj_property name="ElementShortName">CLK_PERIOD_g</obj_property>
+      <obj_property name="ObjectShortName">CLK_PERIOD_g</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/TIME_MACHINE_i/PON_RESET_DURATION_MS_g" type="other">
+      <obj_property name="ElementShortName">PON_RESET_DURATION_MS_g</obj_property>
+      <obj_property name="ObjectShortName">PON_RESET_DURATION_MS_g</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/TIME_MACHINE_i/SIM_TIME_COMPRESSION_g" type="other">
+      <obj_property name="ElementShortName">SIM_TIME_COMPRESSION_g</obj_property>
+      <obj_property name="ObjectShortName">SIM_TIME_COMPRESSION_g</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/TIME_MACHINE_i/EN200NS_CONSTANT_c" type="other">
+      <obj_property name="ElementShortName">EN200NS_CONSTANT_c</obj_property>
+      <obj_property name="ObjectShortName">EN200NS_CONSTANT_c</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/TIME_MACHINE_i/EN1US_CONSTANT_c" type="other">
+      <obj_property name="ElementShortName">EN1US_CONSTANT_c</obj_property>
+      <obj_property name="ObjectShortName">EN1US_CONSTANT_c</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/TIME_MACHINE_i/EN10US_CONSTANT_c" type="other">
+      <obj_property name="ElementShortName">EN10US_CONSTANT_c</obj_property>
+      <obj_property name="ObjectShortName">EN10US_CONSTANT_c</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/TIME_MACHINE_i/EN100US_CONSTANT_c" type="other">
+      <obj_property name="ElementShortName">EN100US_CONSTANT_c</obj_property>
+      <obj_property name="ObjectShortName">EN100US_CONSTANT_c</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/TIME_MACHINE_i/EN1MS_CONSTANT_c" type="other">
+      <obj_property name="ElementShortName">EN1MS_CONSTANT_c</obj_property>
+      <obj_property name="ObjectShortName">EN1MS_CONSTANT_c</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/TIME_MACHINE_i/EN10MS_CONSTANT_c" type="other">
+      <obj_property name="ElementShortName">EN10MS_CONSTANT_c</obj_property>
+      <obj_property name="ObjectShortName">EN10MS_CONSTANT_c</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/TIME_MACHINE_i/EN100MS_CONSTANT_c" type="other">
+      <obj_property name="ElementShortName">EN100MS_CONSTANT_c</obj_property>
+      <obj_property name="ObjectShortName">EN100MS_CONSTANT_c</obj_property>
+   </wvobject>
+   <wvobject fp_name="/AD9517_Manager_tb/TIME_MACHINE_i/EN1S_CONSTANT_c" type="other">
+      <obj_property name="ElementShortName">EN1S_CONSTANT_c</obj_property>
+      <obj_property name="ObjectShortName">EN1S_CONSTANT_c</obj_property>
+   </wvobject>
+</wave_config>

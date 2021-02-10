@@ -9,37 +9,42 @@ use UNISIM.VCOMPONENTS.ALL;
 --***********************************Entity Declaration************************
 
 entity GTP_Zynq_Test is
-generic
-(
-    EXAMPLE_CONFIG_INDEPENDENT_LANES        : integer   := 1;
-    EXAMPLE_LANE_WITH_START_CHAR            : integer   := 0;    -- specifies lane with unique start frame ch
-    EXAMPLE_WORDS_IN_BRAM                   : integer   := 512;  -- specifies amount of data in BRAM
-    EXAMPLE_SIM_GTRESET_SPEEDUP             : string    := "FALSE";    -- simulation setting for GT SecureIP model
-    STABLE_CLOCK_PERIOD                     : integer   := 8; 
-    EXAMPLE_USE_CHIPSCOPE                   : integer   := 1           -- Set to 1 to use Chipscope to drive resets
-);
-port
-(
-Q0_CLK1_GTREFCLK_PAD_N_IN               : in   std_logic;
-Q0_CLK1_GTREFCLK_PAD_P_IN               : in   std_logic;
-
-RXN_IN                                  : in   std_logic;
-RXP_IN                                  : in   std_logic;
+  generic(
+    EXAMPLE_CONFIG_INDEPENDENT_LANES : integer   := 1;
+    EXAMPLE_LANE_WITH_START_CHAR     : integer   := 0;    -- specifies lane with unique start frame ch
+    EXAMPLE_WORDS_IN_BRAM            : integer   := 512;  -- specifies amount of data in BRAM
+    EXAMPLE_SIM_GTRESET_SPEEDUP      : string    := "FALSE";    -- simulation setting for GT SecureIP model
+    STABLE_CLOCK_PERIOD              : integer   := 8; 
+    EXAMPLE_USE_CHIPSCOPE            : integer   := 1           -- Set to 1 to use Chipscope to drive resets
+    );
+  port(
+    Q0_CLK1_GTREFCLK_PAD_N_IN  : in   std_logic;
+    Q0_CLK1_GTREFCLK_PAD_P_IN  : in   std_logic;
     
-FIXED_IO_0_mio                          : inout STD_LOGIC_VECTOR ( 53 downto 0 );
-FIXED_IO_0_ps_clk                       : inout STD_LOGIC;
-FIXED_IO_0_ps_porb                      : inout STD_LOGIC;
-FIXED_IO_0_ps_srstb                     : inout STD_LOGIC;    
+    RXN_IN                     : in   std_logic;
+    RXP_IN                     : in   std_logic;
+        
+    FIXED_IO_0_mio             : inout std_logic_vector ( 53 downto 0 );         
+    FIXED_IO_0_ps_clk          : inout std_logic;                                
+    FIXED_IO_0_ps_porb         : inout std_logic;                                
+    FIXED_IO_0_ps_srstb        : inout std_logic;                                
     
-AD9517_PD_N                             : out STD_LOGIC;
-AD9517_SYNC_N                           : out STD_LOGIC;
-AD9517_RESET_N                          : out STD_LOGIC;
-
-EN_GTP_OSC                              : out STD_LOGIC;
-
-LEDS                                    : out std_logic_vector(4 downto 0)     
     
-);
+    
+    AD9517_REFMON_i            : in std_logic;                                   
+    AD9517_STATUS_i            : in std_logic;                                   
+    AD9517_PD_N_o              : out std_logic;                                  
+    AD9517_SYNC_N_o            : out std_logic;                                  
+    AD9517_RESET_N_o           : out std_logic;                                  
+    AD9517_SDIO_io             : inout std_logic;                                
+    AD9517_SCLK_o              : out std_logic;                                  
+    AD9517_SDO_i               : in std_logic;                                   
+    AD9517_CS_N_o              : out std_logic;                                  
+    
+    EN_GTP_OSC_o               : out std_logic;                                  
+    
+    LEDS_o                     : out std_logic_vector(4 downto 0)                
+    );
 
 
 end GTP_Zynq_Test;
@@ -125,6 +130,83 @@ port
 
 end component;
 
+component spi_3_wire_master
+  generic(
+    slaves    : integer := 1;  --number of spi slaves
+    cmd_width : integer := 8;  --command bus width
+    d_width   : integer := 8); --data bus width
+  port(
+    clock   : in     std_logic;                              --system clock
+    reset_n : in     std_logic;                              --asynchronous reset
+    enable  : in     std_logic;                              --initiate transaction
+    cpol    : in     std_logic;                              --spi clock polarity
+    cpha    : in     std_logic;                              --spi clock phase
+    clk_div : in     integer;                                --system clock cycles per 1/2 period of sclk
+    addr    : in     integer;                                --address of slave
+    rw      : in     std_logic;                              --'0' for read, '1' for write
+    tx_cmd  : in     std_logic_vector(cmd_width-1 downto 0); --command to transmit
+    tx_data : in     std_logic_vector(d_width-1 downto 0);   --data to transmit
+    sclk    : buffer std_logic;                              --spi clock
+    ss_n    : buffer std_logic_vector(slaves-1 downto 0);    --slave select
+    sdio    : inout  std_logic;                              --serial data input output
+    busy    : out    std_logic;                              --busy / data ready signal
+    rx_data : out    std_logic_vector(d_width-1 downto 0));  --data received
+end component; 
+
+component AD9517_Manager is
+  generic(
+    slaves    : INTEGER := 1;   --number of spi slaves
+    cmd_width : INTEGER := 8;   --command bus width
+    d_width   : INTEGER := 8    --data bus width
+    ); 
+  port(
+    -- Main control
+    CLK_i     : in  std_logic;                                 -- system clock
+    EN1MS_i   : in  std_logic;                                 -- 1 ms clock enable
+    RST_N_i   : in  std_logic;                                 -- asynchronous reset
+    
+    -- Controland status ports
+    ERROR_o   : out std_logic_vector(2 downto 0);              -- Error code
+    DONE_o    : out std_logic;
+    
+    -- SPI Master side
+    CPOL_o    : out std_logic;                                 -- spi clock polarity
+    CPHA_o    : out std_logic;                                 -- spi clock phase
+    W_nR_o    : out std_logic;                                 -- '0' for read, '1' for write
+    TX_CMD_o  : out std_logic_vector(cmd_width-1 downto 0);    -- command to transmit
+    TX_DATA_o : out std_logic_vector(d_width-1 downto 0);      -- data to transmit
+    ENABLE_o  : out std_logic;                                 -- initiate transaction    
+    BUSY_i    : in  std_logic;                                 -- busy / data ready signal
+    RX_DATA_i : in  std_logic_vector(d_width-1 downto 0)       -- data received
+    );  
+end component;
+
+component time_machine is
+generic ( 
+  CLK_PERIOD_g           : integer    := 10;   -- Main Clock period
+  SIM_TIME_COMPRESSION_g : in boolean := FALSE -- When "TRUE", simulation time is "compressed": frequencies of internal clock enables are speeded-up 
+  );
+port (
+  -- Clock in port
+  CLK_i                  : in  std_logic;   -- Input clock @ 50 MHz,
+  RST_N_i                : in  std_logic;   -- Asynchronous active low reset
+
+  -- Output reset
+  PON_RESET_OUT_o        : out std_logic;	  -- Power on Reset out (active high)
+  PON_RESET_N_OUT_o      : out std_logic;	  -- Power on Reset out (active high)
+  
+  -- Output ports for generated clock enables
+  EN200NS_o              : out std_logic;	  -- Clock enable every 200 ns
+  EN1US_o                : out std_logic;	  -- Clock enable every 1 us
+  EN10US_o               : out std_logic;	  -- Clock enable every 10 us
+  EN100US_o              : out std_logic;	  -- Clock enable every 100 us
+  EN1MS_o                 : out std_logic;	-- Clock enable every 1 ms
+  EN10MS_o                : out std_logic;	-- Clock enable every 10 ms
+  EN100MS_o               : out std_logic;	-- Clock enable every 100 ms
+  EN1S_o                  : out std_logic 	-- Clock enable every 1 s
+  );
+end component;
+
 component PS is
   port (
     FCLK_CLK0_0 : out STD_LOGIC;
@@ -135,7 +217,7 @@ component PS is
   );
 end component;
 
-COMPONENT ila_0
+component ila_0
 
 PORT (
 	clk    : IN STD_LOGIC;
@@ -145,14 +227,24 @@ PORT (
 );
 END COMPONENT  ;
 
-COMPONENT VIO
+component VIO
   PORT (
     clk : IN STD_LOGIC;
     probe_in0 : IN STD_LOGIC_VECTOR(15 DOWNTO 0);
     probe_out0 : OUT STD_LOGIC_VECTOR(15 DOWNTO 0)
   );
-END COMPONENT;
+end component;
 
+
+-- *****************************************************************************************
+
+constant SPI_SLAVES_TOTNUM_c  : integer :=  1; --number of spi slaves
+constant SPI_CMD_WIDTH_c      : integer := 16; --command bus width
+constant SPI_D_WIDTH_c        : integer :=  8; --data bus width
+constant SPI_CLK_DIV_c        : integer := 64; --system clock cycles per 1/2 period of sclk
+constant SPI_DEVICE_SEL_c     : integer :=  0; --address of slave
+
+-- *****************************************************************************************
 
 signal  tied_to_ground                  : std_logic;
 signal  tied_to_ground_vec              : std_logic_vector(63 downto 0);
@@ -172,6 +264,35 @@ signal rx_cnt_d :  std_logic_vector(15 downto 0);
 signal rx_cnt_m :  std_logic_vector(15 downto 0);
 signal rx_err   :  std_logic;
 signal rx_match :  std_logic;
+
+-- *****************************************************************************************
+signal pon_reset_n   :  std_logic;                             -- Power On Reset
+
+signal cpol             : std_logic;                                          -- spi clock polarity
+signal cpha             : std_logic;                                          -- spi clock phase
+signal w_nr             : std_logic;                                          -- '0' for read, '1' for write
+signal tx_cmd           : std_logic_vector(15 downto 0);                      -- command to transmit
+signal tx_data          : std_logic_vector(7 downto 0);                       -- data to transmit
+signal enable           : std_logic;                                          -- initiate transaction    
+signal busy             : std_logic;                                          -- busy / data ready signal
+signal rx_data          : std_logic_vector(7 downto 0);                       -- data received
+signal error            : std_logic_vector (2 downto 0);                      -- error code
+signal done             : std_logic;                                          -- done
+
+signal sclk             :  std_logic;                                         --spi clock
+signal ss_n             :  std_logic_vector(SPI_SLAVES_TOTNUM_c-1 downto 0);  --slave select
+signal sdio             :  std_logic;                                         --serial data input output
+
+
+signal en1ms            : std_logic;
+signal en1s             : std_logic;
+
+signal toggle_1s        : std_logic;
+
+signal ad9517_pd_n      :  std_logic;    
+signal ad9517_sync_n    :  std_logic;    
+signal ad9517_reset_n   :  std_logic; 
+
 
 -- *****************************************************************************************
 
@@ -391,7 +512,7 @@ PS_i : PS
   );
 
 
-probe2 <= "0000" & gt0_rxchariscomma_out & gt0_rxcharisk_out & gt0_rxdisperr_out & gt0_rxnotintable_out & '0' & gt0_rxbyterealign_out & gt0_rxcommadet_out & rx_match;
+probe2 <= "000" & gt0_rxchariscomma_out & gt0_rxcharisk_out & gt0_rxdisperr_out & gt0_rxnotintable_out & '0' & gt0_rxbyterealign_out & gt0_rxcommadet_out & gt0_rxbyteisaligned_out & rx_match;
 
 
 ILA_0_i : ila_0
@@ -464,19 +585,124 @@ begin
 end process;
 
 
-LEDS(4) <= rx_match; -- count_4(24); 
-LEDS(3) <= '0'; -- count_3(24); 
-LEDS(2) <= '0'; -- count_2(24); 
-LEDS(1) <= '0'; -- gt0_rxdata_out(15); -- '0'; -- count_3(24); 
-LEDS(0) <= '0'; -- gt0_rxdata_out(0);  -- '0'; -- count_4(24); 
+
+
+-- ------------------------------------------------------------
+-- AD9517
+
+  TIME_MACHINE_i : time_machine
+generic map( 
+  CLK_PERIOD_g           => 10,   -- Main Clock period
+  SIM_TIME_COMPRESSION_g => false  -- When "TRUE", simulation time is "compressed": frequencies of internal clock enables are speeded-up 
+  )
+port map(
+  -- Clock in port
+  CLK_i                  => GT0_RXUSRCLK2_OUT,
+  RST_N_i                => '1',
+
+  -- Output reset
+  PON_RESET_OUT_o        => open,
+  PON_RESET_N_OUT_o      => pon_reset_n,
+  
+  -- Output ports for generated clock enables
+  EN200NS_o              => open,
+  EN1US_o                => open,
+  EN10US_o               => open,
+  EN100US_o              => open,
+  EN1MS_o                => open,
+  EN10MS_o               => en1ms,
+  EN100MS_o              => open,
+  EN1S_o                 => en1s
+  );
 
 
 
-AD9517_PD_N     <= '1'    ;-- : out STD_LOGIC;
-AD9517_SYNC_N   <= '1'    ;-- : out STD_LOGIC;
-AD9517_RESET_N  <= '1'    ;-- : out STD_LOGIC;
+AD9517_Manager_i : AD9517_Manager
+  generic map(
+    slaves    => SPI_SLAVES_TOTNUM_c, -- : integer := 1;  --number of spi slaves
+    cmd_width => SPI_CMD_WIDTH_c, -- : integer := 8;  --command bus width
+    d_width   => SPI_D_WIDTH_c  -- : integer := 8); --data bus width
+    )
+  port map(
+    -- Main control
+    CLK_i     => GT0_RXUSRCLK2_OUT,               
+    EN1MS_i   => en1ms,             
+    RST_N_i   => pon_reset_n,             
+    
+    -- Controland status ports
+    ERROR_o   => error,
+    DONE_o    => done,
+    
+    -- SPI Master side
+    CPOL_o    => cpol,      -- spi clock polarity
+    CPHA_o    => cpha,      -- spi clock phase
+    W_nR_o    => w_nr,      -- '0' for read, '1' for write
+    TX_CMD_o  => tx_cmd,    -- command to transmit
+    TX_DATA_o => tx_data,   -- data to transmit
+    ENABLE_o  => enable,    -- initiate transaction    
+    BUSY_i    => busy,      -- busy / data ready signal
+    RX_DATA_i => rx_data    -- data received
+    );
 
-EN_GTP_OSC <= '1';
+
+SPI_MASTER_i : spi_3_wire_master
+  generic map(
+    slaves    => SPI_SLAVES_TOTNUM_c, -- : integer := 1;  --number of spi slaves
+    cmd_width => SPI_CMD_WIDTH_c, -- : integer := 8;  --command bus width
+    d_width   => SPI_D_WIDTH_c  -- : integer := 8); --data bus width
+    )
+  port map(
+    clock     => GT0_RXUSRCLK2_OUT,    -- : in     std_logic;                              --system clock
+    reset_n   => pon_reset_n,          -- : in     std_logic;                              --asynchronous reset
+    enable    => enable,               -- : in     std_logic;                              --initiate transaction
+    cpol      => cpol,                 -- : in     std_logic;                              --spi clock polarity
+    cpha      => cpha,                 -- : in     std_logic;                              --spi clock phase
+    clk_div   => SPI_CLK_DIV_c,        -- : in     integer;                                --system clock cycles per 1/2 period of sclk
+    addr      => SPI_DEVICE_SEL_c,     -- : in     integer;                                --address of slave
+    rw        => w_nr,                 -- : in     std_logic;                              --'0' for read, '1' for write
+    tx_cmd    => tx_cmd,               -- : in     std_logic_vector(cmd_width-1 downto 0); --command to transmit
+    tx_data   => tx_data,              -- : in     std_logic_vector(d_width-1 downto 0);   --data to transmit
+    sclk      => sclk,                 -- : buffer std_logic;                              --spi clock
+    ss_n      => ss_n,                 -- : buffer std_logic_vector(slaves-1 downto 0);    --slave select
+    sdio      => sdio,                 -- : inout  std_logic;                              --serial data input output
+    busy      => busy,                 -- : out    std_logic;                              --busy / data ready signal
+    rx_data   => rx_data               -- : out    std_logic_vector(d_width-1 downto 0));  --data received
+    );
+
+ad9517_pd_n    <= '1';
+ad9517_sync_n  <= '1';
+ad9517_reset_n <= '1';
+
+process (GT0_RXUSRCLK2_OUT, pon_reset_n)
+begin
+  if (pon_reset_n = '0') then
+    toggle_1s <= '0';
+  elsif rising_edge(GT0_RXUSRCLK2_OUT) then
+    if (en1s = '1') then
+      toggle_1s <= not toggle_1s;
+    end if;
+  end if;
+end process;
+
+-- --------------------------------------------------------------------------
+-- OUTPUTS
+
+AD9517_PD_N_o    <= ad9517_pd_n;     -- : out STD_LOGIC;
+AD9517_SYNC_N_o  <= ad9517_sync_n;   -- : out STD_LOGIC;
+AD9517_RESET_N_o <= ad9517_reset_n;  -- : out STD_LOGIC;
+AD9517_SDIO_io   <= sdio;-- : inout STD_LOGIC;
+AD9517_SCLK_o    <= sclk;-- : out STD_LOGIC;
+-- AD9517_SDO      -- : in STD_LOGIC;
+AD9517_CS_N_o    <= ss_n(0);-- : out STD_LOGIC);
+
+EN_GTP_OSC_o     <= pon_reset_n;
+
+
+LEDS_o(4) <= error(0);  -- RED    
+LEDS_o(3) <= toggle_1s; -- GREEN  
+LEDS_o(2) <= rx_match;  -- BLUE   
+LEDS_o(1) <= '0';       -- PHY 1
+LEDS_o(0) <= '0';       -- PHY 2
 
 end RTL;
 

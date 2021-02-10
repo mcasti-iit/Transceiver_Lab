@@ -1,10 +1,10 @@
 // Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2019.1 (win64) Build 2552052 Fri May 24 14:49:42 MDT 2019
-// Date        : Thu Nov 19 16:09:52 2020
+// Date        : Mon Nov 23 16:46:09 2020
 // Host        : IITICUBLAP127 running 64-bit major release  (build 9200)
-// Command     : write_verilog -force -mode funcsim
-//               C:/Progetti/Transceiver_Lab/ZCB/GTestP_Zynq/GTestP_Zynq.srcs/sources_1/ip/GTP_Zynq/GTP_Zynq_sim_netlist.v
+// Command     : write_verilog -force -mode funcsim -rename_top GTP_Zynq -prefix
+//               GTP_Zynq_ GTP_Zynq_sim_netlist.v
 // Design      : GTP_Zynq
 // Purpose     : This verilog netlist is a functional simulation representation of the design and should not be modified
 //               or synthesized. This netlist cannot be used for SDF annotated simulation.
@@ -211,7 +211,6 @@ module GTP_Zynq
         .sysclk_in(sysclk_in));
 endmodule
 
-(* ORIG_REF_NAME = "GTP_Zynq_GT" *) 
 module GTP_Zynq_GTP_Zynq_GT
    (sysclk_in_0,
     gt0_eyescandataerror_out,
@@ -1047,7 +1046,6 @@ module GTP_Zynq_GTP_Zynq_GT
         .sysclk_in(sysclk_in));
 endmodule
 
-(* ORIG_REF_NAME = "GTP_Zynq_GT_USRCLK_SOURCE" *) 
 module GTP_Zynq_GTP_Zynq_GT_USRCLK_SOURCE
    (Q0_CLK1_GTREFCLK_OUT,
     GT0_RXUSRCLK2_OUT,
@@ -1084,7 +1082,6 @@ module GTP_Zynq_GTP_Zynq_GT_USRCLK_SOURCE
         .O(GT0_RXUSRCLK2_OUT));
 endmodule
 
-(* ORIG_REF_NAME = "GTP_Zynq_RX_STARTUP_FSM" *) 
 module GTP_Zynq_GTP_Zynq_RX_STARTUP_FSM
    (AR,
     gtrxreset_i,
@@ -2798,7 +2795,6 @@ module GTP_Zynq_GTP_Zynq_RX_STARTUP_FSM
         .S(\wait_time_cnt[6]_i_1_n_0 ));
 endmodule
 
-(* ORIG_REF_NAME = "GTP_Zynq_common" *) 
 module GTP_Zynq_GTP_Zynq_common
    (GT0_PLL0LOCK_OUT,
     GT0_PLL0OUTCLK_OUT,
@@ -2919,7 +2915,6 @@ module GTP_Zynq_GTP_Zynq_common
         .REFCLKOUTMONITOR1(NLW_gtpe2_common_i_REFCLKOUTMONITOR1_UNCONNECTED));
 endmodule
 
-(* ORIG_REF_NAME = "GTP_Zynq_common_reset" *) 
 module GTP_Zynq_GTP_Zynq_common_reset
    (GT0_PLL0RESET_OUT,
     sysclk_in,
@@ -3177,7 +3172,6 @@ module GTP_Zynq_GTP_Zynq_common_reset
         .R(SOFT_RESET_RX_IN));
 endmodule
 
-(* ORIG_REF_NAME = "GTP_Zynq_cpll_railing" *) 
 module GTP_Zynq_GTP_Zynq_cpll_railing
    (Q0_CLK1_GTREFCLK_OUT);
   input Q0_CLK1_GTREFCLK_OUT;
@@ -3191,7 +3185,6 @@ module GTP_Zynq_GTP_Zynq_cpll_railing
         .O(\use_bufh_cpll.refclk_buf_n_0 ));
 endmodule
 
-(* ORIG_REF_NAME = "GTP_Zynq_init" *) 
 module GTP_Zynq_GTP_Zynq_init
    (sysclk_in_0,
     gt0_eyescandataerror_out,
@@ -3586,7 +3579,6 @@ module GTP_Zynq_GTP_Zynq_init
         .sysclk_in(sysclk_in));
 endmodule
 
-(* ORIG_REF_NAME = "GTP_Zynq_multi_gt" *) 
 module GTP_Zynq_GTP_Zynq_multi_gt
    (sysclk_in_0,
     gt0_eyescandataerror_out,
@@ -3741,8 +3733,7 @@ module GTP_Zynq_GTP_Zynq_multi_gt
         .sysclk_in_0(sysclk_in_0));
 endmodule
 
-(* EXAMPLE_SIM_GTRESET_SPEEDUP = "FALSE" *) (* ORIG_REF_NAME = "GTP_Zynq_support" *) (* STABLE_CLOCK_PERIOD = "8" *) 
-(* downgradeipidentifiedwarnings = "yes" *) 
+(* EXAMPLE_SIM_GTRESET_SPEEDUP = "FALSE" *) (* STABLE_CLOCK_PERIOD = "8" *) (* downgradeipidentifiedwarnings = "yes" *) 
 module GTP_Zynq_GTP_Zynq_support
    (SOFT_RESET_RX_IN,
     DONT_RESET_ON_DATA_ERROR_IN,
@@ -3956,7 +3947,6 @@ module GTP_Zynq_GTP_Zynq_support
         .Q0_CLK1_GTREFCLK_PAD_P_IN(Q0_CLK1_GTREFCLK_PAD_P_IN));
 endmodule
 
-(* ORIG_REF_NAME = "GTP_Zynq_sync_block" *) 
 module GTP_Zynq_GTP_Zynq_sync_block
    (\FSM_sequential_rx_state_reg[0] ,
     reset_time_out_reg,
@@ -4972,7 +4962,6 @@ module GTP_Zynq_GTP_Zynq_sync_block_6
         .R(1'b0));
 endmodule
 
-(* ORIG_REF_NAME = "gtp_zynq_gtrxreset_seq" *) 
 module GTP_Zynq_gtp_zynq_gtrxreset_seq
    (GTRXRESET,
     drp_op_done,

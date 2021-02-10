@@ -200,14 +200,18 @@ signal     tx_cnt                                  : std_logic_vector(15 downto 
 
 
 -- -------------------------------------------------------------------------------------
-signal    probe_in0  : std_logic_vector(15 downto 0);
-signal    probe_out0 : std_logic_vector(15 downto 0);
-signal    probe0     : std_logic_vector(15 downto 0);
-signal    probe1     : std_logic_vector(15 downto 0);
+signal    probe_in0    : std_logic_vector(15 downto 0);
+signal    probe_out0   : std_logic_vector(15 downto 0);
+signal    probe_out0_d : std_logic_vector(15 downto 0);
+signal    probe0       : std_logic_vector(15 downto 0);
+signal    probe1       : std_logic_vector(15 downto 0);
 
 -- -------------------------------------------------------------------------------------
-signal    gt0_txcharisk_in_p  : std_logic_vector(1 downto 0);
-signal    gt0_txcharisk_in_cg : std_logic;
+signal    send_align          : std_logic;
+signal    send_k              : std_logic;
+
+
+
 
 --**************************** Main Body of Code *******************************
 begin
@@ -329,28 +333,28 @@ MAIN_CLOCK : clk_wiz_0
 process(GT0_TXUSRCLK2_OUT)
 begin
   if rising_edge(GT0_TXUSRCLK2_OUT) then
-    gt0_txcharisk_in_p  <= probe_out0(1 downto 0);
-    
-    if (gt0_txcharisk_in_cg = '1') then
-      gt0_txcharisk_in <= probe_out0(1 downto 0);
-    else
-      gt0_txcharisk_in <= (others => '0');
-    end if;
-  end if;	
+    probe_out0_d  <= probe_out0;
+  end if;
 end process;
 
-gt0_txcharisk_in_cg <= '0' when (gt0_txcharisk_in_p = probe_out0(1 downto 0)) else '1';
+send_k     <= '0' when (probe_out0_d(5) = probe_out0(5)) else '1';
+send_align <= '0' when (probe_out0_d(4) = probe_out0(4)) else '1';
 
 process(GT0_TXUSRCLK2_OUT)
 begin
   if rising_edge(GT0_TXUSRCLK2_OUT) then
-    if (gt0_txcharisk_in_cg = '1') then
---      if (probe_out0(3) = '1') then
---        tx_cnt(31 downto 24)  <= x"BC";
---      end if;
---      if (probe_out0(2) = '1') then
---        tx_cnt(23 downto 16) <= x"BC";
---      end if;
+    if (send_align = '1' or send_k = '1') then
+      gt0_txcharisk_in <= probe_out0(1 downto 0);
+    else
+      gt0_txcharisk_in <= "00";
+    end if;
+  end if;	
+end process;
+
+process(GT0_TXUSRCLK2_OUT)
+begin
+  if rising_edge(GT0_TXUSRCLK2_OUT) then
+    if (send_align = '1') then
       if (probe_out0(1) = '1') then
         tx_cnt(15 downto  8) <= x"BC";
       end if;
@@ -362,7 +366,6 @@ begin
     end if;
   end if;	
 end process;
-
 
 
 -- process(GT0_TXUSRCLK2_OUT)
@@ -403,7 +406,7 @@ VIO_i : vio_0
 
 
 probe0 <= tx_cnt;
-probe1 <= "00000000000000" & gt0_txcharisk_in;
+probe1 <= "000000000000" & gt0_txcharisk_in & send_k & send_align;
 
 ILA_0_i : ila_0
 PORT MAP (

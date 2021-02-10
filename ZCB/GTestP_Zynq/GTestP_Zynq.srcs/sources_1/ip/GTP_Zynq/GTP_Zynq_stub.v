@@ -1,10 +1,10 @@
 // Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2019.1 (win64) Build 2552052 Fri May 24 14:49:42 MDT 2019
-// Date        : Thu Nov 19 16:09:52 2020
+// Date        : Mon Nov 23 16:46:09 2020
 // Host        : IITICUBLAP127 running 64-bit major release  (build 9200)
-// Command     : write_verilog -force -mode synth_stub
-//               C:/Progetti/Transceiver_Lab/ZCB/GTestP_Zynq/GTestP_Zynq.srcs/sources_1/ip/GTP_Zynq/GTP_Zynq_stub.v
+// Command     : write_verilog -force -mode synth_stub -rename_top GTP_Zynq -prefix
+//               GTP_Zynq_ GTP_Zynq_stub.v
 // Design      : GTP_Zynq
 // Purpose     : Stub declaration of top-level module interface
 // Device      : xc7z015clg485-1
