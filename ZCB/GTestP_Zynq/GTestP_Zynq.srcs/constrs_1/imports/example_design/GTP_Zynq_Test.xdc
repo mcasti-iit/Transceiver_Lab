@@ -1,3 +1,10 @@
+################################## LINES ##########################
+
+# set_property -dict {PACKAGE_PIN Y12 IOSTANDARD LVCMOS33 PULLUP true} [get_ports LCAM_SDA_io];   # FPGA_L_Slave_CSn - J1.55 
+# set_property -dict {PACKAGE_PIN W16 IOSTANDARD LVCMOS33 PULLUP true} [get_ports LCAM_SCL_io];   # FPGA_L_Slave_SCK - J1.61
+set_property -dict {PACKAGE_PIN V14 IOSTANDARD LVCMOS33 PULLUP true} [get_ports ALIGN_REQ_R_N_o];   # FPGA_R_Slave_CSn - J1.52
+# set_property -dict {PACKAGE_PIN R17 IOSTANDARD LVCMOS33 PULLUP true} [get_ports RCAM_SCL_io];   # FPGA_R_Slave_SCK - J1.46
+
 
 
 ################################## Clock Constraints ##########################

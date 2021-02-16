@@ -29,7 +29,7 @@ entity GTP_Zynq_Test is
     FIXED_IO_0_ps_porb         : inout std_logic;                                
     FIXED_IO_0_ps_srstb        : inout std_logic;                                
     
-    
+    ALIGN_REQ_R_N_o            : out std_logic;
     
     AD9517_REFMON_i            : in std_logic;                                   
     AD9517_STATUS_i            : in std_logic;                                   
@@ -266,7 +266,7 @@ signal rx_err   :  std_logic;
 signal rx_match :  std_logic;
 
 -- *****************************************************************************************
-signal pon_reset_n   :  std_logic;                             -- Power On Reset
+signal pon_reset_n   :  std_logic;                                            -- Power On Reset
 
 signal cpol             : std_logic;                                          -- spi clock polarity
 signal cpha             : std_logic;                                          -- spi clock phase
@@ -285,6 +285,7 @@ signal sdio             :  std_logic;                                         --
 
 
 signal en1ms            : std_logic;
+signal en10ms           : std_logic;
 signal en1s             : std_logic;
 
 signal toggle_1s        : std_logic;
@@ -293,6 +294,7 @@ signal ad9517_pd_n      :  std_logic;
 signal ad9517_sync_n    :  std_logic;    
 signal ad9517_reset_n   :  std_logic; 
 
+signal align_req_r_n   :  std_logic;                                            
 
 -- *****************************************************************************************
 
@@ -366,6 +368,9 @@ signal GT0_PLL1OUTREFCLK_OUT                   : std_logic;
 signal sysclk                                  : std_logic;
 
 
+signal autoreset_en                            : std_logic;
+
+
 -- ------------------------------------------------------------------------
 -- ------------------------------------------------------------------------
 -- VIO
@@ -374,6 +379,8 @@ signal probe_out0         : std_logic_vector(15 downto 0);
 
 -- ILA
 signal probe2             : std_logic_vector(15 downto 0);
+
+signal stretch_a          : std_logic_vector(15 downto 0);
 
 -- ------------------------------------------------------------------------
 
@@ -393,34 +400,29 @@ tied_to_vcc_vec    <= "11111111";
  
     ----------------------------- The GTP -----------------------------
 
-gt0_drpaddr_in       <= (others => '0');
-gt0_drpdi_in         <= (others => '0');
-gt0_drpen_in         <= '0';
-gt0_drpwe_in         <= '0';
+gt0_drpaddr_in          <= (others => '0');
+gt0_drpdi_in            <= (others => '0');
+gt0_drpen_in            <= '0';
+gt0_drpwe_in            <= '0';
 
-gt0_eyescanreset_in  <= '0';
-gt0_rxuserrdy_in     <= '1';
+gt0_eyescanreset_in     <= '0';
+gt0_rxuserrdy_in        <= '1';
 
+gt0_rxlpmhfhold_in      <= '0';
+gt0_rxlpmlfhold_in      <= '0';
 
-process(GT0_RXUSRCLK2_OUT)
-begin
-  if rising_edge(GT0_RXUSRCLK2_OUT) then
-    gt0_rxslide_in_p       <= probe_out0(0);
-    gt0_rxslide_in         <= probe_out0(0) and not gt0_rxslide_in_p;
-  end if;	
-end process;
-
-gt0_rxmcommaalignen_in  <= probe_out0(1);
-gt0_rxpcommaalignen_in  <= probe_out0(2);
+gt0_gttxreset_in        <= '0';
 
 
-gt0_rxlpmhfhold_in   <= '0';
-gt0_rxlpmlfhold_in   <= '0';
 
-gt0_gtrxreset_in     <= '0'; 
-gt0_rxlpmreset_in    <= '0';
-    
-gt0_gttxreset_in     <= '0';
+gt0_rxslide_in          <= '0';    
+
+
+gt0_gtrxreset_in        <= probe_out0(0) or (autoreset_en and rx_match); 
+gt0_rxlpmreset_in       <= probe_out0(0) or (autoreset_en and rx_match);
+gt0_rxmcommaalignen_in  <= '1'; -- probe_out0(1);
+gt0_rxpcommaalignen_in  <= '1'; -- probe_out0(2);
+autoreset_en            <= probe_out0(3);
 
 
 
@@ -525,7 +527,7 @@ PORT MAP (
 
 
 --probe_in0 <= "0000000000000" & GT0_PLL0LOCK_OUT & rx_match & gt0_rxbyteisaligned_out;
-probe_in0 <= "00" & GT0_PLL0LOCK_OUT & gt0_rxchariscomma_out & gt0_rxcharisk_out & gt0_rxdisperr_out & gt0_rxnotintable_out & '0' & gt0_rxbyterealign_out & gt0_rxcommadet_out & gt0_rxbyteisaligned_out & rx_match;
+probe_in0 <= "00" & GT0_PLL0LOCK_OUT & gt0_rxchariscomma_out & gt0_rxcharisk_out & gt0_rxdisperr_out & gt0_rxnotintable_out & '0' & stretch_a(15) & gt0_rxcommadet_out & gt0_rxbyteisaligned_out & rx_match;
 VIO_i : VIO
   PORT MAP (
     clk => GT0_RXUSRCLK2_OUT,
@@ -569,6 +571,24 @@ begin
    end if;
 end process;
 
+-- ----------------------------------------------------
+-- Stretch
+
+process (GT0_RXUSRCLK2_OUT)
+begin
+  if rising_edge(GT0_RXUSRCLK2_OUT) then
+    if (gt0_rxbyterealign_out = '1') then
+      stretch_a <= x"FFFF";
+    else
+      if (en10ms = '1') then 
+        stretch_a <= stretch_a(14 downto 0) & '0'; 
+      end if;
+    end if;
+  end if;
+end process;
+
+
+
 
 rx_cnt_m <= rx_cnt_d + 1;
 
@@ -585,7 +605,17 @@ begin
 end process;
 
 
-
+process (GT0_RXUSRCLK2_OUT)
+begin
+   if rising_edge(GT0_RXUSRCLK2_OUT) then
+      rx_cnt_d <= gt0_rxdata_out;
+   end if; 
+   if (rx_cnt_m = gt0_rxdata_out) then
+      rx_match <= '1';
+   else
+      rx_match <= '0';
+   end if; 
+end process;
 
 -- ------------------------------------------------------------
 -- AD9517
@@ -609,8 +639,8 @@ port map(
   EN1US_o                => open,
   EN10US_o               => open,
   EN100US_o              => open,
-  EN1MS_o                => open,
-  EN10MS_o               => en1ms,
+  EN1MS_o                => en1ms,
+  EN10MS_o               => en10ms,
   EN100MS_o              => open,
   EN1S_o                 => en1s
   );
@@ -684,6 +714,15 @@ begin
   end if;
 end process;
 
+process (GT0_RXUSRCLK2_OUT, pon_reset_n)
+begin
+  if (pon_reset_n = '0') then
+    align_req_r_n <= '1';
+  elsif rising_edge(GT0_RXUSRCLK2_OUT) then
+    align_req_r_n <= not toggle_1s;
+  end if;
+end process;
+
 -- --------------------------------------------------------------------------
 -- OUTPUTS
 
@@ -697,12 +736,13 @@ AD9517_CS_N_o    <= ss_n(0);-- : out STD_LOGIC);
 
 EN_GTP_OSC_o     <= pon_reset_n;
 
+ALIGN_REQ_R_N_o  <= gt0_rxbyteisaligned_out;
 
-LEDS_o(4) <= error(0);  -- RED    
-LEDS_o(3) <= toggle_1s; -- GREEN  
-LEDS_o(2) <= rx_match;  -- BLUE   
-LEDS_o(1) <= '0';       -- PHY 1
-LEDS_o(0) <= '0';       -- PHY 2
+LEDS_o(4) <= error(0);      -- RED    
+LEDS_o(3) <= stretch_a(15); -- GREEN  
+LEDS_o(2) <= rx_match;      -- BLUE   
+LEDS_o(1) <= '0';           -- PHY 1
+LEDS_o(0) <= '0';           -- PHY 2
 
 end RTL;
 

@@ -216,7 +216,7 @@
                                 "portIndex": 2,
                                 "nets": [
                                     {
-                                        "name": "gt0_rxbyterealign_out_1",
+                                        "name": "gt0_rxbyterealign_out",
                                         "isBus": false
                                     }
                                 ]
@@ -376,7 +376,7 @@
                                 "portIndex": 2,
                                 "nets": [
                                     {
-                                        "name": "<const0>_4",
+                                        "name": "<const0>",
                                         "isBus": false
                                     }
                                 ]
@@ -454,8 +454,13 @@
                                 "portIndex": 0,
                                 "nets": [
                                     {
-                                        "name": "gt0_rxbyterealign_out",
-                                        "isBus": false
+                                        "name": "stretch_a_1",
+                                        "isBus": true,
+                                        "subnets": [
+                                            {
+                                                "name": "stretch_a_1[15]"
+                                            }
+                                        ]
                                     }
                                 ]
                             },
@@ -470,8 +475,13 @@
                                 "portIndex": 0,
                                 "nets": [
                                     {
-                                        "name": "<const0>_5",
-                                        "isBus": false
+                                        "name": "stretch_a_2",
+                                        "isBus": true,
+                                        "subnets": [
+                                            {
+                                                "name": "stretch_a_2[4]"
+                                            }
+                                        ]
                                     }
                                 ]
                             },
@@ -594,28 +604,50 @@
                                 "direction": "IN",
                                 "isVector": true,
                                 "leftIndex": 14,
-                                "rightIndex": 14,
-                                "portIndex": 0,
-                                "nets": [
-                                    {
-                                        "name": "<const0>_6",
-                                        "isBus": false
-                                    }
-                                ]
-                            },
-                            {
-                                "name": "probe_in0",
-                                "id": 25,
-                                "type": "DATA",
-                                "direction": "IN",
-                                "isVector": true,
-                                "leftIndex": 15,
                                 "rightIndex": 15,
                                 "portIndex": 0,
                                 "nets": [
                                     {
-                                        "name": "<const0>",
-                                        "isBus": false
+                                        "name": "stretch_a",
+                                        "isBus": true,
+                                        "subnets": [
+                                            {
+                                                "name": "stretch_a[15]"
+                                            },
+                                            {
+                                                "name": "stretch_a[14]"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "name": "probe_out0",
+                                "id": 25,
+                                "type": "DATA",
+                                "direction": "OUT",
+                                "isVector": true,
+                                "leftIndex": 0,
+                                "rightIndex": 3,
+                                "portIndex": 0,
+                                "nets": [
+                                    {
+                                        "name": "probe_out0",
+                                        "isBus": true,
+                                        "subnets": [
+                                            {
+                                                "name": "probe_out0[3]"
+                                            },
+                                            {
+                                                "name": "probe_out0[2]"
+                                            },
+                                            {
+                                                "name": "probe_out0[1]"
+                                            },
+                                            {
+                                                "name": "probe_out0[0]"
+                                            }
+                                        ]
                                     }
                                 ]
                             },
@@ -625,47 +657,7 @@
                                 "type": "DATA",
                                 "direction": "OUT",
                                 "isVector": true,
-                                "leftIndex": 0,
-                                "rightIndex": 0,
-                                "portIndex": 0,
-                                "nets": [
-                                    {
-                                        "name": "VIO_i/probe_out0[0]",
-                                        "isBus": false
-                                    }
-                                ]
-                            },
-                            {
-                                "name": "probe_out0",
-                                "id": 27,
-                                "type": "DATA",
-                                "direction": "OUT",
-                                "isVector": true,
-                                "leftIndex": 1,
-                                "rightIndex": 2,
-                                "portIndex": 0,
-                                "nets": [
-                                    {
-                                        "name": "probe_out0",
-                                        "isBus": true,
-                                        "subnets": [
-                                            {
-                                                "name": "probe_out0[2]"
-                                            },
-                                            {
-                                                "name": "probe_out0[1]"
-                                            }
-                                        ]
-                                    }
-                                ]
-                            },
-                            {
-                                "name": "probe_out0",
-                                "id": 28,
-                                "type": "DATA",
-                                "direction": "OUT",
-                                "isVector": true,
-                                "leftIndex": 3,
+                                "leftIndex": 4,
                                 "rightIndex": 15,
                                 "portIndex": 0,
                                 "nets": [
@@ -715,10 +707,6 @@
                                     },
                                     {
                                         "name": "VIO_i/probe_out0[4]",
-                                        "isBus": false
-                                    },
-                                    {
-                                        "name": "VIO_i/probe_out0[3]",
                                         "isBus": false
                                     }
                                 ]

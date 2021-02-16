@@ -1,11 +1,11 @@
 -- Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2019.1 (win64) Build 2552052 Fri May 24 14:49:42 MDT 2019
--- Date        : Thu Nov 26 14:31:48 2020
+-- Date        : Mon Feb 15 16:04:36 2021
 -- Host        : IITICUBLAP127 running 64-bit major release  (build 9200)
--- Command     : write_vhdl -force -mode funcsim
---               c:/Progetti/Transceiver_Lab/CCAM3/GTestP_Artix/GTestP_Artix.srcs/sources_1/ip/GTP_SYNC_FIFO/GTP_SYNC_FIFO_sim_netlist.vhdl
--- Design      : GTP_SYNC_FIFO
+-- Command     : write_vhdl -force -mode funcsim -rename_top GTP_SYNC_FIFO -prefix
+--               GTP_SYNC_FIFO_ fifo_generator_0_sim_netlist.vhdl
+-- Design      : fifo_generator_0
 -- Purpose     : This VHDL netlist is a functional simulation representation of the design and should not be modified or
 --               synthesized. This netlist cannot be used for SDF annotated simulation.
 -- Device      : xc7a50tcpg236-1
@@ -28,8 +28,6 @@ entity GTP_SYNC_FIFO_xpm_cdc_async_rst is
   attribute INIT_SYNC_FF of GTP_SYNC_FIFO_xpm_cdc_async_rst : entity is 0;
   attribute INV_DEF_VAL : string;
   attribute INV_DEF_VAL of GTP_SYNC_FIFO_xpm_cdc_async_rst : entity is "1'b1";
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of GTP_SYNC_FIFO_xpm_cdc_async_rst : entity is "xpm_cdc_async_rst";
   attribute RST_ACTIVE_HIGH : integer;
   attribute RST_ACTIVE_HIGH of GTP_SYNC_FIFO_xpm_cdc_async_rst : entity is 1;
   attribute VERSION : integer;
@@ -162,11 +160,9 @@ entity GTP_SYNC_FIFO_xpm_cdc_gray is
     dest_out_bin : out STD_LOGIC_VECTOR ( 3 downto 0 )
   );
   attribute DEST_SYNC_FF : integer;
-  attribute DEST_SYNC_FF of GTP_SYNC_FIFO_xpm_cdc_gray : entity is 2;
+  attribute DEST_SYNC_FF of GTP_SYNC_FIFO_xpm_cdc_gray : entity is 3;
   attribute INIT_SYNC_FF : integer;
   attribute INIT_SYNC_FF of GTP_SYNC_FIFO_xpm_cdc_gray : entity is 0;
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of GTP_SYNC_FIFO_xpm_cdc_gray : entity is "xpm_cdc_gray";
   attribute REG_OUTPUT : integer;
   attribute REG_OUTPUT of GTP_SYNC_FIFO_xpm_cdc_gray : entity is 1;
   attribute SIM_ASSERT_CHK : integer;
@@ -196,6 +192,10 @@ architecture STRUCTURE of GTP_SYNC_FIFO_xpm_cdc_gray is
   attribute RTL_KEEP of \dest_graysync_ff[1]\ : signal is "true";
   attribute async_reg of \dest_graysync_ff[1]\ : signal is "true";
   attribute xpm_cdc of \dest_graysync_ff[1]\ : signal is "GRAY";
+  signal \dest_graysync_ff[2]\ : STD_LOGIC_VECTOR ( 3 downto 0 );
+  attribute RTL_KEEP of \dest_graysync_ff[2]\ : signal is "true";
+  attribute async_reg of \dest_graysync_ff[2]\ : signal is "true";
+  attribute xpm_cdc of \dest_graysync_ff[2]\ : signal is "GRAY";
   signal gray_enc : STD_LOGIC_VECTOR ( 2 downto 0 );
   attribute ASYNC_REG_boolean : boolean;
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[0][0]\ : label is std.standard.true;
@@ -223,6 +223,18 @@ architecture STRUCTURE of GTP_SYNC_FIFO_xpm_cdc_gray is
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[1][3]\ : label is std.standard.true;
   attribute KEEP of \dest_graysync_ff_reg[1][3]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[1][3]\ : label is "GRAY";
+  attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[2][0]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[2][0]\ : label is "true";
+  attribute XPM_CDC of \dest_graysync_ff_reg[2][0]\ : label is "GRAY";
+  attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[2][1]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[2][1]\ : label is "true";
+  attribute XPM_CDC of \dest_graysync_ff_reg[2][1]\ : label is "GRAY";
+  attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[2][2]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[2][2]\ : label is "true";
+  attribute XPM_CDC of \dest_graysync_ff_reg[2][2]\ : label is "GRAY";
+  attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[2][3]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[2][3]\ : label is "true";
+  attribute XPM_CDC of \dest_graysync_ff_reg[2][3]\ : label is "GRAY";
   attribute SOFT_HLUTNM : string;
   attribute SOFT_HLUTNM of \src_gray_ff[0]_i_1\ : label is "soft_lutpair1";
   attribute SOFT_HLUTNM of \src_gray_ff[1]_i_1\ : label is "soft_lutpair1";
@@ -291,15 +303,47 @@ begin
       Q => \dest_graysync_ff[1]\(3),
       R => '0'
     );
+\dest_graysync_ff_reg[2][0]\: unisim.vcomponents.FDRE
+     port map (
+      C => dest_clk,
+      CE => '1',
+      D => \dest_graysync_ff[1]\(0),
+      Q => \dest_graysync_ff[2]\(0),
+      R => '0'
+    );
+\dest_graysync_ff_reg[2][1]\: unisim.vcomponents.FDRE
+     port map (
+      C => dest_clk,
+      CE => '1',
+      D => \dest_graysync_ff[1]\(1),
+      Q => \dest_graysync_ff[2]\(1),
+      R => '0'
+    );
+\dest_graysync_ff_reg[2][2]\: unisim.vcomponents.FDRE
+     port map (
+      C => dest_clk,
+      CE => '1',
+      D => \dest_graysync_ff[1]\(2),
+      Q => \dest_graysync_ff[2]\(2),
+      R => '0'
+    );
+\dest_graysync_ff_reg[2][3]\: unisim.vcomponents.FDRE
+     port map (
+      C => dest_clk,
+      CE => '1',
+      D => \dest_graysync_ff[1]\(3),
+      Q => \dest_graysync_ff[2]\(3),
+      R => '0'
+    );
 \dest_out_bin_ff[0]_i_1\: unisim.vcomponents.LUT4
     generic map(
       INIT => X"6996"
     )
         port map (
-      I0 => \dest_graysync_ff[1]\(0),
-      I1 => \dest_graysync_ff[1]\(2),
-      I2 => \dest_graysync_ff[1]\(3),
-      I3 => \dest_graysync_ff[1]\(1),
+      I0 => \dest_graysync_ff[2]\(0),
+      I1 => \dest_graysync_ff[2]\(2),
+      I2 => \dest_graysync_ff[2]\(3),
+      I3 => \dest_graysync_ff[2]\(1),
       O => binval(0)
     );
 \dest_out_bin_ff[1]_i_1\: unisim.vcomponents.LUT3
@@ -307,9 +351,9 @@ begin
       INIT => X"96"
     )
         port map (
-      I0 => \dest_graysync_ff[1]\(1),
-      I1 => \dest_graysync_ff[1]\(3),
-      I2 => \dest_graysync_ff[1]\(2),
+      I0 => \dest_graysync_ff[2]\(1),
+      I1 => \dest_graysync_ff[2]\(3),
+      I2 => \dest_graysync_ff[2]\(2),
       O => binval(1)
     );
 \dest_out_bin_ff[2]_i_1\: unisim.vcomponents.LUT2
@@ -317,8 +361,8 @@ begin
       INIT => X"6"
     )
         port map (
-      I0 => \dest_graysync_ff[1]\(2),
-      I1 => \dest_graysync_ff[1]\(3),
+      I0 => \dest_graysync_ff[2]\(2),
+      I1 => \dest_graysync_ff[2]\(3),
       O => binval(2)
     );
 \dest_out_bin_ff_reg[0]\: unisim.vcomponents.FDRE
@@ -349,7 +393,7 @@ begin
      port map (
       C => dest_clk,
       CE => '1',
-      D => \dest_graysync_ff[1]\(3),
+      D => \dest_graysync_ff[2]\(3),
       Q => dest_out_bin(3),
       R => '0'
     );
@@ -425,7 +469,7 @@ entity \GTP_SYNC_FIFO_xpm_cdc_gray__2\ is
     dest_out_bin : out STD_LOGIC_VECTOR ( 3 downto 0 )
   );
   attribute DEST_SYNC_FF : integer;
-  attribute DEST_SYNC_FF of \GTP_SYNC_FIFO_xpm_cdc_gray__2\ : entity is 2;
+  attribute DEST_SYNC_FF of \GTP_SYNC_FIFO_xpm_cdc_gray__2\ : entity is 3;
   attribute INIT_SYNC_FF : integer;
   attribute INIT_SYNC_FF of \GTP_SYNC_FIFO_xpm_cdc_gray__2\ : entity is 0;
   attribute ORIG_REF_NAME : string;
@@ -459,6 +503,10 @@ architecture STRUCTURE of \GTP_SYNC_FIFO_xpm_cdc_gray__2\ is
   attribute RTL_KEEP of \dest_graysync_ff[1]\ : signal is "true";
   attribute async_reg of \dest_graysync_ff[1]\ : signal is "true";
   attribute xpm_cdc of \dest_graysync_ff[1]\ : signal is "GRAY";
+  signal \dest_graysync_ff[2]\ : STD_LOGIC_VECTOR ( 3 downto 0 );
+  attribute RTL_KEEP of \dest_graysync_ff[2]\ : signal is "true";
+  attribute async_reg of \dest_graysync_ff[2]\ : signal is "true";
+  attribute xpm_cdc of \dest_graysync_ff[2]\ : signal is "GRAY";
   signal gray_enc : STD_LOGIC_VECTOR ( 2 downto 0 );
   attribute ASYNC_REG_boolean : boolean;
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[0][0]\ : label is std.standard.true;
@@ -486,6 +534,18 @@ architecture STRUCTURE of \GTP_SYNC_FIFO_xpm_cdc_gray__2\ is
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[1][3]\ : label is std.standard.true;
   attribute KEEP of \dest_graysync_ff_reg[1][3]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[1][3]\ : label is "GRAY";
+  attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[2][0]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[2][0]\ : label is "true";
+  attribute XPM_CDC of \dest_graysync_ff_reg[2][0]\ : label is "GRAY";
+  attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[2][1]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[2][1]\ : label is "true";
+  attribute XPM_CDC of \dest_graysync_ff_reg[2][1]\ : label is "GRAY";
+  attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[2][2]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[2][2]\ : label is "true";
+  attribute XPM_CDC of \dest_graysync_ff_reg[2][2]\ : label is "GRAY";
+  attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[2][3]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[2][3]\ : label is "true";
+  attribute XPM_CDC of \dest_graysync_ff_reg[2][3]\ : label is "GRAY";
   attribute SOFT_HLUTNM : string;
   attribute SOFT_HLUTNM of \src_gray_ff[0]_i_1\ : label is "soft_lutpair0";
   attribute SOFT_HLUTNM of \src_gray_ff[1]_i_1\ : label is "soft_lutpair0";
@@ -554,15 +614,47 @@ begin
       Q => \dest_graysync_ff[1]\(3),
       R => '0'
     );
+\dest_graysync_ff_reg[2][0]\: unisim.vcomponents.FDRE
+     port map (
+      C => dest_clk,
+      CE => '1',
+      D => \dest_graysync_ff[1]\(0),
+      Q => \dest_graysync_ff[2]\(0),
+      R => '0'
+    );
+\dest_graysync_ff_reg[2][1]\: unisim.vcomponents.FDRE
+     port map (
+      C => dest_clk,
+      CE => '1',
+      D => \dest_graysync_ff[1]\(1),
+      Q => \dest_graysync_ff[2]\(1),
+      R => '0'
+    );
+\dest_graysync_ff_reg[2][2]\: unisim.vcomponents.FDRE
+     port map (
+      C => dest_clk,
+      CE => '1',
+      D => \dest_graysync_ff[1]\(2),
+      Q => \dest_graysync_ff[2]\(2),
+      R => '0'
+    );
+\dest_graysync_ff_reg[2][3]\: unisim.vcomponents.FDRE
+     port map (
+      C => dest_clk,
+      CE => '1',
+      D => \dest_graysync_ff[1]\(3),
+      Q => \dest_graysync_ff[2]\(3),
+      R => '0'
+    );
 \dest_out_bin_ff[0]_i_1\: unisim.vcomponents.LUT4
     generic map(
       INIT => X"6996"
     )
         port map (
-      I0 => \dest_graysync_ff[1]\(0),
-      I1 => \dest_graysync_ff[1]\(2),
-      I2 => \dest_graysync_ff[1]\(3),
-      I3 => \dest_graysync_ff[1]\(1),
+      I0 => \dest_graysync_ff[2]\(0),
+      I1 => \dest_graysync_ff[2]\(2),
+      I2 => \dest_graysync_ff[2]\(3),
+      I3 => \dest_graysync_ff[2]\(1),
       O => binval(0)
     );
 \dest_out_bin_ff[1]_i_1\: unisim.vcomponents.LUT3
@@ -570,9 +662,9 @@ begin
       INIT => X"96"
     )
         port map (
-      I0 => \dest_graysync_ff[1]\(1),
-      I1 => \dest_graysync_ff[1]\(3),
-      I2 => \dest_graysync_ff[1]\(2),
+      I0 => \dest_graysync_ff[2]\(1),
+      I1 => \dest_graysync_ff[2]\(3),
+      I2 => \dest_graysync_ff[2]\(2),
       O => binval(1)
     );
 \dest_out_bin_ff[2]_i_1\: unisim.vcomponents.LUT2
@@ -580,8 +672,8 @@ begin
       INIT => X"6"
     )
         port map (
-      I0 => \dest_graysync_ff[1]\(2),
-      I1 => \dest_graysync_ff[1]\(3),
+      I0 => \dest_graysync_ff[2]\(2),
+      I1 => \dest_graysync_ff[2]\(3),
       O => binval(2)
     );
 \dest_out_bin_ff_reg[0]\: unisim.vcomponents.FDRE
@@ -612,7 +704,7 @@ begin
      port map (
       C => dest_clk,
       CE => '1',
-      D => \dest_graysync_ff[1]\(3),
+      D => \dest_graysync_ff[2]\(3),
       Q => dest_out_bin(3),
       R => '0'
     );
@@ -688,11 +780,9 @@ entity GTP_SYNC_FIFO_xpm_cdc_single is
     dest_out : out STD_LOGIC
   );
   attribute DEST_SYNC_FF : integer;
-  attribute DEST_SYNC_FF of GTP_SYNC_FIFO_xpm_cdc_single : entity is 4;
+  attribute DEST_SYNC_FF of GTP_SYNC_FIFO_xpm_cdc_single : entity is 5;
   attribute INIT_SYNC_FF : integer;
   attribute INIT_SYNC_FF of GTP_SYNC_FIFO_xpm_cdc_single : entity is 0;
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of GTP_SYNC_FIFO_xpm_cdc_single : entity is "xpm_cdc_single";
   attribute SIM_ASSERT_CHK : integer;
   attribute SIM_ASSERT_CHK of GTP_SYNC_FIFO_xpm_cdc_single : entity is 0;
   attribute SRC_INPUT_REG : integer;
@@ -706,7 +796,7 @@ entity GTP_SYNC_FIFO_xpm_cdc_single is
 end GTP_SYNC_FIFO_xpm_cdc_single;
 
 architecture STRUCTURE of GTP_SYNC_FIFO_xpm_cdc_single is
-  signal syncstages_ff : STD_LOGIC_VECTOR ( 3 downto 0 );
+  signal syncstages_ff : STD_LOGIC_VECTOR ( 4 downto 0 );
   attribute RTL_KEEP : string;
   attribute RTL_KEEP of syncstages_ff : signal is "true";
   attribute async_reg : string;
@@ -726,8 +816,11 @@ architecture STRUCTURE of GTP_SYNC_FIFO_xpm_cdc_single is
   attribute ASYNC_REG_boolean of \syncstages_ff_reg[3]\ : label is std.standard.true;
   attribute KEEP of \syncstages_ff_reg[3]\ : label is "true";
   attribute XPM_CDC of \syncstages_ff_reg[3]\ : label is "SINGLE";
+  attribute ASYNC_REG_boolean of \syncstages_ff_reg[4]\ : label is std.standard.true;
+  attribute KEEP of \syncstages_ff_reg[4]\ : label is "true";
+  attribute XPM_CDC of \syncstages_ff_reg[4]\ : label is "SINGLE";
 begin
-  dest_out <= syncstages_ff(3);
+  dest_out <= syncstages_ff(4);
 \syncstages_ff_reg[0]\: unisim.vcomponents.FDRE
      port map (
       C => dest_clk,
@@ -760,6 +853,14 @@ begin
       Q => syncstages_ff(3),
       R => '0'
     );
+\syncstages_ff_reg[4]\: unisim.vcomponents.FDRE
+     port map (
+      C => dest_clk,
+      CE => '1',
+      D => syncstages_ff(3),
+      Q => syncstages_ff(4),
+      R => '0'
+    );
 end STRUCTURE;
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
@@ -773,7 +874,7 @@ entity \GTP_SYNC_FIFO_xpm_cdc_single__2\ is
     dest_out : out STD_LOGIC
   );
   attribute DEST_SYNC_FF : integer;
-  attribute DEST_SYNC_FF of \GTP_SYNC_FIFO_xpm_cdc_single__2\ : entity is 4;
+  attribute DEST_SYNC_FF of \GTP_SYNC_FIFO_xpm_cdc_single__2\ : entity is 5;
   attribute INIT_SYNC_FF : integer;
   attribute INIT_SYNC_FF of \GTP_SYNC_FIFO_xpm_cdc_single__2\ : entity is 0;
   attribute ORIG_REF_NAME : string;
@@ -791,7 +892,7 @@ entity \GTP_SYNC_FIFO_xpm_cdc_single__2\ is
 end \GTP_SYNC_FIFO_xpm_cdc_single__2\;
 
 architecture STRUCTURE of \GTP_SYNC_FIFO_xpm_cdc_single__2\ is
-  signal syncstages_ff : STD_LOGIC_VECTOR ( 3 downto 0 );
+  signal syncstages_ff : STD_LOGIC_VECTOR ( 4 downto 0 );
   attribute RTL_KEEP : string;
   attribute RTL_KEEP of syncstages_ff : signal is "true";
   attribute async_reg : string;
@@ -811,8 +912,11 @@ architecture STRUCTURE of \GTP_SYNC_FIFO_xpm_cdc_single__2\ is
   attribute ASYNC_REG_boolean of \syncstages_ff_reg[3]\ : label is std.standard.true;
   attribute KEEP of \syncstages_ff_reg[3]\ : label is "true";
   attribute XPM_CDC of \syncstages_ff_reg[3]\ : label is "SINGLE";
+  attribute ASYNC_REG_boolean of \syncstages_ff_reg[4]\ : label is std.standard.true;
+  attribute KEEP of \syncstages_ff_reg[4]\ : label is "true";
+  attribute XPM_CDC of \syncstages_ff_reg[4]\ : label is "SINGLE";
 begin
-  dest_out <= syncstages_ff(3);
+  dest_out <= syncstages_ff(4);
 \syncstages_ff_reg[0]\: unisim.vcomponents.FDRE
      port map (
       C => dest_clk,
@@ -843,6 +947,14 @@ begin
       CE => '1',
       D => syncstages_ff(2),
       Q => syncstages_ff(3),
+      R => '0'
+    );
+\syncstages_ff_reg[4]\: unisim.vcomponents.FDRE
+     port map (
+      C => dest_clk,
+      CE => '1',
+      D => syncstages_ff(3),
+      Q => syncstages_ff(4),
       R => '0'
     );
 end STRUCTURE;
@@ -862,8 +974,6 @@ entity GTP_SYNC_FIFO_dmem is
     rd_clk : in STD_LOGIC;
     AR : in STD_LOGIC_VECTOR ( 0 to 0 )
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of GTP_SYNC_FIFO_dmem : entity is "dmem";
 end GTP_SYNC_FIFO_dmem;
 
 architecture STRUCTURE of GTP_SYNC_FIFO_dmem is
@@ -1428,8 +1538,6 @@ entity GTP_SYNC_FIFO_rd_bin_cntr is
     rd_clk : in STD_LOGIC;
     AR : in STD_LOGIC_VECTOR ( 0 to 0 )
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of GTP_SYNC_FIFO_rd_bin_cntr : entity is "rd_bin_cntr";
 end GTP_SYNC_FIFO_rd_bin_cntr;
 
 architecture STRUCTURE of GTP_SYNC_FIFO_rd_bin_cntr is
@@ -1611,6 +1719,7 @@ use UNISIM.VCOMPONENTS.ALL;
 entity GTP_SYNC_FIFO_rd_fwft is
   port (
     empty : out STD_LOGIC;
+    valid : out STD_LOGIC;
     E : out STD_LOGIC_VECTOR ( 0 to 0 );
     \gpregsm1.curr_fwft_state_reg[1]_0\ : out STD_LOGIC;
     \gpregsm1.curr_fwft_state_reg[1]_1\ : out STD_LOGIC_VECTOR ( 0 to 0 );
@@ -1621,8 +1730,6 @@ entity GTP_SYNC_FIFO_rd_fwft is
     WR_PNTR_RD : in STD_LOGIC_VECTOR ( 0 to 0 );
     Q : in STD_LOGIC_VECTOR ( 0 to 0 )
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of GTP_SYNC_FIFO_rd_fwft : entity is "rd_fwft";
 end GTP_SYNC_FIFO_rd_fwft;
 
 architecture STRUCTURE of GTP_SYNC_FIFO_rd_fwft is
@@ -1673,6 +1780,7 @@ architecture STRUCTURE of GTP_SYNC_FIFO_rd_fwft is
   attribute equivalent_register_removal of \gpregsm1.user_valid_reg\ : label is "no";
 begin
   empty <= empty_fwft_i;
+  valid <= user_valid;
 aempty_fwft_fb_i_i_1: unisim.vcomponents.LUT5
     generic map(
       INIT => X"EF80EB00"
@@ -1862,8 +1970,6 @@ entity GTP_SYNC_FIFO_rd_status_flags_as is
     rd_clk : in STD_LOGIC;
     AR : in STD_LOGIC_VECTOR ( 0 to 0 )
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of GTP_SYNC_FIFO_rd_status_flags_as : entity is "rd_status_flags_as";
 end GTP_SYNC_FIFO_rd_status_flags_as;
 
 architecture STRUCTURE of GTP_SYNC_FIFO_rd_status_flags_as is
@@ -1922,8 +2028,6 @@ entity GTP_SYNC_FIFO_wr_bin_cntr is
     wr_clk : in STD_LOGIC;
     AR : in STD_LOGIC_VECTOR ( 0 to 0 )
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of GTP_SYNC_FIFO_wr_bin_cntr : entity is "wr_bin_cntr";
 end GTP_SYNC_FIFO_wr_bin_cntr;
 
 architecture STRUCTURE of GTP_SYNC_FIFO_wr_bin_cntr is
@@ -2137,9 +2241,36 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
+entity GTP_SYNC_FIFO_wr_handshaking_flags is
+  port (
+    overflow : out STD_LOGIC;
+    \gof.gof1.overflow_i_reg_0\ : in STD_LOGIC;
+    wr_clk : in STD_LOGIC
+  );
+end GTP_SYNC_FIFO_wr_handshaking_flags;
+
+architecture STRUCTURE of GTP_SYNC_FIFO_wr_handshaking_flags is
+begin
+\gof.gof1.overflow_i_reg\: unisim.vcomponents.FDRE
+    generic map(
+      INIT => '0'
+    )
+        port map (
+      C => wr_clk,
+      CE => '1',
+      D => \gof.gof1.overflow_i_reg_0\,
+      Q => overflow,
+      R => '0'
+    );
+end STRUCTURE;
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+library UNISIM;
+use UNISIM.VCOMPONENTS.ALL;
 entity GTP_SYNC_FIFO_wr_status_flags_as is
   port (
     full : out STD_LOGIC;
+    FULL_FB : out STD_LOGIC;
     ram_full_fb_i_reg_0 : out STD_LOGIC;
     E : out STD_LOGIC_VECTOR ( 0 to 0 );
     ram_full_i_reg_0 : in STD_LOGIC;
@@ -2149,8 +2280,6 @@ entity GTP_SYNC_FIFO_wr_status_flags_as is
     Q : in STD_LOGIC_VECTOR ( 0 to 0 );
     RD_PNTR_WR : in STD_LOGIC_VECTOR ( 0 to 0 )
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of GTP_SYNC_FIFO_wr_status_flags_as : entity is "wr_status_flags_as";
 end GTP_SYNC_FIFO_wr_status_flags_as;
 
 architecture STRUCTURE of GTP_SYNC_FIFO_wr_status_flags_as is
@@ -2168,6 +2297,7 @@ architecture STRUCTURE of GTP_SYNC_FIFO_wr_status_flags_as is
   attribute KEEP of ram_full_i_reg : label is "yes";
   attribute equivalent_register_removal of ram_full_i_reg : label is "no";
 begin
+  FULL_FB <= ram_full_fb_i;
   full <= ram_full_i;
 \gic0.gc0.count_d1[3]_i_1\: unisim.vcomponents.LUT2
     generic map(
@@ -2229,15 +2359,13 @@ entity GTP_SYNC_FIFO_clk_x_pntrs is
     rd_clk : in STD_LOGIC;
     \src_gray_ff_reg[3]_0\ : in STD_LOGIC_VECTOR ( 3 downto 0 )
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of GTP_SYNC_FIFO_clk_x_pntrs : entity is "clk_x_pntrs";
 end GTP_SYNC_FIFO_clk_x_pntrs;
 
 architecture STRUCTURE of GTP_SYNC_FIFO_clk_x_pntrs is
   signal \^rd_pntr_wr\ : STD_LOGIC_VECTOR ( 3 downto 0 );
   signal \^wr_pntr_rd\ : STD_LOGIC_VECTOR ( 3 downto 0 );
   attribute DEST_SYNC_FF : integer;
-  attribute DEST_SYNC_FF of rd_pntr_cdc_inst : label is 2;
+  attribute DEST_SYNC_FF of rd_pntr_cdc_inst : label is 3;
   attribute INIT_SYNC_FF : integer;
   attribute INIT_SYNC_FF of rd_pntr_cdc_inst : label is 0;
   attribute REG_OUTPUT : integer;
@@ -2254,7 +2382,7 @@ architecture STRUCTURE of GTP_SYNC_FIFO_clk_x_pntrs is
   attribute XPM_CDC of rd_pntr_cdc_inst : label is "GRAY";
   attribute XPM_MODULE : string;
   attribute XPM_MODULE of rd_pntr_cdc_inst : label is "TRUE";
-  attribute DEST_SYNC_FF of wr_pntr_cdc_inst : label is 2;
+  attribute DEST_SYNC_FF of wr_pntr_cdc_inst : label is 3;
   attribute INIT_SYNC_FF of wr_pntr_cdc_inst : label is 0;
   attribute REG_OUTPUT of wr_pntr_cdc_inst : label is 1;
   attribute SIM_ASSERT_CHK of wr_pntr_cdc_inst : label is 0;
@@ -2324,8 +2452,6 @@ entity GTP_SYNC_FIFO_memory is
     AR : in STD_LOGIC_VECTOR ( 0 to 0 );
     \goreg_dm.dout_i_reg[31]_0\ : in STD_LOGIC_VECTOR ( 0 to 0 )
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of GTP_SYNC_FIFO_memory : entity is "memory";
 end GTP_SYNC_FIFO_memory;
 
 architecture STRUCTURE of GTP_SYNC_FIFO_memory is
@@ -2703,6 +2829,7 @@ use UNISIM.VCOMPONENTS.ALL;
 entity GTP_SYNC_FIFO_rd_logic is
   port (
     empty : out STD_LOGIC;
+    valid : out STD_LOGIC;
     E : out STD_LOGIC_VECTOR ( 0 to 0 );
     Q : out STD_LOGIC_VECTOR ( 2 downto 0 );
     \gpregsm1.curr_fwft_state_reg[1]\ : out STD_LOGIC_VECTOR ( 0 to 0 );
@@ -2713,13 +2840,11 @@ entity GTP_SYNC_FIFO_rd_logic is
     ram_empty_i_reg : in STD_LOGIC;
     WR_PNTR_RD : in STD_LOGIC_VECTOR ( 3 downto 0 )
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of GTP_SYNC_FIFO_rd_logic : entity is "rd_logic";
 end GTP_SYNC_FIFO_rd_logic;
 
 architecture STRUCTURE of GTP_SYNC_FIFO_rd_logic is
   signal \^gpregsm1.curr_fwft_state_reg[1]\ : STD_LOGIC_VECTOR ( 0 to 0 );
-  signal \gr1.gr1_int.rfwft_n_2\ : STD_LOGIC;
+  signal \gr1.gr1_int.rfwft_n_3\ : STD_LOGIC;
   signal p_2_out : STD_LOGIC;
   signal rd_pntr_plus1 : STD_LOGIC_VECTOR ( 3 to 3 );
   signal rpntr_n_0 : STD_LOGIC;
@@ -2732,11 +2857,12 @@ begin
       Q(0) => rd_pntr_plus1(3),
       WR_PNTR_RD(0) => WR_PNTR_RD(3),
       empty => empty,
-      \gpregsm1.curr_fwft_state_reg[1]_0\ => \gr1.gr1_int.rfwft_n_2\,
+      \gpregsm1.curr_fwft_state_reg[1]_0\ => \gr1.gr1_int.rfwft_n_3\,
       \gpregsm1.curr_fwft_state_reg[1]_1\(0) => \^gpregsm1.curr_fwft_state_reg[1]\(0),
       \out\ => p_2_out,
       rd_clk => rd_clk,
-      rd_en => rd_en
+      rd_en => rd_en,
+      valid => valid
     );
 \gras.rsts\: entity work.GTP_SYNC_FIFO_rd_status_flags_as
      port map (
@@ -2755,7 +2881,7 @@ rpntr: entity work.GTP_SYNC_FIFO_rd_bin_cntr
       \gc0.count_d1_reg[2]_0\ => rpntr_n_0,
       \gc0.count_d1_reg[3]_0\(3 downto 0) => \gc0.count_d1_reg[3]\(3 downto 0),
       ram_empty_i_reg => ram_empty_i_reg,
-      ram_empty_i_reg_0 => \gr1.gr1_int.rfwft_n_2\,
+      ram_empty_i_reg_0 => \gr1.gr1_int.rfwft_n_3\,
       rd_clk => rd_clk
     );
 end STRUCTURE;
@@ -2769,13 +2895,14 @@ entity GTP_SYNC_FIFO_reset_blk_ramfifo is
     \ngwrdrst.grst.g7serrst.gnsckt_wrst.gic_rst.sckt_rd_rst_ic_reg_0\ : out STD_LOGIC_VECTOR ( 0 to 0 );
     \out\ : out STD_LOGIC;
     \grstd1.grst_full.grst_f.rst_d3_reg_0\ : out STD_LOGIC;
-    wr_rst_busy : out STD_LOGIC;
+    \ngwrdrst.grst.g7serrst.gnsckt_wrst.gic_rst.wr_rst_busy_i_reg_0\ : out STD_LOGIC;
+    \ngwrdrst.grst.g7serrst.gnsckt_wrst.gic_rst.wr_rst_busy_i_reg_1\ : out STD_LOGIC;
     rst : in STD_LOGIC;
     wr_clk : in STD_LOGIC;
-    rd_clk : in STD_LOGIC
+    rd_clk : in STD_LOGIC;
+    FULL_FB : in STD_LOGIC;
+    wr_en : in STD_LOGIC
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of GTP_SYNC_FIFO_reset_blk_ramfifo : entity is "reset_blk_ramfifo";
 end GTP_SYNC_FIFO_reset_blk_ramfifo;
 
 architecture STRUCTURE of GTP_SYNC_FIFO_reset_blk_ramfifo is
@@ -2786,6 +2913,7 @@ architecture STRUCTURE of GTP_SYNC_FIFO_reset_blk_ramfifo is
   signal \^ngwrdrst.grst.g7serrst.gnsckt_wrst.gic_rst.sckt_rd_rst_ic_reg_0\ : STD_LOGIC_VECTOR ( 0 to 0 );
   signal \ngwrdrst.grst.g7serrst.gnsckt_wrst.gic_rst.sckt_wr_rst_ic_i_1_n_0\ : STD_LOGIC;
   signal \ngwrdrst.grst.g7serrst.gnsckt_wrst.gic_rst.wr_rst_busy_i_i_1_n_0\ : STD_LOGIC;
+  signal \^ngwrdrst.grst.g7serrst.gnsckt_wrst.gic_rst.wr_rst_busy_i_reg_0\ : STD_LOGIC;
   signal rd_rst_wr_ext : STD_LOGIC_VECTOR ( 3 downto 0 );
   signal rst_d1 : STD_LOGIC;
   attribute async_reg : string;
@@ -2805,7 +2933,6 @@ architecture STRUCTURE of GTP_SYNC_FIFO_reset_blk_ramfifo is
   attribute async_reg of rst_wr_reg2 : signal is "true";
   attribute msgon of rst_wr_reg2 : signal is "true";
   signal sckt_rd_rst_wr : STD_LOGIC;
-  signal \^wr_rst_busy\ : STD_LOGIC;
   signal wr_rst_rd_ext : STD_LOGIC_VECTOR ( 1 downto 0 );
   attribute ASYNC_REG_boolean : boolean;
   attribute ASYNC_REG_boolean of \grstd1.grst_full.grst_f.rst_d1_reg\ : label is std.standard.true;
@@ -2834,7 +2961,7 @@ architecture STRUCTURE of GTP_SYNC_FIFO_reset_blk_ramfifo is
   attribute XPM_CDC of \ngwrdrst.grst.g7serrst.gnsckt_wrst.gic_rst.rst_rd_reg2_inst\ : label is "ASYNC_RST";
   attribute XPM_MODULE : string;
   attribute XPM_MODULE of \ngwrdrst.grst.g7serrst.gnsckt_wrst.gic_rst.rst_rd_reg2_inst\ : label is "TRUE";
-  attribute DEST_SYNC_FF of \ngwrdrst.grst.g7serrst.gnsckt_wrst.gic_rst.xpm_cdc_single_inst_rrst_wr\ : label is 4;
+  attribute DEST_SYNC_FF of \ngwrdrst.grst.g7serrst.gnsckt_wrst.gic_rst.xpm_cdc_single_inst_rrst_wr\ : label is 5;
   attribute INIT_SYNC_FF of \ngwrdrst.grst.g7serrst.gnsckt_wrst.gic_rst.xpm_cdc_single_inst_rrst_wr\ : label is 0;
   attribute SIM_ASSERT_CHK : integer;
   attribute SIM_ASSERT_CHK of \ngwrdrst.grst.g7serrst.gnsckt_wrst.gic_rst.xpm_cdc_single_inst_rrst_wr\ : label is 0;
@@ -2843,7 +2970,7 @@ architecture STRUCTURE of GTP_SYNC_FIFO_reset_blk_ramfifo is
   attribute VERSION of \ngwrdrst.grst.g7serrst.gnsckt_wrst.gic_rst.xpm_cdc_single_inst_rrst_wr\ : label is 0;
   attribute XPM_CDC of \ngwrdrst.grst.g7serrst.gnsckt_wrst.gic_rst.xpm_cdc_single_inst_rrst_wr\ : label is "SINGLE";
   attribute XPM_MODULE of \ngwrdrst.grst.g7serrst.gnsckt_wrst.gic_rst.xpm_cdc_single_inst_rrst_wr\ : label is "TRUE";
-  attribute DEST_SYNC_FF of \ngwrdrst.grst.g7serrst.gnsckt_wrst.gic_rst.xpm_cdc_single_inst_wrst_rd\ : label is 4;
+  attribute DEST_SYNC_FF of \ngwrdrst.grst.g7serrst.gnsckt_wrst.gic_rst.xpm_cdc_single_inst_wrst_rd\ : label is 5;
   attribute INIT_SYNC_FF of \ngwrdrst.grst.g7serrst.gnsckt_wrst.gic_rst.xpm_cdc_single_inst_wrst_rd\ : label is 0;
   attribute SIM_ASSERT_CHK of \ngwrdrst.grst.g7serrst.gnsckt_wrst.gic_rst.xpm_cdc_single_inst_wrst_rd\ : label is 0;
   attribute SRC_INPUT_REG of \ngwrdrst.grst.g7serrst.gnsckt_wrst.gic_rst.xpm_cdc_single_inst_wrst_rd\ : label is 0;
@@ -2862,8 +2989,18 @@ begin
   AR(0) <= \^ar\(0);
   \grstd1.grst_full.grst_f.rst_d3_reg_0\ <= rst_d3;
   \ngwrdrst.grst.g7serrst.gnsckt_wrst.gic_rst.sckt_rd_rst_ic_reg_0\(0) <= \^ngwrdrst.grst.g7serrst.gnsckt_wrst.gic_rst.sckt_rd_rst_ic_reg_0\(0);
+  \ngwrdrst.grst.g7serrst.gnsckt_wrst.gic_rst.wr_rst_busy_i_reg_0\ <= \^ngwrdrst.grst.g7serrst.gnsckt_wrst.gic_rst.wr_rst_busy_i_reg_0\;
   \out\ <= rst_d2;
-  wr_rst_busy <= \^wr_rst_busy\;
+\gof.gof1.overflow_i_i_1\: unisim.vcomponents.LUT3
+    generic map(
+      INIT => X"E0"
+    )
+        port map (
+      I0 => \^ngwrdrst.grst.g7serrst.gnsckt_wrst.gic_rst.wr_rst_busy_i_reg_0\,
+      I1 => FULL_FB,
+      I2 => wr_en,
+      O => \ngwrdrst.grst.g7serrst.gnsckt_wrst.gic_rst.wr_rst_busy_i_reg_1\
+    );
 \grstd1.grst_full.grst_f.rst_d1_reg\: unisim.vcomponents.FDPE
     generic map(
       INIT => '1'
@@ -2871,7 +3008,7 @@ begin
         port map (
       C => wr_clk,
       CE => '1',
-      D => \^wr_rst_busy\,
+      D => \^ngwrdrst.grst.g7serrst.gnsckt_wrst.gic_rst.wr_rst_busy_i_reg_0\,
       PRE => rst_wr_reg2,
       Q => rst_d1
     );
@@ -3002,7 +3139,7 @@ begin
       INIT => X"AAAA08AA"
     )
         port map (
-      I0 => \^wr_rst_busy\,
+      I0 => \^ngwrdrst.grst.g7serrst.gnsckt_wrst.gic_rst.wr_rst_busy_i_reg_0\,
       I1 => rd_rst_wr_ext(1),
       I2 => rd_rst_wr_ext(0),
       I3 => rd_rst_wr_ext(3),
@@ -3018,7 +3155,7 @@ begin
       CE => '1',
       D => \ngwrdrst.grst.g7serrst.gnsckt_wrst.gic_rst.wr_rst_busy_i_i_1_n_0\,
       PRE => rst_wr_reg2,
-      Q => \^wr_rst_busy\
+      Q => \^ngwrdrst.grst.g7serrst.gnsckt_wrst.gic_rst.wr_rst_busy_i_reg_0\
     );
 \ngwrdrst.grst.g7serrst.gnsckt_wrst.gic_rst.wr_rst_rd_ext_reg[0]\: unisim.vcomponents.FDCE
     generic map(
@@ -3070,24 +3207,25 @@ use UNISIM.VCOMPONENTS.ALL;
 entity GTP_SYNC_FIFO_wr_logic is
   port (
     full : out STD_LOGIC;
+    FULL_FB : out STD_LOGIC;
+    overflow : out STD_LOGIC;
     Q : out STD_LOGIC_VECTOR ( 2 downto 0 );
     E : out STD_LOGIC_VECTOR ( 0 to 0 );
     \gic0.gc0.count_d2_reg[3]\ : out STD_LOGIC_VECTOR ( 3 downto 0 );
     wr_clk : in STD_LOGIC;
     \out\ : in STD_LOGIC;
+    \gof.gof1.overflow_i_reg\ : in STD_LOGIC;
     ram_full_i_reg : in STD_LOGIC;
     RD_PNTR_WR : in STD_LOGIC_VECTOR ( 3 downto 0 );
     ram_full_i_reg_0 : in STD_LOGIC;
     wr_en : in STD_LOGIC;
     AR : in STD_LOGIC_VECTOR ( 0 to 0 )
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of GTP_SYNC_FIFO_wr_logic : entity is "wr_logic";
 end GTP_SYNC_FIFO_wr_logic;
 
 architecture STRUCTURE of GTP_SYNC_FIFO_wr_logic is
   signal \^e\ : STD_LOGIC_VECTOR ( 0 to 0 );
-  signal \gwas.wsts_n_1\ : STD_LOGIC;
+  signal \gwas.wsts_n_2\ : STD_LOGIC;
   signal wpntr_n_0 : STD_LOGIC;
   signal wr_pntr_plus2 : STD_LOGIC_VECTOR ( 3 to 3 );
 begin
@@ -3095,14 +3233,21 @@ begin
 \gwas.wsts\: entity work.GTP_SYNC_FIFO_wr_status_flags_as
      port map (
       E(0) => \^e\(0),
+      FULL_FB => FULL_FB,
       Q(0) => wr_pntr_plus2(3),
       RD_PNTR_WR(0) => RD_PNTR_WR(3),
       full => full,
       \out\ => \out\,
-      ram_full_fb_i_reg_0 => \gwas.wsts_n_1\,
+      ram_full_fb_i_reg_0 => \gwas.wsts_n_2\,
       ram_full_i_reg_0 => wpntr_n_0,
       wr_clk => wr_clk,
       wr_en => wr_en
+    );
+\gwhf.whf\: entity work.GTP_SYNC_FIFO_wr_handshaking_flags
+     port map (
+      \gof.gof1.overflow_i_reg_0\ => \gof.gof1.overflow_i_reg\,
+      overflow => overflow,
+      wr_clk => wr_clk
     );
 wpntr: entity work.GTP_SYNC_FIFO_wr_bin_cntr
      port map (
@@ -3114,7 +3259,7 @@ wpntr: entity work.GTP_SYNC_FIFO_wr_bin_cntr
       \dest_out_bin_ff_reg[3]\ => wpntr_n_0,
       \gic0.gc0.count_d2_reg[3]_0\(3 downto 0) => \gic0.gc0.count_d2_reg[3]\(3 downto 0),
       ram_full_i_reg => ram_full_i_reg,
-      ram_full_i_reg_0 => \gwas.wsts_n_1\,
+      ram_full_i_reg_0 => \gwas.wsts_n_2\,
       ram_full_i_reg_1 => ram_full_i_reg_0,
       wr_clk => wr_clk
     );
@@ -3125,11 +3270,13 @@ library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
 entity GTP_SYNC_FIFO_fifo_generator_ramfifo is
   port (
-    wr_rst_busy : out STD_LOGIC;
+    \ngwrdrst.grst.g7serrst.gnsckt_wrst.gic_rst.wr_rst_busy_i_reg\ : out STD_LOGIC;
     \ngwrdrst.grst.g7serrst.gnsckt_wrst.gic_rst.sckt_rd_rst_ic_reg\ : out STD_LOGIC;
     empty : out STD_LOGIC;
+    valid : out STD_LOGIC;
     full : out STD_LOGIC;
     dout : out STD_LOGIC_VECTOR ( 31 downto 0 );
+    overflow : out STD_LOGIC;
     rst : in STD_LOGIC;
     wr_clk : in STD_LOGIC;
     rd_clk : in STD_LOGIC;
@@ -3137,13 +3284,12 @@ entity GTP_SYNC_FIFO_fifo_generator_ramfifo is
     wr_en : in STD_LOGIC;
     rd_en : in STD_LOGIC
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of GTP_SYNC_FIFO_fifo_generator_ramfifo : entity is "fifo_generator_ramfifo";
 end GTP_SYNC_FIFO_fifo_generator_ramfifo;
 
 architecture STRUCTURE of GTP_SYNC_FIFO_fifo_generator_ramfifo is
   signal \gntv_or_sync_fifo.gcx.clkx_n_0\ : STD_LOGIC;
   signal \gntv_or_sync_fifo.gcx.clkx_n_5\ : STD_LOGIC;
+  signal \gntv_or_sync_fifo.gl0.wr_n_1\ : STD_LOGIC;
   signal \^ngwrdrst.grst.g7serrst.gnsckt_wrst.gic_rst.sckt_rd_rst_ic_reg\ : STD_LOGIC;
   signal p_0_out_0 : STD_LOGIC_VECTOR ( 3 downto 0 );
   signal p_13_out : STD_LOGIC_VECTOR ( 3 downto 0 );
@@ -3156,6 +3302,7 @@ architecture STRUCTURE of GTP_SYNC_FIFO_fifo_generator_ramfifo is
   signal rst_full_ff_i : STD_LOGIC;
   signal rst_full_gen_i : STD_LOGIC;
   signal rstblk_n_0 : STD_LOGIC;
+  signal rstblk_n_5 : STD_LOGIC;
   signal wr_pntr_plus2 : STD_LOGIC_VECTOR ( 2 downto 0 );
 begin
   \ngwrdrst.grst.g7serrst.gnsckt_wrst.gic_rst.sckt_rd_rst_ic_reg\ <= \^ngwrdrst.grst.g7serrst.gnsckt_wrst.gic_rst.sckt_rd_rst_ic_reg\;
@@ -3183,17 +3330,21 @@ begin
       \gpregsm1.curr_fwft_state_reg[1]\(0) => ram_rd_en_i,
       ram_empty_i_reg => \gntv_or_sync_fifo.gcx.clkx_n_5\,
       rd_clk => rd_clk,
-      rd_en => rd_en
+      rd_en => rd_en,
+      valid => valid
     );
 \gntv_or_sync_fifo.gl0.wr\: entity work.GTP_SYNC_FIFO_wr_logic
      port map (
       AR(0) => rstblk_n_0,
       E(0) => p_20_out,
+      FULL_FB => \gntv_or_sync_fifo.gl0.wr_n_1\,
       Q(2 downto 0) => wr_pntr_plus2(2 downto 0),
       RD_PNTR_WR(3 downto 0) => p_25_out(3 downto 0),
       full => full,
       \gic0.gc0.count_d2_reg[3]\(3 downto 0) => p_13_out(3 downto 0),
+      \gof.gof1.overflow_i_reg\ => rstblk_n_5,
       \out\ => rst_full_ff_i,
+      overflow => overflow,
       ram_full_i_reg => \gntv_or_sync_fifo.gcx.clkx_n_0\,
       ram_full_i_reg_0 => rst_full_gen_i,
       wr_clk => wr_clk,
@@ -3215,13 +3366,16 @@ begin
 rstblk: entity work.GTP_SYNC_FIFO_reset_blk_ramfifo
      port map (
       AR(0) => rstblk_n_0,
+      FULL_FB => \gntv_or_sync_fifo.gl0.wr_n_1\,
       \grstd1.grst_full.grst_f.rst_d3_reg_0\ => rst_full_gen_i,
       \ngwrdrst.grst.g7serrst.gnsckt_wrst.gic_rst.sckt_rd_rst_ic_reg_0\(0) => \^ngwrdrst.grst.g7serrst.gnsckt_wrst.gic_rst.sckt_rd_rst_ic_reg\,
+      \ngwrdrst.grst.g7serrst.gnsckt_wrst.gic_rst.wr_rst_busy_i_reg_0\ => \ngwrdrst.grst.g7serrst.gnsckt_wrst.gic_rst.wr_rst_busy_i_reg\,
+      \ngwrdrst.grst.g7serrst.gnsckt_wrst.gic_rst.wr_rst_busy_i_reg_1\ => rstblk_n_5,
       \out\ => rst_full_ff_i,
       rd_clk => rd_clk,
       rst => rst,
       wr_clk => wr_clk,
-      wr_rst_busy => wr_rst_busy
+      wr_en => wr_en
     );
 end STRUCTURE;
 library IEEE;
@@ -3230,11 +3384,13 @@ library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
 entity GTP_SYNC_FIFO_fifo_generator_top is
   port (
-    wr_rst_busy : out STD_LOGIC;
+    \ngwrdrst.grst.g7serrst.gnsckt_wrst.gic_rst.wr_rst_busy_i_reg\ : out STD_LOGIC;
     AR : out STD_LOGIC_VECTOR ( 0 to 0 );
     empty : out STD_LOGIC;
+    valid : out STD_LOGIC;
     full : out STD_LOGIC;
     dout : out STD_LOGIC_VECTOR ( 31 downto 0 );
+    overflow : out STD_LOGIC;
     rst : in STD_LOGIC;
     wr_clk : in STD_LOGIC;
     rd_clk : in STD_LOGIC;
@@ -3242,8 +3398,6 @@ entity GTP_SYNC_FIFO_fifo_generator_top is
     wr_en : in STD_LOGIC;
     rd_en : in STD_LOGIC
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of GTP_SYNC_FIFO_fifo_generator_top : entity is "fifo_generator_top";
 end GTP_SYNC_FIFO_fifo_generator_top;
 
 architecture STRUCTURE of GTP_SYNC_FIFO_fifo_generator_top is
@@ -3255,12 +3409,14 @@ begin
       empty => empty,
       full => full,
       \ngwrdrst.grst.g7serrst.gnsckt_wrst.gic_rst.sckt_rd_rst_ic_reg\ => AR(0),
+      \ngwrdrst.grst.g7serrst.gnsckt_wrst.gic_rst.wr_rst_busy_i_reg\ => \ngwrdrst.grst.g7serrst.gnsckt_wrst.gic_rst.wr_rst_busy_i_reg\,
+      overflow => overflow,
       rd_clk => rd_clk,
       rd_en => rd_en,
       rst => rst,
+      valid => valid,
       wr_clk => wr_clk,
-      wr_en => wr_en,
-      wr_rst_busy => wr_rst_busy
+      wr_en => wr_en
     );
 end STRUCTURE;
 library IEEE;
@@ -3269,11 +3425,13 @@ library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
 entity GTP_SYNC_FIFO_fifo_generator_v13_2_4_synth is
   port (
-    wr_rst_busy : out STD_LOGIC;
+    \ngwrdrst.grst.g7serrst.gnsckt_wrst.gic_rst.wr_rst_busy_i_reg\ : out STD_LOGIC;
     \ngwrdrst.grst.g7serrst.gnsckt_wrst.gic_rst.sckt_rd_rst_ic_reg\ : out STD_LOGIC;
     empty : out STD_LOGIC;
+    valid : out STD_LOGIC;
     full : out STD_LOGIC;
     dout : out STD_LOGIC_VECTOR ( 31 downto 0 );
+    overflow : out STD_LOGIC;
     rst : in STD_LOGIC;
     wr_clk : in STD_LOGIC;
     rd_clk : in STD_LOGIC;
@@ -3281,8 +3439,6 @@ entity GTP_SYNC_FIFO_fifo_generator_v13_2_4_synth is
     wr_en : in STD_LOGIC;
     rd_en : in STD_LOGIC
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of GTP_SYNC_FIFO_fifo_generator_v13_2_4_synth : entity is "fifo_generator_v13_2_4_synth";
 end GTP_SYNC_FIFO_fifo_generator_v13_2_4_synth;
 
 architecture STRUCTURE of GTP_SYNC_FIFO_fifo_generator_v13_2_4_synth is
@@ -3294,12 +3450,14 @@ begin
       dout(31 downto 0) => dout(31 downto 0),
       empty => empty,
       full => full,
+      \ngwrdrst.grst.g7serrst.gnsckt_wrst.gic_rst.wr_rst_busy_i_reg\ => \ngwrdrst.grst.g7serrst.gnsckt_wrst.gic_rst.wr_rst_busy_i_reg\,
+      overflow => overflow,
       rd_clk => rd_clk,
       rd_en => rd_en,
       rst => rst,
+      valid => valid,
       wr_clk => wr_clk,
-      wr_en => wr_en,
-      wr_rst_busy => wr_rst_busy
+      wr_en => wr_en
     );
 end STRUCTURE;
 library IEEE;
@@ -3699,7 +3857,7 @@ entity GTP_SYNC_FIFO_fifo_generator_v13_2_4 is
   attribute C_HAS_MEMINIT_FILE : integer;
   attribute C_HAS_MEMINIT_FILE of GTP_SYNC_FIFO_fifo_generator_v13_2_4 : entity is 0;
   attribute C_HAS_OVERFLOW : integer;
-  attribute C_HAS_OVERFLOW of GTP_SYNC_FIFO_fifo_generator_v13_2_4 : entity is 0;
+  attribute C_HAS_OVERFLOW of GTP_SYNC_FIFO_fifo_generator_v13_2_4 : entity is 1;
   attribute C_HAS_PROG_FLAGS_AXIS : integer;
   attribute C_HAS_PROG_FLAGS_AXIS of GTP_SYNC_FIFO_fifo_generator_v13_2_4 : entity is 0;
   attribute C_HAS_PROG_FLAGS_RACH : integer;
@@ -3725,7 +3883,7 @@ entity GTP_SYNC_FIFO_fifo_generator_v13_2_4 is
   attribute C_HAS_UNDERFLOW : integer;
   attribute C_HAS_UNDERFLOW of GTP_SYNC_FIFO_fifo_generator_v13_2_4 : entity is 0;
   attribute C_HAS_VALID : integer;
-  attribute C_HAS_VALID of GTP_SYNC_FIFO_fifo_generator_v13_2_4 : entity is 0;
+  attribute C_HAS_VALID of GTP_SYNC_FIFO_fifo_generator_v13_2_4 : entity is 1;
   attribute C_HAS_WR_ACK : integer;
   attribute C_HAS_WR_ACK of GTP_SYNC_FIFO_fifo_generator_v13_2_4 : entity is 0;
   attribute C_HAS_WR_DATA_COUNT : integer;
@@ -3867,7 +4025,7 @@ entity GTP_SYNC_FIFO_fifo_generator_v13_2_4 is
   attribute C_SELECT_XPM : integer;
   attribute C_SELECT_XPM of GTP_SYNC_FIFO_fifo_generator_v13_2_4 : entity is 0;
   attribute C_SYNCHRONIZER_STAGE : integer;
-  attribute C_SYNCHRONIZER_STAGE of GTP_SYNC_FIFO_fifo_generator_v13_2_4 : entity is 2;
+  attribute C_SYNCHRONIZER_STAGE of GTP_SYNC_FIFO_fifo_generator_v13_2_4 : entity is 3;
   attribute C_UNDERFLOW_LOW : integer;
   attribute C_UNDERFLOW_LOW of GTP_SYNC_FIFO_fifo_generator_v13_2_4 : entity is 0;
   attribute C_USE_COMMON_OVERFLOW : integer;
@@ -3944,8 +4102,6 @@ entity GTP_SYNC_FIFO_fifo_generator_v13_2_4 is
   attribute C_WR_PNTR_WIDTH_WRCH of GTP_SYNC_FIFO_fifo_generator_v13_2_4 : entity is 4;
   attribute C_WR_RESPONSE_LATENCY : integer;
   attribute C_WR_RESPONSE_LATENCY of GTP_SYNC_FIFO_fifo_generator_v13_2_4 : entity is 1;
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of GTP_SYNC_FIFO_fifo_generator_v13_2_4 : entity is "fifo_generator_v13_2_4";
 end GTP_SYNC_FIFO_fifo_generator_v13_2_4;
 
 architecture STRUCTURE of GTP_SYNC_FIFO_fifo_generator_v13_2_4 is
@@ -4363,7 +4519,6 @@ begin
   m_axis_tuser(1) <= \<const0>\;
   m_axis_tuser(0) <= \<const0>\;
   m_axis_tvalid <= \<const0>\;
-  overflow <= \<const0>\;
   prog_empty <= \<const0>\;
   prog_full <= \<const0>\;
   rd_data_count(3) <= \<const0>\;
@@ -4451,7 +4606,6 @@ begin
   s_axis_tready <= \<const0>\;
   sbiterr <= \<const0>\;
   underflow <= \<const0>\;
-  valid <= \<const0>\;
   wr_ack <= \<const0>\;
   wr_data_count(3) <= \<const0>\;
   wr_data_count(2) <= \<const0>\;
@@ -4472,12 +4626,14 @@ inst_fifo_gen: entity work.GTP_SYNC_FIFO_fifo_generator_v13_2_4_synth
       empty => empty,
       full => full,
       \ngwrdrst.grst.g7serrst.gnsckt_wrst.gic_rst.sckt_rd_rst_ic_reg\ => rd_rst_busy,
+      \ngwrdrst.grst.g7serrst.gnsckt_wrst.gic_rst.wr_rst_busy_i_reg\ => wr_rst_busy,
+      overflow => overflow,
       rd_clk => rd_clk,
       rd_en => rd_en,
       rst => rst,
+      valid => valid,
       wr_clk => wr_clk,
-      wr_en => wr_en,
-      wr_rst_busy => wr_rst_busy
+      wr_en => wr_en
     );
 end STRUCTURE;
 library IEEE;
@@ -4494,12 +4650,14 @@ entity GTP_SYNC_FIFO is
     rd_en : in STD_LOGIC;
     dout : out STD_LOGIC_VECTOR ( 31 downto 0 );
     full : out STD_LOGIC;
-    empty : out STD_LOGIC
+    overflow : out STD_LOGIC;
+    empty : out STD_LOGIC;
+    valid : out STD_LOGIC
   );
   attribute NotValidForBitStream : boolean;
   attribute NotValidForBitStream of GTP_SYNC_FIFO : entity is true;
   attribute CHECK_LICENSE_TYPE : string;
-  attribute CHECK_LICENSE_TYPE of GTP_SYNC_FIFO : entity is "GTP_SYNC_FIFO,fifo_generator_v13_2_4,{}";
+  attribute CHECK_LICENSE_TYPE of GTP_SYNC_FIFO : entity is "fifo_generator_0,fifo_generator_v13_2_4,{}";
   attribute downgradeipidentifiedwarnings : string;
   attribute downgradeipidentifiedwarnings of GTP_SYNC_FIFO : entity is "yes";
   attribute x_core_info : string;
@@ -4554,7 +4712,6 @@ architecture STRUCTURE of GTP_SYNC_FIFO is
   signal NLW_U0_m_axi_wvalid_UNCONNECTED : STD_LOGIC;
   signal NLW_U0_m_axis_tlast_UNCONNECTED : STD_LOGIC;
   signal NLW_U0_m_axis_tvalid_UNCONNECTED : STD_LOGIC;
-  signal NLW_U0_overflow_UNCONNECTED : STD_LOGIC;
   signal NLW_U0_prog_empty_UNCONNECTED : STD_LOGIC;
   signal NLW_U0_prog_full_UNCONNECTED : STD_LOGIC;
   signal NLW_U0_rd_rst_busy_UNCONNECTED : STD_LOGIC;
@@ -4567,7 +4724,6 @@ architecture STRUCTURE of GTP_SYNC_FIFO is
   signal NLW_U0_s_axis_tready_UNCONNECTED : STD_LOGIC;
   signal NLW_U0_sbiterr_UNCONNECTED : STD_LOGIC;
   signal NLW_U0_underflow_UNCONNECTED : STD_LOGIC;
-  signal NLW_U0_valid_UNCONNECTED : STD_LOGIC;
   signal NLW_U0_wr_ack_UNCONNECTED : STD_LOGIC;
   signal NLW_U0_wr_rst_busy_UNCONNECTED : STD_LOGIC;
   signal NLW_U0_axi_ar_data_count_UNCONNECTED : STD_LOGIC_VECTOR ( 4 downto 0 );
@@ -4789,7 +4945,7 @@ architecture STRUCTURE of GTP_SYNC_FIFO is
   attribute C_HAS_MEMINIT_FILE : integer;
   attribute C_HAS_MEMINIT_FILE of U0 : label is 0;
   attribute C_HAS_OVERFLOW : integer;
-  attribute C_HAS_OVERFLOW of U0 : label is 0;
+  attribute C_HAS_OVERFLOW of U0 : label is 1;
   attribute C_HAS_PROG_FLAGS_AXIS : integer;
   attribute C_HAS_PROG_FLAGS_AXIS of U0 : label is 0;
   attribute C_HAS_PROG_FLAGS_RACH : integer;
@@ -4815,7 +4971,7 @@ architecture STRUCTURE of GTP_SYNC_FIFO is
   attribute C_HAS_UNDERFLOW : integer;
   attribute C_HAS_UNDERFLOW of U0 : label is 0;
   attribute C_HAS_VALID : integer;
-  attribute C_HAS_VALID of U0 : label is 0;
+  attribute C_HAS_VALID of U0 : label is 1;
   attribute C_HAS_WR_ACK : integer;
   attribute C_HAS_WR_ACK of U0 : label is 0;
   attribute C_HAS_WR_DATA_COUNT : integer;
@@ -4957,7 +5113,7 @@ architecture STRUCTURE of GTP_SYNC_FIFO is
   attribute C_SELECT_XPM : integer;
   attribute C_SELECT_XPM of U0 : label is 0;
   attribute C_SYNCHRONIZER_STAGE : integer;
-  attribute C_SYNCHRONIZER_STAGE of U0 : label is 2;
+  attribute C_SYNCHRONIZER_STAGE of U0 : label is 3;
   attribute C_UNDERFLOW_LOW : integer;
   attribute C_UNDERFLOW_LOW of U0 : label is 0;
   attribute C_USE_COMMON_OVERFLOW : integer;
@@ -5197,7 +5353,7 @@ U0: entity work.GTP_SYNC_FIFO_fifo_generator_v13_2_4
       m_axis_tstrb(0) => NLW_U0_m_axis_tstrb_UNCONNECTED(0),
       m_axis_tuser(3 downto 0) => NLW_U0_m_axis_tuser_UNCONNECTED(3 downto 0),
       m_axis_tvalid => NLW_U0_m_axis_tvalid_UNCONNECTED,
-      overflow => NLW_U0_overflow_UNCONNECTED,
+      overflow => overflow,
       prog_empty => NLW_U0_prog_empty_UNCONNECTED,
       prog_empty_thresh(3 downto 0) => B"0000",
       prog_empty_thresh_assert(3 downto 0) => B"0000",
@@ -5273,7 +5429,7 @@ U0: entity work.GTP_SYNC_FIFO_fifo_generator_v13_2_4
       sleep => '0',
       srst => '0',
       underflow => NLW_U0_underflow_UNCONNECTED,
-      valid => NLW_U0_valid_UNCONNECTED,
+      valid => valid,
       wr_ack => NLW_U0_wr_ack_UNCONNECTED,
       wr_clk => wr_clk,
       wr_data_count(3 downto 0) => NLW_U0_wr_data_count_UNCONNECTED(3 downto 0),

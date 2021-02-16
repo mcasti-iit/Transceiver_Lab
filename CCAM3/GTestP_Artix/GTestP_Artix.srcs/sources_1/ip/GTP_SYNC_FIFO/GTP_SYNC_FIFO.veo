@@ -1,4 +1,4 @@
-// (c) Copyright 1995-2020 Xilinx, Inc. All rights reserved.
+// (c) Copyright 1995-2021 Xilinx, Inc. All rights reserved.
 // 
 // This file contains confidential and proprietary information
 // of Xilinx, Inc. and is protected under U.S. and
@@ -55,15 +55,17 @@
 
 //----------- Begin Cut here for INSTANTIATION Template ---// INST_TAG
 GTP_SYNC_FIFO your_instance_name (
-  .rst(rst),        // input wire rst
-  .wr_clk(wr_clk),  // input wire wr_clk
-  .rd_clk(rd_clk),  // input wire rd_clk
-  .din(din),        // input wire [31 : 0] din
-  .wr_en(wr_en),    // input wire wr_en
-  .rd_en(rd_en),    // input wire rd_en
-  .dout(dout),      // output wire [31 : 0] dout
-  .full(full),      // output wire full
-  .empty(empty)    // output wire empty
+  .rst(rst),            // input wire rst
+  .wr_clk(wr_clk),      // input wire wr_clk
+  .rd_clk(rd_clk),      // input wire rd_clk
+  .din(din),            // input wire [31 : 0] din
+  .wr_en(wr_en),        // input wire wr_en
+  .rd_en(rd_en),        // input wire rd_en
+  .dout(dout),          // output wire [31 : 0] dout
+  .full(full),          // output wire full
+  .overflow(overflow),  // output wire overflow
+  .empty(empty),        // output wire empty
+  .valid(valid)        // output wire valid
 );
 // INST_TAG_END ------ End INSTANTIATION Template ---------
 

@@ -1,4 +1,4 @@
--- (c) Copyright 1995-2020 Xilinx, Inc. All rights reserved.
+-- (c) Copyright 1995-2021 Xilinx, Inc. All rights reserved.
 -- 
 -- This file contains confidential and proprietary information
 -- of Xilinx, Inc. and is protected under U.S. and
@@ -62,7 +62,9 @@ COMPONENT GTP_SYNC_FIFO
     rd_en : IN STD_LOGIC;
     dout : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
     full : OUT STD_LOGIC;
-    empty : OUT STD_LOGIC
+    overflow : OUT STD_LOGIC;
+    empty : OUT STD_LOGIC;
+    valid : OUT STD_LOGIC
   );
 END COMPONENT;
 -- COMP_TAG_END ------ End COMPONENT Declaration ------------
@@ -81,7 +83,9 @@ your_instance_name : GTP_SYNC_FIFO
     rd_en => rd_en,
     dout => dout,
     full => full,
-    empty => empty
+    overflow => overflow,
+    empty => empty,
+    valid => valid
   );
 -- INST_TAG_END ------ End INSTANTIATION Template ---------
 

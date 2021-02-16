@@ -1,4 +1,4 @@
-// (c) Copyright 1995-2020 Xilinx, Inc. All rights reserved.
+// (c) Copyright 1995-2021 Xilinx, Inc. All rights reserved.
 // 
 // This file contains confidential and proprietary information
 // of Xilinx, Inc. and is protected under U.S. and
@@ -62,7 +62,9 @@ module GTP_SYNC_FIFO (
   rd_en,
   dout,
   full,
-  empty
+  overflow,
+  empty,
+  valid
 );
 
 input wire rst;
@@ -82,8 +84,10 @@ input wire rd_en;
 output wire [31 : 0] dout;
 (* X_INTERFACE_INFO = "xilinx.com:interface:fifo_write:1.0 FIFO_WRITE FULL" *)
 output wire full;
+output wire overflow;
 (* X_INTERFACE_INFO = "xilinx.com:interface:fifo_read:1.0 FIFO_READ EMPTY" *)
 output wire empty;
+output wire valid;
 
   fifo_generator_v13_2_4 #(
     .C_COMMON_CLOCK(0),
@@ -103,13 +107,13 @@ output wire empty;
     .C_HAS_DATA_COUNT(0),
     .C_HAS_INT_CLK(0),
     .C_HAS_MEMINIT_FILE(0),
-    .C_HAS_OVERFLOW(0),
+    .C_HAS_OVERFLOW(1),
     .C_HAS_RD_DATA_COUNT(0),
     .C_HAS_RD_RST(0),
     .C_HAS_RST(1),
     .C_HAS_SRST(0),
     .C_HAS_UNDERFLOW(0),
-    .C_HAS_VALID(0),
+    .C_HAS_VALID(1),
     .C_HAS_WR_ACK(0),
     .C_HAS_WR_DATA_COUNT(0),
     .C_HAS_WR_RST(0),
@@ -151,7 +155,7 @@ output wire empty;
     .C_ENABLE_RST_SYNC(1),
     .C_EN_SAFETY_CKT(0),
     .C_ERROR_INJECTION_TYPE(0),
-    .C_SYNCHRONIZER_STAGE(2),
+    .C_SYNCHRONIZER_STAGE(3),
     .C_INTERFACE_TYPE(0),
     .C_AXI_TYPE(1),
     .C_HAS_AXI_WR_CHANNEL(1),
@@ -315,10 +319,10 @@ output wire empty;
     .full(full),
     .almost_full(),
     .wr_ack(),
-    .overflow(),
+    .overflow(overflow),
     .empty(empty),
     .almost_empty(),
-    .valid(),
+    .valid(valid),
     .underflow(),
     .data_count(),
     .rd_data_count(),
