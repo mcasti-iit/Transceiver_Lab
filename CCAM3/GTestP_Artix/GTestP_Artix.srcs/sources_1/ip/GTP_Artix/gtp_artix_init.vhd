@@ -78,7 +78,7 @@ generic
     EXAMPLE_SIM_GTRESET_SPEEDUP             : string    := "TRUE";     -- simulation setting for GT SecureIP model
     EXAMPLE_SIMULATION                      : integer   := 0;          -- Set to 1 for simulation
  
-    STABLE_CLOCK_PERIOD                     : integer   := 8;  
+    STABLE_CLOCK_PERIOD                     : integer   := 10;  
         -- Set to 1 for simulation
     EXAMPLE_USE_CHIPSCOPE                   : integer   := 0           -- Set to 1 to use Chipscope to drive resets
 
@@ -129,6 +129,8 @@ port
     gt0_txoutclkfabric_out                  : out  std_logic;
     gt0_txoutclkpcs_out                     : out  std_logic;
     ------------- Transmit Ports - TX Initialization and Reset Ports -----------
+    gt0_txpcsreset_in                       : in   std_logic;
+    gt0_txpmareset_in                       : in   std_logic;
     gt0_txresetdone_out                     : out  std_logic;
 
 
@@ -204,6 +206,8 @@ port
     gt0_txoutclkfabric_out                  : out  std_logic;
     gt0_txoutclkpcs_out                     : out  std_logic;
     ------------- Transmit Ports - TX Initialization and Reset Ports -----------
+    gt0_txpcsreset_in                       : in   std_logic;
+    gt0_txpmareset_in                       : in   std_logic;
     gt0_txresetdone_out                     : out  std_logic;
    
 
@@ -333,6 +337,8 @@ end component;
     signal   gt0_gttxreset_t                 : std_logic;
     signal   gt0_gtrxreset_i                 : std_logic;
     signal   gt0_gtrxreset_t                 : std_logic;
+    signal   gt0_txpcsreset_i                : std_logic;
+    signal   gt0_txpmareset_i                : std_logic;
     signal   gt0_txuserrdy_i                 : std_logic;
     signal   gt0_txuserrdy_t                 : std_logic;
     signal   gt0_rxuserrdy_i                 : std_logic;
@@ -431,6 +437,8 @@ begin
         gt0_txoutclkfabric_out          =>      gt0_txoutclkfabric_out,
         gt0_txoutclkpcs_out             =>      gt0_txoutclkpcs_out,
         ------------- Transmit Ports - TX Initialization and Reset Ports -----------
+        gt0_txpcsreset_in               =>      gt0_txpcsreset_in,
+        gt0_txpmareset_in               =>      gt0_txpmareset_in,
         gt0_txresetdone_out             =>      gt0_txresetdone_i,
 
 
@@ -443,7 +451,9 @@ begin
         gt0_pll1outrefclk_in            =>      gt0_pll1outrefclk_in
     );
 
+gt0_txpcsreset_i                             <= tied_to_ground_i;
 
+gt0_txpmareset_i                             <= tied_to_ground_i;
 
 
 GT0_TXRESETDONE_OUT                          <= gt0_txresetdone_i;

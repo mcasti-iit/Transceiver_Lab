@@ -110,6 +110,8 @@ port
     gt0_txdata_in                           : in   std_logic_vector(15 downto 0);
     gt0_txusrclk_in                         : in   std_logic;
     gt0_txusrclk2_in                        : in   std_logic;
+    ------------------ Transmit Ports - TX 8B/10B Encoder Ports ----------------
+    gt0_txcharisk_in                        : in   std_logic_vector(1 downto 0);
     --------------- Transmit Ports - TX Configurable Driver Ports --------------
     gt0_gtptxn_out                          : out  std_logic;
     gt0_gtptxp_out                          : out  std_logic;
@@ -118,6 +120,8 @@ port
     gt0_txoutclkfabric_out                  : out  std_logic;
     gt0_txoutclkpcs_out                     : out  std_logic;
     ------------- Transmit Ports - TX Initialization and Reset Ports -----------
+    gt0_txpcsreset_in                       : in   std_logic;
+    gt0_txpmareset_in                       : in   std_logic;
     gt0_txresetdone_out                     : out  std_logic;
 
 
@@ -211,6 +215,8 @@ port
     txdata_in                               : in   std_logic_vector(15 downto 0);
     txusrclk_in                             : in   std_logic;
     txusrclk2_in                            : in   std_logic;
+    ------------------ Transmit Ports - TX 8B/10B Encoder Ports ----------------
+    txcharisk_in                            : in   std_logic_vector(1 downto 0);
     --------------- Transmit Ports - TX Configurable Driver Ports --------------
     gtptxn_out                              : out  std_logic;
     gtptxp_out                              : out  std_logic;
@@ -219,6 +225,8 @@ port
     txoutclkfabric_out                      : out  std_logic;
     txoutclkpcs_out                         : out  std_logic;
     ------------- Transmit Ports - TX Initialization and Reset Ports -----------
+    txpcsreset_in                           : in   std_logic;
+    txpmareset_in                           : in   std_logic;
     txresetdone_out                         : out  std_logic
 
 
@@ -226,7 +234,7 @@ port
 end component;
 
 
-    constant PLL0_FBDIV_IN      :   integer := 3;
+    constant PLL0_FBDIV_IN      :   integer := 5;
     constant PLL1_FBDIV_IN      :   integer := 1;
     constant PLL0_FBDIV_45_IN   :   integer := 5;
     constant PLL1_FBDIV_45_IN   :   integer := 4;
@@ -290,6 +298,8 @@ gt0_GTP_Artix_i : GTP_Artix_GT
         txdata_in                       =>      gt0_txdata_in,
         txusrclk_in                     =>      gt0_txusrclk_in,
         txusrclk2_in                    =>      gt0_txusrclk2_in,
+        ------------------ Transmit Ports - TX 8B/10B Encoder Ports ----------------
+        txcharisk_in                    =>      gt0_txcharisk_in,
         --------------- Transmit Ports - TX Configurable Driver Ports --------------
         gtptxn_out                      =>      gt0_gtptxn_out,
         gtptxp_out                      =>      gt0_gtptxp_out,
@@ -298,6 +308,8 @@ gt0_GTP_Artix_i : GTP_Artix_GT
         txoutclkfabric_out              =>      gt0_txoutclkfabric_out,
         txoutclkpcs_out                 =>      gt0_txoutclkpcs_out,
         ------------- Transmit Ports - TX Initialization and Reset Ports -----------
+        txpcsreset_in                   =>      gt0_txpcsreset_in,
+        txpmareset_in                   =>      gt0_txpmareset_in,
         txresetdone_out                 =>      gt0_txresetdone_out
 
     );

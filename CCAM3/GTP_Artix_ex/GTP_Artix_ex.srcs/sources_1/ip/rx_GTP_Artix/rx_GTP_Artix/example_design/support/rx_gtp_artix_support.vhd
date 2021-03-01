@@ -75,7 +75,7 @@ entity rx_GTP_Artix_support is
 generic
 (
     EXAMPLE_SIM_GTRESET_SPEEDUP             : string    := "TRUE";     -- simulation setting for GT SecureIP model
-    STABLE_CLOCK_PERIOD                     : integer   := 8  
+    STABLE_CLOCK_PERIOD                     : integer   := 10  
 
 );
 port
@@ -110,6 +110,10 @@ port
     gt0_eyescantrigger_in                   : in   std_logic;
     ------------------ Receive Ports - FPGA RX Interface Ports -----------------
     gt0_rxdata_out                          : out  std_logic_vector(15 downto 0);
+    ------------------ Receive Ports - RX 8B/10B Decoder Ports -----------------
+    gt0_rxcharisk_out                       : out  std_logic_vector(1 downto 0);
+    gt0_rxdisperr_out                       : out  std_logic_vector(1 downto 0);
+    gt0_rxnotintable_out                    : out  std_logic_vector(1 downto 0);
     ------------------------ Receive Ports - RX AFE Ports ----------------------
     gt0_gtprxn_in                           : in   std_logic;
     gt0_gtprxp_in                           : in   std_logic;
@@ -129,7 +133,10 @@ port
     gt0_rxresetdone_out                     : out  std_logic;
     --------------------- TX Initialization and Reset Ports --------------------
     gt0_gttxreset_in                        : in   std_logic;
+    ------------- Transmit Ports - TX Initialization and Reset Ports -----------
+    gt0_txpcsreset_in                       : in   std_logic;
 
+GT0_PLL0PD_IN                           : in   std_logic;
     --____________________________COMMON PORTS________________________________
    GT0_PLL0RESET_OUT  : out std_logic;
          GT0_PLL0OUTCLK_OUT  : out std_logic;
@@ -183,6 +190,10 @@ port
     gt0_rxdata_out                          : out  std_logic_vector(15 downto 0);
     gt0_rxusrclk_in                         : in   std_logic;
     gt0_rxusrclk2_in                        : in   std_logic;
+    ------------------ Receive Ports - RX 8B/10B Decoder Ports -----------------
+    gt0_rxcharisk_out                       : out  std_logic_vector(1 downto 0);
+    gt0_rxdisperr_out                       : out  std_logic_vector(1 downto 0);
+    gt0_rxnotintable_out                    : out  std_logic_vector(1 downto 0);
     ------------------------ Receive Ports - RX AFE Ports ----------------------
     gt0_gtprxn_in                           : in   std_logic;
     gt0_gtprxp_in                           : in   std_logic;
@@ -203,6 +214,8 @@ port
     gt0_rxresetdone_out                     : out  std_logic;
     --------------------- TX Initialization and Reset Ports --------------------
     gt0_gttxreset_in                        : in   std_logic;
+    ------------- Transmit Ports - TX Initialization and Reset Ports -----------
+    gt0_txpcsreset_in                       : in   std_logic;
 
 
     --____________________________COMMON PORTS________________________________
@@ -328,6 +341,10 @@ signal   reset_pulse                     : std_logic_vector(3 downto 0);
     signal  gt0_eyescantrigger_i            : std_logic;
     ------------------ Receive Ports - FPGA RX Interface Ports -----------------
     signal  gt0_rxdata_i                    : std_logic_vector(15 downto 0);
+    ------------------ Receive Ports - RX 8B/10B Decoder Ports -----------------
+    signal  gt0_rxcharisk_i                 : std_logic_vector(1 downto 0);
+    signal  gt0_rxdisperr_i                 : std_logic_vector(1 downto 0);
+    signal  gt0_rxnotintable_i              : std_logic_vector(1 downto 0);
     ------------------------ Receive Ports - RX AFE Ports ----------------------
     signal  gt0_gtprxn_i                    : std_logic;
     signal  gt0_gtprxp_i                    : std_logic;
@@ -348,6 +365,8 @@ signal   reset_pulse                     : std_logic_vector(3 downto 0);
     signal  gt0_rxresetdone_i               : std_logic;
     --------------------- TX Initialization and Reset Ports --------------------
     signal  gt0_gttxreset_i                 : std_logic;
+    ------------- Transmit Ports - TX Initialization and Reset Ports -----------
+    signal  gt0_txpcsreset_i                : std_logic;
 
     --____________________________COMMON PORTS________________________________
    signal gt0_pll0reset_i  : std_logic;
@@ -525,6 +544,10 @@ sysclk_in_i <= sysclk_in;
         gt0_rxdata_out                  =>      gt0_rxdata_out,
         gt0_rxusrclk_in                 =>      gt0_rxusrclk_i,
         gt0_rxusrclk2_in                =>      gt0_rxusrclk2_i,
+        ------------------ Receive Ports - RX 8B/10B Decoder Ports -----------------
+        gt0_rxcharisk_out               =>      gt0_rxcharisk_out,
+        gt0_rxdisperr_out               =>      gt0_rxdisperr_out,
+        gt0_rxnotintable_out            =>      gt0_rxnotintable_out,
         ------------------------ Receive Ports - RX AFE Ports ----------------------
         gt0_gtprxn_in                   =>      gt0_gtprxn_in,
         gt0_gtprxp_in                   =>      gt0_gtprxp_in,
@@ -545,6 +568,8 @@ sysclk_in_i <= sysclk_in;
         gt0_rxresetdone_out             =>      gt0_rxresetdone_out,
         --------------------- TX Initialization and Reset Ports --------------------
         gt0_gttxreset_in                =>      gt0_gttxreset_in,
+        ------------- Transmit Ports - TX Initialization and Reset Ports -----------
+        gt0_txpcsreset_in               =>      gt0_txpcsreset_in,
 
 
 

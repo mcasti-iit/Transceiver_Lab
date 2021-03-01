@@ -79,7 +79,7 @@ generic
     RXCTRL_WIDTH             : integer := 2;
     WORDS_IN_BRAM            : integer := 256;
     CHANBOND_SEQ_LEN         : integer := 1;
-    START_OF_PACKET_CHAR     : std_logic_vector (19 downto 0)  := x"0027c"
+    START_OF_PACKET_CHAR     : std_logic_vector (15 downto 0)  := x"027c"
 );
 port
 (
@@ -305,9 +305,9 @@ begin
             if(system_reset_r2 = '1') then
                   sel  <=  '0'  after DLY;
             else 
-                if((rx_data_r(9 downto 0) & rx_data_r2(19 downto 10)) = START_OF_PACKET_CHAR) then
+                if((rx_data_r(7 downto 0) & rx_data_r2(15 downto 8)) = START_OF_PACKET_CHAR) then
                      sel   <=   '1'  after DLY;
-                elsif(rx_data_r(19 downto 0) = START_OF_PACKET_CHAR) then
+                elsif(rx_data_r(15 downto 0) = START_OF_PACKET_CHAR) then
                      sel   <=   '0'  after DLY;
                 end if;
             end if;
@@ -320,7 +320,7 @@ begin
                   rx_data_r3  <=  (others=>'0')  after DLY;
             else 
                 if(sel = '1') then
-                   rx_data_r3  <=  (rx_data_r(9 downto 0) & rx_data_r2(19 downto 10)) after DLY;
+                   rx_data_r3  <=  (rx_data_r(7 downto 0) & rx_data_r2(15 downto 8)) after DLY;
                 else
                    rx_data_r3  <=  rx_data_r2;
                 end if;

@@ -3,16 +3,19 @@
 #-------------------------------------------------------------
 
 # Set up project params
-set_param board.repoPaths D:/WinTools/Xilinx/Boards
+set_param tcl.collectionResultDisplayLimit 0
+set_param board.repoPaths C:/Xilinx/Vivado/Other_Boards
+set_param chipscope.maxJobs 3
+set_param xicom.use_bs_reader 1
 # Declare source IP directory
-set srcIpDir "d:/Projects/Transceiver/CCAM3/GTestP_Artix/GTestP_Artix.srcs/sources_1/ip/GTP_Artix"
+set srcIpDir "c:/Progetti/Transceiver_Lab/CCAM3/GTestP_Artix/GTestP_Artix.srcs/sources_1/ip/GTP_Artix"
 
 # Create project
 puts "INFO: \[open_example_project\] Creating new example project..."
 create_project -name GTP_Artix_ex -force
 # Set the board_part_repo_paths from the original project
 puts "INFO: \[open_example_project\] Setting board_part_repo_paths..."
-set_property board_part_repo_paths [list d:/Projects/Transceiver/CCAM3/ibert_7series_gtp_0_ex/Users/mcasti/AppData/Roaming/Xilinx/Vivado/2019.1/xhub/board_store d:/Projects/Transceiver/CCAM3/ibert_7series_gtp_0_ex/Xilinx/Vivado/Other_Boards] [current_project]
+set_property board_part_repo_paths [list c:/Users/mcasti/AppData/Roaming/Xilinx/Vivado/2019.1/xhub/board_store c:/Xilinx/Vivado/Other_Boards] [current_project]
 
 set_property part xc7a50tcpg236-1 [current_project]
 set_property target_language vhdl [current_project]
@@ -22,7 +25,7 @@ set returnCode 0
 
 # Set the repo paths from the original project
 puts "INFO: \[open_example_project\] Loading IP Catalog..."
-set_property ip_repo_paths [list d:/Projects/Transceiver/CCAM3/src/Vivado_repo d:/Projects/ISAAC/FPGA/Filters/ebv_filter d:/Projects/ISAAC/FPGA/Corner_Extraction/cornext_harris] [current_project]
+set_property ip_repo_paths [list c:/Progetti/Transceiver_Lab/CCAM3/src/Vivado_repo c:/Progetti/ISAAC/FPGA/Filters/ebv_filter c:/Progetti/ISAAC/FPGA/Corner_Extraction/cornext_harris] [current_project]
 update_ip_catalog
 
 # Set up pre-compilation paths
@@ -47,6 +50,11 @@ generate_target -quiet [_filter_supported_targets {instantiation_template synthe
 # Add example synthesis HDL files
 puts "INFO: \[open_example_project\] Adding example synthesis HDL files ..."
 add_files -scan_for_includes -quiet -fileset [current_fileset] \
+  [list [file join $srcIpDir GTP_Artix/example_design/support/gtp_artix_common_reset.vhd]] \
+  [list [file join $srcIpDir GTP_Artix/example_design/support/gtp_artix_common.vhd]] \
+  [list [file join $srcIpDir GTP_Artix/example_design/support/gtp_artix_gt_usrclk_source.vhd]] \
+  [list [file join $srcIpDir GTP_Artix/example_design/support/gtp_artix_support.vhd]] \
+  [list [file join $srcIpDir GTP_Artix/example_design/support/gtp_artix_cpll_railing.vhd]] \
   [list [file join $srcIpDir GTP_Artix/example_design/gtp_artix_exdes.vhd]] \
   [list [file join $srcIpDir GTP_Artix/example_design/gtp_artix_gt_frame_check.vhd]] \
   [list [file join $srcIpDir GTP_Artix/example_design/gtp_artix_gt_frame_gen.vhd]]

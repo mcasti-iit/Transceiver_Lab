@@ -1,6 +1,6 @@
 
 set_property -dict {IOSTANDARD LVCMOS18  PULLUP true  PACKAGE_PIN V13} [get_ports ALIGN_REQ_N_i]
-# set_property -dict {IOSTANDARD LVCMOS18  PULLUP true  PACKAGE_PIN P18} [get_ports i2c_slave_scl_io]
+set_property -dict {IOSTANDARD LVCMOS18  PULLUP true  PACKAGE_PIN P18} [get_ports CCAM_PLL_RESET_i]  
 
 
 ################################# 

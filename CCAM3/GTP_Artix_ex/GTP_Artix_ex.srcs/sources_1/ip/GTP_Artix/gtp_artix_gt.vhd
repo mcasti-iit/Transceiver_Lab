@@ -111,6 +111,8 @@ port
     txdata_in                               : in   std_logic_vector(15 downto 0);
     txusrclk_in                             : in   std_logic;
     txusrclk2_in                            : in   std_logic;
+    ------------------ Transmit Ports - TX 8B/10B Encoder Ports ----------------
+    txcharisk_in                            : in   std_logic_vector(1 downto 0);
     --------------- Transmit Ports - TX Configurable Driver Ports --------------
     gtptxn_out                              : out  std_logic;
     gtptxp_out                              : out  std_logic;
@@ -119,6 +121,8 @@ port
     txoutclkfabric_out                      : out  std_logic;
     txoutclkpcs_out                         : out  std_logic;
     ------------- Transmit Ports - TX Initialization and Reset Ports -----------
+    txpcsreset_in                           : in   std_logic;
+    txpmareset_in                           : in   std_logic;
     txresetdone_out                         : out  std_logic
 
 
@@ -159,8 +163,7 @@ begin
 
     -------------------  GT Datapath byte mapping  -----------------
 
-    --The GT serializes the rightmost parallel bit (LSb) first
-    txdata_i <=   (tied_to_ground_vec_i(15 downto 0) & TXDATA_IN); 
+    txdata_i    <=   (tied_to_ground_vec_i(15 downto 0) & TXDATA_IN);
 
 
 
@@ -193,8 +196,8 @@ begin
 
        ------------------RX 8B/10B Decoder Attributes---------------
         RX_DISPERR_SEQ_MATCH                    =>     ("FALSE"),
-        DEC_MCOMMA_DETECT                       =>     ("TRUE"),
-        DEC_PCOMMA_DETECT                       =>     ("TRUE"),
+        DEC_MCOMMA_DETECT                       =>     ("FALSE"),
+        DEC_PCOMMA_DETECT                       =>     ("FALSE"),
         DEC_VALID_COMMA_ONLY                    =>     ("FALSE"),
 
        ------------------------RX Clock Correction Attributes----------------------
@@ -250,7 +253,7 @@ begin
         ES_VERT_OFFSET                          =>     ("000000000"),
 
        -------------------------FPGA RX Interface Attributes-------------------------
-        RX_DATA_WIDTH                           =>     (20),
+        RX_DATA_WIDTH                           =>     (16),
 
        ---------------------------PMA Attributes----------------------------
         OUTREFCLK_SEL_INV                       =>     ("11"),
@@ -318,7 +321,7 @@ begin
        --For SATA Gen2 GTP- set RXCDR_CFG=83'h0_0000_47FE_2060_2448_1010
 
        --For SATA Gen1 GTP- set RXCDR_CFG=83'h0_0000_47FE_1060_2448_1010
-        RXCDR_CFG                               =>     (x"0001107FE206021041010"),
+        RXCDR_CFG                               =>     (x"0001107FE206021081010"),
         RXCDR_FR_RESET_ON_EIDLE                 =>     ('0'),
         RXCDR_HOLD_DURING_EIDLE                 =>     ('0'),
         RXCDR_PH_RESET_ON_EIDLE                 =>     ('0'),
@@ -374,7 +377,7 @@ begin
         TX_XCLK_SEL                             =>     ("TXOUT"),
 
        -------------------------FPGA TX Interface Attributes-------------------------
-        TX_DATA_WIDTH                           =>     (16),
+        TX_DATA_WIDTH                           =>     (20),
 
        -------------------------TX Configurable Driver Attributes-------------------------
         TX_DEEMPH0                              =>     ("000000"),
@@ -436,10 +439,10 @@ begin
         SATA_PLL_CFG                            =>     ("VCO_3000MHZ"),
 
        ------------------ RX Fabric Clock Output Control Attributes ---------------
-        RXOUT_DIV                               =>     (1),
+        RXOUT_DIV                               =>     (2),
 
        ------------------ TX Fabric Clock Output Control Attributes ---------------
-        TXOUT_DIV                               =>     (1),
+        TXOUT_DIV                               =>     (2),
 
        ------------------ RX Phase Interpolator Attributes---------------
         RXPI_CFG0                               =>     ("000"),
@@ -518,7 +521,7 @@ begin
         RXSYSCLKSEL                     =>      "11",
         TXSYSCLKSEL                     =>      "00",
         ----------------- FPGA TX Interface Datapath Configuration  ----------------
-        TX8B10BEN                       =>      tied_to_ground_i,
+        TX8B10BEN                       =>      tied_to_vcc_i,
         ------------------------ GTPE2_CHANNEL Clocking Ports ----------------------
         PLL0CLK                         =>      pll0clk_in,
         PLL0REFCLK                      =>      pll0refclk_in,
@@ -620,9 +623,9 @@ begin
         RXBYTEISALIGNED                 =>      open,
         RXBYTEREALIGN                   =>      open,
         RXCOMMADET                      =>      open,
-        RXCOMMADETEN                    =>      tied_to_vcc_i,
-        RXMCOMMAALIGNEN                 =>      tied_to_vcc_i,
-        RXPCOMMAALIGNEN                 =>      tied_to_vcc_i,
+        RXCOMMADETEN                    =>      tied_to_ground_i,
+        RXMCOMMAALIGNEN                 =>      tied_to_ground_i,
+        RXPCOMMAALIGNEN                 =>      tied_to_ground_i,
         RXSLIDE                         =>      tied_to_ground_i,
         ------------------ Receive Ports - RX Channel Bonding Ports ----------------
         RXCHANBONDSEQ                   =>      open,
@@ -730,7 +733,8 @@ begin
         TX8B10BBYPASS                   =>      tied_to_ground_vec_i(3 downto 0),
         TXCHARDISPMODE                  =>      tied_to_ground_vec_i(3 downto 0),
         TXCHARDISPVAL                   =>      tied_to_ground_vec_i(3 downto 0),
-        TXCHARISK                       =>      tied_to_ground_vec_i(3 downto 0),
+        TXCHARISK(3 downto 2)           =>      tied_to_ground_vec_i(1 downto 0),
+        TXCHARISK(1 downto 0)           =>      txcharisk_in,
         ------------------ Transmit Ports - TX Buffer Bypass Ports -----------------
         TXDLYBYPASS                     =>      tied_to_vcc_i,
         TXDLYEN                         =>      tied_to_ground_i,
@@ -777,8 +781,8 @@ begin
         TXSEQUENCE                      =>      tied_to_ground_vec_i(6 downto 0),
         TXSTARTSEQ                      =>      tied_to_ground_i,
         ------------- Transmit Ports - TX Initialization and Reset Ports -----------
-        TXPCSRESET                      =>      tied_to_ground_i,
-        TXPMARESET                      =>      tied_to_ground_i,
+        TXPCSRESET                      =>      txpcsreset_in,
+        TXPMARESET                      =>      txpmareset_in,
         TXRESETDONE                     =>      txresetdone_out,
         ------------------ Transmit Ports - TX OOB signalling Ports ----------------
         TXCOMFINISH                     =>      open,

@@ -298,14 +298,14 @@ begin
         
 
        ------------------RX Byte and Word Alignment Attributes---------------
-        ALIGN_COMMA_DOUBLE                      =>     ("TRUE"),
+        ALIGN_COMMA_DOUBLE                      =>     ("FALSE"),
         ALIGN_COMMA_ENABLE                      =>     ("1111111111"),
         ALIGN_COMMA_WORD                        =>     (2),
         ALIGN_MCOMMA_DET                        =>     ("TRUE"),
         ALIGN_MCOMMA_VALUE                      =>     ("1010000011"),
         ALIGN_PCOMMA_DET                        =>     ("TRUE"),
         ALIGN_PCOMMA_VALUE                      =>     ("0101111100"),
-        SHOW_REALIGN_COMMA                      =>     ("FALSE"),
+        SHOW_REALIGN_COMMA                      =>     ("TRUE"),
         RXSLIDE_AUTO_WAIT                       =>     (7),
         RXSLIDE_MODE                            =>     ("OFF"),
         RX_SIG_VALID_DLY                        =>     (10),

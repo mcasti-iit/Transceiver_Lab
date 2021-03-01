@@ -155,7 +155,7 @@ component GTP_Zynq_support
 generic
 (
     EXAMPLE_SIM_GTRESET_SPEEDUP             : string    := "TRUE";     -- simulation setting for GT SecureIP model
-    STABLE_CLOCK_PERIOD                     : integer   := 8  
+    STABLE_CLOCK_PERIOD                     : integer   := 10  
 
 );
 port
@@ -239,7 +239,7 @@ begin
     generic map
 (
         EXAMPLE_SIM_GTRESET_SPEEDUP   => "FALSE",
-        STABLE_CLOCK_PERIOD           => 8
+        STABLE_CLOCK_PERIOD           => 10
 )
 port map
 (

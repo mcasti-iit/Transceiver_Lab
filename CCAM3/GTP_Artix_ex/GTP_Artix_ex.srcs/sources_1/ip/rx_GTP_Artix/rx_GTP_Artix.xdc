@@ -69,10 +69,10 @@
 
 
 # User Clock Constraints
-create_clock -period 5.12 [get_pins -filter {REF_PIN_NAME=~*TXOUTCLK} -of_objects [get_cells -hierarchical -filter {NAME =~ *gt0_rx_GTP_Artix_i*gtpe2_i*}]]
-create_clock -period 6.4 [get_pins -filter {REF_PIN_NAME=~*TXOUTCLKFABRIC} -of_objects [get_cells -hierarchical -filter {NAME =~ *gt0_rx_GTP_Artix_i*gtpe2_i*}]]
-create_clock -period 6.4 [get_pins -filter {REF_PIN_NAME=~*RXOUTCLKFABRIC} -of_objects [get_cells -hierarchical -filter {NAME =~ *gt0_rx_GTP_Artix_i*gtpe2_i*}]]
-create_clock -period 5.12 [get_pins -filter {REF_PIN_NAME=~*RXOUTCLK} -of_objects [get_cells -hierarchical -filter {NAME =~ *gt0_rx_GTP_Artix_i*gtpe2_i*}]]
+create_clock -period 6.4 [get_pins -filter {REF_PIN_NAME=~*TXOUTCLK} -of_objects [get_cells -hierarchical -filter {NAME =~ *gt0_rx_GTP_Artix_i*gtpe2_i*}]]
+create_clock -period 8.0 [get_pins -filter {REF_PIN_NAME=~*TXOUTCLKFABRIC} -of_objects [get_cells -hierarchical -filter {NAME =~ *gt0_rx_GTP_Artix_i*gtpe2_i*}]]
+create_clock -period 8.0 [get_pins -filter {REF_PIN_NAME=~*RXOUTCLKFABRIC} -of_objects [get_cells -hierarchical -filter {NAME =~ *gt0_rx_GTP_Artix_i*gtpe2_i*}]]
+create_clock -period 6.4 [get_pins -filter {REF_PIN_NAME=~*RXOUTCLK} -of_objects [get_cells -hierarchical -filter {NAME =~ *gt0_rx_GTP_Artix_i*gtpe2_i*}]]
 #set_false_path -from [get_clocks -include_generated_clocks -of_objects [get_ports SYSCLK_IN]] -to [get_clocks -include_generated_clocks -of_objects [get_pins -hier -filter {name=~*gt0_rx_GTP_Artix_i*gtpe2_i*TXOUTCLK}]]
 #set_false_path -from [get_clocks -include_generated_clocks -of_objects [get_pins -hier -filter {name=~*gt0_rx_GTP_Artix_i*gtpe2_i*TXOUTCLK}]] -to [get_clocks -include_generated_clocks -of_objects [get_ports SYSCLK_IN]]
 

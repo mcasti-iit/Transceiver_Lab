@@ -76,8 +76,8 @@ generic
     EXAMPLE_LANE_WITH_START_CHAR            : integer   := 0;    -- specifies lane with unique start frame ch
     EXAMPLE_WORDS_IN_BRAM                   : integer   := 512;  -- specifies amount of data in BRAM
     EXAMPLE_SIM_GTRESET_SPEEDUP             : string    := "FALSE";    -- simulation setting for GT SecureIP model
-    STABLE_CLOCK_PERIOD                     : integer   := 8; 
-    EXAMPLE_USE_CHIPSCOPE                   : integer   := 1           -- Set to 1 to use Chipscope to drive resets
+    STABLE_CLOCK_PERIOD                     : integer   := 10; 
+    EXAMPLE_USE_CHIPSCOPE                   : integer   := 0           -- Set to 1 to use Chipscope to drive resets
 );
 port
 (
@@ -111,7 +111,7 @@ generic
 (
     -- Simulation attributes
     EXAMPLE_SIM_GTRESET_SPEEDUP    : string    := "FALSE";    -- Set to TRUE to speed up sim reset
-    STABLE_CLOCK_PERIOD            : integer   := 8 
+    STABLE_CLOCK_PERIOD            : integer   := 10 
 );
 port
 (
@@ -145,6 +145,10 @@ port
     gt0_eyescantrigger_in                   : in   std_logic;
     ------------------ Receive Ports - FPGA RX Interface Ports -----------------
     gt0_rxdata_out                          : out  std_logic_vector(15 downto 0);
+    ------------------ Receive Ports - RX 8B/10B Decoder Ports -----------------
+    gt0_rxcharisk_out                       : out  std_logic_vector(1 downto 0);
+    gt0_rxdisperr_out                       : out  std_logic_vector(1 downto 0);
+    gt0_rxnotintable_out                    : out  std_logic_vector(1 downto 0);
     ------------------------ Receive Ports - RX AFE Ports ----------------------
     gt0_gtprxn_in                           : in   std_logic;
     gt0_gtprxp_in                           : in   std_logic;
@@ -164,7 +168,10 @@ port
     gt0_rxresetdone_out                     : out  std_logic;
     --------------------- TX Initialization and Reset Ports --------------------
     gt0_gttxreset_in                        : in   std_logic;
+    ------------- Transmit Ports - TX Initialization and Reset Ports -----------
+    gt0_txpcsreset_in                       : in   std_logic;
 
+GT0_PLL0PD_IN                           : in   std_logic;
     --____________________________COMMON PORTS________________________________
    GT0_PLL0RESET_OUT  : out std_logic;
          GT0_PLL0OUTCLK_OUT  : out std_logic;
@@ -203,14 +210,25 @@ generic
     RXCTRL_WIDTH             : integer := 2; 
     WORDS_IN_BRAM            : integer := 256;
     CHANBOND_SEQ_LEN         : integer := 1;
-START_OF_PACKET_CHAR     : std_logic_vector ( 15 downto 0)  := x"027c"
+    COMMA_DOUBLE             : std_logic_vector(15 downto 0) := x"f628";
+START_OF_PACKET_CHAR     : std_logic_vector ( 15 downto 0)  := x"02bc"
 );
 port
 (
     -- User Interface
     RX_DATA_IN               : in  std_logic_vector((RX_DATA_WIDTH-1) downto 0);
+    RXCTRL_IN                : in  std_logic_vector((RXCTRL_WIDTH-1) downto 0); 
 RXENMCOMMADET_OUT        : out std_logic;
 RXENPCOMMADET_OUT        : out std_logic;
+RX_ENCHAN_SYNC_OUT       : out std_logic;
+RX_CHANBOND_SEQ_IN       : in  std_logic;
+
+    -- Control Interface
+INC_IN                   : in  std_logic; 
+INC_OUT                  : out std_logic; 
+PATTERN_MATCHB_OUT       : out std_logic;
+RESET_ON_ERROR_IN        : in  std_logic;
+
 
     -- Error Monitoring
 ERROR_COUNT_OUT          : out std_logic_vector(7 downto 0);
@@ -301,6 +319,10 @@ attribute ASYNC_REG of gt0_rxresetdone_r3     : signal is "TRUE";
     signal  gt0_eyescantrigger_i            : std_logic;
     ------------------ Receive Ports - FPGA RX Interface Ports -----------------
     signal  gt0_rxdata_i                    : std_logic_vector(15 downto 0);
+    ------------------ Receive Ports - RX 8B/10B Decoder Ports -----------------
+    signal  gt0_rxcharisk_i                 : std_logic_vector(1 downto 0);
+    signal  gt0_rxdisperr_i                 : std_logic_vector(1 downto 0);
+    signal  gt0_rxnotintable_i              : std_logic_vector(1 downto 0);
     ------------------------ Receive Ports - RX AFE Ports ----------------------
     signal  gt0_gtprxn_i                    : std_logic;
     signal  gt0_gtprxp_i                    : std_logic;
@@ -321,12 +343,15 @@ attribute ASYNC_REG of gt0_rxresetdone_r3     : signal is "TRUE";
     signal  gt0_rxresetdone_i               : std_logic;
     --------------------- TX Initialization and Reset Ports --------------------
     signal  gt0_gttxreset_i                 : std_logic;
+    ------------- Transmit Ports - TX Initialization and Reset Ports -----------
+    signal  gt0_txpcsreset_i                : std_logic;
 
 
 
     --____________________________COMMON PORTS________________________________
     -------------------------- Common Block - PLL Ports ------------------------
     signal  gt0_pll0lock_i                  : std_logic;
+    signal  gt0_pll0pd_i                    : std_logic;
     signal  gt0_pll0refclklost_i            : std_logic;
     signal  gt0_pll0reset_i                 : std_logic;
 
@@ -527,6 +552,10 @@ tied_to_vcc_vec_i                            <= "11111111";
         gt0_eyescantrigger_in           =>      tied_to_ground_i,
         ------------------ Receive Ports - FPGA RX Interface Ports -----------------
         gt0_rxdata_out                  =>      gt0_rxdata_i,
+        ------------------ Receive Ports - RX 8B/10B Decoder Ports -----------------
+        gt0_rxcharisk_out               =>      gt0_rxcharisk_i,
+        gt0_rxdisperr_out               =>      gt0_rxdisperr_i,
+        gt0_rxnotintable_out            =>      gt0_rxnotintable_i,
         ------------------------ Receive Ports - RX AFE Ports ----------------------
         gt0_gtprxn_in                   =>      RXN_IN,
         gt0_gtprxp_in                   =>      RXP_IN,
@@ -546,9 +575,12 @@ tied_to_vcc_vec_i                            <= "11111111";
         gt0_rxresetdone_out             =>      gt0_rxresetdone_i,
         --------------------- TX Initialization and Reset Ports --------------------
         gt0_gttxreset_in                =>      tied_to_ground_i,
+        ------------- Transmit Ports - TX Initialization and Reset Ports -----------
+        gt0_txpcsreset_in               =>      tied_to_ground_i,
 
 
 
+    GT0_PLL0PD_IN => gt0_pll0pd_i,
     --____________________________COMMON PORTS________________________________
    GT0_PLL0RESET_OUT  => open,
          GT0_PLL0OUTCLK_OUT  => open,
@@ -624,15 +656,24 @@ gt0_inc_in_i                                 <= '0';
     (
         RX_DATA_WIDTH                   =>      16,
         RXCTRL_WIDTH                    =>      2,
+        COMMA_DOUBLE                    =>      x"02bc",
         WORDS_IN_BRAM                   =>      EXAMPLE_WORDS_IN_BRAM,
-        START_OF_PACKET_CHAR            =>      x"027c"
+        START_OF_PACKET_CHAR            =>      x"02bc"
     )
     port map
     (
         -- GT Interface
         RX_DATA_IN                      =>      gt0_rxdata_i,
+        RXCTRL_IN                       =>      gt0_rxcharisk_i,
         RXENMCOMMADET_OUT               =>      open,
         RXENPCOMMADET_OUT               =>      open,
+        RX_ENCHAN_SYNC_OUT              =>      open,
+        RX_CHANBOND_SEQ_IN              =>      tied_to_ground_i,
+        -- Control Interface
+        INC_IN                          =>      gt0_inc_in_i,
+        INC_OUT                         =>      gt0_inc_out_i,
+        PATTERN_MATCHB_OUT              =>      gt0_matchn_i,
+        RESET_ON_ERROR_IN               =>      gt0_frame_check_reset_i,
         -- System Interface
         USER_CLK                        =>      gt0_rxusrclk2_i,
         SYSTEM_RESET                    =>      gt0_rx_system_reset_c,
@@ -657,6 +698,7 @@ track_data_out_i                             <=
 
 -------------------------------------------------------------------------------
 ----------------------------- Debug Signals assignment -----------------------
+    gt0_pll0pd_i                                 <= tied_to_ground_i;
 
 ------------ optional Ports assignments --------------
 ------------------------------------------------------ 
@@ -673,52 +715,7 @@ gt0_drpdi_i <= (others => '0');
 gt0_drpen_i <= '0';
 gt0_drpwe_i <= '0';
 
-chipscope : if EXAMPLE_USE_CHIPSCOPE = 1 generate
-   soft_reset_i <= soft_reset_vio_i(0);
-end generate chipscope;
-
-no_chipscope : if EXAMPLE_USE_CHIPSCOPE = 0 generate
   soft_reset_i <= tied_to_ground_i;
-end generate no_chipscope;
-tied_to_ground_ila_i(0) <= '0';
-gt0_rxfsmresetdone_s(0) <= gt0_rxfsmresetdone_i;
--- vio core insertion for driving soft_reset_i
-vio_gt_inst: vio_0 port map (
-  clk        => drpclk_in_i,                -- input clk
-  probe_in0 => gt0_rxfsmresetdone_s,
-  probe_out0 => soft_reset_vio_i  
-);
-
-gt0_rxdata_ila      <= zero_vector_rx_80 & gt0_rxdata_i;
-
-   gt0_rxdatavalid_ila(0) <= '0'; 
-   gt0_rxdatavalid_ila(1) <= '0'; 
-
-   gt0_rxcharisk_ila <= (others => '0'); 
-
-
-   gt0_txmmcm_lock_ila(0) <= '0';
-
-   gt0_rxmmcm_lock_ila(0) <= '0';
-gt0_rxresetdone_ila(0) <= gt0_rxresetdone_i;
-gt0_txresetdone_ila(0) <= '0';
-
-track_data_out_ila_i(0) <= track_data_out_i;
-
-
--- ila core insertion for observing data and control signals
-
-ila_rx0_inst: ila_0 port map (
-  clk        => gt0_rxusrclk_i,        -- input clk
-  probe0     => gt0_rxdata_ila,
-  probe1     => gt0_error_count_i,
-  probe2     => track_data_out_ila_i,
-  probe3     => gt0_rxdatavalid_ila,
-  probe4     => gt0_rxcharisk_ila,
-  probe5     => gt0_rxmmcm_lock_ila, 
-  probe6     => gt0_rxresetdone_ila
-);
-
 
 end RTL;
 

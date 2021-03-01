@@ -78,7 +78,7 @@ generic
     EXAMPLE_SIM_GTRESET_SPEEDUP             : string    := "TRUE";     -- simulation setting for GT SecureIP model
     EXAMPLE_SIMULATION                      : integer   := 0;          -- Set to 1 for simulation
  
-    STABLE_CLOCK_PERIOD                     : integer   := 8;  
+    STABLE_CLOCK_PERIOD                     : integer   := 10;  
         -- Set to 1 for simulation
     EXAMPLE_USE_CHIPSCOPE                   : integer   := 0           -- Set to 1 to use Chipscope to drive resets
 
@@ -119,6 +119,8 @@ port
     gt0_txdata_in                           : in   std_logic_vector(15 downto 0);
     gt0_txusrclk_in                         : in   std_logic;
     gt0_txusrclk2_in                        : in   std_logic;
+    ------------------ Transmit Ports - TX 8B/10B Encoder Ports ----------------
+    gt0_txcharisk_in                        : in   std_logic_vector(1 downto 0);
     --------------- Transmit Ports - TX Configurable Driver Ports --------------
     gt0_gtptxn_out                          : out  std_logic;
     gt0_gtptxp_out                          : out  std_logic;
@@ -127,6 +129,8 @@ port
     gt0_txoutclkfabric_out                  : out  std_logic;
     gt0_txoutclkpcs_out                     : out  std_logic;
     ------------- Transmit Ports - TX Initialization and Reset Ports -----------
+    gt0_txpcsreset_in                       : in   std_logic;
+    gt0_txpmareset_in                       : in   std_logic;
     gt0_txresetdone_out                     : out  std_logic;
 
 
@@ -192,6 +196,8 @@ port
     gt0_txdata_in                           : in   std_logic_vector(15 downto 0);
     gt0_txusrclk_in                         : in   std_logic;
     gt0_txusrclk2_in                        : in   std_logic;
+    ------------------ Transmit Ports - TX 8B/10B Encoder Ports ----------------
+    gt0_txcharisk_in                        : in   std_logic_vector(1 downto 0);
     --------------- Transmit Ports - TX Configurable Driver Ports --------------
     gt0_gtptxn_out                          : out  std_logic;
     gt0_gtptxp_out                          : out  std_logic;
@@ -200,6 +206,8 @@ port
     gt0_txoutclkfabric_out                  : out  std_logic;
     gt0_txoutclkpcs_out                     : out  std_logic;
     ------------- Transmit Ports - TX Initialization and Reset Ports -----------
+    gt0_txpcsreset_in                       : in   std_logic;
+    gt0_txpmareset_in                       : in   std_logic;
     gt0_txresetdone_out                     : out  std_logic;
    
 
@@ -304,7 +312,7 @@ end component;
     if (is_sim = 1) then
       lock_time := 1000;
     else
-      lock_time := 100000 / integer(3.750); --Typical CDR lock time is 50,000UI as per DS183
+      lock_time := 100000 / integer(3.125); --Typical CDR lock time is 50,000UI as per DS183
     end if;
     return lock_time;
   end function;
@@ -329,6 +337,8 @@ end component;
     signal   gt0_gttxreset_t                 : std_logic;
     signal   gt0_gtrxreset_i                 : std_logic;
     signal   gt0_gtrxreset_t                 : std_logic;
+    signal   gt0_txpcsreset_i                : std_logic;
+    signal   gt0_txpmareset_i                : std_logic;
     signal   gt0_txuserrdy_i                 : std_logic;
     signal   gt0_txuserrdy_t                 : std_logic;
     signal   gt0_rxuserrdy_i                 : std_logic;
@@ -417,6 +427,8 @@ begin
         gt0_txdata_in                   =>      gt0_txdata_in,
         gt0_txusrclk_in                 =>      gt0_txusrclk_in,
         gt0_txusrclk2_in                =>      gt0_txusrclk2_in,
+        ------------------ Transmit Ports - TX 8B/10B Encoder Ports ----------------
+        gt0_txcharisk_in                =>      gt0_txcharisk_in,
         --------------- Transmit Ports - TX Configurable Driver Ports --------------
         gt0_gtptxn_out                  =>      gt0_gtptxn_out,
         gt0_gtptxp_out                  =>      gt0_gtptxp_out,
@@ -425,6 +437,8 @@ begin
         gt0_txoutclkfabric_out          =>      gt0_txoutclkfabric_out,
         gt0_txoutclkpcs_out             =>      gt0_txoutclkpcs_out,
         ------------- Transmit Ports - TX Initialization and Reset Ports -----------
+        gt0_txpcsreset_in               =>      gt0_txpcsreset_in,
+        gt0_txpmareset_in               =>      gt0_txpmareset_in,
         gt0_txresetdone_out             =>      gt0_txresetdone_i,
 
 
@@ -437,7 +451,9 @@ begin
         gt0_pll1outrefclk_in            =>      gt0_pll1outrefclk_in
     );
 
+gt0_txpcsreset_i                             <= tied_to_ground_i;
 
+gt0_txpmareset_i                             <= tied_to_ground_i;
 
 
 GT0_TXRESETDONE_OUT                          <= gt0_txresetdone_i;

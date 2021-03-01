@@ -104,6 +104,10 @@ port
     gt0_rxdata_out                          : out  std_logic_vector(15 downto 0);
     gt0_rxusrclk_in                         : in   std_logic;
     gt0_rxusrclk2_in                        : in   std_logic;
+    ------------------ Receive Ports - RX 8B/10B Decoder Ports -----------------
+    gt0_rxcharisk_out                       : out  std_logic_vector(1 downto 0);
+    gt0_rxdisperr_out                       : out  std_logic_vector(1 downto 0);
+    gt0_rxnotintable_out                    : out  std_logic_vector(1 downto 0);
     ------------------------ Receive Ports - RX AFE Ports ----------------------
     gt0_gtprxn_in                           : in   std_logic;
     gt0_gtprxp_in                           : in   std_logic;
@@ -124,6 +128,8 @@ port
     gt0_rxresetdone_out                     : out  std_logic;
     --------------------- TX Initialization and Reset Ports --------------------
     gt0_gttxreset_in                        : in   std_logic;
+    ------------- Transmit Ports - TX Initialization and Reset Ports -----------
+    gt0_txpcsreset_in                       : in   std_logic;
 
 
     --____________________________COMMON PORTS________________________________
@@ -213,6 +219,10 @@ port
     rxdata_out                              : out  std_logic_vector(15 downto 0);
     rxusrclk_in                             : in   std_logic;
     rxusrclk2_in                            : in   std_logic;
+    ------------------ Receive Ports - RX 8B/10B Decoder Ports -----------------
+    rxcharisk_out                           : out  std_logic_vector(1 downto 0);
+    rxdisperr_out                           : out  std_logic_vector(1 downto 0);
+    rxnotintable_out                        : out  std_logic_vector(1 downto 0);
     ------------------------ Receive Ports - RX AFE Ports ----------------------
     gtprxn_in                               : in   std_logic;
     gtprxp_in                               : in   std_logic;
@@ -232,14 +242,16 @@ port
     -------------- Receive Ports -RX Initialization and Reset Ports ------------
     rxresetdone_out                         : out  std_logic;
     --------------------- TX Initialization and Reset Ports --------------------
-    gttxreset_in                            : in   std_logic
+    gttxreset_in                            : in   std_logic;
+    ------------- Transmit Ports - TX Initialization and Reset Ports -----------
+    txpcsreset_in                           : in   std_logic
 
 
 );
 end component;
 
 
-    constant PLL0_FBDIV_IN      :   integer := 4;
+    constant PLL0_FBDIV_IN      :   integer := 5;
     constant PLL1_FBDIV_IN      :   integer := 1;
     constant PLL0_FBDIV_45_IN   :   integer := 5;
     constant PLL1_FBDIV_45_IN   :   integer := 4;
@@ -301,6 +313,10 @@ gt0_rx_GTP_Artix_i : rx_GTP_Artix_GT
         rxdata_out                      =>      gt0_rxdata_out,
         rxusrclk_in                     =>      gt0_rxusrclk_in,
         rxusrclk2_in                    =>      gt0_rxusrclk2_in,
+        ------------------ Receive Ports - RX 8B/10B Decoder Ports -----------------
+        rxcharisk_out                   =>      gt0_rxcharisk_out,
+        rxdisperr_out                   =>      gt0_rxdisperr_out,
+        rxnotintable_out                =>      gt0_rxnotintable_out,
         ------------------------ Receive Ports - RX AFE Ports ----------------------
         gtprxn_in                       =>      gt0_gtprxn_in,
         gtprxp_in                       =>      gt0_gtprxp_in,
@@ -320,7 +336,9 @@ gt0_rx_GTP_Artix_i : rx_GTP_Artix_GT
         -------------- Receive Ports -RX Initialization and Reset Ports ------------
         rxresetdone_out                 =>      gt0_rxresetdone_out,
         --------------------- TX Initialization and Reset Ports --------------------
-        gttxreset_in                    =>      gt0_gttxreset_in
+        gttxreset_in                    =>      gt0_gttxreset_in,
+        ------------- Transmit Ports - TX Initialization and Reset Ports -----------
+        txpcsreset_in                   =>      gt0_txpcsreset_in
 
     );
 

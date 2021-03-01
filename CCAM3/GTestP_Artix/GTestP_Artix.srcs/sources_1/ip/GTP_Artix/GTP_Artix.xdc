@@ -67,7 +67,7 @@
 ################################## Clock Constraints ##########################
 
 
-#create_clock -period 8.0 [get_ports sysclk_in]
+#create_clock -period 10.0 [get_ports sysclk_in]
 
 # User Clock Constraints
 create_clock -period 6.4 [get_pins -filter {REF_PIN_NAME=~*TXOUTCLK} -of_objects [get_cells -hierarchical -filter {NAME =~ *gt0_GTP_Artix_i*gtpe2_i*}]]

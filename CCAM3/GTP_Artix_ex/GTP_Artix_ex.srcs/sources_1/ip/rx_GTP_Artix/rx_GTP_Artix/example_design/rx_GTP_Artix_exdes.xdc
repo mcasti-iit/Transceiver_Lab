@@ -69,18 +69,19 @@
 ####################### GT reference clock constraints #########################
  
 
-    create_clock -period 6.4 [get_ports Q0_CLK0_GTREFCLK_PAD_P_IN]
+    create_clock -period 8.0 [get_ports Q0_CLK0_GTREFCLK_PAD_P_IN]
 
 
 
 
 
-create_clock -name drpclk_in_i -period 8.0 [get_ports DRP_CLK_IN_P]
+create_clock -name drpclk_in_i -period 10.0 [get_ports DRP_CLK_IN_P]
 
 
 # User Clock Constraints
 
 
+set_false_path -to [get_pins -filter {REF_PIN_NAME=~*D} -of_objects [get_cells -hierarchical -filter {NAME =~ *reset_on_error_in_r*}]]
 ################################# RefClk Location constraints #####################
 
 set_property LOC A8 [get_ports  Q0_CLK0_GTREFCLK_PAD_N_IN ] 
@@ -101,4 +102,3 @@ set_property LOC GTPE2_CHANNEL_X0Y0 [get_cells rx_GTP_Artix_support_i/rx_GTP_Art
 
 ##---------- Set False Path from one clock to other ----------
 
-connect_debug_port dbg_hub/clk [get_pins -filter {REF_PIN_NAME=~*O} -of_objects [get_cells -hierarchical -filter {NAME =~ *DRP_CLK_BUFG*}]]

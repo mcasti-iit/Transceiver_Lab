@@ -78,7 +78,7 @@ generic
     EXAMPLE_SIM_GTRESET_SPEEDUP             : string    := "FALSE";     -- simulation setting for GT SecureIP model
     EXAMPLE_SIMULATION                      : integer   := 0;          -- Set to 1 for simulation
  
-    STABLE_CLOCK_PERIOD                     : integer   := 8;  
+    STABLE_CLOCK_PERIOD                     : integer   := 10;  
         -- Set to 1 for simulation
     EXAMPLE_USE_CHIPSCOPE                   : integer   := 0           -- Set to 1 to use Chipscope to drive resets
 
@@ -113,6 +113,10 @@ port
     gt0_rxdata_out                          : out  std_logic_vector(15 downto 0);
     gt0_rxusrclk_in                         : in   std_logic;
     gt0_rxusrclk2_in                        : in   std_logic;
+    ------------------ Receive Ports - RX 8B/10B Decoder Ports -----------------
+    gt0_rxcharisk_out                       : out  std_logic_vector(1 downto 0);
+    gt0_rxdisperr_out                       : out  std_logic_vector(1 downto 0);
+    gt0_rxnotintable_out                    : out  std_logic_vector(1 downto 0);
     ------------------------ Receive Ports - RX AFE Ports ----------------------
     gt0_gtprxn_in                           : in   std_logic;
     gt0_gtprxp_in                           : in   std_logic;
@@ -133,6 +137,8 @@ port
     gt0_rxresetdone_out                     : out  std_logic;
     --------------------- TX Initialization and Reset Ports --------------------
     gt0_gttxreset_in                        : in   std_logic;
+    ------------- Transmit Ports - TX Initialization and Reset Ports -----------
+    gt0_txpcsreset_in                       : in   std_logic;
 
 
     --____________________________COMMON PORTS________________________________
@@ -191,6 +197,10 @@ port
     gt0_rxdata_out                          : out  std_logic_vector(15 downto 0);
     gt0_rxusrclk_in                         : in   std_logic;
     gt0_rxusrclk2_in                        : in   std_logic;
+    ------------------ Receive Ports - RX 8B/10B Decoder Ports -----------------
+    gt0_rxcharisk_out                       : out  std_logic_vector(1 downto 0);
+    gt0_rxdisperr_out                       : out  std_logic_vector(1 downto 0);
+    gt0_rxnotintable_out                    : out  std_logic_vector(1 downto 0);
     ------------------------ Receive Ports - RX AFE Ports ----------------------
     gt0_gtprxn_in                           : in   std_logic;
     gt0_gtprxp_in                           : in   std_logic;
@@ -211,6 +221,8 @@ port
     gt0_rxresetdone_out                     : out  std_logic;
     --------------------- TX Initialization and Reset Ports --------------------
     gt0_gttxreset_in                        : in   std_logic;
+    ------------- Transmit Ports - TX Initialization and Reset Ports -----------
+    gt0_txpcsreset_in                       : in   std_logic;
    
 
     --____________________________COMMON PORTS________________________________
@@ -338,6 +350,7 @@ end component;
     signal   gt0_gttxreset_t                 : std_logic;
     signal   gt0_gtrxreset_i                 : std_logic;
     signal   gt0_gtrxreset_t                 : std_logic;
+    signal   gt0_txpcsreset_i                : std_logic;
     signal   gt0_txuserrdy_i                 : std_logic;
     signal   gt0_txuserrdy_t                 : std_logic;
     signal   gt0_rxuserrdy_i                 : std_logic;
@@ -421,6 +434,10 @@ begin
         gt0_rxdata_out                  =>      gt0_rxdata_out,
         gt0_rxusrclk_in                 =>      gt0_rxusrclk_in,
         gt0_rxusrclk2_in                =>      gt0_rxusrclk2_in,
+        ------------------ Receive Ports - RX 8B/10B Decoder Ports -----------------
+        gt0_rxcharisk_out               =>      gt0_rxcharisk_out,
+        gt0_rxdisperr_out               =>      gt0_rxdisperr_out,
+        gt0_rxnotintable_out            =>      gt0_rxnotintable_out,
         ------------------------ Receive Ports - RX AFE Ports ----------------------
         gt0_gtprxn_in                   =>      gt0_gtprxn_in,
         gt0_gtprxp_in                   =>      gt0_gtprxp_in,
@@ -441,6 +458,8 @@ begin
         gt0_rxresetdone_out             =>      gt0_rxresetdone_i,
         --------------------- TX Initialization and Reset Ports --------------------
         gt0_gttxreset_in                =>      gt0_gttxreset_i,
+        ------------- Transmit Ports - TX Initialization and Reset Ports -----------
+        gt0_txpcsreset_in               =>      gt0_txpcsreset_in,
 
 
 
@@ -453,6 +472,7 @@ begin
         gt0_pll1outrefclk_in            =>      gt0_pll1outrefclk_in
     );
 
+gt0_txpcsreset_i                             <= tied_to_ground_i;
 
 
 

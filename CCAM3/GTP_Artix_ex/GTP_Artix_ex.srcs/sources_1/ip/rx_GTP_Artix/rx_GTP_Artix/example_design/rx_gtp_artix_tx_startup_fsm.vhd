@@ -177,7 +177,7 @@ architecture RTL of rx_GTP_Artix_TX_STARTUP_FSM is
   signal run_phase_alignment_int    : std_logic := '0';
   signal run_phase_alignment_int_s2 : std_logic := '0';
   signal run_phase_alignment_int_s3 : std_logic := '0';
-  constant MAX_WAIT_BYPASS      : integer := 37632; --110000 TXUSRCLK cycles is the max time for Multi lane designs
+  constant MAX_WAIT_BYPASS      : integer := 45824; --110000 TXUSRCLK cycles is the max time for Multi lane designs
  
   constant WAIT_TIME_MAX    : integer := 100 ; --10 us time-out
 

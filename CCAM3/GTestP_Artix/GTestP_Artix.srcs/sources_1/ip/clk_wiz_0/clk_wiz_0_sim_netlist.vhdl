@@ -1,7 +1,7 @@
 -- Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2019.1 (win64) Build 2552052 Fri May 24 14:49:42 MDT 2019
--- Date        : Thu Feb 11 15:28:48 2021
+-- Date        : Mon Feb 22 19:51:36 2021
 -- Host        : IITICUBLAP127 running 64-bit major release  (build 9200)
 -- Command     : write_vhdl -force -mode funcsim
 --               C:/Progetti/Transceiver_Lab/CCAM3/GTestP_Artix/GTestP_Artix.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0_sim_netlist.vhdl
@@ -17,6 +17,8 @@ use UNISIM.VCOMPONENTS.ALL;
 entity clk_wiz_0_clk_wiz_0_clk_wiz is
   port (
     clk_out1 : out STD_LOGIC;
+    reset : in STD_LOGIC;
+    locked : out STD_LOGIC;
     clk_in1 : in STD_LOGIC
   );
   attribute ORIG_REF_NAME : string;
@@ -41,7 +43,6 @@ architecture STRUCTURE of clk_wiz_0_clk_wiz_0_clk_wiz is
   signal NLW_mmcm_adv_inst_CLKOUT5_UNCONNECTED : STD_LOGIC;
   signal NLW_mmcm_adv_inst_CLKOUT6_UNCONNECTED : STD_LOGIC;
   signal NLW_mmcm_adv_inst_DRDY_UNCONNECTED : STD_LOGIC;
-  signal NLW_mmcm_adv_inst_LOCKED_UNCONNECTED : STD_LOGIC;
   signal NLW_mmcm_adv_inst_PSDONE_UNCONNECTED : STD_LOGIC;
   signal NLW_mmcm_adv_inst_DO_UNCONNECTED : STD_LOGIC_VECTOR ( 15 downto 0 );
   attribute BOX_TYPE : string;
@@ -146,13 +147,13 @@ mmcm_adv_inst: unisim.vcomponents.MMCME2_ADV
       DO(15 downto 0) => NLW_mmcm_adv_inst_DO_UNCONNECTED(15 downto 0),
       DRDY => NLW_mmcm_adv_inst_DRDY_UNCONNECTED,
       DWE => '0',
-      LOCKED => NLW_mmcm_adv_inst_LOCKED_UNCONNECTED,
+      LOCKED => locked,
       PSCLK => '0',
       PSDONE => NLW_mmcm_adv_inst_PSDONE_UNCONNECTED,
       PSEN => '0',
       PSINCDEC => '0',
       PWRDWN => '0',
-      RST => '0'
+      RST => reset
     );
 end STRUCTURE;
 library IEEE;
@@ -162,6 +163,8 @@ use UNISIM.VCOMPONENTS.ALL;
 entity clk_wiz_0 is
   port (
     clk_out1 : out STD_LOGIC;
+    reset : in STD_LOGIC;
+    locked : out STD_LOGIC;
     clk_in1 : in STD_LOGIC
   );
   attribute NotValidForBitStream : boolean;
@@ -173,6 +176,8 @@ begin
 inst: entity work.clk_wiz_0_clk_wiz_0_clk_wiz
      port map (
       clk_in1 => clk_in1,
-      clk_out1 => clk_out1
+      clk_out1 => clk_out1,
+      locked => locked,
+      reset => reset
     );
 end STRUCTURE;

@@ -156,7 +156,7 @@ architecture RTL of GTP_Artix_RX_STARTUP_FSM is
   constant WAIT_TIMEOUT_500us   : integer :=  500000 / STABLE_CLOCK_PERIOD;--500 us time-out
   constant WAIT_TIMEOUT_1us     : integer :=  1000 / STABLE_CLOCK_PERIOD;  --1 us time-out
   constant WAIT_TIMEOUT_100us    : integer := 100000 / STABLE_CLOCK_PERIOD; --100 us time-out
-  constant WAIT_TIME_ADAPT      : integer := (37000000 /integer(3.750))/STABLE_CLOCK_PERIOD;
+  constant WAIT_TIME_ADAPT      : integer := (37000000 /integer(3.125))/STABLE_CLOCK_PERIOD;
   constant WAIT_TIME_MAX    : integer := 100 ; --10 us time-out
     
   signal init_wait_count        : integer range 0 to WAIT_MAX:=0;

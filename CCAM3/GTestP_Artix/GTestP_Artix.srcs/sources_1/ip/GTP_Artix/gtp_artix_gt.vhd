@@ -121,6 +121,8 @@ port
     txoutclkfabric_out                      : out  std_logic;
     txoutclkpcs_out                         : out  std_logic;
     ------------- Transmit Ports - TX Initialization and Reset Ports -----------
+    txpcsreset_in                           : in   std_logic;
+    txpmareset_in                           : in   std_logic;
     txresetdone_out                         : out  std_logic
 
 
@@ -779,8 +781,8 @@ begin
         TXSEQUENCE                      =>      tied_to_ground_vec_i(6 downto 0),
         TXSTARTSEQ                      =>      tied_to_ground_i,
         ------------- Transmit Ports - TX Initialization and Reset Ports -----------
-        TXPCSRESET                      =>      tied_to_ground_i,
-        TXPMARESET                      =>      tied_to_ground_i,
+        TXPCSRESET                      =>      txpcsreset_in,
+        TXPMARESET                      =>      txpmareset_in,
         TXRESETDONE                     =>      txresetdone_out,
         ------------------ Transmit Ports - TX OOB signalling Ports ----------------
         TXCOMFINISH                     =>      open,

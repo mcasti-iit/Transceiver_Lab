@@ -79,15 +79,26 @@ generic
     RXCTRL_WIDTH             : integer := 2;
     WORDS_IN_BRAM            : integer := 256;
     CHANBOND_SEQ_LEN         : integer := 1;
-    START_OF_PACKET_CHAR     : std_logic_vector (15 downto 0)  := x"027c"
+    COMMA_DOUBLE             : std_logic_vector(15 downto 0) := x"f628";
+    START_OF_PACKET_CHAR     : std_logic_vector (15 downto 0)  := x"02bc"
 );
 port
 (
     -- User Interface
     RX_DATA_IN               : in  std_logic_vector((RX_DATA_WIDTH-1) downto 0); 
+    RXCTRL_IN                : in  std_logic_vector((RXCTRL_WIDTH-1) downto 0);
 
     RXENPCOMMADET_OUT        : out std_logic;
     RXENMCOMMADET_OUT        : out std_logic;
+    RX_ENCHAN_SYNC_OUT       : out std_logic;
+    RX_CHANBOND_SEQ_IN       : in  std_logic;
+
+    -- Control Interface
+    INC_IN                   : in  std_logic; 
+    INC_OUT                  : out std_logic; 
+    PATTERN_MATCHB_OUT       : out std_logic;
+    RESET_ON_ERROR_IN        : in  std_logic;
+
 
     -- Error Monitoring
     ERROR_COUNT_OUT          : out std_logic_vector(7 downto 0);
@@ -113,6 +124,8 @@ architecture RTL of rx_GTP_Artix_GT_FRAME_CHECK is
     constant DLY : time := 1 ns;
 
 --***************************Internal Register Declarations********************
+    signal  reset_on_error_in_r         :   std_logic;
+    signal  reset_on_error_in_r2         :   std_logic;
     signal  system_reset_r              :   std_logic;
     signal  system_reset_r2              :   std_logic;
     attribute keep: string;
@@ -139,7 +152,13 @@ architecture RTL of rx_GTP_Artix_GT_FRAME_CHECK is
     signal  rx_data_r4                  :   std_logic_vector((RX_DATA_WIDTH-1) downto 0);
     signal  rx_data_r5                  :   std_logic_vector((RX_DATA_WIDTH-1) downto 0);
     signal  rx_data_r6                  :   std_logic_vector((RX_DATA_WIDTH-1) downto 0);
-    signal  sel                         :   std_logic;
+    signal  rxctrl_r                    :   std_logic_vector((RXCTRL_WIDTH-1) downto 0);
+    signal  rxctrl_r2                   :   std_logic_vector((RXCTRL_WIDTH-1) downto 0);
+    signal  rxctrl_r3                   :   std_logic_vector((RXCTRL_WIDTH-1) downto 0);
+
+    signal  rx_chanbond_seq_r           :   std_logic;
+    signal  rx_chanbond_seq_r2          :   std_logic;
+    signal  rx_chanbond_seq_r3          :   std_logic;
  
     signal  idle_slip_r                 :   std_logic;
     signal  slip_assert_r               :   std_logic;
@@ -148,6 +167,7 @@ architecture RTL of rx_GTP_Artix_GT_FRAME_CHECK is
     signal  wait_before_slip_r          :   std_logic_vector(6 downto 0);
     signal  wait_before_init_r          :   std_logic_vector(6 downto 0);
  
+    signal  sel                         :   std_logic_vector(1 downto 0);
  
     signal  rx_chanbond_reg_bitwise_or_i:   std_logic; 
  
@@ -157,6 +177,10 @@ architecture RTL of rx_GTP_Artix_GT_FRAME_CHECK is
     signal  bram_data_r                 :   std_logic_vector((RX_DATA_WIDTH-1) downto 0);
     signal  rx_data_ram_r               :   std_logic_vector(79 downto 0);
     signal  error_detected_c            :   std_logic;
+    signal  input_to_chanbond_data_i    :   std_logic;
+    signal  input_to_chanbond_reg_i     :   std_logic;
+    signal  chanbondseq_in_data         :   std_logic;
+    signal  rx_chanbond_reg             :   std_logic_vector((CHANBOND_SEQ_LEN-1) downto 0);
     signal  rxdata_or                   :   std_logic;
     signal  rxdata_r_or                 :   std_logic;
     signal  rxdata_r2_or                :   std_logic;
@@ -230,6 +254,13 @@ begin
         end if;
     end process; 
 
+    process( USER_CLK )
+    begin
+        if(USER_CLK'event and USER_CLK = '1') then
+            reset_on_error_in_r <= RESET_ON_ERROR_IN after DLY; 
+            reset_on_error_in_r2 <= reset_on_error_in_r after DLY; 
+        end if;
+    end process;    
 
     --______________________ Register RXDATA once to ease timing ______________   
 
@@ -238,6 +269,13 @@ begin
         if(USER_CLK'event and USER_CLK = '1') then
             rx_data_r  <= RX_DATA_IN   after DLY;
             rx_data_r2 <= rx_data_r    after DLY;
+        end if;
+    end process;
+
+    process( USER_CLK )
+    begin
+        if(USER_CLK'event and USER_CLK = '1') then
+            rxctrl_r   <= RXCTRL_IN   after DLY;
         end if;
     end process;
     --________________________________ State machine __________________________    
@@ -292,6 +330,20 @@ begin
 
     --______________________________ Capture incoming data ____________________    
 
+    process( USER_CLK )
+    begin
+        if(USER_CLK'event and USER_CLK = '1') then
+            if(system_reset_r2 = '1') then 
+                rx_data_r3      <=  (others => '0') after DLY;
+            else
+                if(sel = "01")  then
+                    rx_data_r3  <=  rx_data_r((RX_DATA_WIDTH/2 - 1) downto 0) & rx_data_r2((RX_DATA_WIDTH-1) downto RX_DATA_WIDTH/2) after DLY;  
+                else              
+                    rx_data_r3  <=  rx_data_r2 after DLY;
+                end if;    
+            end if; 
+        end if;
+    end process;
 
     process( USER_CLK )
     begin
@@ -310,8 +362,34 @@ begin
         end if;    
     end process;
 
+    process( USER_CLK )
+    begin
+        if(USER_CLK'event and USER_CLK = '1') then
+            if(system_reset_r2 = '1') then 
+                rxctrl_r2      <=  (others => '0') after DLY;
+                rxctrl_r3      <=  (others => '0') after DLY;
+            else
+                rxctrl_r2      <=  rxctrl_r  after DLY;
+                rxctrl_r3      <=  rxctrl_r2 after DLY;
+            end if;
+        end if;    
+    end process;
+
     rx_data_aligned <= rx_data_r3;
 
+    -- ___________________________ Code for Channel bonding ____________________    
+    -- code to prevent checking of clock correction sequences for the start of packet char
+    process( USER_CLK )
+    begin
+        if(USER_CLK'event and USER_CLK = '1') then
+            rx_chanbond_seq_r    <=  RX_CHANBOND_SEQ_IN after DLY;
+            rx_chanbond_seq_r2   <=  rx_chanbond_seq_r after DLY;
+            rx_chanbond_seq_r3   <=  rx_chanbond_seq_r2 after DLY;
+        end if;    
+    end process;
+
+    input_to_chanbond_reg_i  <= rx_chanbond_seq_r2;
+    input_to_chanbond_data_i <= tied_to_ground_i;
 
    --______________ Code for Bit Slipping Logic______________
    
@@ -415,39 +493,51 @@ begin
             end if;
         end if;
     end process;
+
+
+    -- In 2 Byte scenario, when align_comma_word=1, Comma can appear on any of the two bytes
+    -- The comma is moved to the lower byte so that error checking can start
     process( USER_CLK )
     begin
         if(USER_CLK'event and USER_CLK = '1') then
-            if(system_reset_r2 = '1') then
-                  sel  <=  '0'  after DLY;
-            else 
-                if((rx_data_r(7 downto 0) & rx_data_r2(15 downto 8)) = START_OF_PACKET_CHAR) then
-                     sel   <=   '1'  after DLY;
-                elsif(rx_data_r(15 downto 0) = START_OF_PACKET_CHAR) then
-                     sel   <=   '0'  after DLY;
+            if((reset_on_error_in_r2='1') or (system_reset_r2='1')) then 
+                sel <= "00";
+            elsif ((begin_r= '1') and (rx_chanbond_seq_r = '0')) then
+             -- if Comma appears on BYTE0 ..
+                if((rx_data_r((RX_DATA_WIDTH/2 - 1) downto 0) = START_OF_PACKET_CHAR(7 downto 0))  and (rxctrl_r(0) = '1'))then
+                    sel <= "00";
+             -- if Comma appears on BYTE1 ..     
+                elsif((rx_data_r((RX_DATA_WIDTH-1) downto RX_DATA_WIDTH/2) = START_OF_PACKET_CHAR(7 downto 0))  and (rxctrl_r(1) = '1'))then
+                    sel <= "01";
                 end if;
             end if;
         end if;
     end process;
-    process( USER_CLK )
+    --___________________________ Code for Channel bonding ____________________    
+    -- code to prevent checking of clock correction sequences for the start of packet char
+    register_chan_seq: for i in 0 to (CHANBOND_SEQ_LEN-1) generate
+        case_i_equal_to_0: if (i=0) generate 
+            rx_chanbond_reg_0 : FD port map (Q => rx_chanbond_reg(i),D => input_to_chanbond_reg_i,C => USER_CLK);
+        end generate case_i_equal_to_0;
+        case_i_greater_than_0: if (i>0) generate 
+            rx_chanbond_reg_i :FD port map (Q => rx_chanbond_reg(i),D => rx_chanbond_reg(i-1),C => USER_CLK);
+        end generate case_i_greater_than_0;
+    end generate register_chan_seq;
+    
+    chanbondseq_in_data <= input_to_chanbond_data_i or rx_chanbond_reg_bitwise_or_i;
+
+    process(rx_chanbond_reg)
+    variable rx_chanbond_var : std_logic;
+    variable i               : std_logic;
     begin
-        if(USER_CLK'event and USER_CLK = '1') then
-            if(system_reset_r2 = '1') then
-                  rx_data_r3  <=  (others=>'0')  after DLY;
-            else 
-                if(sel = '1') then
-                   rx_data_r3  <=  (rx_data_r(7 downto 0) & rx_data_r2(15 downto 8)) after DLY;
-                else
-                   rx_data_r3  <=  rx_data_r2;
-                end if;
-            end if;
-        end if;
+        rx_chanbond_var := '0';
+        bit_wise_or : for  i in 0 to (CHANBOND_SEQ_LEN-1) loop
+            rx_chanbond_var :=  rx_chanbond_var or rx_chanbond_reg(i);
+        end loop;
+        rx_chanbond_reg_bitwise_or_i <= rx_chanbond_var;
     end process;
 
-    rx_data_has_start_char_c <= '1' when (rx_data_aligned = START_OF_PACKET_CHAR) 
-                                else '0';
-
-
+    rx_data_has_start_char_c <= '1' when ((rx_data_aligned(7 downto 0) = START_OF_PACKET_CHAR(7 downto 0)) and (chanbondseq_in_data='0') and (or_reduce(rxctrl_r3)='1')) else '0';
 
 
     --_____________________________ Assign output ports _______________________    
@@ -481,6 +571,21 @@ begin
     end if;    
     end process;
 
+    INC_OUT            <=  start_of_packet_detected_c;   
+
+    PATTERN_MATCHB_OUT <=  data_error_detected_r;
+
+    -- Drive the enchansync port of the mgt for channel bonding
+    process( USER_CLK )
+    begin
+    if(USER_CLK'event and USER_CLK = '1') then
+        if(system_reset_r2 = '1') then 
+            RX_ENCHAN_SYNC_OUT   <= '0' after DLY;
+        else              
+            RX_ENCHAN_SYNC_OUT   <= '1' after DLY;
+        end if;
+    end if;    
+    end process;
 
     --___________________________ Check incoming data for errors ______________
          

@@ -75,7 +75,7 @@ entity GTP_Artix_support is
 generic
 (
     EXAMPLE_SIM_GTRESET_SPEEDUP             : string    := "TRUE";     -- simulation setting for GT SecureIP model
-    STABLE_CLOCK_PERIOD                     : integer   := 8  
+    STABLE_CLOCK_PERIOD                     : integer   := 10  
 
 );
 port
@@ -126,8 +126,11 @@ port
     gt0_txoutclkfabric_out                  : out  std_logic;
     gt0_txoutclkpcs_out                     : out  std_logic;
     ------------- Transmit Ports - TX Initialization and Reset Ports -----------
+    gt0_txpcsreset_in                       : in   std_logic;
+    gt0_txpmareset_in                       : in   std_logic;
     gt0_txresetdone_out                     : out  std_logic;
 
+GT0_PLL0PD_IN                           : in   std_logic;
     --____________________________COMMON PORTS________________________________
          GT0_PLL0OUTCLK_OUT  : out std_logic;
          GT0_PLL0OUTREFCLK_OUT  : out std_logic;
@@ -196,6 +199,8 @@ port
     gt0_txoutclkfabric_out                  : out  std_logic;
     gt0_txoutclkpcs_out                     : out  std_logic;
     ------------- Transmit Ports - TX Initialization and Reset Ports -----------
+    gt0_txpcsreset_in                       : in   std_logic;
+    gt0_txpmareset_in                       : in   std_logic;
     gt0_txresetdone_out                     : out  std_logic;
 
 
@@ -338,6 +343,8 @@ signal   reset_pulse                     : std_logic_vector(3 downto 0);
     signal  gt0_txoutclkfabric_i            : std_logic;
     signal  gt0_txoutclkpcs_i               : std_logic;
     ------------- Transmit Ports - TX Initialization and Reset Ports -----------
+    signal  gt0_txpcsreset_i                : std_logic;
+    signal  gt0_txpmareset_i                : std_logic;
     signal  gt0_txresetdone_i               : std_logic;
 
     --____________________________COMMON PORTS________________________________
@@ -403,7 +410,7 @@ tied_to_vcc_vec_i                            <= "11111111";
      gt0_pll0outclk_out <= gt0_pll0outclk_i;
      gt0_pll0outrefclk_out <= gt0_pll0outrefclk_i;
      gt0_pll0reset_t <= commonreset_i or gt0_pll0reset_i or cpll_reset_pll0_q0_clk0_refclk_i;
-     gt0_pll0pd_t <= cpll_pd_pll0_q0_clk0_refclk_i;
+     gt0_pll0pd_t <= gt0_pll0pd_in or cpll_pd_pll0_q0_clk0_refclk_i;
      gt0_pll0lock_out <= gt0_pll0lock_i;
      gt0_pll0refclklost_out <= gt0_pll0refclklost_i;    
      gt0_pll1outclk_out <= gt0_pll1outclk_i;
@@ -534,6 +541,8 @@ sysclk_in_i <= sysclk_in;
         gt0_txoutclkfabric_out          =>      gt0_txoutclkfabric_out,
         gt0_txoutclkpcs_out             =>      gt0_txoutclkpcs_out,
         ------------- Transmit Ports - TX Initialization and Reset Ports -----------
+        gt0_txpcsreset_in               =>      gt0_txpcsreset_in,
+        gt0_txpmareset_in               =>      gt0_txpmareset_i,
         gt0_txresetdone_out             =>      gt0_txresetdone_out,
 
 
@@ -547,6 +556,7 @@ sysclk_in_i <= sysclk_in;
     gt0_pll1outrefclk_in => gt0_pll1outrefclk_i
     );
 
+gt0_txpmareset_i                             <= tied_to_ground_i;
 
 
 end RTL;

@@ -30,6 +30,7 @@ entity GTP_Zynq_Test is
     FIXED_IO_0_ps_srstb        : inout std_logic;                                
     
     ALIGN_REQ_R_N_o            : out std_logic;
+    CCAM_PLL_RESET_o           : out std_logic;
     
     AD9517_REFMON_i            : in std_logic;                                   
     AD9517_STATUS_i            : in std_logic;                                   
@@ -53,6 +54,36 @@ architecture RTL of GTP_Zynq_Test is
 
 --**************************Component Declarations*****************************
     
+component GTP_RX_Manager is
+  generic ( 
+    RX_DATA_IN_WIDTH_g      : integer range 0 to 64 := 16;    -- Width of RX Data - GTP side 
+    RX_DATA_OUT_WIDTH_g     : integer range 0 to 64 := 32     -- Width of RX Data - Fabric side
+    );
+  port (
+    -- Clock in port
+    CLK_i                   : in  std_logic;   -- Input clock - Fabric side
+    GCK_i                   : in  std_logic;   -- Input clock - GTP side     
+    RST_CLK_N_i             : in  std_logic;   -- Asynchronous active low reset (clk clock)
+    RST_GCK_N_i             : in  std_logic;   -- Asynchronous active low reset (gck clock)
+
+    -- Control
+    GTP_IS_ALIGNED_i        : in  std_logic;
+    ALIGN_REQ_o             : out  std_logic;
+    
+    -- Status
+    OVERRIDE_GCK_o          : out std_logic;
+  
+    -- Data in 
+    RX_DATA_IN_i            : in  std_logic_vector(RX_DATA_IN_WIDTH_g-1 downto 0);
+    RX_CHAR_IS_K_i          : in  std_logic_vector((RX_DATA_IN_WIDTH_g/8)-1 downto 0);
+     
+    -- Data out
+    RX_DATA_OUT_o           : out std_logic_vector(RX_DATA_OUT_WIDTH_g-1 downto 0);
+    RX_DATA_OUT_SRC_RDY_o   : out std_logic;
+    RX_DATA_OUT_DST_RDY_i   : in  std_logic
+    );
+end component;
+
 component GTP_Zynq
 port
 (
@@ -182,29 +213,33 @@ component AD9517_Manager is
 end component;
 
 component time_machine is
-generic ( 
-  CLK_PERIOD_g           : integer    := 10;   -- Main Clock period
-  SIM_TIME_COMPRESSION_g : in boolean := FALSE -- When "TRUE", simulation time is "compressed": frequencies of internal clock enables are speeded-up 
-  );
-port (
-  -- Clock in port
-  CLK_i                  : in  std_logic;   -- Input clock @ 50 MHz,
-  RST_N_i                : in  std_logic;   -- Asynchronous active low reset
-
-  -- Output reset
-  PON_RESET_OUT_o        : out std_logic;	  -- Power on Reset out (active high)
-  PON_RESET_N_OUT_o      : out std_logic;	  -- Power on Reset out (active high)
+  generic ( 
+    CLK_PERIOD_NS_g         : real := 10.0;                   -- Main Clock period
+    CLEAR_POLARITY_g        : string := "LOW";                -- Active "HIGH" or "LOW"
+    PON_RESET_DURATION_MS_g : integer range 0 to 255 := 10;   -- Duration of Power-On reset  
+    SIM_TIME_COMPRESSION_g  : in boolean := FALSE             -- When "TRUE", simulation time is "compressed": frequencies of internal clock enables are speeded-up 
+    );
+  port (
+    -- Clock in port
+    CLK_i                   : in  std_logic;   -- Input clock @ 50 MHz,
+    CLEAR_i                 : in  std_logic;   -- Asynchronous active low reset
   
-  -- Output ports for generated clock enables
-  EN200NS_o              : out std_logic;	  -- Clock enable every 200 ns
-  EN1US_o                : out std_logic;	  -- Clock enable every 1 us
-  EN10US_o               : out std_logic;	  -- Clock enable every 10 us
-  EN100US_o              : out std_logic;	  -- Clock enable every 100 us
-  EN1MS_o                 : out std_logic;	-- Clock enable every 1 ms
-  EN10MS_o                : out std_logic;	-- Clock enable every 10 ms
-  EN100MS_o               : out std_logic;	-- Clock enable every 100 ms
-  EN1S_o                  : out std_logic 	-- Clock enable every 1 s
-  );
+    -- Output reset
+    RESET_o                 : out std_logic;    -- Reset out (active high)
+    RESET_N_o               : out std_logic;    -- Reset out (active low)
+    PON_RESET_OUT_o         : out std_logic;	  -- Power on Reset out (active high)
+    PON_RESET_N_OUT_o       : out std_logic;	  -- Power on Reset out (active low)
+    
+    -- Output ports for generated clock enables
+    EN200NS_o               : out std_logic;	  -- Clock enable every 200 ns
+    EN1US_o                 : out std_logic;	  -- Clock enable every 1 us
+    EN10US_o                : out std_logic;	  -- Clock enable every 10 us
+    EN100US_o               : out std_logic;	  -- Clock enable every 100 us
+    EN1MS_o                 : out std_logic;	  -- Clock enable every 1 ms
+    EN10MS_o                : out std_logic;	  -- Clock enable every 10 ms
+    EN100MS_o               : out std_logic;	  -- Clock enable every 100 ms
+    EN1S_o                  : out std_logic 	  -- Clock enable every 1 s
+    );
 end component;
 
 component PS is
@@ -218,16 +253,32 @@ component PS is
 end component;
 
 component ila_0
-
-PORT (
-	clk    : IN STD_LOGIC;
-	probe0 : IN STD_LOGIC_VECTOR(15 DOWNTO 0); 
-	probe1 : IN STD_LOGIC_VECTOR(15 DOWNTO 0);
-	probe2 : IN STD_LOGIC_VECTOR(15 DOWNTO 0)
+port (
+	clk    : in std_logic;
+	probe0 : in std_logic_vector(15 downto 0); 
+	probe1 : in std_logic_vector(15 downto 0);
+	probe2 : in std_logic_vector(15 downto 0)
 );
-END COMPONENT  ;
+end component  ;
 
-component VIO
+component ila_1
+port (
+	clk    : in std_logic;
+	probe0 : in std_logic_vector(15 downto 0); 
+	probe1 : in std_logic_vector(31 downto 0);
+	probe2 : in std_logic_vector(31 downto 0)
+);
+end component;
+
+component VIO_GTP
+  PORT (
+    clk : IN STD_LOGIC;
+    probe_in0 : IN STD_LOGIC_VECTOR(15 DOWNTO 0);
+    probe_out0 : OUT STD_LOGIC_VECTOR(15 DOWNTO 0)
+  );
+end component;
+  
+  component VIO_FPGA
   PORT (
     clk : IN STD_LOGIC;
     probe_in0 : IN STD_LOGIC_VECTOR(15 DOWNTO 0);
@@ -365,8 +416,10 @@ signal GT0_PLL0REFCLKLOST_OUT                  : std_logic;
 signal GT0_PLL1OUTCLK_OUT                      : std_logic;
 signal GT0_PLL1OUTREFCLK_OUT                   : std_logic;
  
-signal sysclk                                  : std_logic;
-
+signal clk_100                                 : std_logic;
+signal rst_n                                   : std_logic;
+signal rst_n_gck                               : std_logic;
+signal gck                                     : std_logic;
 
 signal autoreset_en                            : std_logic;
 
@@ -374,19 +427,66 @@ signal autoreset_en                            : std_logic;
 -- ------------------------------------------------------------------------
 -- ------------------------------------------------------------------------
 -- VIO
-signal probe_in0          : std_logic_vector(15 downto 0);
-signal probe_out0         : std_logic_vector(15 downto 0);
+signal gtp_probe_in0          : std_logic_vector(15 downto 0);
+signal gtp_probe_out0         : std_logic_vector(15 downto 0);
+signal fpga_probe_in0          : std_logic_vector(15 downto 0);
+signal fpga_probe_out0         : std_logic_vector(15 downto 0);
 
 -- ILA
-signal probe2             : std_logic_vector(15 downto 0);
+signal ila0_probe0        : std_logic_vector(15 downto 0);
+signal ila0_probe1        : std_logic_vector(15 downto 0);
+signal ila0_probe2        : std_logic_vector(15 downto 0);
+
+signal ila1_probe0        : std_logic_vector(15 downto 0);
+signal ila1_probe1        : std_logic_vector(31 downto 0);
+signal ila1_probe2        : std_logic_vector(31 downto 0);
 
 signal stretch_a          : std_logic_vector(15 downto 0);
+
+signal received_data      : std_logic_vector(31 downto 0);
+signal received_data_r    : std_logic_vector(31 downto 0);
+signal received_data_p1   : std_logic_vector(31 downto 0);
 
 -- ------------------------------------------------------------------------
 
 signal gt0_rxslide_in_p   : std_logic;
 
---**************************** Main Body of Code *******************************
+signal align_req          : std_logic;
+signal man_align_req      : std_logic;
+signal gtp_reset          : std_logic;
+signal aligned            : std_logic;
+signal pll_locked         : std_logic;
+
+signal rx_data_out_src_rdy : std_logic;
+signal rx_data_out_dst_rdy : std_logic;
+
+
+
+
+
+signal tx_cnt_32bit_a                          : std_logic_vector(31 downto 0);
+signal tx_cnt_32bit_b                          : std_logic_vector(31 downto 0);
+
+
+
+
+-- MARK DEBUG
+attribute mark_debug : string;
+attribute keep : string;
+attribute keep of rx_match          : signal is "true";
+attribute keep of gtp_reset         : signal is "true";
+attribute keep of man_align_req     : signal is "true";
+attribute keep of aligned           : signal is "true";
+attribute keep of pll_locked        : signal is "true";
+
+
+
+
+
+
+
+
+
 begin
 
     --  Static signal Assigments
@@ -397,8 +497,102 @@ tied_to_vcc_vec    <= "11111111";
 
 
 
+TIME_MACHINE_i : time_machine
+  generic map( 
+    CLK_PERIOD_NS_g         =>  10.0,  -- Main Clock period
+    CLEAR_POLARITY_g        => "LOW",  -- Active "HIGH" or "LOW"
+    PON_RESET_DURATION_MS_g =>    10,  -- Duration of Power-On reset (ms)
+    SIM_TIME_COMPRESSION_g  => false   -- When "TRUE", simulation time is "compressed": frequencies of internal clock enables are speeded-up 
+    )
+  port map(
+    -- Clock in port
+    CLK_i                   => clk_100,
+    CLEAR_i                 => '1',
+  
+    -- Output reset
+    RESET_o                 => open,
+    RESET_N_o               => rst_n,
+    PON_RESET_OUT_o         => open,
+    PON_RESET_N_OUT_o       => pon_reset_n,
+    
+    -- Output ports for generated clock enables
+    EN200NS_o               => open,
+    EN1US_o                 => open,
+    EN10US_o                => open,
+    EN100US_o               => open,
+    EN1MS_o                 => en1ms,
+    EN10MS_o                => open,
+    EN100MS_o               => open,
+    EN1S_o                  => en1s
+    );
+
+TIME_MACHINE_GCK_i : time_machine
+  generic map( 
+    CLK_PERIOD_NS_g         =>   6.4, -- Main Clock period
+    CLEAR_POLARITY_g        => "LOW", -- Active "HIGH" or "LOW"
+    PON_RESET_DURATION_MS_g =>   10,  -- Duration of Power-On reset (ms)
+    SIM_TIME_COMPRESSION_g  => false  -- When "TRUE", simulation time is "compressed": frequencies of internal clock enables are speeded-up 
+    )
+  port map(
+    -- Clock in port
+    CLK_i                   => GT0_RXUSRCLK2_OUT,
+    CLEAR_i                 => '1',
+  
+    -- Output reset
+    RESET_o                 => open,
+    RESET_N_o               => rst_n_gck,
+    PON_RESET_OUT_o         => open,
+    PON_RESET_N_OUT_o       => open,
+    
+    -- Output ports for generated clock enables
+    EN200NS_o               => open,
+    EN1US_o                 => open,
+    EN10US_o                => open,
+    EN100US_o               => open,
+    EN1MS_o                 => open,
+    EN10MS_o                => open,
+    EN100MS_o               => open,
+    EN1S_o                  => open
+    );
+
+
  
     ----------------------------- The GTP -----------------------------
+
+rx_data_out_dst_rdy <= '1';
+
+    
+GTP_RX_Manager_i : GTP_RX_Manager 
+  generic map( 
+    RX_DATA_IN_WIDTH_g      => 16,   
+    RX_DATA_OUT_WIDTH_g     => 32   
+    )
+  port map(
+    -- Clock in port
+    CLK_i                   => clk_100,
+    GCK_i                   => GT0_RXUSRCLK2_OUT,   
+    RST_CLK_N_i             => rst_n, 
+    RST_GCK_N_i             => rst_n_gck, 
+    
+    -- Control
+    GTP_IS_ALIGNED_i        => gt0_rxbyteisaligned_out, -- gtp_is_aligned,
+    ALIGN_REQ_o             => align_req,
+
+    -- Data in 
+    RX_DATA_IN_i            => gt0_rxdata_out, -- rx_data_gtp, 
+    RX_CHAR_IS_K_i          => gt0_rxcharisk_out, -- rx_char_is_k,
+    
+    -- Data out
+    RX_DATA_OUT_o           => received_data,
+    RX_DATA_OUT_SRC_RDY_o   => rx_data_out_src_rdy, -- rx_data_src_rdy,
+    RX_DATA_OUT_DST_RDY_i   => rx_data_out_dst_rdy
+ 
+    );    
+    
+
+ALIGN_REQ_R_N_o <= not (align_req or man_align_req);    
+-- ALIGN_REQ_R_N_o <= (gt0_rxbyteisaligned_out and rx_match) and not man_align_req;    
+    
 
 gt0_drpaddr_in          <= (others => '0');
 gt0_drpdi_in            <= (others => '0');
@@ -418,14 +612,13 @@ gt0_gttxreset_in        <= '0';
 gt0_rxslide_in          <= '0';    
 
 
-gt0_gtrxreset_in        <= probe_out0(0) or (autoreset_en and rx_match); 
-gt0_rxlpmreset_in       <= probe_out0(0) or (autoreset_en and rx_match);
+gt0_gtrxreset_in        <= gtp_reset; 
+gt0_rxlpmreset_in       <= gtp_reset;
 gt0_rxmcommaalignen_in  <= '1'; -- probe_out0(1);
 gt0_rxpcommaalignen_in  <= '1'; -- probe_out0(2);
-autoreset_en            <= probe_out0(3);
 
-
-
+gtp_reset     <= gtp_probe_out0(0);
+man_align_req <= gtp_probe_out0(1);
 
 
 GTP_Zynq_i : GTP_Zynq
@@ -499,14 +692,14 @@ port map
         GT0_PLL0REFCLKLOST_OUT          =>      GT0_PLL0REFCLKLOST_OUT,    
         GT0_PLL1OUTCLK_OUT              =>      GT0_PLL1OUTCLK_OUT,
         GT0_PLL1OUTREFCLK_OUT           =>      GT0_PLL1OUTREFCLK_OUT,
-        sysclk_in                       =>      sysclk
+        sysclk_in                       =>      clk_100
 );
     
 
 
 PS_i : PS
   port map(
-    FCLK_CLK0_0         => sysclk, -- : out STD_LOGIC;
+    FCLK_CLK0_0         => clk_100, -- : out STD_LOGIC;
     FIXED_IO_0_mio      => FIXED_IO_0_mio     , -- : inout STD_LOGIC_VECTOR ( 53 downto 0 );
     FIXED_IO_0_ps_clk   => FIXED_IO_0_ps_clk  , -- : inout STD_LOGIC;
     FIXED_IO_0_ps_porb  => FIXED_IO_0_ps_porb , -- : inout STD_LOGIC;
@@ -514,62 +707,56 @@ PS_i : PS
   );
 
 
-probe2 <= "000" & gt0_rxchariscomma_out & gt0_rxcharisk_out & gt0_rxdisperr_out & gt0_rxnotintable_out & '0' & gt0_rxbyterealign_out & gt0_rxcommadet_out & gt0_rxbyteisaligned_out & rx_match;
+ila0_probe0 <= gt0_rxdata_out;
+ila0_probe1 <= rx_cnt_m;
+ila0_probe2 <= "000" & gt0_rxchariscomma_out & gt0_rxcharisk_out & gt0_rxdisperr_out & gt0_rxnotintable_out & align_req & gt0_rxbyterealign_out & gt0_rxcommadet_out & gt0_rxbyteisaligned_out & '0';
 
 
-ILA_0_i : ila_0
+ILA_GTP : ila_0
 PORT MAP (
 	clk    => GT0_RXUSRCLK2_OUT,
-	probe0 => gt0_rxdata_out,
-	probe1 => rx_cnt_m,
-	probe2 => probe2	
+	probe0 => ila0_probe0,
+	probe1 => ila0_probe1,
+	probe2 => ila0_probe2	
 );
 
 
+ila1_probe0 <= "000000000000000" & rx_match;
+ila1_probe1 <= received_data;
+ila1_probe2 <= received_data_p1;
+
+ILA_FPGA : ila_1
+PORT MAP (
+	clk    => clk_100,
+	probe0 => ila1_probe0,
+	probe1 => ila1_probe1,
+	probe2 => ila1_probe2
+);
+
+
+aligned <= gt0_rxbyteisaligned_out;
+pll_locked <= GT0_PLL0LOCK_OUT;
 --probe_in0 <= "0000000000000" & GT0_PLL0LOCK_OUT & rx_match & gt0_rxbyteisaligned_out;
-probe_in0 <= "00" & GT0_PLL0LOCK_OUT & gt0_rxchariscomma_out & gt0_rxcharisk_out & gt0_rxdisperr_out & gt0_rxnotintable_out & '0' & stretch_a(15) & gt0_rxcommadet_out & gt0_rxbyteisaligned_out & rx_match;
-VIO_i : VIO
+gtp_probe_in0 <= "00000000000000" & aligned & pll_locked;
+
+VIO_GTP_i : VIO_GTP
   PORT MAP (
     clk => GT0_RXUSRCLK2_OUT,
-    probe_in0  => probe_in0,
-    probe_out0 => probe_out0
+    probe_in0  => gtp_probe_in0,
+    probe_out0 => gtp_probe_out0
   );
 
 
-process (sysclk)
-begin
-   if rising_edge(sysclk) then
-      count_4 <= count_4 + 1;
-   end if;
-end process;
+fpga_probe_in0 <= "000000000000000" & rx_match;
 
-process (GT0_RXUSRCLK2_OUT)
-begin
-   if rising_edge(GT0_RXUSRCLK2_OUT) then
-      count_3 <= count_3 + 1;
-   end if;
-end process;
 
-process (GT0_RXUSRCLK2_OUT)
-begin
-   if rising_edge(GT0_RXUSRCLK2_OUT) then
-      count_2 <= count_2 + 1;
-   end if;
-end process;
+VIO_FPGA_i : VIO_FPGA
+  PORT MAP (
+    clk => clk_100,
+    probe_in0  => fpga_probe_in0,
+    probe_out0 => fpga_probe_out0
+  );
 
-process (sysclk)
-begin
-   if rising_edge(sysclk) then
-      count_1 <= count_1 + 1;
-   end if;
-end process;
-
-process (sysclk)
-begin
-   if rising_edge(sysclk) then
-      count_0 <= count_0 + 1;
-   end if;
-end process;
 
 -- ----------------------------------------------------
 -- Stretch
@@ -588,62 +775,32 @@ begin
 end process;
 
 
+-- ----------------------------------------------------
+-- Stream verification
 
 
-rx_cnt_m <= rx_cnt_d + 1;
 
-process (GT0_RXUSRCLK2_OUT)
+process (clk_100)
 begin
-   if rising_edge(GT0_RXUSRCLK2_OUT) then
-      rx_cnt_d <= gt0_rxdata_out;
-   end if; 
-   if (rx_cnt_m = gt0_rxdata_out) then
-      rx_match <= '1';
-   else
-      rx_match <= '0';
-   end if; 
+  if rising_edge(clk_100) then
+  
+    if (rx_data_out_src_rdy = '1') then
+      received_data_p1 <= received_data + 1;
+      if (received_data_p1 = received_data) then
+         rx_match <= '1';
+      else
+         rx_match <= '0';
+      end if; 
+    end if;    
+  end if; 
 end process;
 
 
-process (GT0_RXUSRCLK2_OUT)
-begin
-   if rising_edge(GT0_RXUSRCLK2_OUT) then
-      rx_cnt_d <= gt0_rxdata_out;
-   end if; 
-   if (rx_cnt_m = gt0_rxdata_out) then
-      rx_match <= '1';
-   else
-      rx_match <= '0';
-   end if; 
-end process;
+
 
 -- ------------------------------------------------------------
 -- AD9517
 
-  TIME_MACHINE_i : time_machine
-generic map( 
-  CLK_PERIOD_g           => 10,   -- Main Clock period
-  SIM_TIME_COMPRESSION_g => false  -- When "TRUE", simulation time is "compressed": frequencies of internal clock enables are speeded-up 
-  )
-port map(
-  -- Clock in port
-  CLK_i                  => GT0_RXUSRCLK2_OUT,
-  RST_N_i                => '1',
-
-  -- Output reset
-  PON_RESET_OUT_o        => open,
-  PON_RESET_N_OUT_o      => pon_reset_n,
-  
-  -- Output ports for generated clock enables
-  EN200NS_o              => open,
-  EN1US_o                => open,
-  EN10US_o               => open,
-  EN100US_o              => open,
-  EN1MS_o                => en1ms,
-  EN10MS_o               => en10ms,
-  EN100MS_o              => open,
-  EN1S_o                 => en1s
-  );
 
 
 
@@ -655,7 +812,7 @@ AD9517_Manager_i : AD9517_Manager
     )
   port map(
     -- Main control
-    CLK_i     => GT0_RXUSRCLK2_OUT,               
+    CLK_i     => clk_100,               
     EN1MS_i   => en1ms,             
     RST_N_i   => pon_reset_n,             
     
@@ -682,7 +839,7 @@ SPI_MASTER_i : spi_3_wire_master
     d_width   => SPI_D_WIDTH_c  -- : integer := 8); --data bus width
     )
   port map(
-    clock     => GT0_RXUSRCLK2_OUT,    -- : in     std_logic;                              --system clock
+    clock     => clk_100,    -- : in     std_logic;                              --system clock
     reset_n   => pon_reset_n,          -- : in     std_logic;                              --asynchronous reset
     enable    => enable,               -- : in     std_logic;                              --initiate transaction
     cpol      => cpol,                 -- : in     std_logic;                              --spi clock polarity
@@ -703,28 +860,30 @@ ad9517_pd_n    <= '1';
 ad9517_sync_n  <= '1';
 ad9517_reset_n <= '1';
 
-process (GT0_RXUSRCLK2_OUT, pon_reset_n)
-begin
-  if (pon_reset_n = '0') then
-    toggle_1s <= '0';
-  elsif rising_edge(GT0_RXUSRCLK2_OUT) then
-    if (en1s = '1') then
-      toggle_1s <= not toggle_1s;
-    end if;
-  end if;
-end process;
-
-process (GT0_RXUSRCLK2_OUT, pon_reset_n)
-begin
-  if (pon_reset_n = '0') then
-    align_req_r_n <= '1';
-  elsif rising_edge(GT0_RXUSRCLK2_OUT) then
-    align_req_r_n <= not toggle_1s;
-  end if;
-end process;
+-- process (GT0_RXUSRCLK2_OUT, pon_reset_n)
+-- begin
+--   if (pon_reset_n = '0') then
+--     toggle_1s <= '0';
+--   elsif rising_edge(GT0_RXUSRCLK2_OUT) then
+--     if (en1s = '1') then
+--       toggle_1s <= not toggle_1s;
+--     end if;
+--   end if;
+-- end process;
+-- 
+-- process (GT0_RXUSRCLK2_OUT, pon_reset_n)
+-- begin
+--   if (pon_reset_n = '0') then
+--     align_req_r_n <= '1';
+--   elsif rising_edge(GT0_RXUSRCLK2_OUT) then
+--     align_req_r_n <= not toggle_1s;
+--   end if;
+-- end process;
 
 -- --------------------------------------------------------------------------
 -- OUTPUTS
+
+CCAM_PLL_RESET_o <= fpga_probe_out0(0);
 
 AD9517_PD_N_o    <= ad9517_pd_n;     -- : out STD_LOGIC;
 AD9517_SYNC_N_o  <= ad9517_sync_n;   -- : out STD_LOGIC;
@@ -736,10 +895,29 @@ AD9517_CS_N_o    <= ss_n(0);-- : out STD_LOGIC);
 
 EN_GTP_OSC_o     <= pon_reset_n;
 
-ALIGN_REQ_R_N_o  <= gt0_rxbyteisaligned_out;
+
+
+
+-- process(CCAM_PLL_RESET_o)
+-- begin
+--   if rising_edge(CCAM_PLL_RESET_o) then
+--     tx_cnt_32bit_a <= tx_cnt_32bit_a + 1;
+--   end if;	
+-- end process;
+
+
+
+-- process(ALIGN_REQ_R_N_o)
+-- begin
+--   if rising_edge(ALIGN_REQ_R_N_o) then
+--     tx_cnt_32bit_b <= tx_cnt_32bit_b + 1;
+--   end if;	
+-- end process;
+
+
 
 LEDS_o(4) <= error(0);      -- RED    
-LEDS_o(3) <= stretch_a(15); -- GREEN  
+LEDS_o(3) <= aligned;       -- GREEN  
 LEDS_o(2) <= rx_match;      -- BLUE   
 LEDS_o(1) <= '0';           -- PHY 1
 LEDS_o(0) <= '0';           -- PHY 2

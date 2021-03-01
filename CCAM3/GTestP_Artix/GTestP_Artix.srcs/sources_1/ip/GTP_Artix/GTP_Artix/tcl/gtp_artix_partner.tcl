@@ -54,8 +54,8 @@ set_property -dict [list CONFIG.gt46_val_rx_refclk {REFCLK1_Q11}] [get_ips rx_GT
 set_property -dict [list CONFIG.gt47_val_rx_refclk {REFCLK1_Q11}] [get_ips rx_GTP_Artix]
 set_property -dict [list CONFIG.gt0_val_rxusrclk {RXOUTCLK}] [get_ips rx_GTP_Artix]
 set_property -dict [list CONFIG.gt0_val_rx_data_width {16}] [get_ips rx_GTP_Artix]
-set_property -dict [list CONFIG.gt0_val_decoding {None}] [get_ips rx_GTP_Artix]
-set_property -dict [list CONFIG.gt0_val_rx_int_datawidth {16}] [get_ips rx_GTP_Artix]
+set_property -dict [list CONFIG.gt0_val_decoding {8B/10B}] [get_ips rx_GTP_Artix]
+set_property -dict [list CONFIG.gt0_val_rx_int_datawidth {20}] [get_ips rx_GTP_Artix]
 
 set_property -dict [list CONFIG.gt0_usesharedlogic {0}] [get_ips rx_GTP_Artix]
 

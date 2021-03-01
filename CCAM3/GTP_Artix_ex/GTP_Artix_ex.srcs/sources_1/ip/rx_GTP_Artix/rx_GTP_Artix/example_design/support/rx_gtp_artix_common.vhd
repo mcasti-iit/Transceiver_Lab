@@ -101,7 +101,7 @@ architecture RTL of rx_GTP_Artix_common is
 
 --*************************Logic to set Attribute PLL_FB_DIV*****************************
 
-    constant PLL0_FBDIV_IN      :   integer := 4;
+    constant PLL0_FBDIV_IN      :   integer := 5;
     constant PLL1_FBDIV_IN      :   integer := 1;
     constant PLL0_FBDIV_45_IN   :   integer := 5;
     constant PLL1_FBDIV_45_IN   :   integer := 4;

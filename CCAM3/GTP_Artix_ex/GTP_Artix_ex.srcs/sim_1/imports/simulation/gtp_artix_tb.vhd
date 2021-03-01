@@ -76,10 +76,10 @@ architecture RTL of GTP_Artix_TB is
 
 --*************************Parameter Declarations******************************
 
-    constant   TX_REFCLK_PERIOD        :   time :=  6.4 ns;
-    constant   RX_REFCLK_PERIOD        :   time :=  6.4 ns;
-    constant   SYSCLK_PERIOD           :   time := 8.0 ns;    
-    constant   DCLK_PERIOD             :   time :=  8.0 ns;
+    constant   TX_REFCLK_PERIOD        :   time :=  8.0 ns;
+    constant   RX_REFCLK_PERIOD        :   time :=  8.0 ns;
+    constant   SYSCLK_PERIOD           :   time := 10.0 ns;    
+    constant   DCLK_PERIOD             :   time :=  10.0 ns;
   
 --**************************** Component Declarations *************************
 

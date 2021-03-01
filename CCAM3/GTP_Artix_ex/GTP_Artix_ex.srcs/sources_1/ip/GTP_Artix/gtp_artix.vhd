@@ -68,26 +68,23 @@ library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
 
 
+--***************************** Entity Declaration ****************************
 entity GTP_Artix is
 port
 (
+    SYSCLK_IN                               : in   std_logic;
     SOFT_RESET_TX_IN                        : in   std_logic;
     DONT_RESET_ON_DATA_ERROR_IN             : in   std_logic;
-    Q0_CLK0_GTREFCLK_PAD_N_IN               : in   std_logic;
-    Q0_CLK0_GTREFCLK_PAD_P_IN               : in   std_logic;
-
     GT0_TX_FSM_RESET_DONE_OUT               : out  std_logic;
     GT0_RX_FSM_RESET_DONE_OUT               : out  std_logic;
     GT0_DATA_VALID_IN                       : in   std_logic;
- 
-    GT0_TXUSRCLK_OUT                        : out  std_logic;
-    GT0_TXUSRCLK2_OUT                       : out  std_logic;
 
     --_________________________________________________________________________
     --GT0  (X0Y0)
     --____________________________CHANNEL PORTS________________________________
     ---------------------------- Channel - DRP Ports  --------------------------
     gt0_drpaddr_in                          : in   std_logic_vector(8 downto 0);
+    gt0_drpclk_in                           : in   std_logic;
     gt0_drpdi_in                            : in   std_logic_vector(15 downto 0);
     gt0_drpdo_out                           : out  std_logic_vector(15 downto 0);
     gt0_drpen_in                            : in   std_logic;
@@ -108,61 +105,72 @@ port
     gt0_txuserrdy_in                        : in   std_logic;
     ------------------ Transmit Ports - FPGA TX Interface Ports ----------------
     gt0_txdata_in                           : in   std_logic_vector(15 downto 0);
+    gt0_txusrclk_in                         : in   std_logic;
+    gt0_txusrclk2_in                        : in   std_logic;
+    ------------------ Transmit Ports - TX 8B/10B Encoder Ports ----------------
+    gt0_txcharisk_in                        : in   std_logic_vector(1 downto 0);
     --------------- Transmit Ports - TX Configurable Driver Ports --------------
     gt0_gtptxn_out                          : out  std_logic;
     gt0_gtptxp_out                          : out  std_logic;
     ----------- Transmit Ports - TX Fabric Clock Output Control Ports ----------
+    gt0_txoutclk_out                        : out  std_logic;
     gt0_txoutclkfabric_out                  : out  std_logic;
     gt0_txoutclkpcs_out                     : out  std_logic;
     ------------- Transmit Ports - TX Initialization and Reset Ports -----------
+    gt0_txpcsreset_in                       : in   std_logic;
+    gt0_txpmareset_in                       : in   std_logic;
     gt0_txresetdone_out                     : out  std_logic;
 
-    --____________________________COMMON PORTS________________________________
-         GT0_PLL0OUTCLK_OUT  : out std_logic;
-         GT0_PLL0OUTREFCLK_OUT  : out std_logic;
-         GT0_PLL0LOCK_OUT  : out std_logic;
-         GT0_PLL0REFCLKLOST_OUT  : out std_logic;    
-         GT0_PLL1OUTCLK_OUT  : out std_logic;
-         GT0_PLL1OUTREFCLK_OUT  : out std_logic;
 
-          sysclk_in                               : in   std_logic
+    --____________________________COMMON PORTS________________________________
+         GT0_PLL0OUTCLK_IN  : in std_logic;
+         GT0_PLL0OUTREFCLK_IN  : in std_logic;
+   GT0_PLL0RESET_OUT  : out std_logic;
+         GT0_PLL0LOCK_IN  : in std_logic;
+         GT0_PLL0REFCLKLOST_IN  : in std_logic;    
+         GT0_PLL1OUTCLK_IN  : in std_logic;
+         GT0_PLL1OUTREFCLK_IN  : in std_logic
 
 );
-
 end GTP_Artix;
-    
+
 architecture RTL of GTP_Artix is
+    attribute DowngradeIPIdentifiedWarnings: string;
+    attribute DowngradeIPIdentifiedWarnings of RTL : architecture is "yes";
+
     attribute X_CORE_INFO : string;
     attribute X_CORE_INFO of RTL : architecture is "GTP_Artix,gtwizard_v3_6_11,{protocol_file=Start_from_scratch}";
     attribute CORE_GENERATION_INFO : string;
     attribute CORE_GENERATION_INFO of RTL : architecture is "GTP_Artix,gtwizard_v3_6_11,{protocol_file=Start_from_scratch}";
 
-component GTP_Artix_support 
+--**************************Component Declarations*****************************
+
+component GTP_Artix_init 
 generic
 (
     EXAMPLE_SIM_GTRESET_SPEEDUP             : string    := "TRUE";     -- simulation setting for GT SecureIP model
-    STABLE_CLOCK_PERIOD                     : integer   := 8  
+    EXAMPLE_SIMULATION                      : integer   := 0;          -- Set to 1 for simulation
+ 
+    STABLE_CLOCK_PERIOD                     : integer   := 10;  
+        -- Set to 1 for simulation
+    EXAMPLE_USE_CHIPSCOPE                   : integer   := 0           -- Set to 1 to use Chipscope to drive resets
 
 );
 port
 (
+    SYSCLK_IN                               : in   std_logic;
     SOFT_RESET_TX_IN                        : in   std_logic;
     DONT_RESET_ON_DATA_ERROR_IN             : in   std_logic;
-    Q0_CLK0_GTREFCLK_PAD_N_IN               : in   std_logic;
-    Q0_CLK0_GTREFCLK_PAD_P_IN               : in   std_logic;
-
     GT0_TX_FSM_RESET_DONE_OUT               : out  std_logic;
     GT0_RX_FSM_RESET_DONE_OUT               : out  std_logic;
     GT0_DATA_VALID_IN                       : in   std_logic;
- 
-    GT0_TXUSRCLK_OUT                        : out  std_logic;
-    GT0_TXUSRCLK2_OUT                       : out  std_logic;
 
     --_________________________________________________________________________
     --GT0  (X0Y0)
     --____________________________CHANNEL PORTS________________________________
     ---------------------------- Channel - DRP Ports  --------------------------
     gt0_drpaddr_in                          : in   std_logic_vector(8 downto 0);
+    gt0_drpclk_in                           : in   std_logic;
     gt0_drpdi_in                            : in   std_logic_vector(15 downto 0);
     gt0_drpdo_out                           : out  std_logic_vector(15 downto 0);
     gt0_drpen_in                            : in   std_logic;
@@ -183,55 +191,62 @@ port
     gt0_txuserrdy_in                        : in   std_logic;
     ------------------ Transmit Ports - FPGA TX Interface Ports ----------------
     gt0_txdata_in                           : in   std_logic_vector(15 downto 0);
+    gt0_txusrclk_in                         : in   std_logic;
+    gt0_txusrclk2_in                        : in   std_logic;
+    ------------------ Transmit Ports - TX 8B/10B Encoder Ports ----------------
+    gt0_txcharisk_in                        : in   std_logic_vector(1 downto 0);
     --------------- Transmit Ports - TX Configurable Driver Ports --------------
     gt0_gtptxn_out                          : out  std_logic;
     gt0_gtptxp_out                          : out  std_logic;
     ----------- Transmit Ports - TX Fabric Clock Output Control Ports ----------
+    gt0_txoutclk_out                        : out  std_logic;
     gt0_txoutclkfabric_out                  : out  std_logic;
     gt0_txoutclkpcs_out                     : out  std_logic;
     ------------- Transmit Ports - TX Initialization and Reset Ports -----------
+    gt0_txpcsreset_in                       : in   std_logic;
+    gt0_txpmareset_in                       : in   std_logic;
     gt0_txresetdone_out                     : out  std_logic;
 
+
     --____________________________COMMON PORTS________________________________
-         GT0_PLL0OUTCLK_OUT  : out std_logic;
-         GT0_PLL0OUTREFCLK_OUT  : out std_logic;
-         GT0_PLL0LOCK_OUT  : out std_logic;
-         GT0_PLL0REFCLKLOST_OUT  : out std_logic;    
-         GT0_PLL1OUTCLK_OUT  : out std_logic;
-         GT0_PLL1OUTREFCLK_OUT  : out std_logic;
-          sysclk_in                               : in   std_logic
+         GT0_PLL0OUTCLK_IN  : in std_logic;
+         GT0_PLL0OUTREFCLK_IN  : in std_logic;
+   GT0_PLL0RESET_OUT  : out std_logic;
+         GT0_PLL0LOCK_IN  : in std_logic;
+         GT0_PLL0REFCLKLOST_IN  : in std_logic;    
+         GT0_PLL1OUTCLK_IN  : in std_logic;
+         GT0_PLL1OUTREFCLK_IN  : in std_logic
 
 );
-
 end component;
-
+ 
 --**************************** Main Body of Code *******************************
 begin
-    U0 : GTP_Artix_support
+    U0 : GTP_Artix_init
     generic map
 (
         EXAMPLE_SIM_GTRESET_SPEEDUP   => "TRUE",
-        STABLE_CLOCK_PERIOD           => 8
+        EXAMPLE_SIMULATION            => 0,
+ 
+ 
+        STABLE_CLOCK_PERIOD           => 10,
+        EXAMPLE_USE_CHIPSCOPE         => 0
 )
 port map
 (
-    SOFT_RESET_TX_IN => SOFT_RESET_TX_IN,
-    DONT_RESET_ON_DATA_ERROR_IN => DONT_RESET_ON_DATA_ERROR_IN,
-    Q0_CLK0_GTREFCLK_PAD_N_IN => Q0_CLK0_GTREFCLK_PAD_N_IN,
-    Q0_CLK0_GTREFCLK_PAD_P_IN => Q0_CLK0_GTREFCLK_PAD_P_IN,
-
-     GT0_TX_FSM_RESET_DONE_OUT => GT0_TX_FSM_RESET_DONE_OUT,
-     GT0_RX_FSM_RESET_DONE_OUT => GT0_RX_FSM_RESET_DONE_OUT,
-     GT0_DATA_VALID_IN => GT0_DATA_VALID_IN,
- 
-     GT0_TXUSRCLK_OUT => GT0_TXUSRCLK_OUT,
-     GT0_TXUSRCLK2_OUT => GT0_TXUSRCLK2_OUT,
+        SYSCLK_IN                       =>      SYSCLK_IN,
+        SOFT_RESET_TX_IN                =>      SOFT_RESET_TX_IN,
+        DONT_RESET_ON_DATA_ERROR_IN     =>      DONT_RESET_ON_DATA_ERROR_IN,
+    GT0_TX_FSM_RESET_DONE_OUT => GT0_TX_FSM_RESET_DONE_OUT,
+    GT0_RX_FSM_RESET_DONE_OUT => GT0_RX_FSM_RESET_DONE_OUT,
+    GT0_DATA_VALID_IN => GT0_DATA_VALID_IN,
 
     --_________________________________________________________________________
     --GT0  (X0Y0)
     --____________________________CHANNEL PORTS________________________________
     ---------------------------- Channel - DRP Ports  --------------------------
         gt0_drpaddr_in                  =>      gt0_drpaddr_in,
+        gt0_drpclk_in                   =>      gt0_drpclk_in,
         gt0_drpdi_in                    =>      gt0_drpdi_in,
         gt0_drpdo_out                   =>      gt0_drpdo_out,
         gt0_drpen_in                    =>      gt0_drpen_in,
@@ -252,25 +267,33 @@ port map
         gt0_txuserrdy_in                =>      gt0_txuserrdy_in,
     ------------------ Transmit Ports - FPGA TX Interface Ports ----------------
         gt0_txdata_in                   =>      gt0_txdata_in,
+        gt0_txusrclk_in                 =>      gt0_txusrclk_in,
+        gt0_txusrclk2_in                =>      gt0_txusrclk2_in,
+    ------------------ Transmit Ports - TX 8B/10B Encoder Ports ----------------
+        gt0_txcharisk_in                =>      gt0_txcharisk_in,
     --------------- Transmit Ports - TX Configurable Driver Ports --------------
         gt0_gtptxn_out                  =>      gt0_gtptxn_out,
         gt0_gtptxp_out                  =>      gt0_gtptxp_out,
     ----------- Transmit Ports - TX Fabric Clock Output Control Ports ----------
+        gt0_txoutclk_out                =>      gt0_txoutclk_out,
         gt0_txoutclkfabric_out          =>      gt0_txoutclkfabric_out,
         gt0_txoutclkpcs_out             =>      gt0_txoutclkpcs_out,
     ------------- Transmit Ports - TX Initialization and Reset Ports -----------
+        gt0_txpcsreset_in               =>      gt0_txpcsreset_in,
+        gt0_txpmareset_in               =>      gt0_txpmareset_in,
         gt0_txresetdone_out             =>      gt0_txresetdone_out,
 
+
     --____________________________COMMON PORTS________________________________
-         GT0_PLL0OUTCLK_OUT  => GT0_PLL0OUTCLK_OUT,
-         GT0_PLL0OUTREFCLK_OUT  => GT0_PLL0OUTREFCLK_OUT,
-         GT0_PLL0LOCK_OUT  => GT0_PLL0LOCK_OUT,
-         GT0_PLL0REFCLKLOST_OUT  => GT0_PLL0REFCLKLOST_OUT,    
-         GT0_PLL1OUTCLK_OUT  => GT0_PLL1OUTCLK_OUT,
-         GT0_PLL1OUTREFCLK_OUT  => GT0_PLL1OUTREFCLK_OUT,
-     sysclk_in => sysclk_in
+         GT0_PLL0OUTCLK_IN  => GT0_PLL0OUTCLK_IN,
+         GT0_PLL0OUTREFCLK_IN  => GT0_PLL0OUTREFCLK_IN,
+   GT0_PLL0RESET_OUT => GT0_PLL0RESET_OUT, 
+         GT0_PLL0LOCK_IN  => GT0_PLL0LOCK_IN ,
+         GT0_PLL0REFCLKLOST_IN => GT0_PLL0REFCLKLOST_IN,      
+         GT0_PLL1OUTCLK_IN => GT0_PLL1OUTCLK_IN , 
+         GT0_PLL1OUTREFCLK_IN => GT0_PLL1OUTREFCLK_IN  
 
 );
- end RTL;
-
+ 
+end RTL;    
  

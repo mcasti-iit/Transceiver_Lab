@@ -69,13 +69,13 @@
 ####################### GT reference clock constraints #########################
  
 
-    create_clock -period 6.4 [get_ports Q0_CLK0_GTREFCLK_PAD_P_IN]
+    create_clock -period 8.0 [get_ports Q0_CLK0_GTREFCLK_PAD_P_IN]
 
 
 
 
 
-create_clock -name drpclk_in_i -period 8.0 [get_ports DRP_CLK_IN_P]
+create_clock -name drpclk_in_i -period 10.0 [get_ports DRP_CLK_IN_P]
 
 
 # User Clock Constraints
@@ -95,7 +95,7 @@ set_property LOC B8 [get_ports  Q0_CLK0_GTREFCLK_PAD_P_IN ]
 ################################# mgt wrapper constraints #####################
 
 ##---------- Set placement for gt0_gtp_wrapper_i/GTPE2_CHANNEL ------
-set_property LOC GTPE2_CHANNEL_X0Y0 [get_cells GTP_Artix_support_i/U0/GTP_Artix_init_i/GTP_Artix_i/gt0_GTP_Artix_i/gtpe2_i]
+set_property LOC GTPE2_CHANNEL_X0Y0 [get_cells GTP_Artix_support_i/GTP_Artix_init_i/U0/GTP_Artix_i/gt0_GTP_Artix_i/gtpe2_i]
 
 ##---------- Set ASYNC_REG for flop which have async input ----------
 ##set_property ASYNC_REG TRUE [get_cells -hier -filter {name=~*gt0_frame_gen*system_reset_r_reg}]
@@ -103,4 +103,3 @@ set_property LOC GTPE2_CHANNEL_X0Y0 [get_cells GTP_Artix_support_i/U0/GTP_Artix_
 
 ##---------- Set False Path from one clock to other ----------
 
-connect_debug_port dbg_hub/clk [get_pins -filter {REF_PIN_NAME=~*O} -of_objects [get_cells -hierarchical -filter {NAME =~ *DRP_CLK_BUFG*}]]

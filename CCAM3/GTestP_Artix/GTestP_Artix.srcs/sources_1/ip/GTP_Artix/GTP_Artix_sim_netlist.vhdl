@@ -1,10 +1,10 @@
 -- Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2019.1 (win64) Build 2552052 Fri May 24 14:49:42 MDT 2019
--- Date        : Mon Nov 23 16:14:08 2020
+-- Date        : Mon Feb 22 16:57:39 2021
 -- Host        : IITICUBLAP127 running 64-bit major release  (build 9200)
--- Command     : write_vhdl -force -mode funcsim
---               C:/Progetti/Transceiver_Lab/CCAM3/GTestP_Artix/GTestP_Artix.srcs/sources_1/ip/GTP_Artix/GTP_Artix_sim_netlist.vhdl
+-- Command     : write_vhdl -force -mode funcsim -rename_top GTP_Artix -prefix
+--               GTP_Artix_ GTP_Artix_sim_netlist.vhdl
 -- Design      : GTP_Artix
 -- Purpose     : This VHDL netlist is a functional simulation representation of the design and should not be modified or
 --               synthesized. This netlist cannot be used for SDF annotated simulation.
@@ -37,6 +37,7 @@ entity GTP_Artix_GTP_Artix_GT is
     GT0_PLL1OUTCLK_OUT : in STD_LOGIC;
     GT0_PLL1OUTREFCLK_OUT : in STD_LOGIC;
     gt0_rxlpmreset_in : in STD_LOGIC;
+    gt0_txpcsreset_in : in STD_LOGIC;
     gt0_txuserrdy_t : in STD_LOGIC;
     GT0_TXUSRCLK_OUT : in STD_LOGIC;
     gt0_drpdi_in : in STD_LOGIC_VECTOR ( 15 downto 0 );
@@ -44,8 +45,6 @@ entity GTP_Artix_GTP_Artix_GT is
     gt0_txcharisk_in : in STD_LOGIC_VECTOR ( 1 downto 0 );
     gt0_drpaddr_in : in STD_LOGIC_VECTOR ( 8 downto 0 )
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of GTP_Artix_GTP_Artix_GT : entity is "GTP_Artix_GT";
 end GTP_Artix_GTP_Artix_GT;
 
 architecture STRUCTURE of GTP_Artix_GTP_Artix_GT is
@@ -540,7 +539,7 @@ gtpe2_i: unisim.vcomponents.GTPE2_CHANNEL
       TXOUTCLKFABRIC => gt0_txoutclkfabric_out,
       TXOUTCLKPCS => gt0_txoutclkpcs_out,
       TXOUTCLKSEL(2 downto 0) => B"010",
-      TXPCSRESET => '0',
+      TXPCSRESET => gt0_txpcsreset_in,
       TXPD(1 downto 0) => B"00",
       TXPDELECIDLEMODE => '0',
       TXPHALIGN => '0',
@@ -597,8 +596,6 @@ entity GTP_Artix_GTP_Artix_GT_USRCLK_SOURCE is
     Q0_CLK0_GTREFCLK_PAD_N_IN : in STD_LOGIC;
     GT0_TXOUTCLK_IN : in STD_LOGIC
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of GTP_Artix_GTP_Artix_GT_USRCLK_SOURCE : entity is "GTP_Artix_GT_USRCLK_SOURCE";
 end GTP_Artix_GTP_Artix_GT_USRCLK_SOURCE;
 
 architecture STRUCTURE of GTP_Artix_GTP_Artix_GT_USRCLK_SOURCE is
@@ -640,11 +637,9 @@ entity GTP_Artix_GTP_Artix_common is
     GT0_PLL1OUTREFCLK_OUT : out STD_LOGIC;
     Q0_CLK0_GTREFCLK_OUT : in STD_LOGIC;
     sysclk_in : in STD_LOGIC;
-    cpll_pd_pll0_q0_clk0_refclk_i : in STD_LOGIC;
+    PLL0PD_IN : in STD_LOGIC;
     PLL0RESET_IN : in STD_LOGIC
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of GTP_Artix_GTP_Artix_common : entity is "GTP_Artix_common";
 end GTP_Artix_GTP_Artix_common;
 
 architecture STRUCTURE of GTP_Artix_GTP_Artix_common is
@@ -720,7 +715,7 @@ gtpe2_common_i: unisim.vcomponents.GTPE2_COMMON
       PLL0LOCKEN => '1',
       PLL0OUTCLK => GT0_PLL0OUTCLK_OUT,
       PLL0OUTREFCLK => GT0_PLL0OUTREFCLK_OUT,
-      PLL0PD => cpll_pd_pll0_q0_clk0_refclk_i,
+      PLL0PD => PLL0PD_IN,
       PLL0REFCLKLOST => GT0_PLL0REFCLKLOST_OUT,
       PLL0REFCLKSEL(2 downto 0) => B"001",
       PLL0RESET => PLL0RESET_IN,
@@ -755,8 +750,6 @@ entity GTP_Artix_GTP_Artix_common_reset is
     GT0_PLL0RESET_OUT : in STD_LOGIC;
     cpll_reset_out : in STD_LOGIC
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of GTP_Artix_GTP_Artix_common_reset : entity is "GTP_Artix_common_reset";
 end GTP_Artix_GTP_Artix_common_reset;
 
 architecture STRUCTURE of GTP_Artix_GTP_Artix_common_reset is
@@ -770,19 +763,21 @@ architecture STRUCTURE of GTP_Artix_GTP_Artix_common_reset is
   signal init_wait_count_reg : STD_LOGIC_VECTOR ( 7 downto 0 );
   signal init_wait_done : STD_LOGIC;
   signal init_wait_done_i_1_n_0 : STD_LOGIC;
-  signal \init_wait_done_i_2__0_n_0\ : STD_LOGIC;
+  signal init_wait_done_i_2_n_0 : STD_LOGIC;
   signal plusOp : STD_LOGIC_VECTOR ( 7 downto 0 );
   signal state : STD_LOGIC;
   signal state_i_1_n_0 : STD_LOGIC;
   attribute SOFT_HLUTNM : string;
-  attribute SOFT_HLUTNM of COMMON_RESET_i_1 : label is "soft_lutpair18";
-  attribute SOFT_HLUTNM of common_reset_asserted_i_1 : label is "soft_lutpair18";
-  attribute SOFT_HLUTNM of \init_wait_count[1]_i_1\ : label is "soft_lutpair16";
-  attribute SOFT_HLUTNM of \init_wait_count[2]_i_1\ : label is "soft_lutpair16";
-  attribute SOFT_HLUTNM of \init_wait_count[3]_i_1\ : label is "soft_lutpair15";
-  attribute SOFT_HLUTNM of \init_wait_count[4]_i_1\ : label is "soft_lutpair15";
-  attribute SOFT_HLUTNM of \init_wait_count[6]_i_1\ : label is "soft_lutpair17";
-  attribute SOFT_HLUTNM of \init_wait_count[7]_i_2\ : label is "soft_lutpair17";
+  attribute SOFT_HLUTNM of COMMON_RESET_i_1 : label is "soft_lutpair16";
+  attribute SOFT_HLUTNM of common_reset_asserted_i_1 : label is "soft_lutpair17";
+  attribute SOFT_HLUTNM of gtpe2_common_i_i_2 : label is "soft_lutpair16";
+  attribute SOFT_HLUTNM of \init_wait_count[1]_i_1\ : label is "soft_lutpair14";
+  attribute SOFT_HLUTNM of \init_wait_count[2]_i_1\ : label is "soft_lutpair14";
+  attribute SOFT_HLUTNM of \init_wait_count[3]_i_1\ : label is "soft_lutpair13";
+  attribute SOFT_HLUTNM of \init_wait_count[4]_i_1\ : label is "soft_lutpair13";
+  attribute SOFT_HLUTNM of \init_wait_count[6]_i_1\ : label is "soft_lutpair15";
+  attribute SOFT_HLUTNM of \init_wait_count[7]_i_2\ : label is "soft_lutpair15";
+  attribute SOFT_HLUTNM of state_i_1 : label is "soft_lutpair17";
 begin
 COMMON_RESET_i_1: unisim.vcomponents.LUT3
     generic map(
@@ -825,7 +820,7 @@ common_reset_asserted_reg: unisim.vcomponents.FDRE
       Q => common_reset_asserted,
       R => SOFT_RESET_TX_IN
     );
-gtpe2_common_i_i_1: unisim.vcomponents.LUT3
+gtpe2_common_i_i_2: unisim.vcomponents.LUT3
     generic map(
       INIT => X"FE"
     )
@@ -907,37 +902,37 @@ gtpe2_common_i_i_1: unisim.vcomponents.LUT3
       I1 => init_wait_count_reg(6),
       O => plusOp(6)
     );
-\init_wait_count[7]_i_1\: unisim.vcomponents.LUT4
+\init_wait_count[7]_i_1\: unisim.vcomponents.LUT3
     generic map(
-      INIT => X"FFFE"
+      INIT => X"FE"
     )
         port map (
-      I0 => init_wait_count_reg(1),
-      I1 => init_wait_count_reg(2),
-      I2 => \init_wait_count[7]_i_3_n_0\,
-      I3 => init_wait_count_reg(0),
+      I0 => \init_wait_count[7]_i_3_n_0\,
+      I1 => init_wait_count_reg(1),
+      I2 => init_wait_count_reg(0),
       O => \init_wait_count[7]_i_1_n_0\
     );
 \init_wait_count[7]_i_2\: unisim.vcomponents.LUT3
     generic map(
-      INIT => X"C6"
+      INIT => X"D2"
+    )
+        port map (
+      I0 => init_wait_count_reg(6),
+      I1 => \init_wait_count[7]_i_4_n_0\,
+      I2 => init_wait_count_reg(7),
+      O => plusOp(7)
+    );
+\init_wait_count[7]_i_3\: unisim.vcomponents.LUT6
+    generic map(
+      INIT => X"EFFFFFFFFFFFFFFF"
     )
         port map (
       I0 => init_wait_count_reg(6),
       I1 => init_wait_count_reg(7),
-      I2 => \init_wait_count[7]_i_4_n_0\,
-      O => plusOp(7)
-    );
-\init_wait_count[7]_i_3\: unisim.vcomponents.LUT5
-    generic map(
-      INIT => X"FFFFFDFF"
-    )
-        port map (
-      I0 => init_wait_count_reg(3),
-      I1 => init_wait_count_reg(4),
-      I2 => init_wait_count_reg(7),
-      I3 => init_wait_count_reg(6),
-      I4 => init_wait_count_reg(5),
+      I2 => init_wait_count_reg(4),
+      I3 => init_wait_count_reg(5),
+      I4 => init_wait_count_reg(3),
+      I5 => init_wait_count_reg(2),
       O => \init_wait_count[7]_i_3_n_0\
     );
 \init_wait_count[7]_i_4\: unisim.vcomponents.LUT6
@@ -1043,27 +1038,27 @@ gtpe2_common_i_i_1: unisim.vcomponents.LUT3
     );
 init_wait_done_i_1: unisim.vcomponents.LUT4
     generic map(
-      INIT => X"FF40"
+      INIT => X"FF02"
     )
         port map (
-      I0 => init_wait_count_reg(7),
-      I1 => init_wait_count_reg(6),
-      I2 => \init_wait_done_i_2__0_n_0\,
+      I0 => init_wait_done_i_2_n_0,
+      I1 => init_wait_count_reg(0),
+      I2 => init_wait_count_reg(1),
       I3 => init_wait_done,
       O => init_wait_done_i_1_n_0
     );
-\init_wait_done_i_2__0\: unisim.vcomponents.LUT6
+init_wait_done_i_2: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"0000000000000002"
+      INIT => X"0000000000008000"
     )
         port map (
-      I0 => init_wait_count_reg(3),
-      I1 => init_wait_count_reg(2),
-      I2 => init_wait_count_reg(0),
-      I3 => init_wait_count_reg(1),
-      I4 => init_wait_count_reg(5),
-      I5 => init_wait_count_reg(4),
-      O => \init_wait_done_i_2__0_n_0\
+      I0 => init_wait_count_reg(4),
+      I1 => init_wait_count_reg(5),
+      I2 => init_wait_count_reg(2),
+      I3 => init_wait_count_reg(3),
+      I4 => init_wait_count_reg(7),
+      I5 => init_wait_count_reg(6),
+      O => init_wait_done_i_2_n_0
     );
 init_wait_done_reg: unisim.vcomponents.FDRE
     generic map(
@@ -1104,14 +1099,14 @@ use UNISIM.VCOMPONENTS.ALL;
 entity GTP_Artix_GTP_Artix_cpll_railing is
   port (
     cpll_reset_out : out STD_LOGIC;
-    cpll_pd_pll0_q0_clk0_refclk_i : out STD_LOGIC;
-    Q0_CLK0_GTREFCLK_OUT : in STD_LOGIC
+    PLL0PD_IN : out STD_LOGIC;
+    Q0_CLK0_GTREFCLK_OUT : in STD_LOGIC;
+    GT0_PLL0PD_IN : in STD_LOGIC
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of GTP_Artix_GTP_Artix_cpll_railing : entity is "GTP_Artix_cpll_railing";
 end GTP_Artix_GTP_Artix_cpll_railing;
 
 architecture STRUCTURE of GTP_Artix_GTP_Artix_cpll_railing is
+  signal cpll_pd_out : STD_LOGIC;
   signal \cpllpd_wait_reg[31]_srl32_n_1\ : STD_LOGIC;
   signal \cpllpd_wait_reg[63]_srl32_n_1\ : STD_LOGIC;
   signal \cpllpd_wait_reg[94]_srl31_n_0\ : STD_LOGIC;
@@ -1193,7 +1188,7 @@ begin
       C => \use_bufh_cpll.refclk_buf_n_0\,
       CE => '1',
       D => \cpllpd_wait_reg[94]_srl31_n_0\,
-      Q => cpll_pd_pll0_q0_clk0_refclk_i,
+      Q => cpll_pd_out,
       R => '0'
     );
 \cpllreset_wait_reg[126]_srl31\: unisim.vcomponents.SRLC32E
@@ -1255,6 +1250,15 @@ begin
       Q => \NLW_cpllreset_wait_reg[95]_srl32_Q_UNCONNECTED\,
       Q31 => \cpllreset_wait_reg[95]_srl32_n_1\
     );
+gtpe2_common_i_i_1: unisim.vcomponents.LUT2
+    generic map(
+      INIT => X"E"
+    )
+        port map (
+      I0 => GT0_PLL0PD_IN,
+      I1 => cpll_pd_out,
+      O => PLL0PD_IN
+    );
 \use_bufh_cpll.refclk_buf\: unisim.vcomponents.BUFH
      port map (
       I => Q0_CLK0_GTREFCLK_OUT,
@@ -1285,8 +1289,6 @@ entity GTP_Artix_GTP_Artix_sync_block is
     GT0_PLL0LOCK_OUT : in STD_LOGIC;
     sysclk_in : in STD_LOGIC
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of GTP_Artix_GTP_Artix_sync_block : entity is "GTP_Artix_sync_block";
 end GTP_Artix_GTP_Artix_sync_block;
 
 architecture STRUCTURE of GTP_Artix_GTP_Artix_sync_block is
@@ -2082,8 +2084,6 @@ entity GTP_Artix_GTP_Artix_TX_STARTUP_FSM is
     gt0_txresetdone_out : in STD_LOGIC;
     GT0_PLL0LOCK_OUT : in STD_LOGIC
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of GTP_Artix_GTP_Artix_TX_STARTUP_FSM : entity is "GTP_Artix_TX_STARTUP_FSM";
 end GTP_Artix_GTP_Artix_TX_STARTUP_FSM;
 
 architecture STRUCTURE of GTP_Artix_GTP_Artix_TX_STARTUP_FSM is
@@ -2108,18 +2108,17 @@ architecture STRUCTURE of GTP_Artix_GTP_Artix_TX_STARTUP_FSM is
   signal \^gt0_gttxreset_t\ : STD_LOGIC;
   signal \^gt0_txuserrdy_t\ : STD_LOGIC;
   signal gttxreset_i_i_1_n_0 : STD_LOGIC;
-  signal init_wait_count : STD_LOGIC;
-  signal \init_wait_count[6]_i_3_n_0\ : STD_LOGIC;
-  signal \init_wait_count[6]_i_4_n_0\ : STD_LOGIC;
-  signal init_wait_count_reg : STD_LOGIC_VECTOR ( 6 downto 0 );
+  signal \init_wait_count[0]_i_1__0_n_0\ : STD_LOGIC;
+  signal \init_wait_count[5]_i_1__0_n_0\ : STD_LOGIC;
+  signal init_wait_count_reg : STD_LOGIC_VECTOR ( 5 downto 0 );
   signal \init_wait_done_i_1__0_n_0\ : STD_LOGIC;
-  signal init_wait_done_i_2_n_0 : STD_LOGIC;
+  signal \init_wait_done_i_2__0_n_0\ : STD_LOGIC;
   signal init_wait_done_reg_n_0 : STD_LOGIC;
   signal \mmcm_lock_count[7]_i_2_n_0\ : STD_LOGIC;
   signal \mmcm_lock_count[7]_i_4_n_0\ : STD_LOGIC;
   signal mmcm_lock_count_reg : STD_LOGIC_VECTOR ( 7 downto 0 );
   signal mmcm_lock_reclocked : STD_LOGIC;
-  signal p_0_in : STD_LOGIC_VECTOR ( 6 downto 0 );
+  signal p_0_in : STD_LOGIC_VECTOR ( 5 downto 1 );
   signal \p_0_in__0\ : STD_LOGIC_VECTOR ( 7 downto 0 );
   signal pll_reset_asserted_i_1_n_0 : STD_LOGIC;
   signal pll_reset_asserted_reg_n_0 : STD_LOGIC;
@@ -2145,6 +2144,7 @@ architecture STRUCTURE of GTP_Artix_GTP_Artix_TX_STARTUP_FSM is
   signal \time_out_counter[0]_i_5_n_0\ : STD_LOGIC;
   signal \time_out_counter[0]_i_6_n_0\ : STD_LOGIC;
   signal \time_out_counter[0]_i_7_n_0\ : STD_LOGIC;
+  signal \time_out_counter[0]_i_8_n_0\ : STD_LOGIC;
   signal time_out_counter_reg : STD_LOGIC_VECTOR ( 17 downto 0 );
   signal \time_out_counter_reg[0]_i_2_n_0\ : STD_LOGIC;
   signal \time_out_counter_reg[0]_i_2_n_1\ : STD_LOGIC;
@@ -2242,39 +2242,35 @@ architecture STRUCTURE of GTP_Artix_GTP_Artix_TX_STARTUP_FSM is
   signal \NLW_time_out_counter_reg[16]_i_1_O_UNCONNECTED\ : STD_LOGIC_VECTOR ( 3 downto 2 );
   signal \NLW_wait_bypass_count_reg[12]_i_1_CO_UNCONNECTED\ : STD_LOGIC_VECTOR ( 3 to 3 );
   attribute SOFT_HLUTNM : string;
-  attribute SOFT_HLUTNM of \FSM_sequential_tx_state[3]_i_6\ : label is "soft_lutpair4";
-  attribute SOFT_HLUTNM of \FSM_sequential_tx_state[3]_i_7\ : label is "soft_lutpair5";
-  attribute SOFT_HLUTNM of \FSM_sequential_tx_state[3]_i_8\ : label is "soft_lutpair1";
+  attribute SOFT_HLUTNM of \FSM_sequential_tx_state[3]_i_6\ : label is "soft_lutpair5";
+  attribute SOFT_HLUTNM of \FSM_sequential_tx_state[3]_i_7\ : label is "soft_lutpair6";
+  attribute SOFT_HLUTNM of \FSM_sequential_tx_state[3]_i_8\ : label is "soft_lutpair2";
   attribute FSM_ENCODED_STATES : string;
   attribute FSM_ENCODED_STATES of \FSM_sequential_tx_state_reg[0]\ : label is "wait_for_txoutclk:0100,release_pll_reset:0011,wait_for_pll_lock:0010,assert_all_resets:0001,init:0000,wait_reset_done:0111,reset_fsm_done:1001,wait_for_txusrclk:0110,do_phase_alignment:1000,release_mmcm_reset:0101";
   attribute FSM_ENCODED_STATES of \FSM_sequential_tx_state_reg[1]\ : label is "wait_for_txoutclk:0100,release_pll_reset:0011,wait_for_pll_lock:0010,assert_all_resets:0001,init:0000,wait_reset_done:0111,reset_fsm_done:1001,wait_for_txusrclk:0110,do_phase_alignment:1000,release_mmcm_reset:0101";
   attribute FSM_ENCODED_STATES of \FSM_sequential_tx_state_reg[2]\ : label is "wait_for_txoutclk:0100,release_pll_reset:0011,wait_for_pll_lock:0010,assert_all_resets:0001,init:0000,wait_reset_done:0111,reset_fsm_done:1001,wait_for_txusrclk:0110,do_phase_alignment:1000,release_mmcm_reset:0101";
   attribute FSM_ENCODED_STATES of \FSM_sequential_tx_state_reg[3]\ : label is "wait_for_txoutclk:0100,release_pll_reset:0011,wait_for_pll_lock:0010,assert_all_resets:0001,init:0000,wait_reset_done:0111,reset_fsm_done:1001,wait_for_txusrclk:0110,do_phase_alignment:1000,release_mmcm_reset:0101";
-  attribute SOFT_HLUTNM of PLL0_RESET_i_2 : label is "soft_lutpair3";
-  attribute SOFT_HLUTNM of TXUSERRDY_i_1 : label is "soft_lutpair5";
-  attribute SOFT_HLUTNM of gttxreset_i_i_1 : label is "soft_lutpair3";
-  attribute SOFT_HLUTNM of \init_wait_count[0]_i_1__0\ : label is "soft_lutpair13";
-  attribute SOFT_HLUTNM of \init_wait_count[1]_i_1__0\ : label is "soft_lutpair13";
-  attribute SOFT_HLUTNM of \init_wait_count[2]_i_1__0\ : label is "soft_lutpair10";
-  attribute SOFT_HLUTNM of \init_wait_count[3]_i_1__0\ : label is "soft_lutpair10";
-  attribute SOFT_HLUTNM of \init_wait_count[4]_i_1__0\ : label is "soft_lutpair2";
-  attribute SOFT_HLUTNM of \init_wait_count[6]_i_3\ : label is "soft_lutpair9";
-  attribute SOFT_HLUTNM of \init_wait_count[6]_i_4\ : label is "soft_lutpair2";
-  attribute SOFT_HLUTNM of init_wait_done_i_2 : label is "soft_lutpair9";
-  attribute SOFT_HLUTNM of \mmcm_lock_count[1]_i_1\ : label is "soft_lutpair12";
-  attribute SOFT_HLUTNM of \mmcm_lock_count[2]_i_1\ : label is "soft_lutpair12";
-  attribute SOFT_HLUTNM of \mmcm_lock_count[3]_i_1\ : label is "soft_lutpair6";
-  attribute SOFT_HLUTNM of \mmcm_lock_count[4]_i_1\ : label is "soft_lutpair6";
-  attribute SOFT_HLUTNM of \mmcm_lock_count[6]_i_1\ : label is "soft_lutpair11";
-  attribute SOFT_HLUTNM of \mmcm_lock_count[7]_i_3\ : label is "soft_lutpair11";
+  attribute SOFT_HLUTNM of PLL0_RESET_i_2 : label is "soft_lutpair4";
+  attribute SOFT_HLUTNM of TXUSERRDY_i_1 : label is "soft_lutpair6";
+  attribute SOFT_HLUTNM of gttxreset_i_i_1 : label is "soft_lutpair5";
+  attribute SOFT_HLUTNM of \init_wait_count[1]_i_1__0\ : label is "soft_lutpair9";
+  attribute SOFT_HLUTNM of \init_wait_count[2]_i_1__0\ : label is "soft_lutpair9";
+  attribute SOFT_HLUTNM of \init_wait_count[3]_i_1__0\ : label is "soft_lutpair3";
+  attribute SOFT_HLUTNM of \init_wait_count[4]_i_1__0\ : label is "soft_lutpair3";
+  attribute SOFT_HLUTNM of \mmcm_lock_count[1]_i_1\ : label is "soft_lutpair11";
+  attribute SOFT_HLUTNM of \mmcm_lock_count[2]_i_1\ : label is "soft_lutpair11";
+  attribute SOFT_HLUTNM of \mmcm_lock_count[3]_i_1\ : label is "soft_lutpair7";
+  attribute SOFT_HLUTNM of \mmcm_lock_count[4]_i_1\ : label is "soft_lutpair7";
+  attribute SOFT_HLUTNM of \mmcm_lock_count[6]_i_1\ : label is "soft_lutpair10";
+  attribute SOFT_HLUTNM of \mmcm_lock_count[7]_i_3\ : label is "soft_lutpair10";
   attribute SOFT_HLUTNM of run_phase_alignment_int_i_1 : label is "soft_lutpair4";
-  attribute SOFT_HLUTNM of \time_out_counter[0]_i_6\ : label is "soft_lutpair8";
-  attribute SOFT_HLUTNM of time_tlock_max_i_2 : label is "soft_lutpair8";
-  attribute SOFT_HLUTNM of tx_fsm_reset_done_int_i_1 : label is "soft_lutpair1";
-  attribute SOFT_HLUTNM of \wait_time_cnt[0]_i_1\ : label is "soft_lutpair14";
-  attribute SOFT_HLUTNM of \wait_time_cnt[1]_i_1\ : label is "soft_lutpair14";
-  attribute SOFT_HLUTNM of \wait_time_cnt[3]_i_1\ : label is "soft_lutpair7";
-  attribute SOFT_HLUTNM of \wait_time_cnt[4]_i_1\ : label is "soft_lutpair7";
+  attribute SOFT_HLUTNM of \time_out_counter[0]_i_8\ : label is "soft_lutpair1";
+  attribute SOFT_HLUTNM of time_tlock_max_i_2 : label is "soft_lutpair1";
+  attribute SOFT_HLUTNM of tx_fsm_reset_done_int_i_1 : label is "soft_lutpair2";
+  attribute SOFT_HLUTNM of \wait_time_cnt[0]_i_1\ : label is "soft_lutpair12";
+  attribute SOFT_HLUTNM of \wait_time_cnt[1]_i_1\ : label is "soft_lutpair12";
+  attribute SOFT_HLUTNM of \wait_time_cnt[3]_i_1\ : label is "soft_lutpair8";
+  attribute SOFT_HLUTNM of \wait_time_cnt[4]_i_1\ : label is "soft_lutpair8";
 begin
   GT0_PLL0RESET_OUT <= \^gt0_pll0reset_out\;
   GT0_TX_FSM_RESET_DONE_OUT <= \^gt0_tx_fsm_reset_done_out\;
@@ -2535,7 +2531,7 @@ gttxreset_i_reg: unisim.vcomponents.FDRE
     )
         port map (
       I0 => init_wait_count_reg(0),
-      O => p_0_in(0)
+      O => \init_wait_count[0]_i_1__0_n_0\
     );
 \init_wait_count[1]_i_1__0\: unisim.vcomponents.LUT2
     generic map(
@@ -2581,6 +2577,19 @@ gttxreset_i_reg: unisim.vcomponents.FDRE
     );
 \init_wait_count[5]_i_1__0\: unisim.vcomponents.LUT6
     generic map(
+      INIT => X"FFFFFFFFFFFF7FFF"
+    )
+        port map (
+      I0 => init_wait_count_reg(4),
+      I1 => init_wait_count_reg(5),
+      I2 => init_wait_count_reg(2),
+      I3 => init_wait_count_reg(3),
+      I4 => init_wait_count_reg(1),
+      I5 => init_wait_count_reg(0),
+      O => \init_wait_count[5]_i_1__0_n_0\
+    );
+\init_wait_count[5]_i_2\: unisim.vcomponents.LUT6
+    generic map(
       INIT => X"7FFFFFFF80000000"
     )
         port map (
@@ -2592,59 +2601,15 @@ gttxreset_i_reg: unisim.vcomponents.FDRE
       I5 => init_wait_count_reg(5),
       O => p_0_in(5)
     );
-\init_wait_count[6]_i_1__0\: unisim.vcomponents.LUT6
-    generic map(
-      INIT => X"FFFFFFFFFFFFFEFF"
-    )
-        port map (
-      I0 => init_wait_count_reg(4),
-      I1 => \init_wait_count[6]_i_3_n_0\,
-      I2 => init_wait_count_reg(2),
-      I3 => init_wait_count_reg(3),
-      I4 => init_wait_count_reg(1),
-      I5 => init_wait_count_reg(0),
-      O => init_wait_count
-    );
-\init_wait_count[6]_i_2\: unisim.vcomponents.LUT3
-    generic map(
-      INIT => X"C6"
-    )
-        port map (
-      I0 => init_wait_count_reg(5),
-      I1 => init_wait_count_reg(6),
-      I2 => \init_wait_count[6]_i_4_n_0\,
-      O => p_0_in(6)
-    );
-\init_wait_count[6]_i_3\: unisim.vcomponents.LUT2
-    generic map(
-      INIT => X"B"
-    )
-        port map (
-      I0 => init_wait_count_reg(5),
-      I1 => init_wait_count_reg(6),
-      O => \init_wait_count[6]_i_3_n_0\
-    );
-\init_wait_count[6]_i_4\: unisim.vcomponents.LUT5
-    generic map(
-      INIT => X"7FFFFFFF"
-    )
-        port map (
-      I0 => init_wait_count_reg(3),
-      I1 => init_wait_count_reg(1),
-      I2 => init_wait_count_reg(0),
-      I3 => init_wait_count_reg(2),
-      I4 => init_wait_count_reg(4),
-      O => \init_wait_count[6]_i_4_n_0\
-    );
 \init_wait_count_reg[0]\: unisim.vcomponents.FDCE
     generic map(
       INIT => '0'
     )
         port map (
       C => sysclk_in,
-      CE => init_wait_count,
+      CE => \init_wait_count[5]_i_1__0_n_0\,
       CLR => SOFT_RESET_TX_IN,
-      D => p_0_in(0),
+      D => \init_wait_count[0]_i_1__0_n_0\,
       Q => init_wait_count_reg(0)
     );
 \init_wait_count_reg[1]\: unisim.vcomponents.FDCE
@@ -2653,7 +2618,7 @@ gttxreset_i_reg: unisim.vcomponents.FDRE
     )
         port map (
       C => sysclk_in,
-      CE => init_wait_count,
+      CE => \init_wait_count[5]_i_1__0_n_0\,
       CLR => SOFT_RESET_TX_IN,
       D => p_0_in(1),
       Q => init_wait_count_reg(1)
@@ -2664,7 +2629,7 @@ gttxreset_i_reg: unisim.vcomponents.FDRE
     )
         port map (
       C => sysclk_in,
-      CE => init_wait_count,
+      CE => \init_wait_count[5]_i_1__0_n_0\,
       CLR => SOFT_RESET_TX_IN,
       D => p_0_in(2),
       Q => init_wait_count_reg(2)
@@ -2675,7 +2640,7 @@ gttxreset_i_reg: unisim.vcomponents.FDRE
     )
         port map (
       C => sysclk_in,
-      CE => init_wait_count,
+      CE => \init_wait_count[5]_i_1__0_n_0\,
       CLR => SOFT_RESET_TX_IN,
       D => p_0_in(3),
       Q => init_wait_count_reg(3)
@@ -2686,7 +2651,7 @@ gttxreset_i_reg: unisim.vcomponents.FDRE
     )
         port map (
       C => sysclk_in,
-      CE => init_wait_count,
+      CE => \init_wait_count[5]_i_1__0_n_0\,
       CLR => SOFT_RESET_TX_IN,
       D => p_0_in(4),
       Q => init_wait_count_reg(4)
@@ -2697,44 +2662,32 @@ gttxreset_i_reg: unisim.vcomponents.FDRE
     )
         port map (
       C => sysclk_in,
-      CE => init_wait_count,
+      CE => \init_wait_count[5]_i_1__0_n_0\,
       CLR => SOFT_RESET_TX_IN,
       D => p_0_in(5),
       Q => init_wait_count_reg(5)
     );
-\init_wait_count_reg[6]\: unisim.vcomponents.FDCE
+\init_wait_done_i_1__0\: unisim.vcomponents.LUT6
     generic map(
-      INIT => '0'
+      INIT => X"FFFFFFFF02000000"
     )
         port map (
-      C => sysclk_in,
-      CE => init_wait_count,
-      CLR => SOFT_RESET_TX_IN,
-      D => p_0_in(6),
-      Q => init_wait_count_reg(6)
-    );
-\init_wait_done_i_1__0\: unisim.vcomponents.LUT5
-    generic map(
-      INIT => X"FFFF0100"
-    )
-        port map (
-      I0 => init_wait_count_reg(2),
+      I0 => \init_wait_done_i_2__0_n_0\,
       I1 => init_wait_count_reg(1),
       I2 => init_wait_count_reg(0),
-      I3 => init_wait_done_i_2_n_0,
-      I4 => init_wait_done_reg_n_0,
+      I3 => init_wait_count_reg(3),
+      I4 => init_wait_count_reg(2),
+      I5 => init_wait_done_reg_n_0,
       O => \init_wait_done_i_1__0_n_0\
     );
-init_wait_done_i_2: unisim.vcomponents.LUT4
+\init_wait_done_i_2__0\: unisim.vcomponents.LUT2
     generic map(
-      INIT => X"0040"
+      INIT => X"8"
     )
         port map (
       I0 => init_wait_count_reg(4),
-      I1 => init_wait_count_reg(3),
-      I2 => init_wait_count_reg(6),
-      I3 => init_wait_count_reg(5),
-      O => init_wait_done_i_2_n_0
+      I1 => init_wait_count_reg(5),
+      O => \init_wait_done_i_2__0_n_0\
     );
 init_wait_done_reg: unisim.vcomponents.FDCE
     generic map(
@@ -3097,16 +3050,17 @@ time_out_2ms_i_1: unisim.vcomponents.LUT4
       I3 => reset_time_out,
       O => time_out_2ms_i_1_n_0
     );
-time_out_2ms_i_2: unisim.vcomponents.LUT5
+time_out_2ms_i_2: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"00000008"
+      INIT => X"0000000000000800"
     )
         port map (
       I0 => time_out_counter_reg(16),
       I1 => time_out_counter_reg(17),
-      I2 => time_out_counter_reg(2),
-      I3 => time_out_counter_reg(13),
-      I4 => \time_out_counter[0]_i_4_n_0\,
+      I2 => time_out_counter_reg(9),
+      I3 => time_out_counter_reg(11),
+      I4 => time_out_counter_reg(4),
+      I5 => \time_out_counter[0]_i_4_n_0\,
       O => time_out_2ms_i_2_n_0
     );
 time_out_2ms_reg: unisim.vcomponents.FDRE
@@ -3122,26 +3076,26 @@ time_out_2ms_reg: unisim.vcomponents.FDRE
     );
 time_out_500us_i_1: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"00000000AAAAAAEA"
+      INIT => X"00000000AAAAEAAA"
     )
         port map (
       I0 => time_out_500us_reg_n_0,
       I1 => time_out_500us_i_2_n_0,
-      I2 => time_out_counter_reg(2),
-      I3 => time_out_counter_reg(4),
+      I2 => time_out_counter_reg(4),
+      I3 => time_out_counter_reg(9),
       I4 => \time_out_counter[0]_i_3_n_0\,
       I5 => reset_time_out,
       O => time_out_500us_i_1_n_0
     );
 time_out_500us_i_2: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"0000000000000080"
+      INIT => X"0000000000000008"
     )
         port map (
-      I0 => time_out_counter_reg(10),
-      I1 => time_out_counter_reg(13),
-      I2 => time_out_counter_reg(5),
-      I3 => time_out_counter_reg(7),
+      I0 => time_out_counter_reg(14),
+      I1 => time_out_counter_reg(15),
+      I2 => time_out_counter_reg(10),
+      I3 => time_out_counter_reg(11),
       I4 => time_out_counter_reg(17),
       I5 => time_out_counter_reg(16),
       O => time_out_500us_i_2_n_0
@@ -3159,68 +3113,76 @@ time_out_500us_reg: unisim.vcomponents.FDRE
     );
 \time_out_counter[0]_i_1\: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"FFFFFFFFFEFFFFFF"
+      INIT => X"FFFFFFFFFFFBFFFF"
     )
         port map (
-      I0 => time_out_counter_reg(2),
-      I1 => time_out_counter_reg(13),
-      I2 => \time_out_counter[0]_i_3_n_0\,
-      I3 => time_out_counter_reg(16),
-      I4 => time_out_counter_reg(17),
-      I5 => \time_out_counter[0]_i_4_n_0\,
+      I0 => \time_out_counter[0]_i_3_n_0\,
+      I1 => time_out_counter_reg(11),
+      I2 => \time_out_counter[0]_i_4_n_0\,
+      I3 => time_out_counter_reg(9),
+      I4 => \time_out_counter[0]_i_5_n_0\,
+      I5 => time_out_counter_reg(4),
       O => time_out_counter
     );
-\time_out_counter[0]_i_3\: unisim.vcomponents.LUT5
+\time_out_counter[0]_i_3\: unisim.vcomponents.LUT4
     generic map(
-      INIT => X"FFFFFFBF"
+      INIT => X"FFFD"
     )
         port map (
       I0 => time_out_counter_reg(6),
-      I1 => time_out_counter_reg(14),
-      I2 => time_out_counter_reg(15),
-      I3 => \time_out_counter[0]_i_6_n_0\,
-      I4 => \time_out_counter[0]_i_7_n_0\,
+      I1 => time_out_counter_reg(13),
+      I2 => \time_out_counter[0]_i_7_n_0\,
+      I3 => \time_out_counter[0]_i_8_n_0\,
       O => \time_out_counter[0]_i_3_n_0\
     );
-\time_out_counter[0]_i_4\: unisim.vcomponents.LUT4
+\time_out_counter[0]_i_4\: unisim.vcomponents.LUT3
     generic map(
-      INIT => X"FFDF"
+      INIT => X"EF"
     )
         port map (
-      I0 => time_out_counter_reg(4),
-      I1 => time_out_counter_reg(5),
-      I2 => time_out_counter_reg(7),
-      I3 => time_out_counter_reg(10),
+      I0 => time_out_counter_reg(15),
+      I1 => time_out_counter_reg(14),
+      I2 => time_out_counter_reg(10),
       O => \time_out_counter[0]_i_4_n_0\
     );
-\time_out_counter[0]_i_5\: unisim.vcomponents.LUT1
+\time_out_counter[0]_i_5\: unisim.vcomponents.LUT2
+    generic map(
+      INIT => X"8"
+    )
+        port map (
+      I0 => time_out_counter_reg(16),
+      I1 => time_out_counter_reg(17),
+      O => \time_out_counter[0]_i_5_n_0\
+    );
+\time_out_counter[0]_i_6\: unisim.vcomponents.LUT1
     generic map(
       INIT => X"1"
     )
         port map (
       I0 => time_out_counter_reg(0),
-      O => \time_out_counter[0]_i_5_n_0\
-    );
-\time_out_counter[0]_i_6\: unisim.vcomponents.LUT3
-    generic map(
-      INIT => X"FD"
-    )
-        port map (
-      I0 => time_out_counter_reg(12),
-      I1 => time_out_counter_reg(11),
-      I2 => time_out_counter_reg(0),
       O => \time_out_counter[0]_i_6_n_0\
     );
 \time_out_counter[0]_i_7\: unisim.vcomponents.LUT4
     generic map(
+      INIT => X"FFEF"
+    )
+        port map (
+      I0 => time_out_counter_reg(7),
+      I1 => time_out_counter_reg(5),
+      I2 => time_out_counter_reg(8),
+      I3 => time_out_counter_reg(12),
+      O => \time_out_counter[0]_i_7_n_0\
+    );
+\time_out_counter[0]_i_8\: unisim.vcomponents.LUT4
+    generic map(
       INIT => X"FFFE"
     )
         port map (
-      I0 => time_out_counter_reg(3),
-      I1 => time_out_counter_reg(1),
-      I2 => time_out_counter_reg(9),
-      I3 => time_out_counter_reg(8),
-      O => \time_out_counter[0]_i_7_n_0\
+      I0 => time_out_counter_reg(1),
+      I1 => time_out_counter_reg(0),
+      I2 => time_out_counter_reg(3),
+      I3 => time_out_counter_reg(2),
+      O => \time_out_counter[0]_i_8_n_0\
     );
 \time_out_counter_reg[0]\: unisim.vcomponents.FDRE
     generic map(
@@ -3247,7 +3209,7 @@ time_out_500us_reg: unisim.vcomponents.FDRE
       O(1) => \time_out_counter_reg[0]_i_2_n_6\,
       O(0) => \time_out_counter_reg[0]_i_2_n_7\,
       S(3 downto 1) => time_out_counter_reg(3 downto 1),
-      S(0) => \time_out_counter[0]_i_5_n_0\
+      S(0) => \time_out_counter[0]_i_6_n_0\
     );
 \time_out_counter_reg[10]\: unisim.vcomponents.FDRE
     generic map(
@@ -3534,32 +3496,33 @@ time_tlock_max_i_1: unisim.vcomponents.LUT6
         port map (
       I0 => time_tlock_max_reg_n_0,
       I1 => time_tlock_max_i_2_n_0,
-      I2 => time_out_counter_reg(2),
+      I2 => time_out_counter_reg(4),
       I3 => \time_out_counter[0]_i_4_n_0\,
       I4 => time_tlock_max_i_3_n_0,
       I5 => reset_time_out,
       O => time_tlock_max_i_1_n_0
     );
-time_tlock_max_i_2: unisim.vcomponents.LUT4
+time_tlock_max_i_2: unisim.vcomponents.LUT5
     generic map(
-      INIT => X"FEFF"
+      INIT => X"FFFFFFFE"
     )
         port map (
-      I0 => \time_out_counter[0]_i_7_n_0\,
-      I1 => time_out_counter_reg(0),
-      I2 => time_out_counter_reg(11),
-      I3 => time_out_counter_reg(12),
+      I0 => time_out_counter_reg(2),
+      I1 => time_out_counter_reg(3),
+      I2 => time_out_counter_reg(0),
+      I3 => time_out_counter_reg(1),
+      I4 => \time_out_counter[0]_i_7_n_0\,
       O => time_tlock_max_i_2_n_0
     );
 time_tlock_max_i_3: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"0000000000001000"
+      INIT => X"0000000000000020"
     )
         port map (
-      I0 => time_out_counter_reg(14),
-      I1 => time_out_counter_reg(15),
-      I2 => time_out_counter_reg(6),
-      I3 => time_out_counter_reg(13),
+      I0 => time_out_counter_reg(13),
+      I1 => time_out_counter_reg(11),
+      I2 => time_out_counter_reg(9),
+      I3 => time_out_counter_reg(6),
       I4 => time_out_counter_reg(17),
       I5 => time_out_counter_reg(16),
       O => time_tlock_max_i_3_n_0
@@ -4078,6 +4041,7 @@ entity GTP_Artix_GTP_Artix_multi_gt is
     GT0_PLL1OUTCLK_OUT : in STD_LOGIC;
     GT0_PLL1OUTREFCLK_OUT : in STD_LOGIC;
     gt0_rxlpmreset_in : in STD_LOGIC;
+    gt0_txpcsreset_in : in STD_LOGIC;
     gt0_txuserrdy_t : in STD_LOGIC;
     GT0_TXUSRCLK_OUT : in STD_LOGIC;
     gt0_drpdi_in : in STD_LOGIC_VECTOR ( 15 downto 0 );
@@ -4085,8 +4049,6 @@ entity GTP_Artix_GTP_Artix_multi_gt is
     gt0_txcharisk_in : in STD_LOGIC_VECTOR ( 1 downto 0 );
     gt0_drpaddr_in : in STD_LOGIC_VECTOR ( 8 downto 0 )
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of GTP_Artix_GTP_Artix_multi_gt : entity is "GTP_Artix_multi_gt";
 end GTP_Artix_GTP_Artix_multi_gt;
 
 architecture STRUCTURE of GTP_Artix_GTP_Artix_multi_gt is
@@ -4117,6 +4079,7 @@ gt0_GTP_Artix_i: entity work.GTP_Artix_GTP_Artix_GT
       gt0_txdata_in(15 downto 0) => gt0_txdata_in(15 downto 0),
       gt0_txoutclkfabric_out => gt0_txoutclkfabric_out,
       gt0_txoutclkpcs_out => gt0_txoutclkpcs_out,
+      gt0_txpcsreset_in => gt0_txpcsreset_in,
       gt0_txresetdone_out => gt0_txresetdone_out,
       gt0_txuserrdy_t => gt0_txuserrdy_t,
       sysclk_in => sysclk_in
@@ -4150,6 +4113,7 @@ entity GTP_Artix_GTP_Artix_init is
     GT0_PLL1OUTCLK_OUT : in STD_LOGIC;
     GT0_PLL1OUTREFCLK_OUT : in STD_LOGIC;
     gt0_rxlpmreset_in : in STD_LOGIC;
+    gt0_txpcsreset_in : in STD_LOGIC;
     GT0_TXUSRCLK_OUT : in STD_LOGIC;
     gt0_drpdi_in : in STD_LOGIC_VECTOR ( 15 downto 0 );
     gt0_txdata_in : in STD_LOGIC_VECTOR ( 15 downto 0 );
@@ -4159,8 +4123,6 @@ entity GTP_Artix_GTP_Artix_init is
     GT0_PLL0REFCLKLOST_OUT : in STD_LOGIC;
     GT0_PLL0LOCK_OUT : in STD_LOGIC
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of GTP_Artix_GTP_Artix_init : entity is "GTP_Artix_init";
 end GTP_Artix_GTP_Artix_init;
 
 architecture STRUCTURE of GTP_Artix_GTP_Artix_init is
@@ -4195,6 +4157,7 @@ GTP_Artix_i: entity work.GTP_Artix_GTP_Artix_multi_gt
       gt0_txdata_in(15 downto 0) => gt0_txdata_in(15 downto 0),
       gt0_txoutclkfabric_out => gt0_txoutclkfabric_out,
       gt0_txoutclkpcs_out => gt0_txoutclkpcs_out,
+      gt0_txpcsreset_in => gt0_txpcsreset_in,
       gt0_txresetdone_out => \^gt0_txresetdone_out\,
       gt0_txuserrdy_t => gt0_txuserrdy_t,
       sysclk_in => sysclk_in
@@ -4248,7 +4211,10 @@ entity GTP_Artix_GTP_Artix_support is
     gt0_gtptxp_out : out STD_LOGIC;
     gt0_txoutclkfabric_out : out STD_LOGIC;
     gt0_txoutclkpcs_out : out STD_LOGIC;
+    gt0_txpcsreset_in : in STD_LOGIC;
+    gt0_txpmareset_in : in STD_LOGIC;
     gt0_txresetdone_out : out STD_LOGIC;
+    GT0_PLL0PD_IN : in STD_LOGIC;
     GT0_PLL0OUTCLK_OUT : out STD_LOGIC;
     GT0_PLL0OUTREFCLK_OUT : out STD_LOGIC;
     GT0_PLL0LOCK_OUT : out STD_LOGIC;
@@ -4259,10 +4225,8 @@ entity GTP_Artix_GTP_Artix_support is
   );
   attribute EXAMPLE_SIM_GTRESET_SPEEDUP : string;
   attribute EXAMPLE_SIM_GTRESET_SPEEDUP of GTP_Artix_GTP_Artix_support : entity is "TRUE";
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of GTP_Artix_GTP_Artix_support : entity is "GTP_Artix_support";
   attribute STABLE_CLOCK_PERIOD : integer;
-  attribute STABLE_CLOCK_PERIOD of GTP_Artix_GTP_Artix_support : entity is 8;
+  attribute STABLE_CLOCK_PERIOD of GTP_Artix_GTP_Artix_support : entity is 10;
   attribute downgradeipidentifiedwarnings : string;
   attribute downgradeipidentifiedwarnings of GTP_Artix_GTP_Artix_support : entity is "yes";
 end GTP_Artix_GTP_Artix_support;
@@ -4277,8 +4241,8 @@ architecture STRUCTURE of GTP_Artix_GTP_Artix_support is
   signal \^gt0_pll1outclk_out\ : STD_LOGIC;
   signal \^gt0_pll1outrefclk_out\ : STD_LOGIC;
   signal \^gt0_txusrclk_out\ : STD_LOGIC;
+  signal PLL0PD_IN : STD_LOGIC;
   signal PLL0RESET_IN : STD_LOGIC;
-  signal cpll_pd_pll0_q0_clk0_refclk_i : STD_LOGIC;
   signal cpll_reset_out : STD_LOGIC;
   signal gt0_txoutclk_i : STD_LOGIC;
   signal q0_clk0_refclk_i : STD_LOGIC;
@@ -4326,6 +4290,7 @@ GTP_Artix_init_i: entity work.GTP_Artix_GTP_Artix_init
       gt0_txdata_in(15 downto 0) => gt0_txdata_in(15 downto 0),
       gt0_txoutclkfabric_out => gt0_txoutclkfabric_out,
       gt0_txoutclkpcs_out => gt0_txoutclkpcs_out,
+      gt0_txpcsreset_in => gt0_txpcsreset_in,
       gt0_txresetdone_out => gt0_txresetdone_out,
       sysclk_in => sysclk_in
     );
@@ -4337,9 +4302,9 @@ common0_i: entity work.GTP_Artix_GTP_Artix_common
       GT0_PLL0REFCLKLOST_OUT => \^gt0_pll0refclklost_out\,
       GT0_PLL1OUTCLK_OUT => \^gt0_pll1outclk_out\,
       GT0_PLL1OUTREFCLK_OUT => \^gt0_pll1outrefclk_out\,
+      PLL0PD_IN => PLL0PD_IN,
       PLL0RESET_IN => PLL0RESET_IN,
       Q0_CLK0_GTREFCLK_OUT => q0_clk0_refclk_i,
-      cpll_pd_pll0_q0_clk0_refclk_i => cpll_pd_pll0_q0_clk0_refclk_i,
       sysclk_in => sysclk_in
     );
 common_reset_i: entity work.GTP_Artix_GTP_Artix_common_reset
@@ -4352,8 +4317,9 @@ common_reset_i: entity work.GTP_Artix_GTP_Artix_common_reset
     );
 cpll_railing_pll0_q0_clk0_refclk_i: entity work.GTP_Artix_GTP_Artix_cpll_railing
      port map (
+      GT0_PLL0PD_IN => GT0_PLL0PD_IN,
+      PLL0PD_IN => PLL0PD_IN,
       Q0_CLK0_GTREFCLK_OUT => q0_clk0_refclk_i,
-      cpll_pd_pll0_q0_clk0_refclk_i => cpll_pd_pll0_q0_clk0_refclk_i,
       cpll_reset_out => cpll_reset_out
     );
 gt_usrclk_source: entity work.GTP_Artix_GTP_Artix_GT_USRCLK_SOURCE
@@ -4400,7 +4366,10 @@ entity GTP_Artix is
     gt0_gtptxp_out : out STD_LOGIC;
     gt0_txoutclkfabric_out : out STD_LOGIC;
     gt0_txoutclkpcs_out : out STD_LOGIC;
+    gt0_txpcsreset_in : in STD_LOGIC;
+    gt0_txpmareset_in : in STD_LOGIC;
     gt0_txresetdone_out : out STD_LOGIC;
+    GT0_PLL0PD_IN : in STD_LOGIC;
     GT0_PLL0OUTCLK_OUT : out STD_LOGIC;
     GT0_PLL0OUTREFCLK_OUT : out STD_LOGIC;
     GT0_PLL0LOCK_OUT : out STD_LOGIC;
@@ -4419,7 +4388,7 @@ architecture STRUCTURE of GTP_Artix is
   attribute EXAMPLE_SIM_GTRESET_SPEEDUP : string;
   attribute EXAMPLE_SIM_GTRESET_SPEEDUP of U0 : label is "TRUE";
   attribute STABLE_CLOCK_PERIOD : integer;
-  attribute STABLE_CLOCK_PERIOD of U0 : label is 8;
+  attribute STABLE_CLOCK_PERIOD of U0 : label is 10;
   attribute downgradeipidentifiedwarnings : string;
   attribute downgradeipidentifiedwarnings of U0 : label is "yes";
 begin
@@ -4430,6 +4399,7 @@ U0: entity work.GTP_Artix_GTP_Artix_support
       GT0_PLL0LOCK_OUT => GT0_PLL0LOCK_OUT,
       GT0_PLL0OUTCLK_OUT => GT0_PLL0OUTCLK_OUT,
       GT0_PLL0OUTREFCLK_OUT => GT0_PLL0OUTREFCLK_OUT,
+      GT0_PLL0PD_IN => GT0_PLL0PD_IN,
       GT0_PLL0REFCLKLOST_OUT => GT0_PLL0REFCLKLOST_OUT,
       GT0_PLL1OUTCLK_OUT => GT0_PLL1OUTCLK_OUT,
       GT0_PLL1OUTREFCLK_OUT => GT0_PLL1OUTREFCLK_OUT,
@@ -4459,6 +4429,8 @@ U0: entity work.GTP_Artix_GTP_Artix_support
       gt0_txdata_in(15 downto 0) => gt0_txdata_in(15 downto 0),
       gt0_txoutclkfabric_out => gt0_txoutclkfabric_out,
       gt0_txoutclkpcs_out => gt0_txoutclkpcs_out,
+      gt0_txpcsreset_in => gt0_txpcsreset_in,
+      gt0_txpmareset_in => gt0_txpmareset_in,
       gt0_txresetdone_out => gt0_txresetdone_out,
       gt0_txuserrdy_in => gt0_txuserrdy_in,
       sysclk_in => sysclk_in

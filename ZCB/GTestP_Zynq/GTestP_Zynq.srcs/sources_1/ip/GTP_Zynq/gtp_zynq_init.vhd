@@ -78,7 +78,7 @@ generic
     EXAMPLE_SIM_GTRESET_SPEEDUP             : string    := "FALSE";     -- simulation setting for GT SecureIP model
     EXAMPLE_SIMULATION                      : integer   := 0;          -- Set to 1 for simulation
  
-    STABLE_CLOCK_PERIOD                     : integer   := 8;  
+    STABLE_CLOCK_PERIOD                     : integer   := 10;  
         -- Set to 1 for simulation
     EXAMPLE_USE_CHIPSCOPE                   : integer   := 0           -- Set to 1 to use Chipscope to drive resets
 

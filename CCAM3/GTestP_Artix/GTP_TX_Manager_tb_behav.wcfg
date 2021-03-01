@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="GTP_TX_Manager_tb_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="GTP_TX_Manager_tb" />
+            <top_module name="glbl" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="65875180407fs"></ZoomStartTime>
+      <ZoomEndTime time="333867092720fs"></ZoomEndTime>
+      <Cursor1Time time="501000000000fs"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="144"></NameColumnWidth>
+      <ValueColumnWidth column_width="58"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="48" />
+   <wvobject fp_name="/GTP_TX_Manager_tb/GTP_TX_Manager_i/CLK_i" type="logic">
+      <obj_property name="ElementShortName">CLK_i</obj_property>
+      <obj_property name="ObjectShortName">CLK_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_TX_Manager_tb/GTP_TX_Manager_i/GCK_i" type="logic">
+      <obj_property name="ElementShortName">GCK_i</obj_property>
+      <obj_property name="ObjectShortName">GCK_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_TX_Manager_tb/GTP_TX_Manager_i/RST_CLK_N_i" type="logic">
+      <obj_property name="ElementShortName">RST_CLK_N_i</obj_property>
+      <obj_property name="ObjectShortName">RST_CLK_N_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_TX_Manager_tb/GTP_TX_Manager_i/RST_GCK_N_i" type="logic">
+      <obj_property name="ElementShortName">RST_GCK_N_i</obj_property>
+      <obj_property name="ObjectShortName">RST_GCK_N_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_TX_Manager_tb/GTP_TX_Manager_i/EN1MS_GCK_i" type="logic">
+      <obj_property name="ElementShortName">EN1MS_GCK_i</obj_property>
+      <obj_property name="ObjectShortName">EN1MS_GCK_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_TX_Manager_tb/GTP_TX_Manager_i/ALIGN_REQ_i" type="logic">
+      <obj_property name="ElementShortName">ALIGN_REQ_i</obj_property>
+      <obj_property name="ObjectShortName">ALIGN_REQ_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_TX_Manager_tb/GTP_TX_Manager_i/OVERRIDE_GCK_o" type="logic">
+      <obj_property name="ElementShortName">OVERRIDE_GCK_o</obj_property>
+      <obj_property name="ObjectShortName">OVERRIDE_GCK_o</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_TX_Manager_tb/GTP_TX_Manager_i/TX_DATA_IN_i" type="array">
+      <obj_property name="ElementShortName">TX_DATA_IN_i[31:0]</obj_property>
+      <obj_property name="ObjectShortName">TX_DATA_IN_i[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_TX_Manager_tb/GTP_TX_Manager_i/TX_DATA_IN_SRC_RDY_i" type="logic">
+      <obj_property name="ElementShortName">TX_DATA_IN_SRC_RDY_i</obj_property>
+      <obj_property name="ObjectShortName">TX_DATA_IN_SRC_RDY_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_TX_Manager_tb/GTP_TX_Manager_i/TX_DATA_IN_DST_RDY_o" type="logic">
+      <obj_property name="ElementShortName">TX_DATA_IN_DST_RDY_o</obj_property>
+      <obj_property name="ObjectShortName">TX_DATA_IN_DST_RDY_o</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_TX_Manager_tb/GTP_TX_Manager_i/TX_DATA_OUT_o" type="array">
+      <obj_property name="ElementShortName">TX_DATA_OUT_o[15:0]</obj_property>
+      <obj_property name="ObjectShortName">TX_DATA_OUT_o[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_TX_Manager_tb/GTP_TX_Manager_i/TX_DATA_OUT_SRC_RDY_o" type="logic">
+      <obj_property name="ElementShortName">TX_DATA_OUT_SRC_RDY_o</obj_property>
+      <obj_property name="ObjectShortName">TX_DATA_OUT_SRC_RDY_o</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_TX_Manager_tb/GTP_TX_Manager_i/TX_DATA_OUT_DST_RDY_i" type="logic">
+      <obj_property name="ElementShortName">TX_DATA_OUT_DST_RDY_i</obj_property>
+      <obj_property name="ObjectShortName">TX_DATA_OUT_DST_RDY_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_TX_Manager_tb/GTP_TX_Manager_i/TX_CHAR_IS_K_o" type="array">
+      <obj_property name="ElementShortName">TX_CHAR_IS_K_o[1:0]</obj_property>
+      <obj_property name="ObjectShortName">TX_CHAR_IS_K_o[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_TX_Manager_tb/GTP_TX_Manager_i/state" type="other">
+      <obj_property name="ElementShortName">state</obj_property>
+      <obj_property name="ObjectShortName">state</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_TX_Manager_tb/GTP_TX_Manager_i/next_state" type="other">
+      <obj_property name="ElementShortName">next_state</obj_property>
+      <obj_property name="ObjectShortName">next_state</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_TX_Manager_tb/GTP_TX_Manager_i/fifo_wr_en" type="logic">
+      <obj_property name="ElementShortName">fifo_wr_en</obj_property>
+      <obj_property name="ObjectShortName">fifo_wr_en</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_TX_Manager_tb/GTP_TX_Manager_i/fifo_rd_en" type="logic">
+      <obj_property name="ElementShortName">fifo_rd_en</obj_property>
+      <obj_property name="ObjectShortName">fifo_rd_en</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_TX_Manager_tb/GTP_TX_Manager_i/fifo_dout" type="array">
+      <obj_property name="ElementShortName">fifo_dout[31:0]</obj_property>
+      <obj_property name="ObjectShortName">fifo_dout[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_TX_Manager_tb/GTP_TX_Manager_i/fifo_full" type="logic">
+      <obj_property name="ElementShortName">fifo_full</obj_property>
+      <obj_property name="ObjectShortName">fifo_full</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_TX_Manager_tb/GTP_TX_Manager_i/fifo_overflow" type="logic">
+      <obj_property name="ElementShortName">fifo_overflow</obj_property>
+      <obj_property name="ObjectShortName">fifo_overflow</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_TX_Manager_tb/GTP_TX_Manager_i/fifo_empty" type="logic">
+      <obj_property name="ElementShortName">fifo_empty</obj_property>
+      <obj_property name="ObjectShortName">fifo_empty</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_TX_Manager_tb/GTP_TX_Manager_i/fifo_valid" type="logic">
+      <obj_property name="ElementShortName">fifo_valid</obj_property>
+      <obj_property name="ObjectShortName">fifo_valid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_TX_Manager_tb/GTP_TX_Manager_i/fifo_rst" type="logic">
+      <obj_property name="ElementShortName">fifo_rst</obj_property>
+      <obj_property name="ObjectShortName">fifo_rst</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_TX_Manager_tb/GTP_TX_Manager_i/fifo_valid_d" type="logic">
+      <obj_property name="ElementShortName">fifo_valid_d</obj_property>
+      <obj_property name="ObjectShortName">fifo_valid_d</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_TX_Manager_tb/GTP_TX_Manager_i/p_tx_data_out" type="array">
+      <obj_property name="ElementShortName">p_tx_data_out[15:0]</obj_property>
+      <obj_property name="ObjectShortName">p_tx_data_out[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_TX_Manager_tb/GTP_TX_Manager_i/tx_data_out" type="array">
+      <obj_property name="ElementShortName">tx_data_out[15:0]</obj_property>
+      <obj_property name="ObjectShortName">tx_data_out[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_TX_Manager_tb/GTP_TX_Manager_i/p_tx_char_is_k" type="array">
+      <obj_property name="ElementShortName">p_tx_char_is_k[1:0]</obj_property>
+      <obj_property name="ObjectShortName">p_tx_char_is_k[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_TX_Manager_tb/GTP_TX_Manager_i/tx_char_is_k" type="array">
+      <obj_property name="ElementShortName">tx_char_is_k[1:0]</obj_property>
+      <obj_property name="ObjectShortName">tx_char_is_k[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_TX_Manager_tb/GTP_TX_Manager_i/tx_data_sel" type="array">
+      <obj_property name="ElementShortName">tx_data_sel[2:0]</obj_property>
+      <obj_property name="ObjectShortName">tx_data_sel[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_TX_Manager_tb/GTP_TX_Manager_i/TX_DATA_IN_WIDTH_g" type="other">
+      <obj_property name="ElementShortName">TX_DATA_IN_WIDTH_g</obj_property>
+      <obj_property name="ObjectShortName">TX_DATA_IN_WIDTH_g</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_TX_Manager_tb/GTP_TX_Manager_i/TX_DATA_OUT_WIDTH_g" type="other">
+      <obj_property name="ElementShortName">TX_DATA_OUT_WIDTH_g</obj_property>
+      <obj_property name="ObjectShortName">TX_DATA_OUT_WIDTH_g</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_TX_Manager_tb/GTP_TX_Manager_i/K28_0" type="array">
+      <obj_property name="ElementShortName">K28_0[7:0]</obj_property>
+      <obj_property name="ObjectShortName">K28_0[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_TX_Manager_tb/GTP_TX_Manager_i/K28_1" type="array">
+      <obj_property name="ElementShortName">K28_1[7:0]</obj_property>
+      <obj_property name="ObjectShortName">K28_1[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_TX_Manager_tb/GTP_TX_Manager_i/K28_2" type="array">
+      <obj_property name="ElementShortName">K28_2[7:0]</obj_property>
+      <obj_property name="ObjectShortName">K28_2[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_TX_Manager_tb/GTP_TX_Manager_i/K28_3" type="array">
+      <obj_property name="ElementShortName">K28_3[7:0]</obj_property>
+      <obj_property name="ObjectShortName">K28_3[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_TX_Manager_tb/GTP_TX_Manager_i/K28_4" type="array">
+      <obj_property name="ElementShortName">K28_4[7:0]</obj_property>
+      <obj_property name="ObjectShortName">K28_4[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_TX_Manager_tb/GTP_TX_Manager_i/K28_5" type="array">
+      <obj_property name="ElementShortName">K28_5[7:0]</obj_property>
+      <obj_property name="ObjectShortName">K28_5[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_TX_Manager_tb/GTP_TX_Manager_i/K28_6" type="array">
+      <obj_property name="ElementShortName">K28_6[7:0]</obj_property>
+      <obj_property name="ObjectShortName">K28_6[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_TX_Manager_tb/GTP_TX_Manager_i/K28_7" type="array">
+      <obj_property name="ElementShortName">K28_7[7:0]</obj_property>
+      <obj_property name="ObjectShortName">K28_7[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_TX_Manager_tb/GTP_TX_Manager_i/K23_7" type="array">
+      <obj_property name="ElementShortName">K23_7[7:0]</obj_property>
+      <obj_property name="ObjectShortName">K23_7[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_TX_Manager_tb/GTP_TX_Manager_i/K27_7" type="array">
+      <obj_property name="ElementShortName">K27_7[7:0]</obj_property>
+      <obj_property name="ObjectShortName">K27_7[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_TX_Manager_tb/GTP_TX_Manager_i/K29_7" type="array">
+      <obj_property name="ElementShortName">K29_7[7:0]</obj_property>
+      <obj_property name="ObjectShortName">K29_7[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_TX_Manager_tb/GTP_TX_Manager_i/K30_7" type="array">
+      <obj_property name="ElementShortName">K30_7[7:0]</obj_property>
+      <obj_property name="ObjectShortName">K30_7[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_TX_Manager_tb/GTP_TX_Manager_i/IDLE_HEAD_c" type="array">
+      <obj_property name="ElementShortName">IDLE_HEAD_c[15:0]</obj_property>
+      <obj_property name="ObjectShortName">IDLE_HEAD_c[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_TX_Manager_tb/GTP_TX_Manager_i/IDLE_TAIL_c" type="array">
+      <obj_property name="ElementShortName">IDLE_TAIL_c[15:0]</obj_property>
+      <obj_property name="ObjectShortName">IDLE_TAIL_c[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_TX_Manager_tb/GTP_TX_Manager_i/ALIGN_c" type="array">
+      <obj_property name="ElementShortName">ALIGN_c[15:0]</obj_property>
+      <obj_property name="ObjectShortName">ALIGN_c[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_TX_Manager_tb/GTP_TX_Manager_i/ERROR_c" type="array">
+      <obj_property name="ElementShortName">ERROR_c[15:0]</obj_property>
+      <obj_property name="ObjectShortName">ERROR_c[15:0]</obj_property>
+   </wvobject>
+</wave_config>

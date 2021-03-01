@@ -1,10 +1,10 @@
 // Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2019.1 (win64) Build 2552052 Fri May 24 14:49:42 MDT 2019
-// Date        : Mon Nov 23 16:46:09 2020
+// Date        : Tue Feb 23 16:28:23 2021
 // Host        : IITICUBLAP127 running 64-bit major release  (build 9200)
-// Command     : write_verilog -force -mode funcsim -rename_top GTP_Zynq -prefix
-//               GTP_Zynq_ GTP_Zynq_sim_netlist.v
+// Command     : write_verilog -force -mode funcsim
+//               C:/Progetti/Transceiver_Lab/ZCB/GTestP_Zynq/GTestP_Zynq.srcs/sources_1/ip/GTP_Zynq/GTP_Zynq_sim_netlist.v
 // Design      : GTP_Zynq
 // Purpose     : This verilog netlist is a functional simulation representation of the design and should not be modified
 //               or synthesized. This netlist cannot be used for SDF annotated simulation.
@@ -159,7 +159,7 @@ module GTP_Zynq
   wire sysclk_in;
 
   (* EXAMPLE_SIM_GTRESET_SPEEDUP = "FALSE" *) 
-  (* STABLE_CLOCK_PERIOD = "8" *) 
+  (* STABLE_CLOCK_PERIOD = "10" *) 
   (* downgradeipidentifiedwarnings = "yes" *) 
   GTP_Zynq_GTP_Zynq_support U0
        (.DONT_RESET_ON_DATA_ERROR_IN(DONT_RESET_ON_DATA_ERROR_IN),
@@ -211,6 +211,7 @@ module GTP_Zynq
         .sysclk_in(sysclk_in));
 endmodule
 
+(* ORIG_REF_NAME = "GTP_Zynq_GT" *) 
 module GTP_Zynq_GTP_Zynq_GT
    (sysclk_in_0,
     gt0_eyescandataerror_out,
@@ -404,7 +405,7 @@ module GTP_Zynq_GTP_Zynq_GT
     .ACJTAG_MODE(1'b0),
     .ACJTAG_RESET(1'b0),
     .ADAPT_CFG0(20'b00000000000000000000),
-    .ALIGN_COMMA_DOUBLE("TRUE"),
+    .ALIGN_COMMA_DOUBLE("FALSE"),
     .ALIGN_COMMA_ENABLE(10'b1111111111),
     .ALIGN_COMMA_WORD(2),
     .ALIGN_MCOMMA_DET("TRUE"),
@@ -580,7 +581,7 @@ module GTP_Zynq_GTP_Zynq_GT
     .SATA_MIN_INIT(12),
     .SATA_MIN_WAKE(4),
     .SATA_PLL_CFG("VCO_3000MHZ"),
-    .SHOW_REALIGN_COMMA("FALSE"),
+    .SHOW_REALIGN_COMMA("TRUE"),
     .SIM_RECEIVER_DETECT_PASS("TRUE"),
     .SIM_RESET_SPEEDUP("FALSE"),
     .SIM_TX_EIDLE_DRIVE_LEVEL("X"),
@@ -1046,6 +1047,7 @@ module GTP_Zynq_GTP_Zynq_GT
         .sysclk_in(sysclk_in));
 endmodule
 
+(* ORIG_REF_NAME = "GTP_Zynq_GT_USRCLK_SOURCE" *) 
 module GTP_Zynq_GTP_Zynq_GT_USRCLK_SOURCE
    (Q0_CLK1_GTREFCLK_OUT,
     GT0_RXUSRCLK2_OUT,
@@ -1082,6 +1084,7 @@ module GTP_Zynq_GTP_Zynq_GT_USRCLK_SOURCE
         .O(GT0_RXUSRCLK2_OUT));
 endmodule
 
+(* ORIG_REF_NAME = "GTP_Zynq_RX_STARTUP_FSM" *) 
 module GTP_Zynq_GTP_Zynq_RX_STARTUP_FSM
    (AR,
     gtrxreset_i,
@@ -1094,7 +1097,8 @@ module GTP_Zynq_GTP_Zynq_RX_STARTUP_FSM
     gt0_rx_cdrlocked_reg_0,
     DONT_RESET_ON_DATA_ERROR_IN,
     GT0_PLL0REFCLKLOST_OUT,
-    gt0_rx_cdrlocked,
+    gt0_rx_cdrlocked_reg_1,
+    gt0_rx_cdrlocked_reg_2,
     gt0_rxresetdone_out,
     GT0_DATA_VALID_IN,
     GT0_PLL0LOCK_OUT);
@@ -1109,7 +1113,8 @@ module GTP_Zynq_GTP_Zynq_RX_STARTUP_FSM
   input gt0_rx_cdrlocked_reg_0;
   input DONT_RESET_ON_DATA_ERROR_IN;
   input GT0_PLL0REFCLKLOST_OUT;
-  input gt0_rx_cdrlocked;
+  input gt0_rx_cdrlocked_reg_1;
+  input gt0_rx_cdrlocked_reg_2;
   input gt0_rxresetdone_out;
   input GT0_DATA_VALID_IN;
   input GT0_PLL0LOCK_OUT;
@@ -1117,15 +1122,15 @@ module GTP_Zynq_GTP_Zynq_RX_STARTUP_FSM
   wire [0:0]AR;
   wire DONT_RESET_ON_DATA_ERROR_IN;
   wire \FSM_sequential_rx_state[0]_i_2_n_0 ;
+  wire \FSM_sequential_rx_state[1]_i_2_n_0 ;
   wire \FSM_sequential_rx_state[2]_i_1_n_0 ;
   wire \FSM_sequential_rx_state[2]_i_2_n_0 ;
-  wire \FSM_sequential_rx_state[3]_i_10_n_0 ;
   wire \FSM_sequential_rx_state[3]_i_11_n_0 ;
-  wire \FSM_sequential_rx_state[3]_i_13_n_0 ;
-  wire \FSM_sequential_rx_state[3]_i_14_n_0 ;
-  wire \FSM_sequential_rx_state[3]_i_5_n_0 ;
-  wire \FSM_sequential_rx_state[3]_i_6_n_0 ;
+  wire \FSM_sequential_rx_state[3]_i_12_n_0 ;
+  wire \FSM_sequential_rx_state[3]_i_15_n_0 ;
+  wire \FSM_sequential_rx_state[3]_i_4_n_0 ;
   wire \FSM_sequential_rx_state[3]_i_8_n_0 ;
+  wire \FSM_sequential_rx_state[3]_i_9_n_0 ;
   wire GT0_DATA_VALID_IN;
   wire GT0_PLL0LOCK_OUT;
   wire GT0_PLL0REFCLKLOST_OUT;
@@ -1138,33 +1143,35 @@ module GTP_Zynq_GTP_Zynq_RX_STARTUP_FSM
   wire check_tlock_max_i_1_n_0;
   wire check_tlock_max_reg_n_0;
   wire clear;
-  wire gt0_rx_cdrlocked;
   wire gt0_rx_cdrlocked_reg;
   wire gt0_rx_cdrlocked_reg_0;
+  wire gt0_rx_cdrlocked_reg_1;
+  wire gt0_rx_cdrlocked_reg_2;
   wire gt0_rxresetdone_out;
   wire gt0_rxuserrdy_t;
   wire gtrxreset_i;
   wire gtrxreset_i_i_1_n_0;
-  wire init_wait_count;
-  wire \init_wait_count[6]_i_3_n_0 ;
-  wire \init_wait_count[6]_i_4_n_0 ;
-  wire [6:0]init_wait_count_reg;
+  wire \init_wait_count[0]_i_1__0_n_0 ;
+  wire \init_wait_count[5]_i_1__0_n_0 ;
+  wire [5:0]init_wait_count_reg;
   wire init_wait_done_i_1__0_n_0;
+  wire init_wait_done_i_2__0_n_0;
   wire init_wait_done_reg_n_0;
   wire \mmcm_lock_count[7]_i_2_n_0 ;
   wire \mmcm_lock_count[7]_i_4_n_0 ;
   wire [7:0]mmcm_lock_count_reg;
   wire mmcm_lock_reclocked;
-  wire [6:0]p_0_in;
+  wire [5:1]p_0_in;
   wire [7:0]p_0_in__0;
   wire pll_reset_asserted_i_1_n_0;
   wire pll_reset_asserted_reg_n_0;
-  wire reset_time_out_i_5_n_0;
   wire reset_time_out_reg_n_0;
   wire run_phase_alignment_int_i_1_n_0;
   wire run_phase_alignment_int_reg_n_0;
   wire run_phase_alignment_int_s2;
   wire run_phase_alignment_int_s3;
+  wire rx_fsm_reset_done_int_i_2_n_0;
+  wire rx_fsm_reset_done_int_i_5_n_0;
   wire rx_fsm_reset_done_int_s2;
   wire rx_fsm_reset_done_int_s3;
   wire [3:0]rx_state;
@@ -1185,26 +1192,19 @@ module GTP_Zynq_GTP_Zynq_RX_STARTUP_FSM
   wire time_out_100us_i_1_n_0;
   wire time_out_100us_i_2_n_0;
   wire time_out_100us_i_3_n_0;
-  wire time_out_100us_i_4_n_0;
-  wire time_out_100us_i_5_n_0;
-  wire time_out_100us_i_6_n_0;
-  wire time_out_100us_i_7_n_0;
-  wire time_out_100us_i_8_n_0;
   wire time_out_100us_reg_n_0;
   wire time_out_1us_i_1_n_0;
   wire time_out_1us_i_2_n_0;
   wire time_out_1us_i_3_n_0;
-  wire time_out_1us_i_4_n_0;
-  wire time_out_1us_i_5_n_0;
   wire time_out_1us_reg_n_0;
-  wire time_out_2ms;
   wire time_out_2ms_i_1_n_0;
+  wire time_out_2ms_i_2_n_0;
   wire time_out_2ms_reg_n_0;
   wire time_out_counter;
+  wire \time_out_counter[0]_i_3_n_0 ;
   wire \time_out_counter[0]_i_4_n_0 ;
   wire \time_out_counter[0]_i_5_n_0 ;
   wire \time_out_counter[0]_i_6_n_0 ;
-  wire \time_out_counter[0]_i_7_n_0 ;
   wire [18:0]time_out_counter_reg;
   wire \time_out_counter_reg[0]_i_2_n_0 ;
   wire \time_out_counter_reg[0]_i_2_n_1 ;
@@ -1255,7 +1255,6 @@ module GTP_Zynq_GTP_Zynq_RX_STARTUP_FSM
   wire time_tlock_max1_carry__0_i_4_n_0;
   wire time_tlock_max1_carry__0_i_5_n_0;
   wire time_tlock_max1_carry__0_i_6_n_0;
-  wire time_tlock_max1_carry__0_i_7_n_0;
   wire time_tlock_max1_carry__0_n_0;
   wire time_tlock_max1_carry__0_n_1;
   wire time_tlock_max1_carry__0_n_2;
@@ -1269,6 +1268,8 @@ module GTP_Zynq_GTP_Zynq_RX_STARTUP_FSM
   wire time_tlock_max1_carry_i_3_n_0;
   wire time_tlock_max1_carry_i_4_n_0;
   wire time_tlock_max1_carry_i_5_n_0;
+  wire time_tlock_max1_carry_i_6_n_0;
+  wire time_tlock_max1_carry_i_7_n_0;
   wire time_tlock_max1_carry_n_0;
   wire time_tlock_max1_carry_n_1;
   wire time_tlock_max1_carry_n_2;
@@ -1306,10 +1307,8 @@ module GTP_Zynq_GTP_Zynq_RX_STARTUP_FSM
   wire \wait_bypass_count_reg[8]_i_1_n_6 ;
   wire \wait_bypass_count_reg[8]_i_1_n_7 ;
   wire [6:0]wait_time_cnt0;
-  wire \wait_time_cnt[1]_i_1_n_0 ;
   wire \wait_time_cnt[6]_i_1_n_0 ;
   wire \wait_time_cnt[6]_i_4_n_0 ;
-  wire \wait_time_cnt[6]_i_5_n_0 ;
   wire [6:0]wait_time_cnt_reg;
   wire [3:2]\NLW_time_out_counter_reg[16]_i_1_CO_UNCONNECTED ;
   wire [3:3]\NLW_time_out_counter_reg[16]_i_1_O_UNCONNECTED ;
@@ -1321,100 +1320,102 @@ module GTP_Zynq_GTP_Zynq_RX_STARTUP_FSM
   wire [3:1]\NLW_wait_bypass_count_reg[12]_i_1_O_UNCONNECTED ;
 
   LUT6 #(
-    .INIT(64'h8FDF0F1F8FCF0F0F)) 
+    .INIT(64'h2222AAAA00300000)) 
     \FSM_sequential_rx_state[0]_i_2 
-       (.I0(\FSM_sequential_rx_state[3]_i_5_n_0 ),
-        .I1(rx_state[1]),
-        .I2(rx_state[0]),
-        .I3(reset_time_out_reg_n_0),
-        .I4(time_out_2ms_reg_n_0),
-        .I5(time_tlock_max),
-        .O(\FSM_sequential_rx_state[0]_i_2_n_0 ));
-  LUT6 #(
-    .INIT(64'h0507000005070A00)) 
-    \FSM_sequential_rx_state[2]_i_1 
-       (.I0(rx_state[0]),
-        .I1(\FSM_sequential_rx_state[2]_i_2_n_0 ),
-        .I2(rx_state[3]),
-        .I3(rx_state[1]),
-        .I4(rx_state[2]),
-        .I5(time_out_2ms_reg_n_0),
-        .O(\FSM_sequential_rx_state[2]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair18" *) 
-  LUT2 #(
-    .INIT(4'h2)) 
-    \FSM_sequential_rx_state[2]_i_2 
-       (.I0(time_tlock_max),
-        .I1(reset_time_out_reg_n_0),
-        .O(\FSM_sequential_rx_state[2]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair25" *) 
-  LUT4 #(
-    .INIT(16'h0001)) 
-    \FSM_sequential_rx_state[3]_i_10 
-       (.I0(wait_time_cnt_reg[5]),
-        .I1(wait_time_cnt_reg[4]),
-        .I2(wait_time_cnt_reg[6]),
-        .I3(wait_time_cnt_reg[0]),
-        .O(\FSM_sequential_rx_state[3]_i_10_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair28" *) 
-  LUT3 #(
-    .INIT(8'hFE)) 
-    \FSM_sequential_rx_state[3]_i_11 
-       (.I0(wait_time_cnt_reg[1]),
-        .I1(wait_time_cnt_reg[3]),
-        .I2(wait_time_cnt_reg[2]),
-        .O(\FSM_sequential_rx_state[3]_i_11_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair27" *) 
-  LUT3 #(
-    .INIT(8'hAE)) 
-    \FSM_sequential_rx_state[3]_i_13 
-       (.I0(rxresetdone_s3),
-        .I1(time_out_2ms_reg_n_0),
-        .I2(reset_time_out_reg_n_0),
-        .O(\FSM_sequential_rx_state[3]_i_13_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair18" *) 
-  LUT5 #(
-    .INIT(32'hBAFFBA00)) 
-    \FSM_sequential_rx_state[3]_i_14 
-       (.I0(mmcm_lock_reclocked),
-        .I1(reset_time_out_reg_n_0),
-        .I2(time_tlock_max),
-        .I3(rx_state[0]),
-        .I4(gt0_rx_cdrlocked_reg_0),
-        .O(\FSM_sequential_rx_state[3]_i_14_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair19" *) 
-  LUT3 #(
-    .INIT(8'h35)) 
-    \FSM_sequential_rx_state[3]_i_5 
-       (.I0(rx_state[2]),
-        .I1(rx_state[1]),
-        .I2(rx_state[3]),
-        .O(\FSM_sequential_rx_state[3]_i_5_n_0 ));
-  LUT6 #(
-    .INIT(64'h88B8FFFF88B80000)) 
-    \FSM_sequential_rx_state[3]_i_6 
-       (.I0(\FSM_sequential_rx_state[3]_i_13_n_0 ),
-        .I1(rx_state[0]),
-        .I2(\FSM_sequential_rx_state[3]_i_10_n_0 ),
-        .I3(\FSM_sequential_rx_state[3]_i_11_n_0 ),
-        .I4(rx_state[1]),
-        .I5(\FSM_sequential_rx_state[3]_i_14_n_0 ),
-        .O(\FSM_sequential_rx_state[3]_i_6_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair27" *) 
-  LUT4 #(
-    .INIT(16'hD000)) 
-    \FSM_sequential_rx_state[3]_i_8 
        (.I0(time_out_2ms_reg_n_0),
         .I1(reset_time_out_reg_n_0),
+        .I2(time_tlock_max),
+        .I3(rx_state[3]),
+        .I4(rx_state[2]),
+        .I5(rx_state[1]),
+        .O(\FSM_sequential_rx_state[0]_i_2_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair21" *) 
+  LUT5 #(
+    .INIT(32'h20202030)) 
+    \FSM_sequential_rx_state[1]_i_2 
+       (.I0(reset_time_out_reg_n_0),
+        .I1(rx_state[1]),
+        .I2(rx_state[0]),
+        .I3(rx_state[2]),
+        .I4(rx_state[3]),
+        .O(\FSM_sequential_rx_state[1]_i_2_n_0 ));
+  LUT6 #(
+    .INIT(64'h010C0C0C01000C0C)) 
+    \FSM_sequential_rx_state[2]_i_1 
+       (.I0(time_out_2ms_reg_n_0),
+        .I1(rx_state[2]),
+        .I2(rx_state[3]),
+        .I3(rx_state[1]),
+        .I4(rx_state[0]),
+        .I5(\FSM_sequential_rx_state[2]_i_2_n_0 ),
+        .O(\FSM_sequential_rx_state[2]_i_1_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair30" *) 
+  LUT2 #(
+    .INIT(4'hB)) 
+    \FSM_sequential_rx_state[2]_i_2 
+       (.I0(reset_time_out_reg_n_0),
+        .I1(time_tlock_max),
+        .O(\FSM_sequential_rx_state[2]_i_2_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair22" *) 
+  LUT2 #(
+    .INIT(4'h7)) 
+    \FSM_sequential_rx_state[3]_i_11 
+       (.I0(rx_state[0]),
+        .I1(rx_state[1]),
+        .O(\FSM_sequential_rx_state[3]_i_11_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair21" *) 
+  LUT4 #(
+    .INIT(16'h0010)) 
+    \FSM_sequential_rx_state[3]_i_12 
+       (.I0(rx_state[3]),
+        .I1(rx_state[2]),
         .I2(rx_state[0]),
         .I3(rx_state[1]),
+        .O(\FSM_sequential_rx_state[3]_i_12_n_0 ));
+  LUT4 #(
+    .INIT(16'h0100)) 
+    \FSM_sequential_rx_state[3]_i_15 
+       (.I0(rx_state[1]),
+        .I1(rx_state[0]),
+        .I2(rx_state[2]),
+        .I3(init_wait_done_reg_n_0),
+        .O(\FSM_sequential_rx_state[3]_i_15_n_0 ));
+  LUT6 #(
+    .INIT(64'h000400C000040000)) 
+    \FSM_sequential_rx_state[3]_i_4 
+       (.I0(\FSM_sequential_rx_state[2]_i_2_n_0 ),
+        .I1(rx_state[0]),
+        .I2(rx_state[1]),
+        .I3(rx_state[3]),
+        .I4(rx_state[2]),
+        .I5(time_out_2ms_reg_n_0),
+        .O(\FSM_sequential_rx_state[3]_i_4_n_0 ));
+  LUT6 #(
+    .INIT(64'hAAAAAAAAAAABAAAA)) 
+    \FSM_sequential_rx_state[3]_i_8 
+       (.I0(\FSM_sequential_rx_state[3]_i_15_n_0 ),
+        .I1(\wait_time_cnt[6]_i_4_n_0 ),
+        .I2(wait_time_cnt_reg[6]),
+        .I3(rx_state[3]),
+        .I4(rx_state[1]),
+        .I5(rx_state[0]),
         .O(\FSM_sequential_rx_state[3]_i_8_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair20" *) 
+  LUT5 #(
+    .INIT(32'h80800080)) 
+    \FSM_sequential_rx_state[3]_i_9 
+       (.I0(rx_state[0]),
+        .I1(rx_state[1]),
+        .I2(rx_state[2]),
+        .I3(time_out_2ms_reg_n_0),
+        .I4(reset_time_out_reg_n_0),
+        .O(\FSM_sequential_rx_state[3]_i_9_n_0 ));
   (* FSM_ENCODED_STATES = "release_pll_reset:0011,verify_recclk_stable:0100,wait_for_pll_lock:0010,fsm_done:1010,assert_all_resets:0001,init:0000,wait_reset_done:0111,monitor_data_valid:1001,wait_for_rxusrclk:0110,do_phase_alignment:1000,release_mmcm_reset:0101" *) 
   FDRE #(
     .INIT(1'b0)) 
     \FSM_sequential_rx_state_reg[0] 
        (.C(sysclk_in),
-        .CE(sync_data_valid_n_3),
+        .CE(sync_PLL0LOCK_n_0),
         .D(sync_data_valid_n_2),
         .Q(rx_state[0]),
         .R(SOFT_RESET_RX_IN));
@@ -1423,7 +1424,7 @@ module GTP_Zynq_GTP_Zynq_RX_STARTUP_FSM
     .INIT(1'b0)) 
     \FSM_sequential_rx_state_reg[1] 
        (.C(sysclk_in),
-        .CE(sync_data_valid_n_3),
+        .CE(sync_PLL0LOCK_n_0),
         .D(sync_data_valid_n_1),
         .Q(rx_state[1]),
         .R(SOFT_RESET_RX_IN));
@@ -1432,7 +1433,7 @@ module GTP_Zynq_GTP_Zynq_RX_STARTUP_FSM
     .INIT(1'b0)) 
     \FSM_sequential_rx_state_reg[2] 
        (.C(sysclk_in),
-        .CE(sync_data_valid_n_3),
+        .CE(sync_PLL0LOCK_n_0),
         .D(\FSM_sequential_rx_state[2]_i_1_n_0 ),
         .Q(rx_state[2]),
         .R(SOFT_RESET_RX_IN));
@@ -1441,26 +1442,26 @@ module GTP_Zynq_GTP_Zynq_RX_STARTUP_FSM
     .INIT(1'b0)) 
     \FSM_sequential_rx_state_reg[3] 
        (.C(sysclk_in),
-        .CE(sync_data_valid_n_3),
+        .CE(sync_PLL0LOCK_n_0),
         .D(sync_data_valid_n_0),
         .Q(rx_state[3]),
         .R(SOFT_RESET_RX_IN));
   LUT6 #(
-    .INIT(64'hFFFFFF1F00000010)) 
+    .INIT(64'hFFFFFFF100000001)) 
     PLL0_RESET_i_1
-       (.I0(pll_reset_asserted_reg_n_0),
-        .I1(GT0_PLL0REFCLKLOST_OUT),
-        .I2(PLL0_RESET_i_2_n_0),
-        .I3(rx_state[3]),
-        .I4(rx_state[2]),
+       (.I0(GT0_PLL0REFCLKLOST_OUT),
+        .I1(pll_reset_asserted_reg_n_0),
+        .I2(rx_state[3]),
+        .I3(rx_state[2]),
+        .I4(PLL0_RESET_i_2_n_0),
         .I5(AR),
         .O(PLL0_RESET_i_1_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair21" *) 
+  (* SOFT_HLUTNM = "soft_lutpair20" *) 
   LUT2 #(
-    .INIT(4'h2)) 
+    .INIT(4'hB)) 
     PLL0_RESET_i_2
-       (.I0(rx_state[0]),
-        .I1(rx_state[1]),
+       (.I0(rx_state[1]),
+        .I1(rx_state[0]),
         .O(PLL0_RESET_i_2_n_0));
   FDRE #(
     .INIT(1'b0)) 
@@ -1470,13 +1471,14 @@ module GTP_Zynq_GTP_Zynq_RX_STARTUP_FSM
         .D(PLL0_RESET_i_1_n_0),
         .Q(AR),
         .R(SOFT_RESET_RX_IN));
+  (* SOFT_HLUTNM = "soft_lutpair23" *) 
   LUT5 #(
-    .INIT(32'hFFFB4000)) 
+    .INIT(32'hFFFB0080)) 
     RXUSERRDY_i_1
-       (.I0(rx_state[3]),
+       (.I0(rx_state[1]),
         .I1(rx_state[0]),
         .I2(rx_state[2]),
-        .I3(rx_state[1]),
+        .I3(rx_state[3]),
         .I4(gt0_rxuserrdy_t),
         .O(RXUSERRDY_i_1_n_0));
   FDRE #(
@@ -1487,14 +1489,13 @@ module GTP_Zynq_GTP_Zynq_RX_STARTUP_FSM
         .D(RXUSERRDY_i_1_n_0),
         .Q(gt0_rxuserrdy_t),
         .R(SOFT_RESET_RX_IN));
-  (* SOFT_HLUTNM = "soft_lutpair21" *) 
   LUT5 #(
-    .INIT(32'hFFEF0020)) 
+    .INIT(32'hFFFB0008)) 
     check_tlock_max_i_1
        (.I0(rx_state[2]),
-        .I1(rx_state[3]),
-        .I2(rx_state[0]),
-        .I3(rx_state[1]),
+        .I1(rx_state[0]),
+        .I2(rx_state[1]),
+        .I3(rx_state[3]),
         .I4(check_tlock_max_reg_n_0),
         .O(check_tlock_max_i_1_n_0));
   FDRE #(
@@ -1505,20 +1506,21 @@ module GTP_Zynq_GTP_Zynq_RX_STARTUP_FSM
         .D(check_tlock_max_i_1_n_0),
         .Q(check_tlock_max_reg_n_0),
         .R(SOFT_RESET_RX_IN));
-  LUT3 #(
-    .INIT(8'h0E)) 
+  LUT4 #(
+    .INIT(16'h00EA)) 
     gt0_rx_cdrlocked_i_1
        (.I0(gt0_rx_cdrlocked_reg_0),
-        .I1(gt0_rx_cdrlocked),
-        .I2(gtrxreset_i),
+        .I1(gt0_rx_cdrlocked_reg_1),
+        .I2(gt0_rx_cdrlocked_reg_2),
+        .I3(gtrxreset_i),
         .O(gt0_rx_cdrlocked_reg));
   LUT5 #(
-    .INIT(32'hFEFF0010)) 
+    .INIT(32'hFFEF0004)) 
     gtrxreset_i_i_1
-       (.I0(rx_state[3]),
-        .I1(rx_state[1]),
-        .I2(rx_state[0]),
-        .I3(rx_state[2]),
+       (.I0(rx_state[1]),
+        .I1(rx_state[0]),
+        .I2(rx_state[2]),
+        .I3(rx_state[3]),
         .I4(gtrxreset_i),
         .O(gtrxreset_i_i_1_n_0));
   FDRE #(
@@ -1533,98 +1535,74 @@ module GTP_Zynq_GTP_Zynq_RX_STARTUP_FSM
     .INIT(2'h1)) 
     \init_wait_count[0]_i_1__0 
        (.I0(init_wait_count_reg[0]),
-        .O(p_0_in[0]));
-  (* SOFT_HLUTNM = "soft_lutpair30" *) 
+        .O(\init_wait_count[0]_i_1__0_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair27" *) 
   LUT2 #(
     .INIT(4'h6)) 
     \init_wait_count[1]_i_1__0 
        (.I0(init_wait_count_reg[0]),
         .I1(init_wait_count_reg[1]),
         .O(p_0_in[1]));
-  (* SOFT_HLUTNM = "soft_lutpair24" *) 
+  (* SOFT_HLUTNM = "soft_lutpair27" *) 
   LUT3 #(
-    .INIT(8'h6A)) 
+    .INIT(8'h78)) 
     \init_wait_count[2]_i_1__0 
-       (.I0(init_wait_count_reg[2]),
+       (.I0(init_wait_count_reg[1]),
         .I1(init_wait_count_reg[0]),
-        .I2(init_wait_count_reg[1]),
+        .I2(init_wait_count_reg[2]),
         .O(p_0_in[2]));
-  (* SOFT_HLUTNM = "soft_lutpair30" *) 
+  (* SOFT_HLUTNM = "soft_lutpair25" *) 
   LUT4 #(
-    .INIT(16'h6AAA)) 
+    .INIT(16'h7F80)) 
     \init_wait_count[3]_i_1__0 
-       (.I0(init_wait_count_reg[3]),
-        .I1(init_wait_count_reg[1]),
-        .I2(init_wait_count_reg[0]),
-        .I3(init_wait_count_reg[2]),
-        .O(p_0_in[3]));
-  (* SOFT_HLUTNM = "soft_lutpair22" *) 
-  LUT5 #(
-    .INIT(32'h7FFF8000)) 
-    \init_wait_count[4]_i_1__0 
        (.I0(init_wait_count_reg[2]),
         .I1(init_wait_count_reg[0]),
         .I2(init_wait_count_reg[1]),
         .I3(init_wait_count_reg[3]),
+        .O(p_0_in[3]));
+  (* SOFT_HLUTNM = "soft_lutpair25" *) 
+  LUT5 #(
+    .INIT(32'h7FFF8000)) 
+    \init_wait_count[4]_i_1__0 
+       (.I0(init_wait_count_reg[3]),
+        .I1(init_wait_count_reg[1]),
+        .I2(init_wait_count_reg[0]),
+        .I3(init_wait_count_reg[2]),
         .I4(init_wait_count_reg[4]),
         .O(p_0_in[4]));
   LUT6 #(
-    .INIT(64'h6AAAAAAAAAAAAAAA)) 
+    .INIT(64'hFFFFFFFFFFFF7FFF)) 
     \init_wait_count[5]_i_1__0 
-       (.I0(init_wait_count_reg[5]),
+       (.I0(init_wait_count_reg[4]),
+        .I1(init_wait_count_reg[5]),
+        .I2(init_wait_count_reg[2]),
+        .I3(init_wait_count_reg[3]),
+        .I4(init_wait_count_reg[1]),
+        .I5(init_wait_count_reg[0]),
+        .O(\init_wait_count[5]_i_1__0_n_0 ));
+  LUT6 #(
+    .INIT(64'h7FFFFFFF80000000)) 
+    \init_wait_count[5]_i_2 
+       (.I0(init_wait_count_reg[4]),
         .I1(init_wait_count_reg[2]),
         .I2(init_wait_count_reg[0]),
         .I3(init_wait_count_reg[1]),
         .I4(init_wait_count_reg[3]),
-        .I5(init_wait_count_reg[4]),
+        .I5(init_wait_count_reg[5]),
         .O(p_0_in[5]));
-  LUT4 #(
-    .INIT(16'hFFBF)) 
-    \init_wait_count[6]_i_1__0 
-       (.I0(\init_wait_count[6]_i_3_n_0 ),
-        .I1(init_wait_count_reg[6]),
-        .I2(init_wait_count_reg[3]),
-        .I3(init_wait_count_reg[5]),
-        .O(init_wait_count));
-  LUT3 #(
-    .INIT(8'h6A)) 
-    \init_wait_count[6]_i_2 
-       (.I0(init_wait_count_reg[6]),
-        .I1(\init_wait_count[6]_i_4_n_0 ),
-        .I2(init_wait_count_reg[5]),
-        .O(p_0_in[6]));
-  (* SOFT_HLUTNM = "soft_lutpair24" *) 
-  LUT4 #(
-    .INIT(16'hFFFE)) 
-    \init_wait_count[6]_i_3 
-       (.I0(init_wait_count_reg[1]),
-        .I1(init_wait_count_reg[0]),
-        .I2(init_wait_count_reg[4]),
-        .I3(init_wait_count_reg[2]),
-        .O(\init_wait_count[6]_i_3_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair22" *) 
-  LUT5 #(
-    .INIT(32'h80000000)) 
-    \init_wait_count[6]_i_4 
-       (.I0(init_wait_count_reg[4]),
-        .I1(init_wait_count_reg[3]),
-        .I2(init_wait_count_reg[1]),
-        .I3(init_wait_count_reg[0]),
-        .I4(init_wait_count_reg[2]),
-        .O(\init_wait_count[6]_i_4_n_0 ));
   FDCE #(
     .INIT(1'b0)) 
     \init_wait_count_reg[0] 
        (.C(sysclk_in),
-        .CE(init_wait_count),
+        .CE(\init_wait_count[5]_i_1__0_n_0 ),
         .CLR(SOFT_RESET_RX_IN),
-        .D(p_0_in[0]),
+        .D(\init_wait_count[0]_i_1__0_n_0 ),
         .Q(init_wait_count_reg[0]));
   FDCE #(
     .INIT(1'b0)) 
     \init_wait_count_reg[1] 
        (.C(sysclk_in),
-        .CE(init_wait_count),
+        .CE(\init_wait_count[5]_i_1__0_n_0 ),
         .CLR(SOFT_RESET_RX_IN),
         .D(p_0_in[1]),
         .Q(init_wait_count_reg[1]));
@@ -1632,7 +1610,7 @@ module GTP_Zynq_GTP_Zynq_RX_STARTUP_FSM
     .INIT(1'b0)) 
     \init_wait_count_reg[2] 
        (.C(sysclk_in),
-        .CE(init_wait_count),
+        .CE(\init_wait_count[5]_i_1__0_n_0 ),
         .CLR(SOFT_RESET_RX_IN),
         .D(p_0_in[2]),
         .Q(init_wait_count_reg[2]));
@@ -1640,7 +1618,7 @@ module GTP_Zynq_GTP_Zynq_RX_STARTUP_FSM
     .INIT(1'b0)) 
     \init_wait_count_reg[3] 
        (.C(sysclk_in),
-        .CE(init_wait_count),
+        .CE(\init_wait_count[5]_i_1__0_n_0 ),
         .CLR(SOFT_RESET_RX_IN),
         .D(p_0_in[3]),
         .Q(init_wait_count_reg[3]));
@@ -1648,7 +1626,7 @@ module GTP_Zynq_GTP_Zynq_RX_STARTUP_FSM
     .INIT(1'b0)) 
     \init_wait_count_reg[4] 
        (.C(sysclk_in),
-        .CE(init_wait_count),
+        .CE(\init_wait_count[5]_i_1__0_n_0 ),
         .CLR(SOFT_RESET_RX_IN),
         .D(p_0_in[4]),
         .Q(init_wait_count_reg[4]));
@@ -1656,27 +1634,26 @@ module GTP_Zynq_GTP_Zynq_RX_STARTUP_FSM
     .INIT(1'b0)) 
     \init_wait_count_reg[5] 
        (.C(sysclk_in),
-        .CE(init_wait_count),
+        .CE(\init_wait_count[5]_i_1__0_n_0 ),
         .CLR(SOFT_RESET_RX_IN),
         .D(p_0_in[5]),
         .Q(init_wait_count_reg[5]));
-  FDCE #(
-    .INIT(1'b0)) 
-    \init_wait_count_reg[6] 
-       (.C(sysclk_in),
-        .CE(init_wait_count),
-        .CLR(SOFT_RESET_RX_IN),
-        .D(p_0_in[6]),
-        .Q(init_wait_count_reg[6]));
-  LUT5 #(
-    .INIT(32'hFFFF0040)) 
+  LUT6 #(
+    .INIT(64'hFFFFFFFF02000000)) 
     init_wait_done_i_1__0
-       (.I0(\init_wait_count[6]_i_3_n_0 ),
-        .I1(init_wait_count_reg[6]),
-        .I2(init_wait_count_reg[3]),
-        .I3(init_wait_count_reg[5]),
-        .I4(init_wait_done_reg_n_0),
+       (.I0(init_wait_done_i_2__0_n_0),
+        .I1(init_wait_count_reg[1]),
+        .I2(init_wait_count_reg[0]),
+        .I3(init_wait_count_reg[3]),
+        .I4(init_wait_count_reg[2]),
+        .I5(init_wait_done_reg_n_0),
         .O(init_wait_done_i_1__0_n_0));
+  LUT2 #(
+    .INIT(4'h8)) 
+    init_wait_done_i_2__0
+       (.I0(init_wait_count_reg[4]),
+        .I1(init_wait_count_reg[5]),
+        .O(init_wait_done_i_2__0_n_0));
   FDCE #(
     .INIT(1'b0)) 
     init_wait_done_reg
@@ -1685,13 +1662,12 @@ module GTP_Zynq_GTP_Zynq_RX_STARTUP_FSM
         .CLR(SOFT_RESET_RX_IN),
         .D(init_wait_done_i_1__0_n_0),
         .Q(init_wait_done_reg_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair34" *) 
   LUT1 #(
     .INIT(2'h1)) 
     \mmcm_lock_count[0]_i_1 
        (.I0(mmcm_lock_count_reg[0]),
         .O(p_0_in__0[0]));
-  (* SOFT_HLUTNM = "soft_lutpair34" *) 
+  (* SOFT_HLUTNM = "soft_lutpair29" *) 
   LUT2 #(
     .INIT(4'h6)) 
     \mmcm_lock_count[1]_i_1 
@@ -1700,75 +1676,72 @@ module GTP_Zynq_GTP_Zynq_RX_STARTUP_FSM
         .O(p_0_in__0[1]));
   (* SOFT_HLUTNM = "soft_lutpair29" *) 
   LUT3 #(
-    .INIT(8'h6A)) 
+    .INIT(8'h78)) 
     \mmcm_lock_count[2]_i_1 
-       (.I0(mmcm_lock_count_reg[2]),
+       (.I0(mmcm_lock_count_reg[1]),
         .I1(mmcm_lock_count_reg[0]),
-        .I2(mmcm_lock_count_reg[1]),
+        .I2(mmcm_lock_count_reg[2]),
         .O(p_0_in__0[2]));
-  (* SOFT_HLUTNM = "soft_lutpair29" *) 
+  (* SOFT_HLUTNM = "soft_lutpair26" *) 
   LUT4 #(
-    .INIT(16'h6AAA)) 
+    .INIT(16'h7F80)) 
     \mmcm_lock_count[3]_i_1 
-       (.I0(mmcm_lock_count_reg[3]),
-        .I1(mmcm_lock_count_reg[1]),
-        .I2(mmcm_lock_count_reg[0]),
-        .I3(mmcm_lock_count_reg[2]),
-        .O(p_0_in__0[3]));
-  (* SOFT_HLUTNM = "soft_lutpair20" *) 
-  LUT5 #(
-    .INIT(32'h7FFF8000)) 
-    \mmcm_lock_count[4]_i_1 
        (.I0(mmcm_lock_count_reg[2]),
         .I1(mmcm_lock_count_reg[0]),
         .I2(mmcm_lock_count_reg[1]),
         .I3(mmcm_lock_count_reg[3]),
+        .O(p_0_in__0[3]));
+  (* SOFT_HLUTNM = "soft_lutpair26" *) 
+  LUT5 #(
+    .INIT(32'h7FFF8000)) 
+    \mmcm_lock_count[4]_i_1 
+       (.I0(mmcm_lock_count_reg[3]),
+        .I1(mmcm_lock_count_reg[1]),
+        .I2(mmcm_lock_count_reg[0]),
+        .I3(mmcm_lock_count_reg[2]),
         .I4(mmcm_lock_count_reg[4]),
         .O(p_0_in__0[4]));
   LUT6 #(
-    .INIT(64'h6AAAAAAAAAAAAAAA)) 
+    .INIT(64'h7FFFFFFF80000000)) 
     \mmcm_lock_count[5]_i_1 
-       (.I0(mmcm_lock_count_reg[5]),
+       (.I0(mmcm_lock_count_reg[4]),
         .I1(mmcm_lock_count_reg[2]),
         .I2(mmcm_lock_count_reg[0]),
         .I3(mmcm_lock_count_reg[1]),
         .I4(mmcm_lock_count_reg[3]),
-        .I5(mmcm_lock_count_reg[4]),
+        .I5(mmcm_lock_count_reg[5]),
         .O(p_0_in__0[5]));
-  (* SOFT_HLUTNM = "soft_lutpair26" *) 
-  LUT3 #(
-    .INIT(8'h6A)) 
+  (* SOFT_HLUTNM = "soft_lutpair28" *) 
+  LUT2 #(
+    .INIT(4'h9)) 
     \mmcm_lock_count[6]_i_1 
-       (.I0(mmcm_lock_count_reg[6]),
-        .I1(\mmcm_lock_count[7]_i_4_n_0 ),
-        .I2(mmcm_lock_count_reg[5]),
+       (.I0(\mmcm_lock_count[7]_i_4_n_0 ),
+        .I1(mmcm_lock_count_reg[6]),
         .O(p_0_in__0[6]));
-  LUT4 #(
-    .INIT(16'h7FFF)) 
+  LUT3 #(
+    .INIT(8'hBF)) 
     \mmcm_lock_count[7]_i_2 
+       (.I0(\mmcm_lock_count[7]_i_4_n_0 ),
+        .I1(mmcm_lock_count_reg[6]),
+        .I2(mmcm_lock_count_reg[7]),
+        .O(\mmcm_lock_count[7]_i_2_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair28" *) 
+  LUT3 #(
+    .INIT(8'hD2)) 
+    \mmcm_lock_count[7]_i_3 
        (.I0(mmcm_lock_count_reg[6]),
         .I1(\mmcm_lock_count[7]_i_4_n_0 ),
-        .I2(mmcm_lock_count_reg[5]),
-        .I3(mmcm_lock_count_reg[7]),
-        .O(\mmcm_lock_count[7]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair26" *) 
-  LUT4 #(
-    .INIT(16'h6AAA)) 
-    \mmcm_lock_count[7]_i_3 
-       (.I0(mmcm_lock_count_reg[7]),
-        .I1(mmcm_lock_count_reg[5]),
-        .I2(\mmcm_lock_count[7]_i_4_n_0 ),
-        .I3(mmcm_lock_count_reg[6]),
+        .I2(mmcm_lock_count_reg[7]),
         .O(p_0_in__0[7]));
-  (* SOFT_HLUTNM = "soft_lutpair20" *) 
-  LUT5 #(
-    .INIT(32'h80000000)) 
+  LUT6 #(
+    .INIT(64'h7FFFFFFFFFFFFFFF)) 
     \mmcm_lock_count[7]_i_4 
        (.I0(mmcm_lock_count_reg[4]),
-        .I1(mmcm_lock_count_reg[3]),
-        .I2(mmcm_lock_count_reg[1]),
-        .I3(mmcm_lock_count_reg[0]),
-        .I4(mmcm_lock_count_reg[2]),
+        .I1(mmcm_lock_count_reg[2]),
+        .I2(mmcm_lock_count_reg[0]),
+        .I3(mmcm_lock_count_reg[1]),
+        .I4(mmcm_lock_count_reg[3]),
+        .I5(mmcm_lock_count_reg[5]),
         .O(\mmcm_lock_count[7]_i_4_n_0 ));
   FDRE #(
     .INIT(1'b0)) 
@@ -1843,13 +1816,13 @@ module GTP_Zynq_GTP_Zynq_RX_STARTUP_FSM
         .Q(mmcm_lock_reclocked),
         .R(1'b0));
   LUT6 #(
-    .INIT(64'hAAAAAA0BAAAAAAAA)) 
+    .INIT(64'hFD00FD01FF00FF00)) 
     pll_reset_asserted_i_1
-       (.I0(pll_reset_asserted_reg_n_0),
-        .I1(GT0_PLL0REFCLKLOST_OUT),
-        .I2(rx_state[1]),
-        .I3(rx_state[2]),
-        .I4(rx_state[3]),
+       (.I0(rx_state[1]),
+        .I1(rx_state[2]),
+        .I2(rx_state[3]),
+        .I3(pll_reset_asserted_reg_n_0),
+        .I4(GT0_PLL0REFCLKLOST_OUT),
         .I5(rx_state[0]),
         .O(pll_reset_asserted_i_1_n_0));
   FDRE #(
@@ -1860,15 +1833,6 @@ module GTP_Zynq_GTP_Zynq_RX_STARTUP_FSM
         .D(pll_reset_asserted_i_1_n_0),
         .Q(pll_reset_asserted_reg_n_0),
         .R(SOFT_RESET_RX_IN));
-  LUT5 #(
-    .INIT(32'hB8BBB888)) 
-    reset_time_out_i_5
-       (.I0(rxresetdone_s3),
-        .I1(rx_state[1]),
-        .I2(mmcm_lock_reclocked),
-        .I3(rx_state[0]),
-        .I4(gt0_rx_cdrlocked_reg_0),
-        .O(reset_time_out_i_5_n_0));
   FDSE #(
     .INIT(1'b0)) 
     reset_time_out_reg
@@ -1877,14 +1841,14 @@ module GTP_Zynq_GTP_Zynq_RX_STARTUP_FSM
         .D(sync_PLL0LOCK_n_1),
         .Q(reset_time_out_reg_n_0),
         .S(SOFT_RESET_RX_IN));
-  (* SOFT_HLUTNM = "soft_lutpair19" *) 
+  (* SOFT_HLUTNM = "soft_lutpair22" *) 
   LUT5 #(
-    .INIT(32'hFFFD0010)) 
+    .INIT(32'hFFFB0100)) 
     run_phase_alignment_int_i_1
-       (.I0(rx_state[0]),
-        .I1(rx_state[1]),
-        .I2(rx_state[3]),
-        .I3(rx_state[2]),
+       (.I0(rx_state[1]),
+        .I1(rx_state[0]),
+        .I2(rx_state[2]),
+        .I3(rx_state[3]),
         .I4(run_phase_alignment_int_reg_n_0),
         .O(run_phase_alignment_int_i_1_n_0));
   FDRE #(
@@ -1903,6 +1867,19 @@ module GTP_Zynq_GTP_Zynq_RX_STARTUP_FSM
         .D(run_phase_alignment_int_s2),
         .Q(run_phase_alignment_int_s3),
         .R(1'b0));
+  LUT2 #(
+    .INIT(4'h2)) 
+    rx_fsm_reset_done_int_i_2
+       (.I0(time_out_1us_reg_n_0),
+        .I1(reset_time_out_reg_n_0),
+        .O(rx_fsm_reset_done_int_i_2_n_0));
+  (* SOFT_HLUTNM = "soft_lutpair23" *) 
+  LUT2 #(
+    .INIT(4'h2)) 
+    rx_fsm_reset_done_int_i_5
+       (.I0(rx_state[3]),
+        .I1(rx_state[2]),
+        .O(rx_fsm_reset_done_int_i_5_n_0));
   FDRE #(
     .INIT(1'b0)) 
     rx_fsm_reset_done_int_reg
@@ -1928,19 +1905,21 @@ module GTP_Zynq_GTP_Zynq_RX_STARTUP_FSM
         .Q(rxresetdone_s3),
         .R(1'b0));
   GTP_Zynq_GTP_Zynq_sync_block sync_PLL0LOCK
-       (.\FSM_sequential_rx_state[3]_i_4_0 (init_wait_done_reg_n_0),
-        .\FSM_sequential_rx_state[3]_i_4_1 (time_out_2ms_reg_n_0),
-        .\FSM_sequential_rx_state_reg[0] (sync_PLL0LOCK_n_0),
-        .\FSM_sequential_rx_state_reg[0]_0 (\FSM_sequential_rx_state[3]_i_10_n_0 ),
-        .\FSM_sequential_rx_state_reg[0]_1 (\FSM_sequential_rx_state[3]_i_11_n_0 ),
+       (.E(sync_PLL0LOCK_n_0),
+        .\FSM_sequential_rx_state_reg[0] (\FSM_sequential_rx_state[3]_i_4_n_0 ),
+        .\FSM_sequential_rx_state_reg[0]_0 (sync_data_valid_n_4),
+        .\FSM_sequential_rx_state_reg[0]_1 (\FSM_sequential_rx_state[3]_i_8_n_0 ),
+        .\FSM_sequential_rx_state_reg[0]_2 (time_out_2ms_reg_n_0),
+        .\FSM_sequential_rx_state_reg[0]_3 (\FSM_sequential_rx_state[3]_i_11_n_0 ),
+        .\FSM_sequential_rx_state_reg[0]_4 (\FSM_sequential_rx_state[3]_i_12_n_0 ),
+        .\FSM_sequential_rx_state_reg[1] (sync_PLL0LOCK_n_1),
         .GT0_PLL0LOCK_OUT(GT0_PLL0LOCK_OUT),
         .Q(rx_state),
-        .reset_time_out_reg(sync_PLL0LOCK_n_1),
-        .reset_time_out_reg_0(gt0_rx_cdrlocked_reg_0),
-        .reset_time_out_reg_1(pll_reset_asserted_reg_n_0),
-        .reset_time_out_reg_2(reset_time_out_i_5_n_0),
-        .reset_time_out_reg_3(sync_data_valid_n_4),
-        .reset_time_out_reg_4(reset_time_out_reg_n_0),
+        .reset_time_out_reg(gt0_rx_cdrlocked_reg_0),
+        .reset_time_out_reg_0(sync_data_valid_n_3),
+        .reset_time_out_reg_1(reset_time_out_reg_n_0),
+        .reset_time_out_reg_2(pll_reset_asserted_reg_n_0),
+        .rxresetdone_s3(rxresetdone_s3),
         .sysclk_in(sysclk_in));
   GTP_Zynq_GTP_Zynq_sync_block_0 sync_RXRESETDONE
        (.data_out(rxresetdone_s2),
@@ -1949,25 +1928,27 @@ module GTP_Zynq_GTP_Zynq_RX_STARTUP_FSM
   GTP_Zynq_GTP_Zynq_sync_block_1 sync_data_valid
        (.D({sync_data_valid_n_0,sync_data_valid_n_1,sync_data_valid_n_2}),
         .DONT_RESET_ON_DATA_ERROR_IN(DONT_RESET_ON_DATA_ERROR_IN),
-        .E(sync_data_valid_n_3),
-        .\FSM_sequential_rx_state_reg[0] (sync_PLL0LOCK_n_0),
-        .\FSM_sequential_rx_state_reg[0]_0 (\FSM_sequential_rx_state[3]_i_6_n_0 ),
-        .\FSM_sequential_rx_state_reg[0]_1 (time_out_100us_reg_n_0),
-        .\FSM_sequential_rx_state_reg[0]_2 (\FSM_sequential_rx_state[0]_i_2_n_0 ),
-        .\FSM_sequential_rx_state_reg[1] (\FSM_sequential_rx_state[2]_i_2_n_0 ),
-        .\FSM_sequential_rx_state_reg[3] (sync_data_valid_n_5),
-        .\FSM_sequential_rx_state_reg[3]_0 (\FSM_sequential_rx_state[3]_i_8_n_0 ),
-        .\FSM_sequential_rx_state_reg[3]_1 (\FSM_sequential_rx_state[3]_i_5_n_0 ),
+        .\FSM_sequential_rx_state[3]_i_6_0 (gt0_rx_cdrlocked_reg_0),
+        .\FSM_sequential_rx_state_reg[0] (sync_data_valid_n_5),
+        .\FSM_sequential_rx_state_reg[0]_0 (\FSM_sequential_rx_state[0]_i_2_n_0 ),
+        .\FSM_sequential_rx_state_reg[0]_1 (reset_time_out_reg_n_0),
+        .\FSM_sequential_rx_state_reg[0]_2 (time_out_100us_reg_n_0),
+        .\FSM_sequential_rx_state_reg[1] (\FSM_sequential_rx_state[1]_i_2_n_0 ),
+        .\FSM_sequential_rx_state_reg[3] (sync_data_valid_n_4),
+        .\FSM_sequential_rx_state_reg[3]_0 (\FSM_sequential_rx_state[3]_i_9_n_0 ),
         .GT0_DATA_VALID_IN(GT0_DATA_VALID_IN),
         .GT0_RX_FSM_RESET_DONE_OUT(GT0_RX_FSM_RESET_DONE_OUT),
         .Q(rx_state),
-        .data_sync_reg6_0(sync_data_valid_n_4),
-        .rx_fsm_reset_done_int_reg(reset_time_out_reg_n_0),
-        .rx_fsm_reset_done_int_reg_0(time_out_1us_reg_n_0),
+        .mmcm_lock_reclocked(mmcm_lock_reclocked),
+        .mmcm_lock_reclocked_reg(sync_data_valid_n_3),
+        .reset_time_out_reg(PLL0_RESET_i_2_n_0),
+        .rx_fsm_reset_done_int_reg(rx_fsm_reset_done_int_i_2_n_0),
+        .rx_fsm_reset_done_int_reg_0(rx_fsm_reset_done_int_i_5_n_0),
         .sysclk_in(sysclk_in),
-        .time_out_wait_bypass_s3(time_out_wait_bypass_s3));
+        .time_out_wait_bypass_s3(time_out_wait_bypass_s3),
+        .time_tlock_max(time_tlock_max));
   GTP_Zynq_GTP_Zynq_sync_block_2 sync_mmcm_lock_reclocked
-       (.Q(mmcm_lock_count_reg[7:5]),
+       (.Q(mmcm_lock_count_reg[7:6]),
         .SR(sync_mmcm_lock_reclocked_n_0),
         .mmcm_lock_reclocked(mmcm_lock_reclocked),
         .mmcm_lock_reclocked_reg(sync_mmcm_lock_reclocked_n_1),
@@ -1986,75 +1967,32 @@ module GTP_Zynq_GTP_Zynq_RX_STARTUP_FSM
         .data_out(time_out_wait_bypass_s2),
         .sysclk_in(sysclk_in));
   LUT6 #(
-    .INIT(64'hFFFFFFFF00000001)) 
+    .INIT(64'hFFFFFFFF00010000)) 
     time_out_100us_i_1
-       (.I0(time_out_100us_i_2_n_0),
-        .I1(time_out_100us_i_3_n_0),
-        .I2(time_out_100us_i_4_n_0),
-        .I3(time_out_100us_i_5_n_0),
-        .I4(time_out_100us_i_6_n_0),
+       (.I0(\time_out_counter[0]_i_5_n_0 ),
+        .I1(time_out_counter_reg[6]),
+        .I2(time_out_counter_reg[7]),
+        .I3(time_out_100us_i_2_n_0),
+        .I4(time_out_100us_i_3_n_0),
         .I5(time_out_100us_reg_n_0),
         .O(time_out_100us_i_1_n_0));
-  LUT6 #(
-    .INIT(64'h0707070707FFFFFF)) 
-    time_out_100us_i_2
-       (.I0(time_out_counter_reg[7]),
-        .I1(time_out_counter_reg[6]),
-        .I2(time_out_counter_reg[8]),
-        .I3(time_out_counter_reg[13]),
-        .I4(time_out_counter_reg[12]),
-        .I5(time_out_counter_reg[14]),
-        .O(time_out_100us_i_2_n_0));
-  LUT6 #(
-    .INIT(64'hFFFFFFFFFDFDFFFD)) 
-    time_out_100us_i_3
-       (.I0(time_out_counter_reg[4]),
-        .I1(time_out_counter_reg[5]),
-        .I2(time_out_100us_i_7_n_0),
-        .I3(time_out_counter_reg[0]),
-        .I4(time_out_counter_reg[1]),
-        .I5(time_out_100us_i_8_n_0),
-        .O(time_out_100us_i_3_n_0));
-  LUT4 #(
-    .INIT(16'hFFEF)) 
-    time_out_100us_i_4
-       (.I0(time_out_counter_reg[17]),
-        .I1(time_out_counter_reg[16]),
-        .I2(time_out_counter_reg[2]),
-        .I3(time_out_counter_reg[1]),
-        .O(time_out_100us_i_4_n_0));
-  LUT3 #(
-    .INIT(8'hEA)) 
-    time_out_100us_i_5
-       (.I0(time_out_counter_reg[5]),
-        .I1(time_out_counter_reg[3]),
-        .I2(time_out_counter_reg[4]),
-        .O(time_out_100us_i_5_n_0));
-  LUT4 #(
-    .INIT(16'hFFF7)) 
-    time_out_100us_i_6
-       (.I0(time_out_counter_reg[13]),
-        .I1(time_out_counter_reg[7]),
-        .I2(time_out_counter_reg[14]),
-        .I3(time_out_counter_reg[8]),
-        .O(time_out_100us_i_6_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair31" *) 
+  (* SOFT_HLUTNM = "soft_lutpair32" *) 
   LUT2 #(
     .INIT(4'hE)) 
-    time_out_100us_i_7
-       (.I0(time_out_counter_reg[10]),
-        .I1(time_out_counter_reg[11]),
-        .O(time_out_100us_i_7_n_0));
+    time_out_100us_i_2
+       (.I0(time_out_counter_reg[14]),
+        .I1(time_out_counter_reg[15]),
+        .O(time_out_100us_i_2_n_0));
   LUT6 #(
-    .INIT(64'hFFFFFFF2FFFFFFFF)) 
-    time_out_100us_i_8
-       (.I0(time_out_counter_reg[15]),
-        .I1(time_out_counter_reg[16]),
-        .I2(time_out_counter_reg[17]),
-        .I3(time_out_counter_reg[9]),
+    .INIT(64'h0000002000000000)) 
+    time_out_100us_i_3
+       (.I0(time_out_counter_reg[10]),
+        .I1(time_out_counter_reg[12]),
+        .I2(time_out_counter_reg[4]),
+        .I3(time_out_counter_reg[5]),
         .I4(time_out_counter_reg[18]),
-        .I5(time_out_counter_reg[2]),
-        .O(time_out_100us_i_8_n_0));
+        .I5(time_out_counter_reg[13]),
+        .O(time_out_100us_i_3_n_0));
   FDRE #(
     .INIT(1'b0)) 
     time_out_100us_reg
@@ -2063,49 +2001,35 @@ module GTP_Zynq_GTP_Zynq_RX_STARTUP_FSM
         .D(time_out_100us_i_1_n_0),
         .Q(time_out_100us_reg_n_0),
         .R(reset_time_out_reg_n_0));
-  LUT4 #(
-    .INIT(16'hFF10)) 
+  LUT6 #(
+    .INIT(64'hFFFFFFFF00000400)) 
     time_out_1us_i_1
-       (.I0(time_out_1us_i_2_n_0),
-        .I1(time_out_1us_i_3_n_0),
-        .I2(time_out_1us_i_4_n_0),
-        .I3(time_out_1us_reg_n_0),
+       (.I0(time_out_100us_i_2_n_0),
+        .I1(time_out_counter_reg[2]),
+        .I2(time_out_1us_i_2_n_0),
+        .I3(time_out_1us_i_3_n_0),
+        .I4(\time_out_counter[0]_i_4_n_0 ),
+        .I5(time_out_1us_reg_n_0),
         .O(time_out_1us_i_1_n_0));
-  LUT6 #(
-    .INIT(64'hFFFFFFFFFFFFFEFF)) 
-    time_out_1us_i_2
-       (.I0(time_out_counter_reg[7]),
-        .I1(time_out_counter_reg[12]),
-        .I2(time_out_counter_reg[15]),
-        .I3(time_out_counter_reg[6]),
-        .I4(time_out_1us_i_5_n_0),
-        .I5(time_out_100us_i_7_n_0),
-        .O(time_out_1us_i_2_n_0));
   LUT5 #(
-    .INIT(32'hFFFFFFEF)) 
-    time_out_1us_i_3
-       (.I0(time_out_100us_i_4_n_0),
-        .I1(time_out_counter_reg[13]),
-        .I2(time_out_counter_reg[5]),
-        .I3(time_out_counter_reg[11]),
-        .I4(time_out_counter_reg[18]),
-        .O(time_out_1us_i_3_n_0));
-  LUT6 #(
-    .INIT(64'h0000000010000000)) 
-    time_out_1us_i_4
-       (.I0(time_out_counter_reg[14]),
-        .I1(time_out_counter_reg[8]),
-        .I2(time_out_counter_reg[4]),
-        .I3(time_out_counter_reg[3]),
+    .INIT(32'hFFFFFFFE)) 
+    time_out_1us_i_2
+       (.I0(time_out_counter_reg[11]),
+        .I1(time_out_counter_reg[16]),
+        .I2(time_out_counter_reg[17]),
+        .I3(time_out_counter_reg[1]),
         .I4(time_out_counter_reg[0]),
-        .I5(time_out_counter_reg[1]),
-        .O(time_out_1us_i_4_n_0));
-  LUT2 #(
-    .INIT(4'h2)) 
-    time_out_1us_i_5
-       (.I0(time_out_counter_reg[9]),
-        .I1(time_out_counter_reg[10]),
-        .O(time_out_1us_i_5_n_0));
+        .O(time_out_1us_i_2_n_0));
+  LUT6 #(
+    .INIT(64'h0000000000000001)) 
+    time_out_1us_i_3
+       (.I0(time_out_counter_reg[8]),
+        .I1(time_out_counter_reg[9]),
+        .I2(time_out_counter_reg[3]),
+        .I3(time_out_counter_reg[7]),
+        .I4(time_out_counter_reg[18]),
+        .I5(time_out_counter_reg[12]),
+        .O(time_out_1us_i_3_n_0));
   FDRE #(
     .INIT(1'b0)) 
     time_out_1us_reg
@@ -2114,12 +2038,23 @@ module GTP_Zynq_GTP_Zynq_RX_STARTUP_FSM
         .D(time_out_1us_i_1_n_0),
         .Q(time_out_1us_reg_n_0),
         .R(reset_time_out_reg_n_0));
-  LUT2 #(
-    .INIT(4'hE)) 
+  LUT3 #(
+    .INIT(8'hF4)) 
     time_out_2ms_i_1
-       (.I0(time_out_2ms),
-        .I1(time_out_2ms_reg_n_0),
+       (.I0(\time_out_counter[0]_i_5_n_0 ),
+        .I1(time_out_2ms_i_2_n_0),
+        .I2(time_out_2ms_reg_n_0),
         .O(time_out_2ms_i_1_n_0));
+  LUT6 #(
+    .INIT(64'h0000000000008000)) 
+    time_out_2ms_i_2
+       (.I0(time_out_counter_reg[15]),
+        .I1(time_out_counter_reg[18]),
+        .I2(time_out_counter_reg[7]),
+        .I3(time_out_counter_reg[12]),
+        .I4(time_out_counter_reg[14]),
+        .I5(\time_out_counter[0]_i_4_n_0 ),
+        .O(time_out_2ms_i_2_n_0));
   FDRE #(
     .INIT(1'b0)) 
     time_out_2ms_reg
@@ -2128,52 +2063,46 @@ module GTP_Zynq_GTP_Zynq_RX_STARTUP_FSM
         .D(time_out_2ms_i_1_n_0),
         .Q(time_out_2ms_reg_n_0),
         .R(reset_time_out_reg_n_0));
-  LUT1 #(
-    .INIT(2'h1)) 
+  LUT6 #(
+    .INIT(64'hFFFFFFFFFFFFFFBF)) 
     \time_out_counter[0]_i_1 
-       (.I0(time_out_2ms),
+       (.I0(\time_out_counter[0]_i_3_n_0 ),
+        .I1(time_out_counter_reg[7]),
+        .I2(time_out_counter_reg[12]),
+        .I3(time_out_counter_reg[14]),
+        .I4(\time_out_counter[0]_i_4_n_0 ),
+        .I5(\time_out_counter[0]_i_5_n_0 ),
         .O(time_out_counter));
-  LUT6 #(
-    .INIT(64'h0000000000000040)) 
+  (* SOFT_HLUTNM = "soft_lutpair32" *) 
+  LUT2 #(
+    .INIT(4'h7)) 
     \time_out_counter[0]_i_3 
-       (.I0(time_out_100us_i_6_n_0),
-        .I1(time_out_100us_i_5_n_0),
-        .I2(\time_out_counter[0]_i_5_n_0 ),
-        .I3(\time_out_counter[0]_i_6_n_0 ),
-        .I4(\time_out_counter[0]_i_7_n_0 ),
-        .I5(time_out_100us_i_2_n_0),
-        .O(time_out_2ms));
+       (.I0(time_out_counter_reg[15]),
+        .I1(time_out_counter_reg[18]),
+        .O(\time_out_counter[0]_i_3_n_0 ));
+  LUT5 #(
+    .INIT(32'hFEFFFFFF)) 
+    \time_out_counter[0]_i_4 
+       (.I0(time_out_counter_reg[4]),
+        .I1(time_out_counter_reg[10]),
+        .I2(time_out_counter_reg[13]),
+        .I3(time_out_counter_reg[6]),
+        .I4(time_out_counter_reg[5]),
+        .O(\time_out_counter[0]_i_4_n_0 ));
+  LUT5 #(
+    .INIT(32'hFFFFEFFF)) 
+    \time_out_counter[0]_i_5 
+       (.I0(time_out_counter_reg[2]),
+        .I1(time_out_counter_reg[3]),
+        .I2(time_out_counter_reg[8]),
+        .I3(time_out_counter_reg[9]),
+        .I4(time_out_1us_i_2_n_0),
+        .O(\time_out_counter[0]_i_5_n_0 ));
   LUT1 #(
     .INIT(2'h1)) 
-    \time_out_counter[0]_i_4 
-       (.I0(time_out_counter_reg[0]),
-        .O(\time_out_counter[0]_i_4_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair31" *) 
-  LUT3 #(
-    .INIT(8'h02)) 
-    \time_out_counter[0]_i_5 
-       (.I0(time_out_counter_reg[11]),
-        .I1(time_out_counter_reg[10]),
-        .I2(time_out_counter_reg[2]),
-        .O(\time_out_counter[0]_i_5_n_0 ));
-  LUT4 #(
-    .INIT(16'hDFFF)) 
     \time_out_counter[0]_i_6 
-       (.I0(time_out_counter_reg[16]),
-        .I1(time_out_counter_reg[17]),
-        .I2(time_out_counter_reg[18]),
-        .I3(time_out_counter_reg[15]),
+       (.I0(time_out_counter_reg[0]),
         .O(\time_out_counter[0]_i_6_n_0 ));
-  LUT6 #(
-    .INIT(64'hFFFFFFFFFFFFF2FF)) 
-    \time_out_counter[0]_i_7 
-       (.I0(time_out_counter_reg[9]),
-        .I1(time_out_counter_reg[10]),
-        .I2(time_out_counter_reg[5]),
-        .I3(time_out_counter_reg[4]),
-        .I4(time_out_counter_reg[0]),
-        .I5(time_out_counter_reg[1]),
-        .O(\time_out_counter[0]_i_7_n_0 ));
   FDRE #(
     .INIT(1'b0)) 
     \time_out_counter_reg[0] 
@@ -2188,7 +2117,7 @@ module GTP_Zynq_GTP_Zynq_RX_STARTUP_FSM
         .CYINIT(1'b0),
         .DI({1'b0,1'b0,1'b0,1'b1}),
         .O({\time_out_counter_reg[0]_i_2_n_4 ,\time_out_counter_reg[0]_i_2_n_5 ,\time_out_counter_reg[0]_i_2_n_6 ,\time_out_counter_reg[0]_i_2_n_7 }),
-        .S({time_out_counter_reg[3:1],\time_out_counter[0]_i_4_n_0 }));
+        .S({time_out_counter_reg[3:1],\time_out_counter[0]_i_6_n_0 }));
   FDRE #(
     .INIT(1'b0)) 
     \time_out_counter_reg[10] 
@@ -2389,58 +2318,52 @@ module GTP_Zynq_GTP_Zynq_RX_STARTUP_FSM
        (.CI(1'b0),
         .CO({time_tlock_max1_carry_n_0,time_tlock_max1_carry_n_1,time_tlock_max1_carry_n_2,time_tlock_max1_carry_n_3}),
         .CYINIT(1'b0),
-        .DI({1'b0,time_out_counter_reg[5],time_out_counter_reg[3],time_tlock_max1_carry_i_1_n_0}),
+        .DI({time_tlock_max1_carry_i_1_n_0,time_out_counter_reg[5],time_tlock_max1_carry_i_2_n_0,time_tlock_max1_carry_i_3_n_0}),
         .O(NLW_time_tlock_max1_carry_O_UNCONNECTED[3:0]),
-        .S({time_tlock_max1_carry_i_2_n_0,time_tlock_max1_carry_i_3_n_0,time_tlock_max1_carry_i_4_n_0,time_tlock_max1_carry_i_5_n_0}));
+        .S({time_tlock_max1_carry_i_4_n_0,time_tlock_max1_carry_i_5_n_0,time_tlock_max1_carry_i_6_n_0,time_tlock_max1_carry_i_7_n_0}));
   CARRY4 time_tlock_max1_carry__0
        (.CI(time_tlock_max1_carry_n_0),
         .CO({time_tlock_max1_carry__0_n_0,time_tlock_max1_carry__0_n_1,time_tlock_max1_carry__0_n_2,time_tlock_max1_carry__0_n_3}),
         .CYINIT(1'b0),
-        .DI({time_tlock_max1_carry__0_i_1_n_0,1'b0,time_tlock_max1_carry__0_i_2_n_0,time_tlock_max1_carry__0_i_3_n_0}),
+        .DI({time_tlock_max1_carry__0_i_1_n_0,time_tlock_max1_carry__0_i_2_n_0,time_out_counter_reg[11],1'b0}),
         .O(NLW_time_tlock_max1_carry__0_O_UNCONNECTED[3:0]),
-        .S({time_tlock_max1_carry__0_i_4_n_0,time_tlock_max1_carry__0_i_5_n_0,time_tlock_max1_carry__0_i_6_n_0,time_tlock_max1_carry__0_i_7_n_0}));
+        .S({time_tlock_max1_carry__0_i_3_n_0,time_tlock_max1_carry__0_i_4_n_0,time_tlock_max1_carry__0_i_5_n_0,time_tlock_max1_carry__0_i_6_n_0}));
   LUT2 #(
     .INIT(4'hE)) 
     time_tlock_max1_carry__0_i_1
-       (.I0(time_out_counter_reg[15]),
-        .I1(time_out_counter_reg[14]),
-        .O(time_tlock_max1_carry__0_i_1_n_0));
-  LUT2 #(
-    .INIT(4'hE)) 
-    time_tlock_max1_carry__0_i_2
-       (.I0(time_out_counter_reg[10]),
-        .I1(time_out_counter_reg[11]),
-        .O(time_tlock_max1_carry__0_i_2_n_0));
-  LUT2 #(
-    .INIT(4'hE)) 
-    time_tlock_max1_carry__0_i_3
-       (.I0(time_out_counter_reg[9]),
-        .I1(time_out_counter_reg[8]),
-        .O(time_tlock_max1_carry__0_i_3_n_0));
-  LUT2 #(
-    .INIT(4'h1)) 
-    time_tlock_max1_carry__0_i_4
        (.I0(time_out_counter_reg[14]),
         .I1(time_out_counter_reg[15]),
-        .O(time_tlock_max1_carry__0_i_4_n_0));
+        .O(time_tlock_max1_carry__0_i_1_n_0));
   LUT2 #(
     .INIT(4'h8)) 
-    time_tlock_max1_carry__0_i_5
+    time_tlock_max1_carry__0_i_2
+       (.I0(time_out_counter_reg[12]),
+        .I1(time_out_counter_reg[13]),
+        .O(time_tlock_max1_carry__0_i_2_n_0));
+  LUT2 #(
+    .INIT(4'h1)) 
+    time_tlock_max1_carry__0_i_3
+       (.I0(time_out_counter_reg[15]),
+        .I1(time_out_counter_reg[14]),
+        .O(time_tlock_max1_carry__0_i_3_n_0));
+  LUT2 #(
+    .INIT(4'h2)) 
+    time_tlock_max1_carry__0_i_4
        (.I0(time_out_counter_reg[13]),
         .I1(time_out_counter_reg[12]),
+        .O(time_tlock_max1_carry__0_i_4_n_0));
+  LUT2 #(
+    .INIT(4'h2)) 
+    time_tlock_max1_carry__0_i_5
+       (.I0(time_out_counter_reg[10]),
+        .I1(time_out_counter_reg[11]),
         .O(time_tlock_max1_carry__0_i_5_n_0));
   LUT2 #(
-    .INIT(4'h1)) 
+    .INIT(4'h8)) 
     time_tlock_max1_carry__0_i_6
-       (.I0(time_out_counter_reg[11]),
-        .I1(time_out_counter_reg[10]),
+       (.I0(time_out_counter_reg[9]),
+        .I1(time_out_counter_reg[8]),
         .O(time_tlock_max1_carry__0_i_6_n_0));
-  LUT2 #(
-    .INIT(4'h1)) 
-    time_tlock_max1_carry__0_i_7
-       (.I0(time_out_counter_reg[8]),
-        .I1(time_out_counter_reg[9]),
-        .O(time_tlock_max1_carry__0_i_7_n_0));
   CARRY4 time_tlock_max1_carry__1
        (.CI(time_tlock_max1_carry__0_n_0),
         .CO({NLW_time_tlock_max1_carry__1_CO_UNCONNECTED[3:2],time_tlock_max1,time_tlock_max1_carry__1_n_3}),
@@ -2468,38 +2391,51 @@ module GTP_Zynq_GTP_Zynq_RX_STARTUP_FSM
   LUT2 #(
     .INIT(4'hE)) 
     time_tlock_max1_carry_i_1
-       (.I0(time_out_counter_reg[0]),
-        .I1(time_out_counter_reg[1]),
+       (.I0(time_out_counter_reg[6]),
+        .I1(time_out_counter_reg[7]),
         .O(time_tlock_max1_carry_i_1_n_0));
   LUT2 #(
-    .INIT(4'h8)) 
+    .INIT(4'hE)) 
     time_tlock_max1_carry_i_2
-       (.I0(time_out_counter_reg[7]),
-        .I1(time_out_counter_reg[6]),
-        .O(time_tlock_max1_carry_i_2_n_0));
-  LUT2 #(
-    .INIT(4'h2)) 
-    time_tlock_max1_carry_i_3
-       (.I0(time_out_counter_reg[4]),
-        .I1(time_out_counter_reg[5]),
-        .O(time_tlock_max1_carry_i_3_n_0));
-  LUT2 #(
-    .INIT(4'h2)) 
-    time_tlock_max1_carry_i_4
        (.I0(time_out_counter_reg[2]),
         .I1(time_out_counter_reg[3]),
-        .O(time_tlock_max1_carry_i_4_n_0));
+        .O(time_tlock_max1_carry_i_2_n_0));
+  LUT2 #(
+    .INIT(4'hE)) 
+    time_tlock_max1_carry_i_3
+       (.I0(time_out_counter_reg[0]),
+        .I1(time_out_counter_reg[1]),
+        .O(time_tlock_max1_carry_i_3_n_0));
   LUT2 #(
     .INIT(4'h1)) 
+    time_tlock_max1_carry_i_4
+       (.I0(time_out_counter_reg[7]),
+        .I1(time_out_counter_reg[6]),
+        .O(time_tlock_max1_carry_i_4_n_0));
+  LUT2 #(
+    .INIT(4'h2)) 
     time_tlock_max1_carry_i_5
+       (.I0(time_out_counter_reg[4]),
+        .I1(time_out_counter_reg[5]),
+        .O(time_tlock_max1_carry_i_5_n_0));
+  LUT2 #(
+    .INIT(4'h1)) 
+    time_tlock_max1_carry_i_6
+       (.I0(time_out_counter_reg[3]),
+        .I1(time_out_counter_reg[2]),
+        .O(time_tlock_max1_carry_i_6_n_0));
+  LUT2 #(
+    .INIT(4'h1)) 
+    time_tlock_max1_carry_i_7
        (.I0(time_out_counter_reg[1]),
         .I1(time_out_counter_reg[0]),
-        .O(time_tlock_max1_carry_i_5_n_0));
+        .O(time_tlock_max1_carry_i_7_n_0));
+  (* SOFT_HLUTNM = "soft_lutpair30" *) 
   LUT3 #(
     .INIT(8'hF8)) 
     time_tlock_max_i_1
-       (.I0(time_tlock_max1),
-        .I1(check_tlock_max_reg_n_0),
+       (.I0(check_tlock_max_reg_n_0),
+        .I1(time_tlock_max1),
         .I2(time_tlock_max),
         .O(time_tlock_max_i_1_n_0));
   FDRE #(
@@ -2659,98 +2595,84 @@ module GTP_Zynq_GTP_Zynq_RX_STARTUP_FSM
         .D(\wait_bypass_count_reg[8]_i_1_n_6 ),
         .Q(wait_bypass_count_reg[9]),
         .R(clear));
-  (* SOFT_HLUTNM = "soft_lutpair33" *) 
+  (* SOFT_HLUTNM = "soft_lutpair31" *) 
   LUT1 #(
     .INIT(2'h1)) 
     \wait_time_cnt[0]_i_1 
        (.I0(wait_time_cnt_reg[0]),
         .O(wait_time_cnt0[0]));
-  (* SOFT_HLUTNM = "soft_lutpair33" *) 
+  (* SOFT_HLUTNM = "soft_lutpair31" *) 
   LUT2 #(
     .INIT(4'h9)) 
     \wait_time_cnt[1]_i_1 
-       (.I0(wait_time_cnt_reg[0]),
-        .I1(wait_time_cnt_reg[1]),
-        .O(\wait_time_cnt[1]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair32" *) 
+       (.I0(wait_time_cnt_reg[1]),
+        .I1(wait_time_cnt_reg[0]),
+        .O(wait_time_cnt0[1]));
   LUT3 #(
-    .INIT(8'hE1)) 
+    .INIT(8'hA9)) 
     \wait_time_cnt[2]_i_1 
-       (.I0(wait_time_cnt_reg[0]),
-        .I1(wait_time_cnt_reg[1]),
-        .I2(wait_time_cnt_reg[2]),
+       (.I0(wait_time_cnt_reg[2]),
+        .I1(wait_time_cnt_reg[0]),
+        .I2(wait_time_cnt_reg[1]),
         .O(wait_time_cnt0[2]));
-  (* SOFT_HLUTNM = "soft_lutpair28" *) 
+  (* SOFT_HLUTNM = "soft_lutpair24" *) 
   LUT4 #(
     .INIT(16'hAAA9)) 
     \wait_time_cnt[3]_i_1 
        (.I0(wait_time_cnt_reg[3]),
-        .I1(wait_time_cnt_reg[0]),
-        .I2(wait_time_cnt_reg[1]),
+        .I1(wait_time_cnt_reg[1]),
+        .I2(wait_time_cnt_reg[0]),
         .I3(wait_time_cnt_reg[2]),
         .O(wait_time_cnt0[3]));
-  (* SOFT_HLUTNM = "soft_lutpair23" *) 
+  (* SOFT_HLUTNM = "soft_lutpair24" *) 
   LUT5 #(
     .INIT(32'hAAAAAAA9)) 
     \wait_time_cnt[4]_i_1 
        (.I0(wait_time_cnt_reg[4]),
         .I1(wait_time_cnt_reg[2]),
-        .I2(wait_time_cnt_reg[3]),
-        .I3(wait_time_cnt_reg[0]),
-        .I4(wait_time_cnt_reg[1]),
+        .I2(wait_time_cnt_reg[0]),
+        .I3(wait_time_cnt_reg[1]),
+        .I4(wait_time_cnt_reg[3]),
         .O(wait_time_cnt0[4]));
   LUT6 #(
     .INIT(64'hAAAAAAAAAAAAAAA9)) 
     \wait_time_cnt[5]_i_1 
        (.I0(wait_time_cnt_reg[5]),
-        .I1(wait_time_cnt_reg[4]),
+        .I1(wait_time_cnt_reg[3]),
         .I2(wait_time_cnt_reg[1]),
         .I3(wait_time_cnt_reg[0]),
-        .I4(wait_time_cnt_reg[3]),
-        .I5(wait_time_cnt_reg[2]),
+        .I4(wait_time_cnt_reg[2]),
+        .I5(wait_time_cnt_reg[4]),
         .O(wait_time_cnt0[5]));
   LUT3 #(
-    .INIT(8'h04)) 
+    .INIT(8'h02)) 
     \wait_time_cnt[6]_i_1 
-       (.I0(rx_state[3]),
-        .I1(rx_state[0]),
-        .I2(rx_state[1]),
+       (.I0(rx_state[0]),
+        .I1(rx_state[1]),
+        .I2(rx_state[3]),
         .O(\wait_time_cnt[6]_i_1_n_0 ));
-  LUT6 #(
-    .INIT(64'hFFFFFFFFFFFFFFFE)) 
-    \wait_time_cnt[6]_i_2 
-       (.I0(wait_time_cnt_reg[1]),
-        .I1(\wait_time_cnt[6]_i_4_n_0 ),
-        .I2(wait_time_cnt_reg[5]),
-        .I3(wait_time_cnt_reg[4]),
-        .I4(wait_time_cnt_reg[6]),
-        .I5(wait_time_cnt_reg[0]),
-        .O(sel));
-  (* SOFT_HLUTNM = "soft_lutpair25" *) 
-  LUT4 #(
-    .INIT(16'hA9AA)) 
-    \wait_time_cnt[6]_i_3 
-       (.I0(wait_time_cnt_reg[6]),
-        .I1(wait_time_cnt_reg[4]),
-        .I2(wait_time_cnt_reg[5]),
-        .I3(\wait_time_cnt[6]_i_5_n_0 ),
-        .O(wait_time_cnt0[6]));
-  (* SOFT_HLUTNM = "soft_lutpair32" *) 
   LUT2 #(
     .INIT(4'hE)) 
+    \wait_time_cnt[6]_i_2 
+       (.I0(\wait_time_cnt[6]_i_4_n_0 ),
+        .I1(wait_time_cnt_reg[6]),
+        .O(sel));
+  LUT2 #(
+    .INIT(4'h9)) 
+    \wait_time_cnt[6]_i_3 
+       (.I0(wait_time_cnt_reg[6]),
+        .I1(\wait_time_cnt[6]_i_4_n_0 ),
+        .O(wait_time_cnt0[6]));
+  LUT6 #(
+    .INIT(64'hFFFFFFFFFFFFFFFE)) 
     \wait_time_cnt[6]_i_4 
-       (.I0(wait_time_cnt_reg[2]),
-        .I1(wait_time_cnt_reg[3]),
+       (.I0(wait_time_cnt_reg[4]),
+        .I1(wait_time_cnt_reg[2]),
+        .I2(wait_time_cnt_reg[0]),
+        .I3(wait_time_cnt_reg[1]),
+        .I4(wait_time_cnt_reg[3]),
+        .I5(wait_time_cnt_reg[5]),
         .O(\wait_time_cnt[6]_i_4_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair23" *) 
-  LUT4 #(
-    .INIT(16'h0001)) 
-    \wait_time_cnt[6]_i_5 
-       (.I0(wait_time_cnt_reg[1]),
-        .I1(wait_time_cnt_reg[0]),
-        .I2(wait_time_cnt_reg[3]),
-        .I3(wait_time_cnt_reg[2]),
-        .O(\wait_time_cnt[6]_i_5_n_0 ));
   FDRE \wait_time_cnt_reg[0] 
        (.C(sysclk_in),
         .CE(sel),
@@ -2760,7 +2682,7 @@ module GTP_Zynq_GTP_Zynq_RX_STARTUP_FSM
   FDRE \wait_time_cnt_reg[1] 
        (.C(sysclk_in),
         .CE(sel),
-        .D(\wait_time_cnt[1]_i_1_n_0 ),
+        .D(wait_time_cnt0[1]),
         .Q(wait_time_cnt_reg[1]),
         .R(\wait_time_cnt[6]_i_1_n_0 ));
   FDSE \wait_time_cnt_reg[2] 
@@ -2795,6 +2717,7 @@ module GTP_Zynq_GTP_Zynq_RX_STARTUP_FSM
         .S(\wait_time_cnt[6]_i_1_n_0 ));
 endmodule
 
+(* ORIG_REF_NAME = "GTP_Zynq_common" *) 
 module GTP_Zynq_GTP_Zynq_common
    (GT0_PLL0LOCK_OUT,
     GT0_PLL0OUTCLK_OUT,
@@ -2915,6 +2838,7 @@ module GTP_Zynq_GTP_Zynq_common
         .REFCLKOUTMONITOR1(NLW_gtpe2_common_i_REFCLKOUTMONITOR1_UNCONNECTED));
 endmodule
 
+(* ORIG_REF_NAME = "GTP_Zynq_common_reset" *) 
 module GTP_Zynq_GTP_Zynq_common_reset
    (GT0_PLL0RESET_OUT,
     sysclk_in,
@@ -2938,12 +2862,13 @@ module GTP_Zynq_GTP_Zynq_common_reset
   wire [7:0]init_wait_count_reg;
   wire init_wait_done;
   wire init_wait_done_i_1_n_0;
+  wire init_wait_done_i_2_n_0;
   wire [7:0]plusOp;
   wire state;
   wire state_i_1_n_0;
   wire sysclk_in;
 
-  (* SOFT_HLUTNM = "soft_lutpair39" *) 
+  (* SOFT_HLUTNM = "soft_lutpair36" *) 
   LUT3 #(
     .INIT(8'h74)) 
     COMMON_RESET_i_1
@@ -2965,7 +2890,7 @@ module GTP_Zynq_GTP_Zynq_common_reset
        (.I0(COMMON_RESET),
         .I1(AR),
         .O(GT0_PLL0RESET_OUT));
-  (* SOFT_HLUTNM = "soft_lutpair39" *) 
+  (* SOFT_HLUTNM = "soft_lutpair36" *) 
   LUT2 #(
     .INIT(4'hE)) 
     common_reset_asserted_i_1
@@ -2985,94 +2910,91 @@ module GTP_Zynq_GTP_Zynq_common_reset
     \init_wait_count[0]_i_1 
        (.I0(init_wait_count_reg[0]),
         .O(plusOp[0]));
-  (* SOFT_HLUTNM = "soft_lutpair38" *) 
+  (* SOFT_HLUTNM = "soft_lutpair34" *) 
   LUT2 #(
     .INIT(4'h6)) 
     \init_wait_count[1]_i_1 
        (.I0(init_wait_count_reg[0]),
         .I1(init_wait_count_reg[1]),
         .O(plusOp[1]));
-  (* SOFT_HLUTNM = "soft_lutpair37" *) 
+  (* SOFT_HLUTNM = "soft_lutpair34" *) 
   LUT3 #(
-    .INIT(8'h6A)) 
+    .INIT(8'h78)) 
     \init_wait_count[2]_i_1 
+       (.I0(init_wait_count_reg[1]),
+        .I1(init_wait_count_reg[0]),
+        .I2(init_wait_count_reg[2]),
+        .O(plusOp[2]));
+  (* SOFT_HLUTNM = "soft_lutpair33" *) 
+  LUT4 #(
+    .INIT(16'h7F80)) 
+    \init_wait_count[3]_i_1 
        (.I0(init_wait_count_reg[2]),
         .I1(init_wait_count_reg[0]),
         .I2(init_wait_count_reg[1]),
-        .O(plusOp[2]));
-  (* SOFT_HLUTNM = "soft_lutpair38" *) 
-  LUT4 #(
-    .INIT(16'h6AAA)) 
-    \init_wait_count[3]_i_1 
+        .I3(init_wait_count_reg[3]),
+        .O(plusOp[3]));
+  (* SOFT_HLUTNM = "soft_lutpair33" *) 
+  LUT5 #(
+    .INIT(32'h7FFF8000)) 
+    \init_wait_count[4]_i_1 
        (.I0(init_wait_count_reg[3]),
         .I1(init_wait_count_reg[1]),
         .I2(init_wait_count_reg[0]),
         .I3(init_wait_count_reg[2]),
-        .O(plusOp[3]));
-  (* SOFT_HLUTNM = "soft_lutpair35" *) 
-  LUT5 #(
-    .INIT(32'h7FFF8000)) 
-    \init_wait_count[4]_i_1 
-       (.I0(init_wait_count_reg[2]),
-        .I1(init_wait_count_reg[0]),
-        .I2(init_wait_count_reg[1]),
-        .I3(init_wait_count_reg[3]),
         .I4(init_wait_count_reg[4]),
         .O(plusOp[4]));
   LUT6 #(
-    .INIT(64'h6AAAAAAAAAAAAAAA)) 
+    .INIT(64'h7FFFFFFF80000000)) 
     \init_wait_count[5]_i_1 
-       (.I0(init_wait_count_reg[5]),
+       (.I0(init_wait_count_reg[4]),
         .I1(init_wait_count_reg[2]),
         .I2(init_wait_count_reg[0]),
         .I3(init_wait_count_reg[1]),
         .I4(init_wait_count_reg[3]),
-        .I5(init_wait_count_reg[4]),
+        .I5(init_wait_count_reg[5]),
         .O(plusOp[5]));
-  (* SOFT_HLUTNM = "soft_lutpair36" *) 
-  LUT3 #(
-    .INIT(8'h6A)) 
+  (* SOFT_HLUTNM = "soft_lutpair35" *) 
+  LUT2 #(
+    .INIT(4'h9)) 
     \init_wait_count[6]_i_1 
-       (.I0(init_wait_count_reg[6]),
-        .I1(\init_wait_count[7]_i_4_n_0 ),
-        .I2(init_wait_count_reg[5]),
+       (.I0(\init_wait_count[7]_i_4_n_0 ),
+        .I1(init_wait_count_reg[6]),
         .O(plusOp[6]));
-  LUT5 #(
-    .INIT(32'hFFFFEFFF)) 
+  LUT3 #(
+    .INIT(8'hFE)) 
     \init_wait_count[7]_i_1 
        (.I0(\init_wait_count[7]_i_3_n_0 ),
-        .I1(init_wait_count_reg[4]),
-        .I2(init_wait_count_reg[6]),
-        .I3(init_wait_count_reg[3]),
-        .I4(init_wait_count_reg[2]),
+        .I1(init_wait_count_reg[1]),
+        .I2(init_wait_count_reg[0]),
         .O(\init_wait_count[7]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair36" *) 
-  LUT4 #(
-    .INIT(16'h6AAA)) 
-    \init_wait_count[7]_i_2 
-       (.I0(init_wait_count_reg[7]),
-        .I1(init_wait_count_reg[5]),
-        .I2(\init_wait_count[7]_i_4_n_0 ),
-        .I3(init_wait_count_reg[6]),
-        .O(plusOp[7]));
-  (* SOFT_HLUTNM = "soft_lutpair37" *) 
-  LUT4 #(
-    .INIT(16'hFFFE)) 
-    \init_wait_count[7]_i_3 
-       (.I0(init_wait_count_reg[1]),
-        .I1(init_wait_count_reg[0]),
-        .I2(init_wait_count_reg[7]),
-        .I3(init_wait_count_reg[5]),
-        .O(\init_wait_count[7]_i_3_n_0 ));
   (* SOFT_HLUTNM = "soft_lutpair35" *) 
-  LUT5 #(
-    .INIT(32'h80000000)) 
+  LUT3 #(
+    .INIT(8'hD2)) 
+    \init_wait_count[7]_i_2 
+       (.I0(init_wait_count_reg[6]),
+        .I1(\init_wait_count[7]_i_4_n_0 ),
+        .I2(init_wait_count_reg[7]),
+        .O(plusOp[7]));
+  LUT6 #(
+    .INIT(64'hEFFFFFFFFFFFFFFF)) 
+    \init_wait_count[7]_i_3 
+       (.I0(init_wait_count_reg[6]),
+        .I1(init_wait_count_reg[7]),
+        .I2(init_wait_count_reg[4]),
+        .I3(init_wait_count_reg[5]),
+        .I4(init_wait_count_reg[3]),
+        .I5(init_wait_count_reg[2]),
+        .O(\init_wait_count[7]_i_3_n_0 ));
+  LUT6 #(
+    .INIT(64'h7FFFFFFFFFFFFFFF)) 
     \init_wait_count[7]_i_4 
        (.I0(init_wait_count_reg[4]),
-        .I1(init_wait_count_reg[3]),
-        .I2(init_wait_count_reg[1]),
-        .I3(init_wait_count_reg[0]),
-        .I4(init_wait_count_reg[2]),
+        .I1(init_wait_count_reg[2]),
+        .I2(init_wait_count_reg[0]),
+        .I3(init_wait_count_reg[1]),
+        .I4(init_wait_count_reg[3]),
+        .I5(init_wait_count_reg[5]),
         .O(\init_wait_count[7]_i_4_n_0 ));
   FDRE #(
     .INIT(1'b0)) 
@@ -3138,16 +3060,24 @@ module GTP_Zynq_GTP_Zynq_common_reset
         .D(plusOp[7]),
         .Q(init_wait_count_reg[7]),
         .R(1'b0));
-  LUT6 #(
-    .INIT(64'hAAAAAAAAABAAAAAA)) 
+  LUT4 #(
+    .INIT(16'hFF02)) 
     init_wait_done_i_1
-       (.I0(init_wait_done),
-        .I1(\init_wait_count[7]_i_3_n_0 ),
-        .I2(init_wait_count_reg[4]),
-        .I3(init_wait_count_reg[6]),
-        .I4(init_wait_count_reg[3]),
-        .I5(init_wait_count_reg[2]),
+       (.I0(init_wait_done_i_2_n_0),
+        .I1(init_wait_count_reg[0]),
+        .I2(init_wait_count_reg[1]),
+        .I3(init_wait_done),
         .O(init_wait_done_i_1_n_0));
+  LUT6 #(
+    .INIT(64'h0000000000008000)) 
+    init_wait_done_i_2
+       (.I0(init_wait_count_reg[4]),
+        .I1(init_wait_count_reg[5]),
+        .I2(init_wait_count_reg[2]),
+        .I3(init_wait_count_reg[3]),
+        .I4(init_wait_count_reg[7]),
+        .I5(init_wait_count_reg[6]),
+        .O(init_wait_done_i_2_n_0));
   FDRE #(
     .INIT(1'b0)) 
     init_wait_done_reg
@@ -3172,6 +3102,7 @@ module GTP_Zynq_GTP_Zynq_common_reset
         .R(SOFT_RESET_RX_IN));
 endmodule
 
+(* ORIG_REF_NAME = "GTP_Zynq_cpll_railing" *) 
 module GTP_Zynq_GTP_Zynq_cpll_railing
    (Q0_CLK1_GTREFCLK_OUT);
   input Q0_CLK1_GTREFCLK_OUT;
@@ -3185,6 +3116,7 @@ module GTP_Zynq_GTP_Zynq_cpll_railing
         .O(\use_bufh_cpll.refclk_buf_n_0 ));
 endmodule
 
+(* ORIG_REF_NAME = "GTP_Zynq_init" *) 
 module GTP_Zynq_GTP_Zynq_init
    (sysclk_in_0,
     gt0_eyescandataerror_out,
@@ -3294,10 +3226,10 @@ module GTP_Zynq_GTP_Zynq_init
   wire gt0_gtprxn_in;
   wire gt0_gtprxp_in;
   wire gt0_rx_cdrlock_counter;
+  wire \gt0_rx_cdrlock_counter[0]_i_3_n_0 ;
   wire \gt0_rx_cdrlock_counter[0]_i_4_n_0 ;
   wire \gt0_rx_cdrlock_counter[0]_i_5_n_0 ;
-  wire \gt0_rx_cdrlock_counter[0]_i_6_n_0 ;
-  wire [12:0]gt0_rx_cdrlock_counter_reg;
+  wire [11:0]gt0_rx_cdrlock_counter_reg;
   wire \gt0_rx_cdrlock_counter_reg[0]_i_2_n_0 ;
   wire \gt0_rx_cdrlock_counter_reg[0]_i_2_n_1 ;
   wire \gt0_rx_cdrlock_counter_reg[0]_i_2_n_2 ;
@@ -3306,7 +3238,6 @@ module GTP_Zynq_GTP_Zynq_init
   wire \gt0_rx_cdrlock_counter_reg[0]_i_2_n_5 ;
   wire \gt0_rx_cdrlock_counter_reg[0]_i_2_n_6 ;
   wire \gt0_rx_cdrlock_counter_reg[0]_i_2_n_7 ;
-  wire \gt0_rx_cdrlock_counter_reg[12]_i_1_n_7 ;
   wire \gt0_rx_cdrlock_counter_reg[4]_i_1_n_0 ;
   wire \gt0_rx_cdrlock_counter_reg[4]_i_1_n_1 ;
   wire \gt0_rx_cdrlock_counter_reg[4]_i_1_n_2 ;
@@ -3315,7 +3246,6 @@ module GTP_Zynq_GTP_Zynq_init
   wire \gt0_rx_cdrlock_counter_reg[4]_i_1_n_5 ;
   wire \gt0_rx_cdrlock_counter_reg[4]_i_1_n_6 ;
   wire \gt0_rx_cdrlock_counter_reg[4]_i_1_n_7 ;
-  wire \gt0_rx_cdrlock_counter_reg[8]_i_1_n_0 ;
   wire \gt0_rx_cdrlock_counter_reg[8]_i_1_n_1 ;
   wire \gt0_rx_cdrlock_counter_reg[8]_i_1_n_2 ;
   wire \gt0_rx_cdrlock_counter_reg[8]_i_1_n_3 ;
@@ -3323,7 +3253,8 @@ module GTP_Zynq_GTP_Zynq_init
   wire \gt0_rx_cdrlock_counter_reg[8]_i_1_n_5 ;
   wire \gt0_rx_cdrlock_counter_reg[8]_i_1_n_6 ;
   wire \gt0_rx_cdrlock_counter_reg[8]_i_1_n_7 ;
-  wire gt0_rx_cdrlocked;
+  wire gt0_rx_cdrlocked_i_2_n_0;
+  wire gt0_rx_cdrlocked_i_3_n_0;
   wire gt0_rx_cdrlocked_reg_n_0;
   wire gt0_rxbyteisaligned_out;
   wire gt0_rxbyterealign_out;
@@ -3345,8 +3276,7 @@ module GTP_Zynq_GTP_Zynq_init
   wire gtrxreset_i;
   wire sysclk_in;
   wire sysclk_in_0;
-  wire [3:0]\NLW_gt0_rx_cdrlock_counter_reg[12]_i_1_CO_UNCONNECTED ;
-  wire [3:1]\NLW_gt0_rx_cdrlock_counter_reg[12]_i_1_O_UNCONNECTED ;
+  wire [3:3]\NLW_gt0_rx_cdrlock_counter_reg[8]_i_1_CO_UNCONNECTED ;
 
   GTP_Zynq_GTP_Zynq_multi_gt GTP_Zynq_i
        (.AR(AR),
@@ -3386,43 +3316,37 @@ module GTP_Zynq_GTP_Zynq_init
         .gtrxreset_i(gtrxreset_i),
         .sysclk_in(sysclk_in),
         .sysclk_in_0(sysclk_in_0));
-  LUT1 #(
-    .INIT(2'h1)) 
-    \gt0_rx_cdrlock_counter[0]_i_1 
-       (.I0(gt0_rx_cdrlocked),
-        .O(gt0_rx_cdrlock_counter));
-  LUT5 #(
-    .INIT(32'h00000200)) 
-    \gt0_rx_cdrlock_counter[0]_i_3 
-       (.I0(\gt0_rx_cdrlock_counter[0]_i_5_n_0 ),
-        .I1(\gt0_rx_cdrlock_counter[0]_i_6_n_0 ),
-        .I2(gt0_rx_cdrlock_counter_reg[0]),
-        .I3(gt0_rx_cdrlock_counter_reg[1]),
-        .I4(gt0_rx_cdrlock_counter_reg[11]),
-        .O(gt0_rx_cdrlocked));
-  LUT1 #(
-    .INIT(2'h1)) 
-    \gt0_rx_cdrlock_counter[0]_i_4 
-       (.I0(gt0_rx_cdrlock_counter_reg[0]),
-        .O(\gt0_rx_cdrlock_counter[0]_i_4_n_0 ));
   LUT6 #(
-    .INIT(64'h0000000100000000)) 
-    \gt0_rx_cdrlock_counter[0]_i_5 
-       (.I0(gt0_rx_cdrlock_counter_reg[5]),
-        .I1(gt0_rx_cdrlock_counter_reg[4]),
-        .I2(gt0_rx_cdrlock_counter_reg[7]),
-        .I3(gt0_rx_cdrlock_counter_reg[8]),
-        .I4(gt0_rx_cdrlock_counter_reg[9]),
-        .I5(gt0_rx_cdrlock_counter_reg[12]),
-        .O(\gt0_rx_cdrlock_counter[0]_i_5_n_0 ));
-  LUT4 #(
-    .INIT(16'hEFFF)) 
-    \gt0_rx_cdrlock_counter[0]_i_6 
-       (.I0(gt0_rx_cdrlock_counter_reg[10]),
+    .INIT(64'hFFFFFFFFFFFFFFDF)) 
+    \gt0_rx_cdrlock_counter[0]_i_1 
+       (.I0(\gt0_rx_cdrlock_counter[0]_i_3_n_0 ),
         .I1(gt0_rx_cdrlock_counter_reg[3]),
-        .I2(gt0_rx_cdrlock_counter_reg[6]),
-        .I3(gt0_rx_cdrlock_counter_reg[2]),
-        .O(\gt0_rx_cdrlock_counter[0]_i_6_n_0 ));
+        .I2(gt0_rx_cdrlock_counter_reg[2]),
+        .I3(gt0_rx_cdrlock_counter_reg[5]),
+        .I4(gt0_rx_cdrlock_counter_reg[4]),
+        .I5(\gt0_rx_cdrlock_counter[0]_i_4_n_0 ),
+        .O(gt0_rx_cdrlock_counter));
+  LUT2 #(
+    .INIT(4'h2)) 
+    \gt0_rx_cdrlock_counter[0]_i_3 
+       (.I0(gt0_rx_cdrlock_counter_reg[0]),
+        .I1(gt0_rx_cdrlock_counter_reg[1]),
+        .O(\gt0_rx_cdrlock_counter[0]_i_3_n_0 ));
+  LUT6 #(
+    .INIT(64'hFFFFFFFFFFFFFF7F)) 
+    \gt0_rx_cdrlock_counter[0]_i_4 
+       (.I0(gt0_rx_cdrlock_counter_reg[10]),
+        .I1(gt0_rx_cdrlock_counter_reg[11]),
+        .I2(gt0_rx_cdrlock_counter_reg[8]),
+        .I3(gt0_rx_cdrlock_counter_reg[9]),
+        .I4(gt0_rx_cdrlock_counter_reg[7]),
+        .I5(gt0_rx_cdrlock_counter_reg[6]),
+        .O(\gt0_rx_cdrlock_counter[0]_i_4_n_0 ));
+  LUT1 #(
+    .INIT(2'h1)) 
+    \gt0_rx_cdrlock_counter[0]_i_5 
+       (.I0(gt0_rx_cdrlock_counter_reg[0]),
+        .O(\gt0_rx_cdrlock_counter[0]_i_5_n_0 ));
   FDRE #(
     .INIT(1'b0)) 
     \gt0_rx_cdrlock_counter_reg[0] 
@@ -3437,7 +3361,7 @@ module GTP_Zynq_GTP_Zynq_init
         .CYINIT(1'b0),
         .DI({1'b0,1'b0,1'b0,1'b1}),
         .O({\gt0_rx_cdrlock_counter_reg[0]_i_2_n_4 ,\gt0_rx_cdrlock_counter_reg[0]_i_2_n_5 ,\gt0_rx_cdrlock_counter_reg[0]_i_2_n_6 ,\gt0_rx_cdrlock_counter_reg[0]_i_2_n_7 }),
-        .S({gt0_rx_cdrlock_counter_reg[3:1],\gt0_rx_cdrlock_counter[0]_i_4_n_0 }));
+        .S({gt0_rx_cdrlock_counter_reg[3:1],\gt0_rx_cdrlock_counter[0]_i_5_n_0 }));
   FDRE #(
     .INIT(1'b0)) 
     \gt0_rx_cdrlock_counter_reg[10] 
@@ -3454,21 +3378,6 @@ module GTP_Zynq_GTP_Zynq_init
         .D(\gt0_rx_cdrlock_counter_reg[8]_i_1_n_4 ),
         .Q(gt0_rx_cdrlock_counter_reg[11]),
         .R(gtrxreset_i));
-  FDRE #(
-    .INIT(1'b0)) 
-    \gt0_rx_cdrlock_counter_reg[12] 
-       (.C(sysclk_in),
-        .CE(gt0_rx_cdrlock_counter),
-        .D(\gt0_rx_cdrlock_counter_reg[12]_i_1_n_7 ),
-        .Q(gt0_rx_cdrlock_counter_reg[12]),
-        .R(gtrxreset_i));
-  CARRY4 \gt0_rx_cdrlock_counter_reg[12]_i_1 
-       (.CI(\gt0_rx_cdrlock_counter_reg[8]_i_1_n_0 ),
-        .CO(\NLW_gt0_rx_cdrlock_counter_reg[12]_i_1_CO_UNCONNECTED [3:0]),
-        .CYINIT(1'b0),
-        .DI({1'b0,1'b0,1'b0,1'b0}),
-        .O({\NLW_gt0_rx_cdrlock_counter_reg[12]_i_1_O_UNCONNECTED [3:1],\gt0_rx_cdrlock_counter_reg[12]_i_1_n_7 }),
-        .S({1'b0,1'b0,1'b0,gt0_rx_cdrlock_counter_reg[12]}));
   FDRE #(
     .INIT(1'b0)) 
     \gt0_rx_cdrlock_counter_reg[1] 
@@ -3542,7 +3451,7 @@ module GTP_Zynq_GTP_Zynq_init
         .R(gtrxreset_i));
   CARRY4 \gt0_rx_cdrlock_counter_reg[8]_i_1 
        (.CI(\gt0_rx_cdrlock_counter_reg[4]_i_1_n_0 ),
-        .CO({\gt0_rx_cdrlock_counter_reg[8]_i_1_n_0 ,\gt0_rx_cdrlock_counter_reg[8]_i_1_n_1 ,\gt0_rx_cdrlock_counter_reg[8]_i_1_n_2 ,\gt0_rx_cdrlock_counter_reg[8]_i_1_n_3 }),
+        .CO({\NLW_gt0_rx_cdrlock_counter_reg[8]_i_1_CO_UNCONNECTED [3],\gt0_rx_cdrlock_counter_reg[8]_i_1_n_1 ,\gt0_rx_cdrlock_counter_reg[8]_i_1_n_2 ,\gt0_rx_cdrlock_counter_reg[8]_i_1_n_3 }),
         .CYINIT(1'b0),
         .DI({1'b0,1'b0,1'b0,1'b0}),
         .O({\gt0_rx_cdrlock_counter_reg[8]_i_1_n_4 ,\gt0_rx_cdrlock_counter_reg[8]_i_1_n_5 ,\gt0_rx_cdrlock_counter_reg[8]_i_1_n_6 ,\gt0_rx_cdrlock_counter_reg[8]_i_1_n_7 }),
@@ -3555,6 +3464,26 @@ module GTP_Zynq_GTP_Zynq_init
         .D(\gt0_rx_cdrlock_counter_reg[8]_i_1_n_6 ),
         .Q(gt0_rx_cdrlock_counter_reg[9]),
         .R(gtrxreset_i));
+  LUT6 #(
+    .INIT(64'h0000000000000020)) 
+    gt0_rx_cdrlocked_i_2
+       (.I0(gt0_rx_cdrlock_counter_reg[2]),
+        .I1(gt0_rx_cdrlock_counter_reg[3]),
+        .I2(gt0_rx_cdrlock_counter_reg[0]),
+        .I3(gt0_rx_cdrlock_counter_reg[1]),
+        .I4(gt0_rx_cdrlock_counter_reg[5]),
+        .I5(gt0_rx_cdrlock_counter_reg[4]),
+        .O(gt0_rx_cdrlocked_i_2_n_0));
+  LUT6 #(
+    .INIT(64'h0002000000000000)) 
+    gt0_rx_cdrlocked_i_3
+       (.I0(gt0_rx_cdrlock_counter_reg[8]),
+        .I1(gt0_rx_cdrlock_counter_reg[9]),
+        .I2(gt0_rx_cdrlock_counter_reg[6]),
+        .I3(gt0_rx_cdrlock_counter_reg[7]),
+        .I4(gt0_rx_cdrlock_counter_reg[11]),
+        .I5(gt0_rx_cdrlock_counter_reg[10]),
+        .O(gt0_rx_cdrlocked_i_3_n_0));
   FDRE gt0_rx_cdrlocked_reg
        (.C(sysclk_in),
         .CE(1'b1),
@@ -3570,15 +3499,17 @@ module GTP_Zynq_GTP_Zynq_init
         .GT0_RXUSRCLK_OUT(GT0_RXUSRCLK_OUT),
         .GT0_RX_FSM_RESET_DONE_OUT(GT0_RX_FSM_RESET_DONE_OUT),
         .SOFT_RESET_RX_IN(SOFT_RESET_RX_IN),
-        .gt0_rx_cdrlocked(gt0_rx_cdrlocked),
         .gt0_rx_cdrlocked_reg(gt0_rxresetfsm_i_n_4),
         .gt0_rx_cdrlocked_reg_0(gt0_rx_cdrlocked_reg_n_0),
+        .gt0_rx_cdrlocked_reg_1(gt0_rx_cdrlocked_i_2_n_0),
+        .gt0_rx_cdrlocked_reg_2(gt0_rx_cdrlocked_i_3_n_0),
         .gt0_rxresetdone_out(gt0_rxresetdone_out),
         .gt0_rxuserrdy_t(gt0_rxuserrdy_t),
         .gtrxreset_i(gtrxreset_i),
         .sysclk_in(sysclk_in));
 endmodule
 
+(* ORIG_REF_NAME = "GTP_Zynq_multi_gt" *) 
 module GTP_Zynq_GTP_Zynq_multi_gt
    (sysclk_in_0,
     gt0_eyescandataerror_out,
@@ -3733,7 +3664,8 @@ module GTP_Zynq_GTP_Zynq_multi_gt
         .sysclk_in_0(sysclk_in_0));
 endmodule
 
-(* EXAMPLE_SIM_GTRESET_SPEEDUP = "FALSE" *) (* STABLE_CLOCK_PERIOD = "8" *) (* downgradeipidentifiedwarnings = "yes" *) 
+(* EXAMPLE_SIM_GTRESET_SPEEDUP = "FALSE" *) (* ORIG_REF_NAME = "GTP_Zynq_support" *) (* STABLE_CLOCK_PERIOD = "10" *) 
+(* downgradeipidentifiedwarnings = "yes" *) 
 module GTP_Zynq_GTP_Zynq_support
    (SOFT_RESET_RX_IN,
     DONT_RESET_ON_DATA_ERROR_IN,
@@ -3947,43 +3879,52 @@ module GTP_Zynq_GTP_Zynq_support
         .Q0_CLK1_GTREFCLK_PAD_P_IN(Q0_CLK1_GTREFCLK_PAD_P_IN));
 endmodule
 
+(* ORIG_REF_NAME = "GTP_Zynq_sync_block" *) 
 module GTP_Zynq_GTP_Zynq_sync_block
-   (\FSM_sequential_rx_state_reg[0] ,
+   (E,
+    \FSM_sequential_rx_state_reg[1] ,
     reset_time_out_reg,
-    reset_time_out_reg_0,
     Q,
+    \FSM_sequential_rx_state_reg[0] ,
     \FSM_sequential_rx_state_reg[0]_0 ,
+    reset_time_out_reg_0,
     \FSM_sequential_rx_state_reg[0]_1 ,
     reset_time_out_reg_1,
-    \FSM_sequential_rx_state[3]_i_4_0 ,
+    \FSM_sequential_rx_state_reg[0]_2 ,
+    \FSM_sequential_rx_state_reg[0]_3 ,
+    \FSM_sequential_rx_state_reg[0]_4 ,
+    rxresetdone_s3,
     reset_time_out_reg_2,
-    \FSM_sequential_rx_state[3]_i_4_1 ,
-    reset_time_out_reg_3,
-    reset_time_out_reg_4,
     GT0_PLL0LOCK_OUT,
     sysclk_in);
-  output \FSM_sequential_rx_state_reg[0] ;
-  output reset_time_out_reg;
-  input reset_time_out_reg_0;
+  output [0:0]E;
+  output \FSM_sequential_rx_state_reg[1] ;
+  input reset_time_out_reg;
   input [3:0]Q;
+  input \FSM_sequential_rx_state_reg[0] ;
   input \FSM_sequential_rx_state_reg[0]_0 ;
+  input reset_time_out_reg_0;
   input \FSM_sequential_rx_state_reg[0]_1 ;
   input reset_time_out_reg_1;
-  input \FSM_sequential_rx_state[3]_i_4_0 ;
+  input \FSM_sequential_rx_state_reg[0]_2 ;
+  input \FSM_sequential_rx_state_reg[0]_3 ;
+  input \FSM_sequential_rx_state_reg[0]_4 ;
+  input rxresetdone_s3;
   input reset_time_out_reg_2;
-  input \FSM_sequential_rx_state[3]_i_4_1 ;
-  input reset_time_out_reg_3;
-  input reset_time_out_reg_4;
   input GT0_PLL0LOCK_OUT;
   input sysclk_in;
 
-  wire \FSM_sequential_rx_state[3]_i_12_n_0 ;
-  wire \FSM_sequential_rx_state[3]_i_4_0 ;
-  wire \FSM_sequential_rx_state[3]_i_4_1 ;
-  wire \FSM_sequential_rx_state[3]_i_9_n_0 ;
+  wire [0:0]E;
+  wire \FSM_sequential_rx_state[3]_i_13_n_0 ;
+  wire \FSM_sequential_rx_state[3]_i_3_n_0 ;
+  wire \FSM_sequential_rx_state[3]_i_7_n_0 ;
   wire \FSM_sequential_rx_state_reg[0] ;
   wire \FSM_sequential_rx_state_reg[0]_0 ;
   wire \FSM_sequential_rx_state_reg[0]_1 ;
+  wire \FSM_sequential_rx_state_reg[0]_2 ;
+  wire \FSM_sequential_rx_state_reg[0]_3 ;
+  wire \FSM_sequential_rx_state_reg[0]_4 ;
+  wire \FSM_sequential_rx_state_reg[1] ;
   wire GT0_PLL0LOCK_OUT;
   wire [3:0]Q;
   wire data_sync1;
@@ -3993,41 +3934,52 @@ module GTP_Zynq_GTP_Zynq_sync_block
   wire data_sync5;
   wire pll0lock_sync;
   wire reset_time_out_i_2_n_0;
+  wire reset_time_out_i_3_n_0;
   wire reset_time_out_i_4_n_0;
-  wire reset_time_out_i_6_n_0;
   wire reset_time_out_reg;
   wire reset_time_out_reg_0;
   wire reset_time_out_reg_1;
   wire reset_time_out_reg_2;
-  wire reset_time_out_reg_3;
-  wire reset_time_out_reg_4;
+  wire rxresetdone_s3;
   wire sysclk_in;
 
-  (* SOFT_HLUTNM = "soft_lutpair16" *) 
-  LUT4 #(
-    .INIT(16'h2F20)) 
-    \FSM_sequential_rx_state[3]_i_12 
-       (.I0(reset_time_out_reg_1),
-        .I1(pll0lock_sync),
-        .I2(Q[0]),
-        .I3(\FSM_sequential_rx_state[3]_i_4_0 ),
-        .O(\FSM_sequential_rx_state[3]_i_12_n_0 ));
   LUT6 #(
-    .INIT(64'h88B8FFFF88B80000)) 
-    \FSM_sequential_rx_state[3]_i_4 
-       (.I0(\FSM_sequential_rx_state[3]_i_9_n_0 ),
-        .I1(Q[0]),
+    .INIT(64'hFFFFFFFFFFFFFFFE)) 
+    \FSM_sequential_rx_state[3]_i_1 
+       (.I0(\FSM_sequential_rx_state[3]_i_3_n_0 ),
+        .I1(\FSM_sequential_rx_state_reg[0] ),
         .I2(\FSM_sequential_rx_state_reg[0]_0 ),
-        .I3(\FSM_sequential_rx_state_reg[0]_1 ),
-        .I4(Q[1]),
-        .I5(\FSM_sequential_rx_state[3]_i_12_n_0 ),
-        .O(\FSM_sequential_rx_state_reg[0] ));
+        .I3(reset_time_out_reg_0),
+        .I4(\FSM_sequential_rx_state[3]_i_7_n_0 ),
+        .I5(\FSM_sequential_rx_state_reg[0]_1 ),
+        .O(E));
+  (* SOFT_HLUTNM = "soft_lutpair16" *) 
   LUT2 #(
-    .INIT(4'hE)) 
-    \FSM_sequential_rx_state[3]_i_9 
-       (.I0(pll0lock_sync),
-        .I1(\FSM_sequential_rx_state[3]_i_4_1 ),
-        .O(\FSM_sequential_rx_state[3]_i_9_n_0 ));
+    .INIT(4'h2)) 
+    \FSM_sequential_rx_state[3]_i_13 
+       (.I0(reset_time_out_reg_2),
+        .I1(pll0lock_sync),
+        .O(\FSM_sequential_rx_state[3]_i_13_n_0 ));
+  LUT6 #(
+    .INIT(64'hFFFF000400040004)) 
+    \FSM_sequential_rx_state[3]_i_3 
+       (.I0(reset_time_out_reg_1),
+        .I1(\FSM_sequential_rx_state_reg[0]_2 ),
+        .I2(\FSM_sequential_rx_state_reg[0]_3 ),
+        .I3(Q[3]),
+        .I4(\FSM_sequential_rx_state_reg[0]_4 ),
+        .I5(\FSM_sequential_rx_state[3]_i_13_n_0 ),
+        .O(\FSM_sequential_rx_state[3]_i_3_n_0 ));
+  LUT6 #(
+    .INIT(64'h5410000000000000)) 
+    \FSM_sequential_rx_state[3]_i_7 
+       (.I0(Q[3]),
+        .I1(Q[2]),
+        .I2(pll0lock_sync),
+        .I3(rxresetdone_s3),
+        .I4(Q[1]),
+        .I5(Q[0]),
+        .O(\FSM_sequential_rx_state[3]_i_7_n_0 ));
   (* ASYNC_REG *) 
   (* SHREG_EXTRACT = "no" *) 
   (* XILINX_LEGACY_PRIM = "FD" *) 
@@ -4100,41 +4052,44 @@ module GTP_Zynq_GTP_Zynq_sync_block
         .D(data_sync5),
         .Q(pll0lock_sync),
         .R(1'b0));
-  LUT4 #(
-    .INIT(16'hEFE0)) 
+  LUT6 #(
+    .INIT(64'hFEEEFFFFFEEE0000)) 
     reset_time_out_i_1
-       (.I0(reset_time_out_i_2_n_0),
-        .I1(reset_time_out_reg_3),
-        .I2(reset_time_out_i_4_n_0),
-        .I3(reset_time_out_reg_4),
-        .O(reset_time_out_reg));
-  LUT6 #(
-    .INIT(64'h00000000FFA400A4)) 
-    reset_time_out_i_2
-       (.I0(pll0lock_sync),
-        .I1(reset_time_out_reg_1),
-        .I2(Q[1]),
-        .I3(Q[2]),
-        .I4(reset_time_out_reg_2),
-        .I5(Q[3]),
-        .O(reset_time_out_i_2_n_0));
-  LUT6 #(
-    .INIT(64'h303032323C3CFCCC)) 
-    reset_time_out_i_4
        (.I0(reset_time_out_reg_0),
+        .I1(reset_time_out_i_2_n_0),
+        .I2(Q[1]),
+        .I3(reset_time_out_i_3_n_0),
+        .I4(reset_time_out_i_4_n_0),
+        .I5(reset_time_out_reg_1),
+        .O(\FSM_sequential_rx_state_reg[1] ));
+  (* SOFT_HLUTNM = "soft_lutpair16" *) 
+  LUT5 #(
+    .INIT(32'h00000004)) 
+    reset_time_out_i_2
+       (.I0(Q[1]),
+        .I1(reset_time_out_reg_2),
+        .I2(pll0lock_sync),
+        .I3(Q[3]),
+        .I4(Q[2]),
+        .O(reset_time_out_i_2_n_0));
+  LUT4 #(
+    .INIT(16'h00AC)) 
+    reset_time_out_i_3
+       (.I0(rxresetdone_s3),
+        .I1(pll0lock_sync),
+        .I2(Q[2]),
+        .I3(Q[3]),
+        .O(reset_time_out_i_3_n_0));
+  LUT6 #(
+    .INIT(64'h330233023FCC3CCC)) 
+    reset_time_out_i_4
+       (.I0(reset_time_out_reg),
         .I1(Q[3]),
-        .I2(Q[0]),
-        .I3(reset_time_out_i_6_n_0),
-        .I4(Q[1]),
+        .I2(Q[1]),
+        .I3(Q[0]),
+        .I4(\FSM_sequential_rx_state[3]_i_13_n_0 ),
         .I5(Q[2]),
         .O(reset_time_out_i_4_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair16" *) 
-  LUT2 #(
-    .INIT(4'h2)) 
-    reset_time_out_i_6
-       (.I0(reset_time_out_reg_1),
-        .I1(pll0lock_sync),
-        .O(reset_time_out_i_6_n_0));
 endmodule
 
 (* ORIG_REF_NAME = "GTP_Zynq_sync_block" *) 
@@ -4232,49 +4187,54 @@ endmodule
 (* ORIG_REF_NAME = "GTP_Zynq_sync_block" *) 
 module GTP_Zynq_GTP_Zynq_sync_block_1
    (D,
-    E,
-    data_sync_reg6_0,
+    mmcm_lock_reclocked_reg,
     \FSM_sequential_rx_state_reg[3] ,
-    Q,
-    \FSM_sequential_rx_state_reg[1] ,
-    time_out_wait_bypass_s3,
-    \FSM_sequential_rx_state_reg[3]_0 ,
-    \FSM_sequential_rx_state_reg[3]_1 ,
     \FSM_sequential_rx_state_reg[0] ,
-    \FSM_sequential_rx_state_reg[0]_0 ,
+    \FSM_sequential_rx_state_reg[1] ,
+    Q,
+    time_tlock_max,
     rx_fsm_reset_done_int_reg,
     rx_fsm_reset_done_int_reg_0,
-    DONT_RESET_ON_DATA_ERROR_IN,
+    mmcm_lock_reclocked,
+    reset_time_out_reg,
+    \FSM_sequential_rx_state_reg[0]_0 ,
+    \FSM_sequential_rx_state[3]_i_6_0 ,
     \FSM_sequential_rx_state_reg[0]_1 ,
+    DONT_RESET_ON_DATA_ERROR_IN,
     \FSM_sequential_rx_state_reg[0]_2 ,
+    \FSM_sequential_rx_state_reg[3]_0 ,
+    time_out_wait_bypass_s3,
     GT0_RX_FSM_RESET_DONE_OUT,
     GT0_DATA_VALID_IN,
     sysclk_in);
   output [2:0]D;
-  output [0:0]E;
-  output data_sync_reg6_0;
+  output mmcm_lock_reclocked_reg;
   output \FSM_sequential_rx_state_reg[3] ;
-  input [3:0]Q;
+  output \FSM_sequential_rx_state_reg[0] ;
   input \FSM_sequential_rx_state_reg[1] ;
-  input time_out_wait_bypass_s3;
-  input \FSM_sequential_rx_state_reg[3]_0 ;
-  input \FSM_sequential_rx_state_reg[3]_1 ;
-  input \FSM_sequential_rx_state_reg[0] ;
-  input \FSM_sequential_rx_state_reg[0]_0 ;
+  input [3:0]Q;
+  input time_tlock_max;
   input rx_fsm_reset_done_int_reg;
   input rx_fsm_reset_done_int_reg_0;
-  input DONT_RESET_ON_DATA_ERROR_IN;
+  input mmcm_lock_reclocked;
+  input reset_time_out_reg;
+  input \FSM_sequential_rx_state_reg[0]_0 ;
+  input \FSM_sequential_rx_state[3]_i_6_0 ;
   input \FSM_sequential_rx_state_reg[0]_1 ;
+  input DONT_RESET_ON_DATA_ERROR_IN;
   input \FSM_sequential_rx_state_reg[0]_2 ;
+  input \FSM_sequential_rx_state_reg[3]_0 ;
+  input time_out_wait_bypass_s3;
   input GT0_RX_FSM_RESET_DONE_OUT;
   input GT0_DATA_VALID_IN;
   input sysclk_in;
 
   wire [2:0]D;
   wire DONT_RESET_ON_DATA_ERROR_IN;
-  wire [0:0]E;
-  wire \FSM_sequential_rx_state[3]_i_3_n_0 ;
-  wire \FSM_sequential_rx_state[3]_i_7_n_0 ;
+  wire \FSM_sequential_rx_state[1]_i_3_n_0 ;
+  wire \FSM_sequential_rx_state[3]_i_10_n_0 ;
+  wire \FSM_sequential_rx_state[3]_i_14_n_0 ;
+  wire \FSM_sequential_rx_state[3]_i_6_0 ;
   wire \FSM_sequential_rx_state_reg[0] ;
   wire \FSM_sequential_rx_state_reg[0]_0 ;
   wire \FSM_sequential_rx_state_reg[0]_1 ;
@@ -4282,7 +4242,6 @@ module GTP_Zynq_GTP_Zynq_sync_block_1
   wire \FSM_sequential_rx_state_reg[1] ;
   wire \FSM_sequential_rx_state_reg[3] ;
   wire \FSM_sequential_rx_state_reg[3]_0 ;
-  wire \FSM_sequential_rx_state_reg[3]_1 ;
   wire GT0_DATA_VALID_IN;
   wire GT0_RX_FSM_RESET_DONE_OUT;
   wire [3:0]Q;
@@ -4291,74 +4250,94 @@ module GTP_Zynq_GTP_Zynq_sync_block_1
   wire data_sync3;
   wire data_sync4;
   wire data_sync5;
-  wire data_sync_reg6_0;
   wire data_valid_sync;
-  wire rx_fsm_reset_done_int;
+  wire mmcm_lock_reclocked;
+  wire mmcm_lock_reclocked_reg;
+  wire reset_time_out_reg;
   wire rx_fsm_reset_done_int_i_3_n_0;
   wire rx_fsm_reset_done_int_i_4_n_0;
   wire rx_fsm_reset_done_int_reg;
   wire rx_fsm_reset_done_int_reg_0;
   wire sysclk_in;
   wire time_out_wait_bypass_s3;
+  wire time_tlock_max;
 
-  LUT4 #(
-    .INIT(16'hBFB0)) 
+  LUT5 #(
+    .INIT(32'hFFEFEFEF)) 
     \FSM_sequential_rx_state[0]_i_1 
-       (.I0(Q[1]),
-        .I1(\FSM_sequential_rx_state[3]_i_7_n_0 ),
-        .I2(Q[3]),
-        .I3(\FSM_sequential_rx_state_reg[0]_2 ),
+       (.I0(\FSM_sequential_rx_state_reg[0]_0 ),
+        .I1(\FSM_sequential_rx_state_reg[3] ),
+        .I2(Q[0]),
+        .I3(Q[1]),
+        .I4(Q[3]),
         .O(D[0]));
   LUT6 #(
-    .INIT(64'h008B338800BB3388)) 
+    .INIT(64'hBAAEAAAEBABEAABE)) 
     \FSM_sequential_rx_state[1]_i_1 
-       (.I0(\FSM_sequential_rx_state[3]_i_7_n_0 ),
-        .I1(Q[3]),
-        .I2(Q[2]),
-        .I3(Q[1]),
-        .I4(Q[0]),
-        .I5(\FSM_sequential_rx_state_reg[1] ),
-        .O(D[1]));
-  LUT6 #(
-    .INIT(64'hAFA03F3FAFA03030)) 
-    \FSM_sequential_rx_state[3]_i_1 
-       (.I0(\FSM_sequential_rx_state[3]_i_3_n_0 ),
-        .I1(data_valid_sync),
-        .I2(Q[3]),
-        .I3(\FSM_sequential_rx_state_reg[0] ),
-        .I4(\FSM_sequential_rx_state_reg[3]_1 ),
-        .I5(\FSM_sequential_rx_state_reg[0]_0 ),
-        .O(E));
-  LUT6 #(
-    .INIT(64'hAB00AB00FFFFFF00)) 
-    \FSM_sequential_rx_state[3]_i_2 
-       (.I0(\FSM_sequential_rx_state[3]_i_7_n_0 ),
-        .I1(time_out_wait_bypass_s3),
+       (.I0(\FSM_sequential_rx_state_reg[1] ),
+        .I1(Q[1]),
         .I2(Q[0]),
         .I3(Q[3]),
-        .I4(\FSM_sequential_rx_state_reg[3]_0 ),
-        .I5(\FSM_sequential_rx_state_reg[3]_1 ),
+        .I4(\FSM_sequential_rx_state[1]_i_3_n_0 ),
+        .I5(time_tlock_max),
+        .O(D[1]));
+  (* SOFT_HLUTNM = "soft_lutpair18" *) 
+  LUT3 #(
+    .INIT(8'hFD)) 
+    \FSM_sequential_rx_state[1]_i_3 
+       (.I0(\FSM_sequential_rx_state_reg[0]_2 ),
+        .I1(DONT_RESET_ON_DATA_ERROR_IN),
+        .I2(data_valid_sync),
+        .O(\FSM_sequential_rx_state[1]_i_3_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair18" *) 
+  LUT4 #(
+    .INIT(16'hFFEF)) 
+    \FSM_sequential_rx_state[3]_i_10 
+       (.I0(data_valid_sync),
+        .I1(DONT_RESET_ON_DATA_ERROR_IN),
+        .I2(\FSM_sequential_rx_state_reg[0]_2 ),
+        .I3(\FSM_sequential_rx_state_reg[0]_1 ),
+        .O(\FSM_sequential_rx_state[3]_i_10_n_0 ));
+  LUT6 #(
+    .INIT(64'h000000008F888888)) 
+    \FSM_sequential_rx_state[3]_i_14 
+       (.I0(Q[3]),
+        .I1(data_valid_sync),
+        .I2(Q[0]),
+        .I3(Q[2]),
+        .I4(\FSM_sequential_rx_state[3]_i_6_0 ),
+        .I5(Q[1]),
+        .O(\FSM_sequential_rx_state[3]_i_14_n_0 ));
+  LUT6 #(
+    .INIT(64'hFFFFAAAAEAEFAAAA)) 
+    \FSM_sequential_rx_state[3]_i_2 
+       (.I0(\FSM_sequential_rx_state_reg[3]_0 ),
+        .I1(\FSM_sequential_rx_state[3]_i_10_n_0 ),
+        .I2(Q[0]),
+        .I3(time_out_wait_bypass_s3),
+        .I4(Q[3]),
+        .I5(Q[1]),
         .O(D[2]));
   (* SOFT_HLUTNM = "soft_lutpair17" *) 
   LUT5 #(
-    .INIT(32'hFF55FF75)) 
-    \FSM_sequential_rx_state[3]_i_3 
-       (.I0(Q[0]),
-        .I1(DONT_RESET_ON_DATA_ERROR_IN),
-        .I2(\FSM_sequential_rx_state_reg[0]_1 ),
-        .I3(data_valid_sync),
-        .I4(rx_fsm_reset_done_int_reg),
-        .O(\FSM_sequential_rx_state[3]_i_3_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair17" *) 
-  LUT5 #(
-    .INIT(32'hAAAAA8AA)) 
-    \FSM_sequential_rx_state[3]_i_7 
-       (.I0(Q[0]),
-        .I1(rx_fsm_reset_done_int_reg),
-        .I2(data_valid_sync),
-        .I3(\FSM_sequential_rx_state_reg[0]_1 ),
-        .I4(DONT_RESET_ON_DATA_ERROR_IN),
-        .O(\FSM_sequential_rx_state[3]_i_7_n_0 ));
+    .INIT(32'h00000020)) 
+    \FSM_sequential_rx_state[3]_i_5 
+       (.I0(Q[3]),
+        .I1(\FSM_sequential_rx_state_reg[0]_1 ),
+        .I2(\FSM_sequential_rx_state_reg[0]_2 ),
+        .I3(DONT_RESET_ON_DATA_ERROR_IN),
+        .I4(data_valid_sync),
+        .O(\FSM_sequential_rx_state_reg[3] ));
+  LUT6 #(
+    .INIT(64'hAAAAAAEAFFAAAAEA)) 
+    \FSM_sequential_rx_state[3]_i_6 
+       (.I0(\FSM_sequential_rx_state[3]_i_14_n_0 ),
+        .I1(mmcm_lock_reclocked),
+        .I2(Q[2]),
+        .I3(Q[3]),
+        .I4(reset_time_out_reg),
+        .I5(data_valid_sync),
+        .O(mmcm_lock_reclocked_reg));
   (* ASYNC_REG *) 
   (* SHREG_EXTRACT = "no" *) 
   (* XILINX_LEGACY_PRIM = "FD" *) 
@@ -4431,49 +4410,34 @@ module GTP_Zynq_GTP_Zynq_sync_block_1
         .D(data_sync5),
         .Q(data_valid_sync),
         .R(1'b0));
-  LUT4 #(
-    .INIT(16'h484C)) 
-    reset_time_out_i_3
-       (.I0(data_valid_sync),
-        .I1(Q[3]),
-        .I2(Q[1]),
-        .I3(Q[0]),
-        .O(data_sync_reg6_0));
-  LUT5 #(
-    .INIT(32'hFFBF0080)) 
-    rx_fsm_reset_done_int_i_1
-       (.I0(rx_fsm_reset_done_int),
-        .I1(rx_fsm_reset_done_int_i_3_n_0),
-        .I2(Q[3]),
-        .I3(Q[2]),
-        .I4(GT0_RX_FSM_RESET_DONE_OUT),
-        .O(\FSM_sequential_rx_state_reg[3] ));
-  LUT5 #(
-    .INIT(32'h00100000)) 
-    rx_fsm_reset_done_int_i_2
-       (.I0(Q[0]),
-        .I1(Q[2]),
-        .I2(rx_fsm_reset_done_int_reg_0),
-        .I3(rx_fsm_reset_done_int_reg),
-        .I4(data_valid_sync),
-        .O(rx_fsm_reset_done_int));
   LUT6 #(
-    .INIT(64'h0000757500FF0000)) 
-    rx_fsm_reset_done_int_i_3
-       (.I0(data_valid_sync),
-        .I1(rx_fsm_reset_done_int_reg),
-        .I2(rx_fsm_reset_done_int_reg_0),
-        .I3(rx_fsm_reset_done_int_i_4_n_0),
-        .I4(Q[0]),
-        .I5(Q[1]),
-        .O(rx_fsm_reset_done_int_i_3_n_0));
-  LUT4 #(
-    .INIT(16'h3323)) 
-    rx_fsm_reset_done_int_i_4
-       (.I0(rx_fsm_reset_done_int_reg),
+    .INIT(64'h0400FFFF04000000)) 
+    rx_fsm_reset_done_int_i_1
+       (.I0(Q[0]),
         .I1(data_valid_sync),
-        .I2(\FSM_sequential_rx_state_reg[0]_1 ),
-        .I3(DONT_RESET_ON_DATA_ERROR_IN),
+        .I2(Q[2]),
+        .I3(rx_fsm_reset_done_int_reg),
+        .I4(rx_fsm_reset_done_int_i_3_n_0),
+        .I5(GT0_RX_FSM_RESET_DONE_OUT),
+        .O(\FSM_sequential_rx_state_reg[0] ));
+  LUT6 #(
+    .INIT(64'h00CFAA0000000000)) 
+    rx_fsm_reset_done_int_i_3
+       (.I0(rx_fsm_reset_done_int_i_4_n_0),
+        .I1(rx_fsm_reset_done_int_reg),
+        .I2(data_valid_sync),
+        .I3(Q[0]),
+        .I4(Q[1]),
+        .I5(rx_fsm_reset_done_int_reg_0),
+        .O(rx_fsm_reset_done_int_i_3_n_0));
+  (* SOFT_HLUTNM = "soft_lutpair17" *) 
+  LUT4 #(
+    .INIT(16'hFF10)) 
+    rx_fsm_reset_done_int_i_4
+       (.I0(\FSM_sequential_rx_state_reg[0]_1 ),
+        .I1(DONT_RESET_ON_DATA_ERROR_IN),
+        .I2(\FSM_sequential_rx_state_reg[0]_2 ),
+        .I3(data_valid_sync),
         .O(rx_fsm_reset_done_int_i_4_n_0));
 endmodule
 
@@ -4488,11 +4452,11 @@ module GTP_Zynq_GTP_Zynq_sync_block_2
   output [0:0]SR;
   output mmcm_lock_reclocked_reg;
   input mmcm_lock_reclocked;
-  input [2:0]Q;
+  input [1:0]Q;
   input mmcm_lock_reclocked_reg_0;
   input sysclk_in;
 
-  wire [2:0]Q;
+  wire [1:0]Q;
   wire [0:0]SR;
   wire data_sync1;
   wire data_sync2;
@@ -4577,20 +4541,21 @@ module GTP_Zynq_GTP_Zynq_sync_block_2
         .D(data_sync5),
         .Q(mmcm_lock_i),
         .R(1'b0));
+  (* SOFT_HLUTNM = "soft_lutpair19" *) 
   LUT1 #(
     .INIT(2'h1)) 
     \mmcm_lock_count[7]_i_1 
        (.I0(mmcm_lock_i),
         .O(SR));
-  LUT6 #(
-    .INIT(64'hEAAAAAAA00000000)) 
+  (* SOFT_HLUTNM = "soft_lutpair19" *) 
+  LUT5 #(
+    .INIT(32'hAAEA0000)) 
     mmcm_lock_reclocked_i_1
        (.I0(mmcm_lock_reclocked),
-        .I1(Q[2]),
+        .I1(Q[1]),
         .I2(Q[0]),
         .I3(mmcm_lock_reclocked_reg_0),
-        .I4(Q[1]),
-        .I5(mmcm_lock_i),
+        .I4(mmcm_lock_i),
         .O(mmcm_lock_reclocked_reg));
 endmodule
 
@@ -4962,6 +4927,7 @@ module GTP_Zynq_GTP_Zynq_sync_block_6
         .R(1'b0));
 endmodule
 
+(* ORIG_REF_NAME = "gtp_zynq_gtrxreset_seq" *) 
 module GTP_Zynq_gtp_zynq_gtrxreset_seq
    (GTRXRESET,
     drp_op_done,
