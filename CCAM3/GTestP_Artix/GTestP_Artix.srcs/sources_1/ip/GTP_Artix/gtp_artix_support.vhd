@@ -130,7 +130,6 @@ port
     gt0_txpmareset_in                       : in   std_logic;
     gt0_txresetdone_out                     : out  std_logic;
 
-GT0_PLL0PD_IN                           : in   std_logic;
     --____________________________COMMON PORTS________________________________
          GT0_PLL0OUTCLK_OUT  : out std_logic;
          GT0_PLL0OUTREFCLK_OUT  : out std_logic;
@@ -410,7 +409,7 @@ tied_to_vcc_vec_i                            <= "11111111";
      gt0_pll0outclk_out <= gt0_pll0outclk_i;
      gt0_pll0outrefclk_out <= gt0_pll0outrefclk_i;
      gt0_pll0reset_t <= commonreset_i or gt0_pll0reset_i or cpll_reset_pll0_q0_clk0_refclk_i;
-     gt0_pll0pd_t <= gt0_pll0pd_in or cpll_pd_pll0_q0_clk0_refclk_i;
+     gt0_pll0pd_t <= cpll_pd_pll0_q0_clk0_refclk_i;
      gt0_pll0lock_out <= gt0_pll0lock_i;
      gt0_pll0refclklost_out <= gt0_pll0refclklost_i;    
      gt0_pll1outclk_out <= gt0_pll1outclk_i;

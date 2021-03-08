@@ -121,7 +121,6 @@ port
     gt0_txpmareset_in                       : in   std_logic;
     gt0_txresetdone_out                     : out  std_logic;
 
-GT0_PLL0PD_IN                           : in   std_logic;
     --____________________________COMMON PORTS________________________________
          GT0_PLL0OUTCLK_OUT  : out std_logic;
          GT0_PLL0OUTREFCLK_OUT  : out std_logic;
@@ -201,7 +200,6 @@ port
     gt0_txpmareset_in                       : in   std_logic;
     gt0_txresetdone_out                     : out  std_logic;
 
-GT0_PLL0PD_IN                           : in   std_logic;
     --____________________________COMMON PORTS________________________________
          GT0_PLL0OUTCLK_OUT  : out std_logic;
          GT0_PLL0OUTREFCLK_OUT  : out std_logic;
@@ -275,7 +273,6 @@ port map
         gt0_txpmareset_in               =>      gt0_txpmareset_in,
         gt0_txresetdone_out             =>      gt0_txresetdone_out,
 
-     GT0_PLL0PD_IN => GT0_PLL0PD_IN,
     --____________________________COMMON PORTS________________________________
          GT0_PLL0OUTCLK_OUT  => GT0_PLL0OUTCLK_OUT,
          GT0_PLL0OUTREFCLK_OUT  => GT0_PLL0OUTREFCLK_OUT,

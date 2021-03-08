@@ -40,30 +40,39 @@ entity GTP_TX_Manager is
     GTP_STREAM_WIDTH_g      : integer range 0 to 64 := 16     -- Width of TX Data - GTP side
     );
   port (
-    -- Clock in port
+    -- *** SYSTEM CLOCK DOMAIN ***
+    -- Bare Control ports
     CLK_i                   : in  std_logic;   -- Input clock - Fabric side
-    GCK_i                   : in  std_logic;   -- Input clock - GTP side     
-    RST_CLK_N_i             : in  std_logic;   -- Asynchronous active low reset (clk clock)
-    RST_GCK_N_i             : in  std_logic;   -- Asynchronous active low reset (gck clock)
-    EN1MS_GCK_i             : in  std_logic;   -- Enable @ 1 ms in gck domain
+    RST_N_i                 : in  std_logic;   -- Asynchronous active low reset (clk clock)
 
-    -- Control
-    ALIGN_REQ_i             : in   std_logic;
-    ALIGN_KEY_i             : in   std_logic_vector((GTP_STREAM_WIDTH_g/8)-1 downto 0);
-    TX_MSG_IN_i             : in   std_logic_vector(7 downto 0);
-    TX_MSG_IN_SRC_RDY_i     : in   std_logic;
-    TX_MSG_IN_DST_RDY_o     : out  std_logic;
-    TX_ERROR_INJECTION_i    : in   std_logic;
+    -- Control in
+    AUTO_ALIGN_i            : in  std_logic;
+    ALIGN_REQ_i             : in  std_logic;
+    ALIGN_KEY_i             : in  std_logic_vector((GTP_STREAM_WIDTH_g/8)-1 downto 0);
+    TX_ERROR_INJECTION_i    : in  std_logic;
+ 
+    -- Control out
+    GTP_SOFT_RESET_TX_o     : out std_logic;
     
     -- Status
-    OVERRIDE_GCK_o          : out std_logic;
     ALIGN_FLAG_o            : out std_logic;
   
     -- Data in 
-    TX_DATA_IN_i            : in  std_logic_vector(TX_DATA_IN_WIDTH_g-1 downto 0);
-    TX_DATA_IN_SRC_RDY_i    : in  std_logic;
-    TX_DATA_IN_DST_RDY_o    : out std_logic;
+    TX_DATA_i               : in  std_logic_vector(TX_DATA_IN_WIDTH_g-1 downto 0);
+    TX_DATA_SRC_RDY_i       : in  std_logic;
+    TX_DATA_DST_RDY_o       : out std_logic;
     
+    TX_MSG_i                : in   std_logic_vector(7 downto 0);
+    TX_MSG_SRC_RDY_i        : in   std_logic;
+    TX_MSG_DST_RDY_o        : out  std_logic;
+    
+        
+    -- *** GTP CLOCK DOMAIN ***
+    -- Bare Control ports  
+    GCK_i                   : in  std_logic;   -- Input clock - GTP side     
+    RST_N_GCK_i             : in  std_logic;   -- Asynchronous active low reset (gck clock)
+    EN100US_GCK_i           : in  std_logic;   -- Enable @ 100 us in gck domain    
+         
     -- Data out
     GTP_STREAM_OUT_o        : out std_logic_vector(GTP_STREAM_WIDTH_g-1 downto 0);
     GTP_CHAR_IS_K_o         : out std_logic_vector((GTP_STREAM_WIDTH_g/8)-1 downto 0)              
@@ -201,20 +210,20 @@ begin
 
 -- Main DATA
 
-TX_DATA_IN_DST_RDY_o <= not data_fifo_full;
-data_fifo_wr_en <= not data_fifo_full and TX_DATA_IN_SRC_RDY_i;
+TX_DATA_DST_RDY_o <= not data_fifo_full;
+data_fifo_wr_en <= not data_fifo_full and TX_DATA_SRC_RDY_i;
 
-data_fifo_rd_en <= (data_w0_flag or align_req) and data_fifo_valid;
-data_fifo_rst <= not RST_CLK_N_i;
+data_fifo_rd_en <= data_w0_flag;
+data_fifo_rst <= not RST_N_i;
 
-data_fifo_din <= TX_DATA_IN_i;
+data_fifo_din <= TX_DATA_i;
 
 DATA_SYNC_FIFO_TX_i :  DATA_SYNC_FIFO
   port map (
     rst       => data_fifo_rst,               
     wr_clk    => CLK_i,        
     rd_clk    => GCK_i,         
-    din       => TX_DATA_IN_i,      
+    din       => TX_DATA_i,      
     wr_en     => data_fifo_wr_en,        
     rd_en     => data_fifo_rd_en,        
     dout      => data_fifo_dout,  
@@ -228,20 +237,20 @@ DATA_SYNC_FIFO_TX_i :  DATA_SYNC_FIFO
 
 -- Messages
 
-TX_MSG_IN_DST_RDY_o <= not msg_fifo_full;
-msg_fifo_wr_en <= not msg_fifo_full and TX_MSG_IN_SRC_RDY_i;
+TX_MSG_DST_RDY_o <= not msg_fifo_full;
+msg_fifo_wr_en <= not msg_fifo_full and TX_MSG_SRC_RDY_i;
 
-msg_fifo_rd_en <= (msg_enable or align_req) and msg_fifo_valid;
-msg_fifo_rst <= not RST_CLK_N_i;
+msg_fifo_rd_en <= msg_flag;
+msg_fifo_rst <= not RST_N_i;
 
-msg_fifo_din <= TX_MSG_IN_i;
+msg_fifo_din <= TX_MSG_i;
 
 MSG_SYNC_FIFO_TX_i :  MSG_SYNC_FIFO
   port map (
     rst       => msg_fifo_rst,               
     wr_clk    => CLK_i,        
     rd_clk    => GCK_i,         
-    din       => TX_MSG_IN_i,      
+    din       => msg_fifo_din,      
     wr_en     => msg_fifo_wr_en,        
     rd_en     => msg_fifo_rd_en,        
     dout      => msg_fifo_dout,  
@@ -251,12 +260,10 @@ MSG_SYNC_FIFO_TX_i :  MSG_SYNC_FIFO
     valid     => msg_fifo_valid         
   );
   
-
-
   
-process(GCK_i, RST_GCK_N_i)
+process(GCK_i, RST_N_GCK_i)
 begin
-  if (RST_GCK_N_i = '0') then
+  if (RST_N_GCK_i = '0') then
     p_align_req  <= '0';
     align_req    <= '0';
     align_req_r  <= '0';
@@ -264,17 +271,19 @@ begin
     p_align_req <= ALIGN_REQ_i;
     align_req   <= p_align_req;
     if (data_w1_flag = '0') then
-      align_req  <= align_req;
+      align_req_r  <= align_req;
     end if;    
   end if;
 end process;
 
 
-data_w_enable    <= data_fifo_valid and not align_req;
+data_w_enable    <= data_fifo_valid and not align_req_r;
+-- idle_w_enable    <= not data_w_enable;
 
-process(GCK_i, RST_GCK_N_i)
+
+process(GCK_i, RST_N_GCK_i)
 begin
-  if (RST_GCK_N_i = '0') then
+  if (RST_N_GCK_i = '0') then
     data_w_sel <= '1';
   elsif rising_edge(GCK_i) then
     if (data_w_enable = '1') then
@@ -286,67 +295,70 @@ begin
 end process;  
 
 
-idle_w_enable    <= not data_fifo_valid or align_req;
-msg_enable       <= not data_fifo_valid and msg_fifo_valid and not align_req;
-gtp_align_enable <= idle_w_enable and idle_w_sel and align_req;
 
 
 
-process(GCK_i, RST_GCK_N_i)
-begin
-  if (RST_GCK_N_i = '0') then
-    idle_w_sel <= '0';
-  elsif rising_edge(GCK_i) then
-    if (idle_w_enable = '1') then
-      idle_w_sel <= not idle_w_sel;
-    else
-      idle_w_sel <= '1';
-    end if;
-  end if;
-end process;
+
+
+-- idle_w_enable    <= not data_fifo_valid or align_req;
+-- msg_enable       <= not data_fifo_valid and msg_fifo_valid and not align_req;
+-- gtp_align_enable <= idle_w_enable and idle_w_sel and align_req;
+
+
+
+-- process(GCK_i, RST_GCK_N_i)
+-- begin
+--   if (RST_GCK_N_i = '0') then
+--     idle_w_sel <= '0';
+--   elsif rising_edge(GCK_i) then
+--     if (idle_w_enable = '1') then
+--       idle_w_sel <= not idle_w_sel;
+--     else
+--       idle_w_sel <= '1';
+--     end if;
+--   end if;
+-- end process;
 
 
      
-data_w1_flag       <= data_w_enable and     data_w_sel;
-data_w0_flag       <= data_w_enable and not data_w_sel;
-gtp_align_flag     <= gtp_align_enable;
-msg_flag           <= msg_enable;
-idle_flag          <= idle_w_enable and     idle_w_sel and not msg_fifo_valid and not align_req;
+
+-- gtp_align_flag     <= gtp_align_enable;
+-- msg_flag           <= msg_enable;
+-- idle_flag          <= idle_w_enable and     idle_w_sel and not msg_fifo_valid and not align_req;
 
 -- idle_head_flag     <= idle_w_enable and     idle_w_sel and not msg_fifo_valid and not align_req;   
 -- idle_tail_flag     <= idle_w_enable and not idle_w_sel and not msg_fifo_valid;
 
- 
+gtp_align_flag     <=     align_req_r                                              and EN100US_GCK_i;
+data_w1_flag       <= not align_req_r and     data_fifo_valid and     data_w_sel;
+data_w0_flag       <= not align_req_r and     data_fifo_valid and not data_w_sel;
+msg_flag           <= not align_req_r and not data_fifo_valid and msg_fifo_valid;
 
-
-process (data_w1_flag, data_w0_flag, gtp_align_flag, msg_flag, idle_head_flag, idle_tail_flag, data_fifo_dout, msg_fifo_dout)
+process (gtp_align_flag, data_w1_flag, data_w0_flag, msg_flag, data_fifo_dout, msg_fifo_dout)
 begin
-   
-  if    (data_w1_flag = '1')   then 
+
+  if (gtp_align_flag = '1') then 
+    p_gtp_stream_out   <= ALIGN_c;
+    p_tx_char_is_k  <= "01"; -- ALIGN_KEY_i; 
+  elsif (data_w1_flag = '1')   then 
     p_gtp_stream_out  <= data_fifo_dout(31 downto 16);
     p_tx_char_is_k <= "00";
   elsif (data_w0_flag = '1')   then
     p_gtp_stream_out  <= data_fifo_dout(15 downto  0);
     p_tx_char_is_k <= "00";
-  elsif  (gtp_align_flag = '1') then 
-    p_gtp_stream_out   <= ALIGN_c;
-    p_tx_char_is_k  <= "01"; -- ALIGN_KEY_i;
   elsif (msg_flag = '1') then 
     p_gtp_stream_out   <= MSG_c & msg_fifo_dout;
     p_tx_char_is_k  <= "10";
-  elsif (idle_head_flag = '1') then 
+  else 
     p_gtp_stream_out  <= IDLE_HEAD_c;
-    p_tx_char_is_k <= "11";
-  elsif (idle_tail_flag = '1') then 
-    p_gtp_stream_out  <= IDLE_TAIL_c;
     p_tx_char_is_k <= "11";
   end if;  
 end process;
 
 
-SYNC_PROC: process (GCK_i, RST_GCK_N_i)
+SYNC_PROC: process (GCK_i, RST_N_GCK_i)
 begin
-  if (RST_GCK_N_i = '0') then
+  if (RST_N_GCK_i = '0') then
     gtp_stream_out   <= (others => '0');
     tx_char_is_k  <= "00";
   elsif rising_edge(GCK_i) then
@@ -366,6 +378,6 @@ GTP_STREAM_OUT_o     <= gtp_stream_out;
 GTP_CHAR_IS_K_o      <= tx_char_is_k;
 ALIGN_FLAG_o         <= gtp_align_flag;
 
-
+GTP_SOFT_RESET_TX_o  <= '0';
 
 end Behavioral;

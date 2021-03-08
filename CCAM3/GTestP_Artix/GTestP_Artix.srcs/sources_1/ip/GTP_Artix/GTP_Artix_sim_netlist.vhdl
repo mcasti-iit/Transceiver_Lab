@@ -1,10 +1,10 @@
 -- Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2019.1 (win64) Build 2552052 Fri May 24 14:49:42 MDT 2019
--- Date        : Mon Feb 22 16:57:39 2021
+-- Date        : Wed Mar  3 11:36:21 2021
 -- Host        : IITICUBLAP127 running 64-bit major release  (build 9200)
--- Command     : write_vhdl -force -mode funcsim -rename_top GTP_Artix -prefix
---               GTP_Artix_ GTP_Artix_sim_netlist.vhdl
+-- Command     : write_vhdl -force -mode funcsim
+--               C:/Progetti/Transceiver_Lab/CCAM3/GTestP_Artix/GTestP_Artix.srcs/sources_1/ip/GTP_Artix/GTP_Artix_sim_netlist.vhdl
 -- Design      : GTP_Artix
 -- Purpose     : This VHDL netlist is a functional simulation representation of the design and should not be modified or
 --               synthesized. This netlist cannot be used for SDF annotated simulation.
@@ -45,6 +45,8 @@ entity GTP_Artix_GTP_Artix_GT is
     gt0_txcharisk_in : in STD_LOGIC_VECTOR ( 1 downto 0 );
     gt0_drpaddr_in : in STD_LOGIC_VECTOR ( 8 downto 0 )
   );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of GTP_Artix_GTP_Artix_GT : entity is "GTP_Artix_GT";
 end GTP_Artix_GTP_Artix_GT;
 
 architecture STRUCTURE of GTP_Artix_GTP_Artix_GT is
@@ -596,6 +598,8 @@ entity GTP_Artix_GTP_Artix_GT_USRCLK_SOURCE is
     Q0_CLK0_GTREFCLK_PAD_N_IN : in STD_LOGIC;
     GT0_TXOUTCLK_IN : in STD_LOGIC
   );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of GTP_Artix_GTP_Artix_GT_USRCLK_SOURCE : entity is "GTP_Artix_GT_USRCLK_SOURCE";
 end GTP_Artix_GTP_Artix_GT_USRCLK_SOURCE;
 
 architecture STRUCTURE of GTP_Artix_GTP_Artix_GT_USRCLK_SOURCE is
@@ -637,9 +641,11 @@ entity GTP_Artix_GTP_Artix_common is
     GT0_PLL1OUTREFCLK_OUT : out STD_LOGIC;
     Q0_CLK0_GTREFCLK_OUT : in STD_LOGIC;
     sysclk_in : in STD_LOGIC;
-    PLL0PD_IN : in STD_LOGIC;
+    cpll_pd_pll0_q0_clk0_refclk_i : in STD_LOGIC;
     PLL0RESET_IN : in STD_LOGIC
   );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of GTP_Artix_GTP_Artix_common : entity is "GTP_Artix_common";
 end GTP_Artix_GTP_Artix_common;
 
 architecture STRUCTURE of GTP_Artix_GTP_Artix_common is
@@ -715,7 +721,7 @@ gtpe2_common_i: unisim.vcomponents.GTPE2_COMMON
       PLL0LOCKEN => '1',
       PLL0OUTCLK => GT0_PLL0OUTCLK_OUT,
       PLL0OUTREFCLK => GT0_PLL0OUTREFCLK_OUT,
-      PLL0PD => PLL0PD_IN,
+      PLL0PD => cpll_pd_pll0_q0_clk0_refclk_i,
       PLL0REFCLKLOST => GT0_PLL0REFCLKLOST_OUT,
       PLL0REFCLKSEL(2 downto 0) => B"001",
       PLL0RESET => PLL0RESET_IN,
@@ -750,6 +756,8 @@ entity GTP_Artix_GTP_Artix_common_reset is
     GT0_PLL0RESET_OUT : in STD_LOGIC;
     cpll_reset_out : in STD_LOGIC
   );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of GTP_Artix_GTP_Artix_common_reset : entity is "GTP_Artix_common_reset";
 end GTP_Artix_GTP_Artix_common_reset;
 
 architecture STRUCTURE of GTP_Artix_GTP_Artix_common_reset is
@@ -770,7 +778,7 @@ architecture STRUCTURE of GTP_Artix_GTP_Artix_common_reset is
   attribute SOFT_HLUTNM : string;
   attribute SOFT_HLUTNM of COMMON_RESET_i_1 : label is "soft_lutpair16";
   attribute SOFT_HLUTNM of common_reset_asserted_i_1 : label is "soft_lutpair17";
-  attribute SOFT_HLUTNM of gtpe2_common_i_i_2 : label is "soft_lutpair16";
+  attribute SOFT_HLUTNM of gtpe2_common_i_i_1 : label is "soft_lutpair16";
   attribute SOFT_HLUTNM of \init_wait_count[1]_i_1\ : label is "soft_lutpair14";
   attribute SOFT_HLUTNM of \init_wait_count[2]_i_1\ : label is "soft_lutpair14";
   attribute SOFT_HLUTNM of \init_wait_count[3]_i_1\ : label is "soft_lutpair13";
@@ -820,7 +828,7 @@ common_reset_asserted_reg: unisim.vcomponents.FDRE
       Q => common_reset_asserted,
       R => SOFT_RESET_TX_IN
     );
-gtpe2_common_i_i_2: unisim.vcomponents.LUT3
+gtpe2_common_i_i_1: unisim.vcomponents.LUT3
     generic map(
       INIT => X"FE"
     )
@@ -1099,14 +1107,14 @@ use UNISIM.VCOMPONENTS.ALL;
 entity GTP_Artix_GTP_Artix_cpll_railing is
   port (
     cpll_reset_out : out STD_LOGIC;
-    PLL0PD_IN : out STD_LOGIC;
-    Q0_CLK0_GTREFCLK_OUT : in STD_LOGIC;
-    GT0_PLL0PD_IN : in STD_LOGIC
+    cpll_pd_pll0_q0_clk0_refclk_i : out STD_LOGIC;
+    Q0_CLK0_GTREFCLK_OUT : in STD_LOGIC
   );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of GTP_Artix_GTP_Artix_cpll_railing : entity is "GTP_Artix_cpll_railing";
 end GTP_Artix_GTP_Artix_cpll_railing;
 
 architecture STRUCTURE of GTP_Artix_GTP_Artix_cpll_railing is
-  signal cpll_pd_out : STD_LOGIC;
   signal \cpllpd_wait_reg[31]_srl32_n_1\ : STD_LOGIC;
   signal \cpllpd_wait_reg[63]_srl32_n_1\ : STD_LOGIC;
   signal \cpllpd_wait_reg[94]_srl31_n_0\ : STD_LOGIC;
@@ -1188,7 +1196,7 @@ begin
       C => \use_bufh_cpll.refclk_buf_n_0\,
       CE => '1',
       D => \cpllpd_wait_reg[94]_srl31_n_0\,
-      Q => cpll_pd_out,
+      Q => cpll_pd_pll0_q0_clk0_refclk_i,
       R => '0'
     );
 \cpllreset_wait_reg[126]_srl31\: unisim.vcomponents.SRLC32E
@@ -1250,15 +1258,6 @@ begin
       Q => \NLW_cpllreset_wait_reg[95]_srl32_Q_UNCONNECTED\,
       Q31 => \cpllreset_wait_reg[95]_srl32_n_1\
     );
-gtpe2_common_i_i_1: unisim.vcomponents.LUT2
-    generic map(
-      INIT => X"E"
-    )
-        port map (
-      I0 => GT0_PLL0PD_IN,
-      I1 => cpll_pd_out,
-      O => PLL0PD_IN
-    );
 \use_bufh_cpll.refclk_buf\: unisim.vcomponents.BUFH
      port map (
       I => Q0_CLK0_GTREFCLK_OUT,
@@ -1289,6 +1288,8 @@ entity GTP_Artix_GTP_Artix_sync_block is
     GT0_PLL0LOCK_OUT : in STD_LOGIC;
     sysclk_in : in STD_LOGIC
   );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of GTP_Artix_GTP_Artix_sync_block : entity is "GTP_Artix_sync_block";
 end GTP_Artix_GTP_Artix_sync_block;
 
 architecture STRUCTURE of GTP_Artix_GTP_Artix_sync_block is
@@ -2084,6 +2085,8 @@ entity GTP_Artix_GTP_Artix_TX_STARTUP_FSM is
     gt0_txresetdone_out : in STD_LOGIC;
     GT0_PLL0LOCK_OUT : in STD_LOGIC
   );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of GTP_Artix_GTP_Artix_TX_STARTUP_FSM : entity is "GTP_Artix_TX_STARTUP_FSM";
 end GTP_Artix_GTP_Artix_TX_STARTUP_FSM;
 
 architecture STRUCTURE of GTP_Artix_GTP_Artix_TX_STARTUP_FSM is
@@ -4049,6 +4052,8 @@ entity GTP_Artix_GTP_Artix_multi_gt is
     gt0_txcharisk_in : in STD_LOGIC_VECTOR ( 1 downto 0 );
     gt0_drpaddr_in : in STD_LOGIC_VECTOR ( 8 downto 0 )
   );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of GTP_Artix_GTP_Artix_multi_gt : entity is "GTP_Artix_multi_gt";
 end GTP_Artix_GTP_Artix_multi_gt;
 
 architecture STRUCTURE of GTP_Artix_GTP_Artix_multi_gt is
@@ -4123,6 +4128,8 @@ entity GTP_Artix_GTP_Artix_init is
     GT0_PLL0REFCLKLOST_OUT : in STD_LOGIC;
     GT0_PLL0LOCK_OUT : in STD_LOGIC
   );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of GTP_Artix_GTP_Artix_init : entity is "GTP_Artix_init";
 end GTP_Artix_GTP_Artix_init;
 
 architecture STRUCTURE of GTP_Artix_GTP_Artix_init is
@@ -4214,7 +4221,6 @@ entity GTP_Artix_GTP_Artix_support is
     gt0_txpcsreset_in : in STD_LOGIC;
     gt0_txpmareset_in : in STD_LOGIC;
     gt0_txresetdone_out : out STD_LOGIC;
-    GT0_PLL0PD_IN : in STD_LOGIC;
     GT0_PLL0OUTCLK_OUT : out STD_LOGIC;
     GT0_PLL0OUTREFCLK_OUT : out STD_LOGIC;
     GT0_PLL0LOCK_OUT : out STD_LOGIC;
@@ -4225,6 +4231,8 @@ entity GTP_Artix_GTP_Artix_support is
   );
   attribute EXAMPLE_SIM_GTRESET_SPEEDUP : string;
   attribute EXAMPLE_SIM_GTRESET_SPEEDUP of GTP_Artix_GTP_Artix_support : entity is "TRUE";
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of GTP_Artix_GTP_Artix_support : entity is "GTP_Artix_support";
   attribute STABLE_CLOCK_PERIOD : integer;
   attribute STABLE_CLOCK_PERIOD of GTP_Artix_GTP_Artix_support : entity is 10;
   attribute downgradeipidentifiedwarnings : string;
@@ -4241,8 +4249,8 @@ architecture STRUCTURE of GTP_Artix_GTP_Artix_support is
   signal \^gt0_pll1outclk_out\ : STD_LOGIC;
   signal \^gt0_pll1outrefclk_out\ : STD_LOGIC;
   signal \^gt0_txusrclk_out\ : STD_LOGIC;
-  signal PLL0PD_IN : STD_LOGIC;
   signal PLL0RESET_IN : STD_LOGIC;
+  signal cpll_pd_pll0_q0_clk0_refclk_i : STD_LOGIC;
   signal cpll_reset_out : STD_LOGIC;
   signal gt0_txoutclk_i : STD_LOGIC;
   signal q0_clk0_refclk_i : STD_LOGIC;
@@ -4302,9 +4310,9 @@ common0_i: entity work.GTP_Artix_GTP_Artix_common
       GT0_PLL0REFCLKLOST_OUT => \^gt0_pll0refclklost_out\,
       GT0_PLL1OUTCLK_OUT => \^gt0_pll1outclk_out\,
       GT0_PLL1OUTREFCLK_OUT => \^gt0_pll1outrefclk_out\,
-      PLL0PD_IN => PLL0PD_IN,
       PLL0RESET_IN => PLL0RESET_IN,
       Q0_CLK0_GTREFCLK_OUT => q0_clk0_refclk_i,
+      cpll_pd_pll0_q0_clk0_refclk_i => cpll_pd_pll0_q0_clk0_refclk_i,
       sysclk_in => sysclk_in
     );
 common_reset_i: entity work.GTP_Artix_GTP_Artix_common_reset
@@ -4317,9 +4325,8 @@ common_reset_i: entity work.GTP_Artix_GTP_Artix_common_reset
     );
 cpll_railing_pll0_q0_clk0_refclk_i: entity work.GTP_Artix_GTP_Artix_cpll_railing
      port map (
-      GT0_PLL0PD_IN => GT0_PLL0PD_IN,
-      PLL0PD_IN => PLL0PD_IN,
       Q0_CLK0_GTREFCLK_OUT => q0_clk0_refclk_i,
+      cpll_pd_pll0_q0_clk0_refclk_i => cpll_pd_pll0_q0_clk0_refclk_i,
       cpll_reset_out => cpll_reset_out
     );
 gt_usrclk_source: entity work.GTP_Artix_GTP_Artix_GT_USRCLK_SOURCE
@@ -4369,7 +4376,6 @@ entity GTP_Artix is
     gt0_txpcsreset_in : in STD_LOGIC;
     gt0_txpmareset_in : in STD_LOGIC;
     gt0_txresetdone_out : out STD_LOGIC;
-    GT0_PLL0PD_IN : in STD_LOGIC;
     GT0_PLL0OUTCLK_OUT : out STD_LOGIC;
     GT0_PLL0OUTREFCLK_OUT : out STD_LOGIC;
     GT0_PLL0LOCK_OUT : out STD_LOGIC;
@@ -4399,7 +4405,6 @@ U0: entity work.GTP_Artix_GTP_Artix_support
       GT0_PLL0LOCK_OUT => GT0_PLL0LOCK_OUT,
       GT0_PLL0OUTCLK_OUT => GT0_PLL0OUTCLK_OUT,
       GT0_PLL0OUTREFCLK_OUT => GT0_PLL0OUTREFCLK_OUT,
-      GT0_PLL0PD_IN => GT0_PLL0PD_IN,
       GT0_PLL0REFCLKLOST_OUT => GT0_PLL0REFCLKLOST_OUT,
       GT0_PLL1OUTCLK_OUT => GT0_PLL1OUTCLK_OUT,
       GT0_PLL1OUTREFCLK_OUT => GT0_PLL1OUTREFCLK_OUT,

@@ -28,8 +28,8 @@ set_property PACKAGE_PIN AA9 [get_ports RXP_IN]
 ################################# Other Location constraints #####################
 
 
-set_property CLOCK_DEDICATED_ROUTE FALSE [get_nets CCAM_PLL_RESET_o_IBUF]
-set_property CLOCK_DEDICATED_ROUTE FALSE [get_nets ALIGN_REQ_R_N_o_IBUF]
+# set_property CLOCK_DEDICATED_ROUTE FALSE [get_nets CCAM_PLL_RESET_o_IBUF]
+# set_property CLOCK_DEDICATED_ROUTE FALSE [get_nets ALIGN_REQ_R_N_o_IBUF]
 
 
 

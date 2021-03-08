@@ -36,38 +36,49 @@ library ieee;
 
 entity GTP_RX_Manager is
   generic ( 
-    RX_DATA_IN_WIDTH_g      : integer range 0 to 64 := 16;    -- Width of RX Data - GTP side 
+    GTP_STREAM_WIDTH_g      : integer range 0 to 64 := 16;    -- Width of RX Data - GTP side 
     RX_DATA_OUT_WIDTH_g     : integer range 0 to 64 := 32     -- Width of RX Data - Fabric side
     );
   port (
-    -- Clock in port
-    CLK_i                   : in  std_logic;   -- Input clock - Fabric side
-    GCK_i                   : in  std_logic;   -- Input clock - GTP side     
-    RST_CLK_N_i             : in  std_logic;   -- Asynchronous active low reset (clk clock)
-    RST_GCK_N_i             : in  std_logic;   -- Asynchronous active low reset (gck clock)
-
-    -- Control
-    GTP_IS_ALIGNED_i        : in  std_logic;
-    ALIGN_REQ_o             : out  std_logic;
+    -- *** SYSTEM CLOCK DOMAIN ***
+    -- Bare Control ports
+    CLK_i                   : in  std_logic;   -- Input clock - Fabric side    
+    RST_N_i                 : in  std_logic;   -- Asynchronous active low reset (clk clock)
+    EN1MS_i                 : in  std_logic;  
     
-    -- Status
-    OVERRIDE_GCK_o          : out std_logic;
-  
-    -- Data in 
-    RX_DATA_IN_i            : in  std_logic_vector(RX_DATA_IN_WIDTH_g-1 downto 0);
-    RX_CHAR_IS_K_i          : in  std_logic_vector((RX_DATA_IN_WIDTH_g/8)-1 downto 0);
-     
+    -- Control out
+    GTP_SOFT_RESET_RX_o     : out std_logic;     
+         
     -- Data out
-    RX_DATA_OUT_o           : out std_logic_vector(RX_DATA_OUT_WIDTH_g-1 downto 0);
-    RX_DATA_OUT_SRC_RDY_o   : out std_logic;
-    RX_DATA_OUT_DST_RDY_i   : in  std_logic
+    RX_DATA_o               : out std_logic_vector(RX_DATA_OUT_WIDTH_g-1 downto 0);
+    RX_DATA_SRC_RDY_o       : out std_logic;
+    RX_DATA_DST_RDY_i       : in  std_logic;
+    
+    RX_MSG_o                : out std_logic_vector(7 downto 0);
+    RX_MSG_SRC_RDY_o        : out std_logic;
+    RX_MSG_DST_RDY_i        : in  std_logic;
+    
+        
+    -- *** GTP CLOCK DOMAIN ***
+    -- Bare Control ports   
+    GCK_i                   : in  std_logic;   -- Input clock - GTP side       
+    RST_N_GCK_i             : in  std_logic;   -- Asynchronous active low reset (gck clock)    
+    EN1MS_GCK_i             : in  std_logic;  
+
+    -- Controls         
+    GTP_IS_ALIGNED_i        : in  std_logic;
+    ALIGN_REQ_o             : out std_logic;
+
+    -- Data in 
+    GTP_STREAM_IN_i         : in  std_logic_vector(GTP_STREAM_WIDTH_g-1 downto 0);
+    GTP_CHAR_IS_K_i         : in  std_logic_vector((GTP_STREAM_WIDTH_g/8)-1 downto 0)
     );
 end GTP_RX_Manager;
 
 
 architecture Behavioral of GTP_RX_Manager is
 
-component DATA_FIFO_TX
+component DATA_SYNC_FIFO
   port (
     rst : in std_logic;
     wr_clk : in std_logic;
@@ -83,6 +94,21 @@ component DATA_FIFO_TX
   );
 end component;
 
+component MSG_SYNC_FIFO
+  port (
+    rst : in std_logic;
+    wr_clk : in std_logic;
+    rd_clk : in std_logic;
+    din : in std_logic_vector(7 downto 0);
+    wr_en : in std_logic;
+    rd_en : in std_logic;
+    dout : out std_logic_vector(7 downto 0);
+    full : out std_logic;
+    overflow : out std_logic;
+    empty : out std_logic;
+    valid : out std_logic
+  );
+end component;
 
 
 -- ----------------------------------------------------------------------------------------------
@@ -109,15 +135,25 @@ constant ALIGN_c     : std_logic_vector(15 downto 0) := K28_5 & K28_5;
 constant MSG_c       : std_logic_vector( 7 downto 0) := K30_7; -- & K30_7;
 
 
-signal fifo_din        : std_logic_vector(31 downto 0);
-signal fifo_wr_en      : std_logic;
-signal fifo_rd_en      : std_logic;
-signal fifo_dout       : std_logic_vector(31 downto 0);
-signal fifo_full       : std_logic;
-signal fifo_overflow   : std_logic;
-signal fifo_empty      : std_logic;
-signal fifo_valid      : std_logic;
-signal fifo_rst        : std_logic;
+signal data_fifo_din        : std_logic_vector(31 downto 0);
+signal data_fifo_wr_en      : std_logic;
+signal data_fifo_rd_en      : std_logic;
+signal data_fifo_dout       : std_logic_vector(31 downto 0);
+signal data_fifo_full       : std_logic;
+signal data_fifo_overflow   : std_logic;
+signal data_fifo_empty      : std_logic;
+signal data_fifo_valid      : std_logic;
+signal data_fifo_rst        : std_logic;
+
+signal msg_fifo_din        : std_logic_vector(7 downto 0);
+signal msg_fifo_wr_en      : std_logic;
+signal msg_fifo_rd_en      : std_logic;
+signal msg_fifo_dout       : std_logic_vector(7 downto 0);
+signal msg_fifo_full       : std_logic;
+signal msg_fifo_overflow   : std_logic;
+signal msg_fifo_empty      : std_logic;
+signal msg_fifo_valid      : std_logic;
+signal msg_fifo_rst        : std_logic;
 
 signal fifo_valid_d    : std_logic;
 
@@ -134,53 +170,94 @@ signal k_chars            : std_logic;
 signal k_chars_d          : std_logic;
 signal k_chars_up         : std_logic;
 
-signal gtp_rx_stream      : std_logic_vector(RX_DATA_IN_WIDTH_g-1 downto 0);
+signal gtp_rx_stream      : std_logic_vector(GTP_STREAM_WIDTH_g-1 downto 0);
 
 signal flag_enable        : std_logic; 
 signal idle_exp_toggle   : std_logic;
-signal idle_head          : std_logic_vector(RX_DATA_IN_WIDTH_g-1 downto 0);
+signal idle_head          : std_logic_vector(GTP_STREAM_WIDTH_g-1 downto 0);
 signal idle_head_flag     : std_logic;
 signal idle_head_exp      : std_logic;
-signal idle_tail          : std_logic_vector(RX_DATA_IN_WIDTH_g-1 downto 0);
+signal idle_tail          : std_logic_vector(GTP_STREAM_WIDTH_g-1 downto 0);
 signal idle_tail_flag     : std_logic;
 signal idle_tail_exp      : std_logic;
 
-signal gtp_align          : std_logic_vector(RX_DATA_IN_WIDTH_g-1 downto 0);         
-signal gtp_align_flag     : std_logic;          
 
-signal error_word         : std_logic_vector(RX_DATA_IN_WIDTH_g-1 downto 0);         
-signal error_word_flag    : std_logic; 
+
+
+
+
+signal gtp_align          : std_logic_vector(GTP_STREAM_WIDTH_g-1 downto 0);         
+signal gtp_align_flag     : std_logic;          
+signal gtp_align_flag_d   : std_logic;          
+
+signal msg_word         : std_logic_vector(GTP_STREAM_WIDTH_g-1 downto 0);         
+signal msg_flag           : std_logic; 
+signal msg_flag_d         : std_logic; 
 
 signal data_w_exp_toggle  : std_logic;
-signal data_w0            : std_logic_vector(RX_DATA_IN_WIDTH_g-1 downto 0);
-signal data_w0_flag       : std_logic;
+signal data_flag          : std_logic;
+signal data_flag_d        : std_logic;
 signal data_w0_exp        : std_logic;
-signal data_w1            : std_logic_vector(RX_DATA_IN_WIDTH_g-1 downto 0);
-signal data_w1_flag       : std_logic;
 signal data_w1_exp        : std_logic;
+signal data_w1            : std_logic_vector(GTP_STREAM_WIDTH_g-1 downto 0);
 
+signal idle_flag          : std_logic;
+signal idle_flag_d        : std_logic;
 
-signal idle_head_ok       : std_logic;
-signal idle_head_error    : std_logic;
-signal idle_tail_ok       : std_logic;
-signal idle_tail_error    : std_logic;
-signal gtp_align_ok       : std_logic;
-signal gtp_align_error    : std_logic;
+signal unknown_k_flag     : std_logic;
+signal unknown_k_flag_d   : std_logic;
+signal unknown_k_detect   : std_logic;
+signal unknown_k_detected : std_logic;
 
-signal dword_align_ok     : std_logic;
-signal dword_align_error  : std_logic;
+signal gtp_reset_cnt      : std_logic_vector(7 downto 0);
+signal gtp_reset          : std_logic;
+
+-- Counters
+signal data_cnt           : std_logic_vector(15 downto 0); 
+signal data_rate          : std_logic_vector(15 downto 0); 
+signal gtp_align_cnt      : std_logic_vector( 7 downto 0); 
+signal gtp_align_rate     : std_logic_vector( 7 downto 0); 
+signal msg_cnt            : std_logic_vector(15 downto 0); 
+signal msg_rate           : std_logic_vector(15 downto 0); 
+signal idle_cnt           : std_logic_vector(15 downto 0); 
+signal idle_rate          : std_logic_vector(15 downto 0); 
 
 begin
+
+-- ----------------------------------------------------------------------------------
+-- Reset Machine
+
+process (CLK_i, RST_N_GCK_i)
+begin
+  if (RST_N_GCK_i = '0') then
+    gtp_reset_cnt <= conv_std_logic_vector(255, gtp_reset_cnt'length);
+    gtp_reset     <= '0';
+  elsif rising_edge(CLK_i) then
+  
+    if (false) then
+      gtp_reset_cnt <= conv_std_logic_vector(255, gtp_reset_cnt'length);
+    elsif (gtp_reset_cnt /= conv_std_logic_vector(0, gtp_reset_cnt'length)) then
+      gtp_reset_cnt <= gtp_reset_cnt - 1;
+    end if;
+    
+    if (gtp_reset_cnt = conv_std_logic_vector(16, gtp_reset_cnt'length)) then 
+      gtp_reset <= '1';
+    elsif (gtp_reset_cnt = conv_std_logic_vector(0, gtp_reset_cnt'length)) then 
+      gtp_reset <= '0';
+    end if;
+    
+  end if;
+end process;
 
 
 
 -- ----------------------------------------------------------------------------------
 -- Kind of data
-k_chars <= '1' when (RX_CHAR_IS_K_i = "11") else '0';
+k_chars <= '0' when (GTP_CHAR_IS_K_i = "00") else '1';
 
-process (GCK_i, RST_GCK_N_i)
+process (GCK_i, RST_N_GCK_i)
 begin
-  if (RST_GCK_N_i = '0') then
+  if (RST_N_GCK_i = '0') then
     k_chars_d <= '0';
   elsif rising_edge(GCK_i) then
     k_chars_d <= k_chars;
@@ -190,69 +267,145 @@ end process;
 k_chars_up <= k_chars and not k_chars_d;
 
 
+-- -- IDLE CHECK
+-- -- -- Idle Word toggle
+-- process (GCK_i, RST_N_GCK_i)
+-- begin
+--   if (RST_N_GCK_i = '0') then
+--     flag_enable <= '0';
+--   elsif rising_edge(GCK_i) then
+--     flag_enable <= '1';
+--   end if;
+-- end process;
 
-process (GCK_i, RST_GCK_N_i)
+-- idle_head_exp <= k_chars and not idle_exp_toggle and flag_enable;
+-- idle_tail_exp <= k_chars and     idle_exp_toggle and flag_enable;
+
+
+
+data_flag        <= '1' when (k_chars = '0') else '0';
+gtp_align_flag   <= '1' when (k_chars = '1' and gtp_rx_stream              = ALIGN_c) else '0'; 
+msg_flag         <= '1' when (k_chars = '1' and gtp_rx_stream(15 downto 8) = MSG_c) else '0'; 
+idle_flag        <= '1' when (k_chars = '1' and gtp_rx_stream              = IDLE_HEAD_c) else '0';
+
+unknown_k_flag   <= k_chars_d and not (data_flag_d or gtp_align_flag_d or msg_flag_d or idle_flag_d);
+
+process (GCK_i, RST_N_GCK_i)
 begin
-  if (RST_GCK_N_i = '0') then
-    idle_exp_toggle <= '0';
+  if (RST_N_GCK_i = '0') then
+    data_flag_d      <= '0';
+    gtp_align_flag_d <= '0';
+    msg_flag_d       <= '0';
+    idle_flag_d      <= '0';
+    --
+    unknown_k_flag_d <= '0';
   elsif rising_edge(GCK_i) then
-    if (k_chars = '0') then
-      idle_exp_toggle <= '0';
-    else 
-      idle_exp_toggle <= not idle_exp_toggle;
+    data_flag_d      <= data_flag;
+    gtp_align_flag_d <= gtp_align_flag;
+    msg_flag_d       <= msg_flag;
+    idle_flag_d      <= idle_flag;   
+    --
+    unknown_k_flag_d <= unknown_k_flag;
+  end if;
+end process;
+-- ------------------------------------------------------------------------------------------
+-- Counters
+
+-- Data
+process (GCK_i, RST_N_GCK_i)
+begin
+  if (RST_N_GCK_i = '0') then
+    data_cnt            <= (others => '0');
+    data_rate           <= (others => '0');
+    --
+    msg_cnt             <= (others => '0');
+    msg_rate            <= (others => '0');
+    --
+    gtp_align_cnt       <= (others => '0');
+    gtp_align_rate      <= (others => '0');
+    --
+    idle_cnt            <= (others => '0');
+    idle_rate           <= (others => '0');
+  elsif rising_edge(GCK_i) then
+    if (EN1MS_GCK_i = '1') then
+      data_cnt        <= (0 => data_flag_d, others => '0');
+      data_rate       <= data_cnt;
+    elsif (data_flag_d = '1') then
+      data_cnt        <= data_cnt + 1;
     end if;
+    --
+    if (EN1MS_GCK_i = '1') then
+      msg_cnt         <= (0 => msg_flag_d, others => '0');
+      msg_rate        <= msg_cnt;
+    elsif (msg_flag_d = '1') then
+      msg_cnt         <= msg_cnt + 1;
+    end if;  
+     --
+    if (EN1MS_GCK_i = '1') then
+      gtp_align_cnt   <= (0 => gtp_align_flag_d, others => '0');
+      gtp_align_rate  <= gtp_align_cnt;
+    elsif (gtp_align_flag_d = '1') then
+      gtp_align_cnt   <= gtp_align_cnt + 1;
+    end if;     
+     --
+    if (EN1MS_GCK_i = '1') then
+      idle_cnt        <= (0 => idle_flag_d, others => '0');
+      idle_rate       <= idle_cnt;
+    elsif (idle_flag_d = '1') then
+      idle_cnt        <= idle_cnt + 1;
+    end if;   
   end if;
 end process;
 
 
--- IDLE CHECK
--- Idle Word toggle
-process (GCK_i, RST_GCK_N_i)
+-- ----------------------------------------------------------------------------------
+-- GTP Alignement
+
+
+process (GCK_i, RST_N_GCK_i)
 begin
-  if (RST_GCK_N_i = '0') then
-    flag_enable <= '0';
+  if (RST_N_GCK_i = '0') then
+    unknown_k_detect    <= '0';
+    unknown_k_detected  <= '0';
+    align_req <= '0';
   elsif rising_edge(GCK_i) then
-    flag_enable <= '1';
+    if (EN1MS_GCK_i = '1') then
+      unknown_k_detect    <= unknown_k_flag;
+      unknown_k_detected  <= unknown_k_detect;    
+    elsif (unknown_k_flag = '1') then
+      unknown_k_detect    <= '1';
+    end if;
+    
+  align_req <= not GTP_IS_ALIGNED_i or unknown_k_detected;
   end if;
 end process;
 
-idle_head_exp <= k_chars and not idle_exp_toggle and flag_enable;
-idle_tail_exp <= k_chars and     idle_exp_toggle and flag_enable;
+
+process (GCK_i, RST_N_GCK_i)
+begin
+  if (RST_N_GCK_i = '0') then
+    
+  elsif rising_edge(GCK_i) then
+    
+  end if;
+end process;
+-- ------------------------------------------------------------------------------------------
 
 
+-- data_w1_flag       <= not align_req_r and     data_fifo_valid and     data_w_sel;
+-- data_w0_flag       <= not align_req_r and     data_fifo_valid and not data_w_sel;
 
-idle_head_flag   <= '1' when (k_chars = '1' and gtp_rx_stream = K28_0 & K28_1) else '0'; 
-idle_tail_flag   <= '1' when (k_chars = '1' and gtp_rx_stream = K28_2 & K28_3) else '0'; 
+
+-- idle_head_flag   <= '1' when (k_chars = '1' and gtp_rx_stream = K28_0 & K28_1) else '0'; 
+-- idle_tail_flag   <= '1' when (k_chars = '1' and gtp_rx_stream = K28_2 & K28_3) else '0'; 
 -- data_w0_flag     <= '1' when (k_chars = '0' and gtp_rx_stream = ) else '0'; 
 -- data_w1_flag     <= '1' when (k_chars = '0' and gtp_rx_stream = ) else '0'; 
-gtp_align_flag   <= '1' when (k_chars = '1' and gtp_rx_stream = K28_5 & K28_5) else '0'; 
-error_word_flag  <= '1' when (k_chars = '1' and gtp_rx_stream = K30_7 & K30_7
-) else '0'; 
-
-
-process (GCK_i, RST_GCK_N_i)
-begin
-  if (RST_GCK_N_i = '0') then
-    idle_head_ok       <= '0';
-    idle_head_error    <= '0';
-    idle_tail_ok       <= '0';
-    idle_tail_error    <= '0';
-    gtp_align_ok       <= '0';
-    gtp_align_error    <= '0';
-    dword_align_ok     <= '0';
-    dword_align_error  <= '0';
-  elsif rising_edge(GCK_i) then
-  
-  end if;
-end process;
-
-
 
 
 -- Event Word toggle
-process (GCK_i, RST_GCK_N_i)
+process (GCK_i, RST_N_GCK_i)
 begin
-  if (RST_GCK_N_i = '0') then
+  if (RST_N_GCK_i = '0') then
     data_w_exp_toggle <= '0';
   elsif rising_edge(GCK_i) then
     if (k_chars = '1') then
@@ -263,18 +416,18 @@ begin
   end if;
 end process;
 
-data_w1_exp <= not k_chars and not data_w_exp_toggle and flag_enable;
-data_w0_exp <= not k_chars and     data_w_exp_toggle and flag_enable;
+data_w1_exp <= not k_chars and not data_w_exp_toggle; -- and flag_enable;
+data_w0_exp <= not k_chars and     data_w_exp_toggle; -- and flag_enable;
 
 
 -- ----------------------------------------------------------------------------------
 -- Double Word
 
-gtp_rx_stream <= RX_DATA_IN_i;
+gtp_rx_stream <= GTP_STREAM_IN_i;
 
-process (GCK_i, RST_GCK_N_i)
+process (GCK_i, RST_N_GCK_i)
 begin
-  if (RST_GCK_N_i = '0') then
+  if (RST_N_GCK_i = '0') then
     data_w1 <= (others => '0');
   elsif rising_edge(GCK_i) then
     if (data_w1_exp = '1') then
@@ -285,50 +438,65 @@ end process;
 
 
 
-fifo_rst   <= not RST_GCK_N_i;
-fifo_din   <= data_w1 & gtp_rx_stream;
-fifo_wr_en <= data_w0_exp and not fifo_full;
-fifo_rd_en <= not fifo_empty and RX_DATA_OUT_DST_RDY_i;
+data_fifo_rst   <= not RST_N_GCK_i;
+data_fifo_din   <= data_w1 & gtp_rx_stream;
+data_fifo_wr_en <= data_w0_exp and not data_fifo_full;
+data_fifo_rd_en <= not data_fifo_empty and RX_DATA_DST_RDY_i;
 
-DATA_FIFO_TX_i :  DATA_FIFO_TX
+DATA_FIFO_RX_i :  DATA_SYNC_FIFO
   port map (
-    rst       => fifo_rst,               
+    rst       => data_fifo_rst,               
     wr_clk    => GCK_i,        
     rd_clk    => CLK_i,         
-    din       => fifo_din,      
-    wr_en     => fifo_wr_en,        
-    rd_en     => fifo_rd_en,        
-    dout      => fifo_dout,  
-    full      => fifo_full,         
-    overflow  => fifo_overflow,     
-    empty     => fifo_empty,        
-    valid     => fifo_valid         
+    din       => data_fifo_din,      
+    wr_en     => data_fifo_wr_en,        
+    rd_en     => data_fifo_rd_en,        
+    dout      => data_fifo_dout,  
+    full      => data_fifo_full,         
+    overflow  => data_fifo_overflow,     
+    empty     => data_fifo_empty,        
+    valid     => data_fifo_valid         
   );
 
 
--- ----------------------------------------------------------------------------------
--- GTP Alignement
+msg_fifo_rst   <= not RST_N_GCK_i;
+msg_fifo_din   <= gtp_rx_stream(7 downto 0);
+msg_fifo_wr_en <= msg_flag and not msg_fifo_full;
+msg_fifo_rd_en <= not msg_fifo_empty and RX_MSG_DST_RDY_i;
 
-process (GCK_i, RST_GCK_N_i)
-begin
-  if (RST_GCK_N_i = '0') then
-    align_req <= '0';
-  elsif rising_edge(GCK_i) then
-    align_req <= not GTP_IS_ALIGNED_i;
-  end if;
-end process;
+MSG_FIFO_RX_i :  MSG_SYNC_FIFO
+  port map (
+    rst       => msg_fifo_rst,               
+    wr_clk    => GCK_i,        
+    rd_clk    => CLK_i,         
+    din       => msg_fifo_din,      
+    wr_en     => msg_fifo_wr_en,        
+    rd_en     => msg_fifo_rd_en,        
+    dout      => msg_fifo_dout,  
+    full      => msg_fifo_full,         
+    overflow  => msg_fifo_overflow,     
+    empty     => msg_fifo_empty,        
+    valid     => msg_fifo_valid         
+  );
+  
+
 
 
 -- ----------------------------------------------------------------------------------
 -- OUTPUTs
 
 -- Data out
-RX_DATA_OUT_o         <= fifo_dout;
-RX_DATA_OUT_SRC_RDY_o <= not fifo_empty;
+RX_DATA_o         <= data_fifo_dout;
+RX_DATA_SRC_RDY_o <= not data_fifo_empty;
+
+-- Message out
+RX_MSG_o          <= msg_fifo_dout;
+RX_MSG_SRC_RDY_o  <= not msg_fifo_empty;
 
 -- Alignment
 ALIGN_REQ_o <= align_req;
   
-
+-- Reset
+GTP_SOFT_RESET_RX_o <= gtp_reset;
 
 end Behavioral;

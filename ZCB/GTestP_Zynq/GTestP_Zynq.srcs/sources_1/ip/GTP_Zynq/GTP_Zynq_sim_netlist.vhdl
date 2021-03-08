@@ -1,10 +1,10 @@
 -- Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2019.1 (win64) Build 2552052 Fri May 24 14:49:42 MDT 2019
--- Date        : Tue Feb 23 16:28:23 2021
+-- Date        : Tue Feb 23 16:28:22 2021
 -- Host        : IITICUBLAP127 running 64-bit major release  (build 9200)
--- Command     : write_vhdl -force -mode funcsim
---               C:/Progetti/Transceiver_Lab/ZCB/GTestP_Zynq/GTestP_Zynq.srcs/sources_1/ip/GTP_Zynq/GTP_Zynq_sim_netlist.vhdl
+-- Command     : write_vhdl -force -mode funcsim -rename_top GTP_Zynq -prefix
+--               GTP_Zynq_ GTP_Zynq_sim_netlist.vhdl
 -- Design      : GTP_Zynq
 -- Purpose     : This VHDL netlist is a functional simulation representation of the design and should not be modified or
 --               synthesized. This netlist cannot be used for SDF annotated simulation.
@@ -22,8 +22,6 @@ entity GTP_Zynq_GTP_Zynq_GT_USRCLK_SOURCE is
     Q0_CLK1_GTREFCLK_PAD_N_IN : in STD_LOGIC;
     GT0_RXOUTCLK_IN : in STD_LOGIC
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of GTP_Zynq_GTP_Zynq_GT_USRCLK_SOURCE : entity is "GTP_Zynq_GT_USRCLK_SOURCE";
 end GTP_Zynq_GTP_Zynq_GT_USRCLK_SOURCE;
 
 architecture STRUCTURE of GTP_Zynq_GTP_Zynq_GT_USRCLK_SOURCE is
@@ -66,8 +64,6 @@ entity GTP_Zynq_GTP_Zynq_common is
     Q0_CLK1_GTREFCLK_OUT : in STD_LOGIC;
     sysclk_in : in STD_LOGIC
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of GTP_Zynq_GTP_Zynq_common : entity is "GTP_Zynq_common";
 end GTP_Zynq_GTP_Zynq_common;
 
 architecture STRUCTURE of GTP_Zynq_GTP_Zynq_common is
@@ -181,8 +177,6 @@ entity GTP_Zynq_GTP_Zynq_common_reset is
     SOFT_RESET_RX_IN : in STD_LOGIC;
     AR : in STD_LOGIC_VECTOR ( 0 to 0 )
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of GTP_Zynq_GTP_Zynq_common_reset : entity is "GTP_Zynq_common_reset";
 end GTP_Zynq_GTP_Zynq_common_reset;
 
 architecture STRUCTURE of GTP_Zynq_GTP_Zynq_common_reset is
@@ -530,8 +524,6 @@ entity GTP_Zynq_GTP_Zynq_cpll_railing is
   port (
     Q0_CLK1_GTREFCLK_OUT : in STD_LOGIC
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of GTP_Zynq_GTP_Zynq_cpll_railing : entity is "GTP_Zynq_cpll_railing";
 end GTP_Zynq_GTP_Zynq_cpll_railing;
 
 architecture STRUCTURE of GTP_Zynq_GTP_Zynq_cpll_railing is
@@ -568,8 +560,6 @@ entity GTP_Zynq_GTP_Zynq_sync_block is
     GT0_PLL0LOCK_OUT : in STD_LOGIC;
     sysclk_in : in STD_LOGIC
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of GTP_Zynq_GTP_Zynq_sync_block : entity is "GTP_Zynq_sync_block";
 end GTP_Zynq_GTP_Zynq_sync_block;
 
 architecture STRUCTURE of GTP_Zynq_GTP_Zynq_sync_block is
@@ -1808,8 +1798,6 @@ entity GTP_Zynq_GTP_Zynq_RX_STARTUP_FSM is
     GT0_DATA_VALID_IN : in STD_LOGIC;
     GT0_PLL0LOCK_OUT : in STD_LOGIC
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of GTP_Zynq_GTP_Zynq_RX_STARTUP_FSM : entity is "GTP_Zynq_RX_STARTUP_FSM";
 end GTP_Zynq_GTP_Zynq_RX_STARTUP_FSM;
 
 architecture STRUCTURE of GTP_Zynq_GTP_Zynq_RX_STARTUP_FSM is
@@ -4009,8 +3997,6 @@ entity GTP_Zynq_gtp_zynq_gtrxreset_seq is
     data_in : in STD_LOGIC;
     gt0_drpdo_out : in STD_LOGIC_VECTOR ( 15 downto 0 )
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of GTP_Zynq_gtp_zynq_gtrxreset_seq : entity is "gtp_zynq_gtrxreset_seq";
 end GTP_Zynq_gtp_zynq_gtrxreset_seq;
 
 architecture STRUCTURE of GTP_Zynq_gtp_zynq_gtrxreset_seq is
@@ -4913,8 +4899,6 @@ entity GTP_Zynq_GTP_Zynq_GT is
     gt0_drpwe_in : in STD_LOGIC;
     gt0_drpen_in : in STD_LOGIC
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of GTP_Zynq_GTP_Zynq_GT : entity is "GTP_Zynq_GT";
 end GTP_Zynq_GTP_Zynq_GT;
 
 architecture STRUCTURE of GTP_Zynq_GTP_Zynq_GT is
@@ -5771,8 +5755,6 @@ entity GTP_Zynq_GTP_Zynq_multi_gt is
     gt0_drpwe_in : in STD_LOGIC;
     gt0_drpen_in : in STD_LOGIC
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of GTP_Zynq_GTP_Zynq_multi_gt : entity is "GTP_Zynq_multi_gt";
 end GTP_Zynq_GTP_Zynq_multi_gt;
 
 architecture STRUCTURE of GTP_Zynq_GTP_Zynq_multi_gt is
@@ -5866,8 +5848,6 @@ entity GTP_Zynq_GTP_Zynq_init is
     gt0_drpwe_in : in STD_LOGIC;
     gt0_drpen_in : in STD_LOGIC
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of GTP_Zynq_GTP_Zynq_init : entity is "GTP_Zynq_init";
 end GTP_Zynq_GTP_Zynq_init;
 
 architecture STRUCTURE of GTP_Zynq_GTP_Zynq_init is
@@ -6282,8 +6262,6 @@ entity GTP_Zynq_GTP_Zynq_support is
   );
   attribute EXAMPLE_SIM_GTRESET_SPEEDUP : string;
   attribute EXAMPLE_SIM_GTRESET_SPEEDUP of GTP_Zynq_GTP_Zynq_support : entity is "FALSE";
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of GTP_Zynq_GTP_Zynq_support : entity is "GTP_Zynq_support";
   attribute STABLE_CLOCK_PERIOD : integer;
   attribute STABLE_CLOCK_PERIOD of GTP_Zynq_GTP_Zynq_support : entity is 10;
   attribute downgradeipidentifiedwarnings : string;
