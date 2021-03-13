@@ -120,8 +120,6 @@ port
     gt0_txoutclkfabric_out                  : out  std_logic;
     gt0_txoutclkpcs_out                     : out  std_logic;
     ------------- Transmit Ports - TX Initialization and Reset Ports -----------
-    gt0_txpcsreset_in                       : in   std_logic;
-    gt0_txpmareset_in                       : in   std_logic;
     gt0_txresetdone_out                     : out  std_logic;
 
 
@@ -225,8 +223,6 @@ port
     txoutclkfabric_out                      : out  std_logic;
     txoutclkpcs_out                         : out  std_logic;
     ------------- Transmit Ports - TX Initialization and Reset Ports -----------
-    txpcsreset_in                           : in   std_logic;
-    txpmareset_in                           : in   std_logic;
     txresetdone_out                         : out  std_logic
 
 
@@ -308,8 +304,6 @@ gt0_GTP_Artix_i : GTP_Artix_GT
         txoutclkfabric_out              =>      gt0_txoutclkfabric_out,
         txoutclkpcs_out                 =>      gt0_txoutclkpcs_out,
         ------------- Transmit Ports - TX Initialization and Reset Ports -----------
-        txpcsreset_in                   =>      gt0_txpcsreset_in,
-        txpmareset_in                   =>      gt0_txpmareset_in,
         txresetdone_out                 =>      gt0_txresetdone_out
 
     );

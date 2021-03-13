@@ -47,7 +47,8 @@ entity AD9517_Manager is
     EN1MS_i   : in  std_logic;                                 -- 1 ms clock enable
     RST_N_i   : in  std_logic;                                 -- asynchronous reset
     
-    -- Controland status ports
+    -- Control and status ports
+    INIT_i    : in  std_logic;                                 -- Start of configuration
     ERROR_o   : out std_logic_vector(2 downto 0);              -- Error code
     DONE_o    : out std_logic;
     
@@ -270,6 +271,9 @@ begin
         w_nr   <= '0';
         enable <= '0';
         done   <= '1'; 
+        if (INIT_i = '1') then
+          state <= RESET_st;
+        end if;
 
       when WAIT_st      =>
         enable <= '0';

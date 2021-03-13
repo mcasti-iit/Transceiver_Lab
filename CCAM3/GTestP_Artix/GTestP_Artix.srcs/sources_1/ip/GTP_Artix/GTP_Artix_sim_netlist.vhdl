@@ -1,10 +1,10 @@
 -- Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2019.1 (win64) Build 2552052 Fri May 24 14:49:42 MDT 2019
--- Date        : Wed Mar  3 11:36:21 2021
+-- Date        : Mon Mar  8 19:03:15 2021
 -- Host        : IITICUBLAP127 running 64-bit major release  (build 9200)
--- Command     : write_vhdl -force -mode funcsim
---               C:/Progetti/Transceiver_Lab/CCAM3/GTestP_Artix/GTestP_Artix.srcs/sources_1/ip/GTP_Artix/GTP_Artix_sim_netlist.vhdl
+-- Command     : write_vhdl -force -mode funcsim -rename_top GTP_Artix -prefix
+--               GTP_Artix_ GTP_Artix_sim_netlist.vhdl
 -- Design      : GTP_Artix
 -- Purpose     : This VHDL netlist is a functional simulation representation of the design and should not be modified or
 --               synthesized. This netlist cannot be used for SDF annotated simulation.
@@ -37,7 +37,6 @@ entity GTP_Artix_GTP_Artix_GT is
     GT0_PLL1OUTCLK_OUT : in STD_LOGIC;
     GT0_PLL1OUTREFCLK_OUT : in STD_LOGIC;
     gt0_rxlpmreset_in : in STD_LOGIC;
-    gt0_txpcsreset_in : in STD_LOGIC;
     gt0_txuserrdy_t : in STD_LOGIC;
     GT0_TXUSRCLK_OUT : in STD_LOGIC;
     gt0_drpdi_in : in STD_LOGIC_VECTOR ( 15 downto 0 );
@@ -45,8 +44,6 @@ entity GTP_Artix_GTP_Artix_GT is
     gt0_txcharisk_in : in STD_LOGIC_VECTOR ( 1 downto 0 );
     gt0_drpaddr_in : in STD_LOGIC_VECTOR ( 8 downto 0 )
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of GTP_Artix_GTP_Artix_GT : entity is "GTP_Artix_GT";
 end GTP_Artix_GTP_Artix_GT;
 
 architecture STRUCTURE of GTP_Artix_GTP_Artix_GT is
@@ -541,7 +538,7 @@ gtpe2_i: unisim.vcomponents.GTPE2_CHANNEL
       TXOUTCLKFABRIC => gt0_txoutclkfabric_out,
       TXOUTCLKPCS => gt0_txoutclkpcs_out,
       TXOUTCLKSEL(2 downto 0) => B"010",
-      TXPCSRESET => gt0_txpcsreset_in,
+      TXPCSRESET => '0',
       TXPD(1 downto 0) => B"00",
       TXPDELECIDLEMODE => '0',
       TXPHALIGN => '0',
@@ -598,8 +595,6 @@ entity GTP_Artix_GTP_Artix_GT_USRCLK_SOURCE is
     Q0_CLK0_GTREFCLK_PAD_N_IN : in STD_LOGIC;
     GT0_TXOUTCLK_IN : in STD_LOGIC
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of GTP_Artix_GTP_Artix_GT_USRCLK_SOURCE : entity is "GTP_Artix_GT_USRCLK_SOURCE";
 end GTP_Artix_GTP_Artix_GT_USRCLK_SOURCE;
 
 architecture STRUCTURE of GTP_Artix_GTP_Artix_GT_USRCLK_SOURCE is
@@ -644,8 +639,6 @@ entity GTP_Artix_GTP_Artix_common is
     cpll_pd_pll0_q0_clk0_refclk_i : in STD_LOGIC;
     PLL0RESET_IN : in STD_LOGIC
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of GTP_Artix_GTP_Artix_common : entity is "GTP_Artix_common";
 end GTP_Artix_GTP_Artix_common;
 
 architecture STRUCTURE of GTP_Artix_GTP_Artix_common is
@@ -756,8 +749,6 @@ entity GTP_Artix_GTP_Artix_common_reset is
     GT0_PLL0RESET_OUT : in STD_LOGIC;
     cpll_reset_out : in STD_LOGIC
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of GTP_Artix_GTP_Artix_common_reset : entity is "GTP_Artix_common_reset";
 end GTP_Artix_GTP_Artix_common_reset;
 
 architecture STRUCTURE of GTP_Artix_GTP_Artix_common_reset is
@@ -1110,8 +1101,6 @@ entity GTP_Artix_GTP_Artix_cpll_railing is
     cpll_pd_pll0_q0_clk0_refclk_i : out STD_LOGIC;
     Q0_CLK0_GTREFCLK_OUT : in STD_LOGIC
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of GTP_Artix_GTP_Artix_cpll_railing : entity is "GTP_Artix_cpll_railing";
 end GTP_Artix_GTP_Artix_cpll_railing;
 
 architecture STRUCTURE of GTP_Artix_GTP_Artix_cpll_railing is
@@ -1288,8 +1277,6 @@ entity GTP_Artix_GTP_Artix_sync_block is
     GT0_PLL0LOCK_OUT : in STD_LOGIC;
     sysclk_in : in STD_LOGIC
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of GTP_Artix_GTP_Artix_sync_block : entity is "GTP_Artix_sync_block";
 end GTP_Artix_GTP_Artix_sync_block;
 
 architecture STRUCTURE of GTP_Artix_GTP_Artix_sync_block is
@@ -2085,8 +2072,6 @@ entity GTP_Artix_GTP_Artix_TX_STARTUP_FSM is
     gt0_txresetdone_out : in STD_LOGIC;
     GT0_PLL0LOCK_OUT : in STD_LOGIC
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of GTP_Artix_GTP_Artix_TX_STARTUP_FSM : entity is "GTP_Artix_TX_STARTUP_FSM";
 end GTP_Artix_GTP_Artix_TX_STARTUP_FSM;
 
 architecture STRUCTURE of GTP_Artix_GTP_Artix_TX_STARTUP_FSM is
@@ -4044,7 +4029,6 @@ entity GTP_Artix_GTP_Artix_multi_gt is
     GT0_PLL1OUTCLK_OUT : in STD_LOGIC;
     GT0_PLL1OUTREFCLK_OUT : in STD_LOGIC;
     gt0_rxlpmreset_in : in STD_LOGIC;
-    gt0_txpcsreset_in : in STD_LOGIC;
     gt0_txuserrdy_t : in STD_LOGIC;
     GT0_TXUSRCLK_OUT : in STD_LOGIC;
     gt0_drpdi_in : in STD_LOGIC_VECTOR ( 15 downto 0 );
@@ -4052,8 +4036,6 @@ entity GTP_Artix_GTP_Artix_multi_gt is
     gt0_txcharisk_in : in STD_LOGIC_VECTOR ( 1 downto 0 );
     gt0_drpaddr_in : in STD_LOGIC_VECTOR ( 8 downto 0 )
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of GTP_Artix_GTP_Artix_multi_gt : entity is "GTP_Artix_multi_gt";
 end GTP_Artix_GTP_Artix_multi_gt;
 
 architecture STRUCTURE of GTP_Artix_GTP_Artix_multi_gt is
@@ -4084,7 +4066,6 @@ gt0_GTP_Artix_i: entity work.GTP_Artix_GTP_Artix_GT
       gt0_txdata_in(15 downto 0) => gt0_txdata_in(15 downto 0),
       gt0_txoutclkfabric_out => gt0_txoutclkfabric_out,
       gt0_txoutclkpcs_out => gt0_txoutclkpcs_out,
-      gt0_txpcsreset_in => gt0_txpcsreset_in,
       gt0_txresetdone_out => gt0_txresetdone_out,
       gt0_txuserrdy_t => gt0_txuserrdy_t,
       sysclk_in => sysclk_in
@@ -4118,7 +4099,6 @@ entity GTP_Artix_GTP_Artix_init is
     GT0_PLL1OUTCLK_OUT : in STD_LOGIC;
     GT0_PLL1OUTREFCLK_OUT : in STD_LOGIC;
     gt0_rxlpmreset_in : in STD_LOGIC;
-    gt0_txpcsreset_in : in STD_LOGIC;
     GT0_TXUSRCLK_OUT : in STD_LOGIC;
     gt0_drpdi_in : in STD_LOGIC_VECTOR ( 15 downto 0 );
     gt0_txdata_in : in STD_LOGIC_VECTOR ( 15 downto 0 );
@@ -4128,8 +4108,6 @@ entity GTP_Artix_GTP_Artix_init is
     GT0_PLL0REFCLKLOST_OUT : in STD_LOGIC;
     GT0_PLL0LOCK_OUT : in STD_LOGIC
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of GTP_Artix_GTP_Artix_init : entity is "GTP_Artix_init";
 end GTP_Artix_GTP_Artix_init;
 
 architecture STRUCTURE of GTP_Artix_GTP_Artix_init is
@@ -4164,7 +4142,6 @@ GTP_Artix_i: entity work.GTP_Artix_GTP_Artix_multi_gt
       gt0_txdata_in(15 downto 0) => gt0_txdata_in(15 downto 0),
       gt0_txoutclkfabric_out => gt0_txoutclkfabric_out,
       gt0_txoutclkpcs_out => gt0_txoutclkpcs_out,
-      gt0_txpcsreset_in => gt0_txpcsreset_in,
       gt0_txresetdone_out => \^gt0_txresetdone_out\,
       gt0_txuserrdy_t => gt0_txuserrdy_t,
       sysclk_in => sysclk_in
@@ -4218,8 +4195,6 @@ entity GTP_Artix_GTP_Artix_support is
     gt0_gtptxp_out : out STD_LOGIC;
     gt0_txoutclkfabric_out : out STD_LOGIC;
     gt0_txoutclkpcs_out : out STD_LOGIC;
-    gt0_txpcsreset_in : in STD_LOGIC;
-    gt0_txpmareset_in : in STD_LOGIC;
     gt0_txresetdone_out : out STD_LOGIC;
     GT0_PLL0OUTCLK_OUT : out STD_LOGIC;
     GT0_PLL0OUTREFCLK_OUT : out STD_LOGIC;
@@ -4231,8 +4206,6 @@ entity GTP_Artix_GTP_Artix_support is
   );
   attribute EXAMPLE_SIM_GTRESET_SPEEDUP : string;
   attribute EXAMPLE_SIM_GTRESET_SPEEDUP of GTP_Artix_GTP_Artix_support : entity is "TRUE";
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of GTP_Artix_GTP_Artix_support : entity is "GTP_Artix_support";
   attribute STABLE_CLOCK_PERIOD : integer;
   attribute STABLE_CLOCK_PERIOD of GTP_Artix_GTP_Artix_support : entity is 10;
   attribute downgradeipidentifiedwarnings : string;
@@ -4298,7 +4271,6 @@ GTP_Artix_init_i: entity work.GTP_Artix_GTP_Artix_init
       gt0_txdata_in(15 downto 0) => gt0_txdata_in(15 downto 0),
       gt0_txoutclkfabric_out => gt0_txoutclkfabric_out,
       gt0_txoutclkpcs_out => gt0_txoutclkpcs_out,
-      gt0_txpcsreset_in => gt0_txpcsreset_in,
       gt0_txresetdone_out => gt0_txresetdone_out,
       sysclk_in => sysclk_in
     );
@@ -4373,8 +4345,6 @@ entity GTP_Artix is
     gt0_gtptxp_out : out STD_LOGIC;
     gt0_txoutclkfabric_out : out STD_LOGIC;
     gt0_txoutclkpcs_out : out STD_LOGIC;
-    gt0_txpcsreset_in : in STD_LOGIC;
-    gt0_txpmareset_in : in STD_LOGIC;
     gt0_txresetdone_out : out STD_LOGIC;
     GT0_PLL0OUTCLK_OUT : out STD_LOGIC;
     GT0_PLL0OUTREFCLK_OUT : out STD_LOGIC;
@@ -4434,8 +4404,6 @@ U0: entity work.GTP_Artix_GTP_Artix_support
       gt0_txdata_in(15 downto 0) => gt0_txdata_in(15 downto 0),
       gt0_txoutclkfabric_out => gt0_txoutclkfabric_out,
       gt0_txoutclkpcs_out => gt0_txoutclkpcs_out,
-      gt0_txpcsreset_in => gt0_txpcsreset_in,
-      gt0_txpmareset_in => gt0_txpmareset_in,
       gt0_txresetdone_out => gt0_txresetdone_out,
       gt0_txuserrdy_in => gt0_txuserrdy_in,
       sysclk_in => sysclk_in

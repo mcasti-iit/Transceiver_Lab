@@ -1,8 +1,9 @@
 library ieee;
-	use ieee.std_logic_1164.all;
-	use ieee.numeric_std.all;
-	use ieee.std_logic_unsigned.all;
-
+  use ieee.std_logic_1164.all;
+  use ieee.std_logic_arith.all;
+  use ieee.std_logic_unsigned.all;
+  use ieee.std_logic_misc.all;
+  
 library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
 
@@ -18,11 +19,14 @@ entity GTP_Zynq_Test is
     EXAMPLE_USE_CHIPSCOPE            : integer   := 1           -- Set to 1 to use Chipscope to drive resets
     );
   port(
-    Q0_CLK1_GTREFCLK_PAD_N_IN  : in   std_logic;
-    Q0_CLK1_GTREFCLK_PAD_P_IN  : in   std_logic;
+    REFCLK0_RX_N_i             : in   std_logic;
+    REFCLK0_RX_P_i             : in   std_logic;
     
-    RXN_IN                     : in   std_logic;
-    RXP_IN                     : in   std_logic;
+    REFCLK1_RX_N_i             : in   std_logic;
+    REFCLK1_RX_P_i             : in   std_logic;
+    
+    RXN_i                      : in   std_logic;
+    RXP_i                      : in   std_logic;
         
     FIXED_IO_0_mio             : inout std_logic_vector ( 53 downto 0 );         
     FIXED_IO_0_ps_clk          : inout std_logic;                                
@@ -30,7 +34,7 @@ entity GTP_Zynq_Test is
     FIXED_IO_0_ps_srstb        : inout std_logic;                                
     
     ALIGN_REQ_R_N_o            : out std_logic;
-    CCAM_PLL_RESET_o           : out std_logic;
+    CCAM_PLL_RESET_o           : in  std_logic;
     
     AD9517_REFMON_i            : in std_logic;                                   
     AD9517_STATUS_i            : in std_logic;                                   
@@ -56,16 +60,23 @@ architecture RTL of GTP_Zynq_Test is
     
 component GTP_RX_Manager is
   generic ( 
-    GTP_STREAM_WIDTH_g      : integer range 0 to 64 := 16;    -- Width of RX Data - GTP side 
-    RX_DATA_OUT_WIDTH_g     : integer range 0 to 64 := 32     -- Width of RX Data - Fabric side
+    RX_DATA_OUT_WIDTH_g     : integer range 0 to 64 := 32;    -- Width of RX Data - Fabric side
+    GTP_STREAM_WIDTH_g      : integer range 0 to 64 := 16     -- Width of RX Data - GTP side 
     );
   port (
+    -- *** ASYNC PORTS  
+    GTP_PLL_LOCK_i          : in  std_logic;
+      
     -- *** SYSTEM CLOCK DOMAIN ***
     -- Bare Control ports
     CLK_i                   : in  std_logic;   -- Input clock - Fabric side    
     RST_N_i                 : in  std_logic;   -- Asynchronous active low reset (clk clock)
-    EN1MS_i                 : in  std_logic;  
-    
+    EN1MS_i                 : in  std_logic;   -- Enable @ 1 msec in clk domain 
+    EN1S_i                  : in  std_logic;   -- Enable @ 1 sec in clk domain 
+
+    -- Control in
+    GTP_PLL_REFCLKLOST_i    : in  std_logic;
+     
     -- Control out
     GTP_SOFT_RESET_RX_o     : out std_logic;     
          
@@ -83,9 +94,9 @@ component GTP_RX_Manager is
     -- Bare Control ports   
     GCK_i                   : in  std_logic;   -- Input clock - GTP side       
     RST_N_GCK_i             : in  std_logic;   -- Asynchronous active low reset (gck clock)    
-    EN1MS_GCK_i             : in  std_logic;  
+    EN1MS_GCK_i             : in  std_logic;   -- Enable @ 1 msec in gck domain 
 
-    -- Controls         
+    -- Control out         
     GTP_IS_ALIGNED_i        : in  std_logic;
     ALIGN_REQ_o             : out std_logic;
 
@@ -94,6 +105,7 @@ component GTP_RX_Manager is
     GTP_CHAR_IS_K_i         : in  std_logic_vector((GTP_STREAM_WIDTH_g/8)-1 downto 0)
     );
 end component;
+
 
 component GTP_Zynq
 port
@@ -139,9 +151,6 @@ port
     -------------- Receive Ports - RX Byte and Word Alignment Ports ------------
     gt0_rxbyteisaligned_out                 : out  std_logic;
     gt0_rxbyterealign_out                   : out  std_logic;
-    gt0_rxcommadet_out                      : out  std_logic;
-    gt0_rxmcommaalignen_in                  : in   std_logic;
-    gt0_rxpcommaalignen_in                  : in   std_logic;
     ------------ Receive Ports - RX Decision Feedback Equalizer(DFE) -----------
     gt0_dmonitorout_out                     : out  std_logic_vector(14 downto 0);
     -------------------- Receive Ports - RX Equailizer Ports -------------------
@@ -157,6 +166,7 @@ port
     --------------------- TX Initialization and Reset Ports --------------------
     gt0_gttxreset_in                        : in   std_logic;
 
+GT0_PLL0PD_IN                           : in   std_logic;
     --____________________________COMMON PORTS________________________________
    GT0_PLL0RESET_OUT  : out std_logic;
          GT0_PLL0OUTCLK_OUT  : out std_logic;
@@ -206,7 +216,8 @@ component AD9517_Manager is
     EN1MS_i   : in  std_logic;                                 -- 1 ms clock enable
     RST_N_i   : in  std_logic;                                 -- asynchronous reset
     
-    -- Controland status ports
+    -- Control and status ports
+    INIT_i    : in  std_logic;                                 -- Start of configuration
     ERROR_o   : out std_logic_vector(2 downto 0);              -- Error code
     DONE_o    : out std_logic;
     
@@ -343,6 +354,7 @@ signal spi_busy         : std_logic;                                          --
 signal spi_rx_data      : std_logic_vector(7 downto 0);                       -- data received
 signal spi_error        : std_logic_vector (2 downto 0);                      -- error code
 signal spi_done         : std_logic;                                          -- done
+signal spi_init         : std_logic;                                          -- done
 
 signal spi_sclk         :  std_logic;                                         --spi clock
 signal spi_ss_n         :  std_logic_vector(SPI_SLAVES_TOTNUM_c-1 downto 0);  --slave select
@@ -367,7 +379,7 @@ signal align_req_r_n    :  std_logic;
 signal clk_100                                 : std_logic;
 signal rst_n                                   : std_logic;
 signal rst_n_gck                               : std_logic;
-signal gck                                     : std_logic;
+signal gckrx                                   : std_logic;
 signal en1ms_gck                               : std_logic;
 
 signal autoreset_en                            : std_logic;
@@ -395,7 +407,9 @@ signal ila_fpga_probe4 : std_logic_vector(15 downto 0);
 	
 signal stretch_a          : std_logic_vector(15 downto 0);
 
-
+signal spare_in_meta    : std_logic;
+signal spare_in_sync    : std_logic;
+signal spare_in         : std_logic;
 
 
 -- ------------------------------------------------------------------------
@@ -406,43 +420,59 @@ signal align_req          : std_logic;
 signal man_align_req      : std_logic;
 signal align_req_en       : std_logic;
 signal gtp_reset          : std_logic;
-signal gtp_is_aligned        : std_logic;
-signal gtp_realign        : std_logic;
-signal gtp_pll_locked     : std_logic;
-signal gtp_minus_align_en : std_logic;
-signal gtp_plus_align_en  : std_logic;
-signal gtp_rx_reset_done  : std_logic;
-signal gtp_data_valid_in  : std_logic;
-signal gtp_gtrxreset      : std_logic;
-signal gtp_rxlpmreset     : std_logic;
+signal gtp_is_aligned       : std_logic;
+signal gtp_realign          : std_logic;
+signal gtp_minus_align_en   : std_logic;
+signal gtp_plus_align_en    : std_logic;
+signal gtp_rx_reset_done    : std_logic;
+signal gtp_data_valid_in    : std_logic;
+signal gtp_gtrxreset        : std_logic;
+signal gtp_rxlpmreset       : std_logic;
 
 
-signal rx_data_out_src_rdy : std_logic;
-signal rx_data_out_dst_rdy : std_logic;
+signal rx_data_out_src_rdy  : std_logic;
+signal rx_data_out_dst_rdy  : std_logic;
 
 
-signal gtp_rx_data         : std_logic_vector(31 downto 0);
-signal gtp_rx_data_src_rdy : std_logic;
-signal gtp_rx_data_dst_rdy : std_logic;
+signal gtp_rx_data          : std_logic_vector(31 downto 0);
+signal gtp_rx_data_src_rdy  : std_logic;
+signal gtp_rx_data_dst_rdy  : std_logic;
 
-signal gtp_rx_msg          : std_logic_vector(7 downto 0);
-signal gtp_rx_msg_src_rdy  : std_logic;
-signal gtp_rx_msg_dst_rdy  : std_logic;
+signal gtp_rx_msg           : std_logic_vector(7 downto 0);
+signal gtp_rx_msg_src_rdy   : std_logic;
+signal gtp_rx_msg_dst_rdy   : std_logic;
 
-signal gtp_stream          : std_logic_vector(15 downto 0);
-signal gtp_char_is_k       : std_logic_vector(1 downto 0);
-signal gtp_char_is_comma   : std_logic_vector(1 downto 0);
+signal gtp_stream           : std_logic_vector(15 downto 0);
+signal gtp_char_is_k        : std_logic_vector(1 downto 0);
+signal gtp_char_is_comma    : std_logic_vector(1 downto 0);
 
-signal tx_cnt_32bit_a      : std_logic_vector(31 downto 0);
-signal tx_cnt_32bit_b      : std_logic_vector(31 downto 0);
+signal tx_cnt_32bit_a       : std_logic_vector(31 downto 0);
+signal tx_cnt_32bit_b       : std_logic_vector(31 downto 0);
 
-signal gtp_rx_data_p1     : std_logic_vector(31 downto 0);
-signal gtp_rx_msg_p1      : std_logic_vector(7 downto 0);
+signal gtp_rx_data_p1       : std_logic_vector(31 downto 0);
+signal gtp_rx_msg_p1        : std_logic_vector(7 downto 0);
 
-signal dummy_cnt          : std_logic_vector(31 downto 0);
-signal dummy_cnt_gck      : std_logic_vector(31 downto 0);
+signal dummy_cnt            : std_logic_vector(31 downto 0);
+signal dummy_cnt_gck        : std_logic_vector(31 downto 0);
+signal dummy_cnt_ref_clk    : std_logic_vector(31 downto 0);
+signal dummy_cnt_generic    : std_logic_vector(31 downto 0);
 
-signal rx_fsm_reset_done  : std_logic;
+signal rx_fsm_reset_done    : std_logic;
+
+signal gtp_soft_reset_rx    : std_logic;
+signal gtp_pll_lock         : std_logic;
+signal gtp_clk_lost         : std_logic;
+
+signal gtp_ref_clk          : std_logic;
+signal rxusrclk             : std_logic;
+
+signal gtp_reset_cnt        : std_logic_vector(7 downto 0);
+
+signal flag, flag_d, flag_dw : std_logic;
+signal start        : std_logic;
+
+
+
 
 -- MARK DEBUG
 attribute mark_debug : string;
@@ -451,9 +481,9 @@ attribute keep of rx_data_match     : signal is "true";
 attribute keep of rx_msg_match      : signal is "true";
 attribute keep of gtp_reset         : signal is "true";
 attribute keep of man_align_req     : signal is "true";
-attribute keep of gtp_is_aligned       : signal is "true";
+attribute keep of gtp_is_aligned    : signal is "true";
 attribute keep of gtp_realign       : signal is "true";
-attribute keep of gtp_pll_locked    : signal is "true";
+attribute keep of gtp_pll_lock      : signal is "true";
 attribute keep of gtp_rx_data       : signal is "true";
 attribute keep of gtp_rx_data_p1    : signal is "true";
 attribute keep of gtp_rx_msg        : signal is "true";
@@ -474,6 +504,20 @@ tied_to_ground_vec <= x"0000000000000000";
 tied_to_vcc        <= '1';
 tied_to_vcc_vec    <= "11111111";
 
+
+
+process(clk_100, rst_n)
+begin
+  if (rst_n = '0') then 
+    spare_in_meta <= '0';
+    spare_in_sync <= '0';
+    spare_in <= '0';
+  elsif rising_edge(clk_100) then
+    spare_in_meta  <= CCAM_PLL_RESET_o;
+    spare_in_sync  <= spare_in_meta;
+    spare_in       <= spare_in_sync;
+  end if;
+end process;
 
 
 TIME_MACHINE_i : time_machine
@@ -514,7 +558,7 @@ TIME_MACHINE_GCK_i : time_machine
     )
   port map(
     -- Clock in port
-    CLK_i                   => gck,
+    CLK_i                   => gckrx,
     CLEAR_i                 => '1',
   
     -- Output reset
@@ -544,18 +588,26 @@ gtp_rx_msg_dst_rdy  <= '1';
     
 GTP_RX_Manager_i : GTP_RX_Manager 
   generic map( 
-    GTP_STREAM_WIDTH_g      => 16,   
-    RX_DATA_OUT_WIDTH_g     => 32   
+    RX_DATA_OUT_WIDTH_g     => 32,
+    GTP_STREAM_WIDTH_g      => 16
+      
     )
   port map(
+    -- *** ASYNC PORTS  
+    GTP_PLL_LOCK_i          => gtp_pll_lock,
+      
     -- *** SYSTEM CLOCK DOMAIN ***
     -- Bare Control ports
     CLK_i                   => clk_100,
     RST_N_i                 => rst_n, 
-    EN1MS_i                 => en1ms, 
+    EN1MS_i                 => en1ms,
+    EN1S_i                  => en1s, 
     
+    -- Control in
+    GTP_PLL_REFCLKLOST_i    => gtp_clk_lost,
+     
     -- Control out
-    GTP_SOFT_RESET_RX_o     => gtp_reset,
+    GTP_SOFT_RESET_RX_o     => gtp_soft_reset_rx,
          
     -- Data out
     RX_DATA_o               => gtp_rx_data,
@@ -569,7 +621,7 @@ GTP_RX_Manager_i : GTP_RX_Manager
         
     -- *** GTP CLOCK DOMAIN ***
     -- Bare Control ports   
-    GCK_i                   => gck,       
+    GCK_i                   => gckrx,       
     RST_N_GCK_i             => rst_n_gck,
     EN1MS_GCK_i             => en1ms_gck,
     
@@ -580,7 +632,7 @@ GTP_RX_Manager_i : GTP_RX_Manager
     -- Data in 
     GTP_STREAM_IN_i         => gtp_stream, 
     GTP_CHAR_IS_K_i         => gtp_char_is_k 
-    );    
+    ); 
     
 
 ALIGN_REQ_R_N_o <= align_req_en and (align_req or man_align_req);    
@@ -589,32 +641,34 @@ ALIGN_REQ_R_N_o <= align_req_en and (align_req or man_align_req);
 
 
 
-gtp_plus_align_en  <= vio_gtp_probe_out0(6);
-gtp_minus_align_en <= vio_gtp_probe_out0(5);
+-- gtp_plus_align_en  <= vio_gtp_probe_out0(6);
+-- gtp_minus_align_en <= vio_gtp_probe_out0(5);
 
-align_req_en       <= vio_gtp_probe_out0(4);
-man_align_req      <= vio_gtp_probe_out0(3);
+align_req_en       <= '1'; -- vio_gtp_probe_out0(4);
+man_align_req      <= '0'; -- vio_gtp_probe_out0(3);
 
-gtp_gtrxreset      <= vio_gtp_probe_out0(2);
-gtp_rxlpmreset     <= vio_gtp_probe_out0(1);
-CCAM_PLL_RESET_o   <= vio_gtp_probe_out0(0);
+-- gtp_gtrxreset      <= vio_gtp_probe_out0(2);
+-- gtp_rxlpmreset     <= vio_gtp_probe_out0(1);
+
+
+-- CCAM_PLL_RESET_o   <= vio_gtp_probe_out0(0);
 
 
 
 GTP_Zynq_i : GTP_Zynq
 port map
 (
-    SOFT_RESET_RX_IN                    =>      '0',
+    SOFT_RESET_RX_IN                    =>      spare_in, -- '0', -- gtp_reset, -- '0', -- gtp_soft_reset_rx,
     DONT_RESET_ON_DATA_ERROR_IN         =>      '0',
-    Q0_CLK1_GTREFCLK_PAD_N_IN           =>      Q0_CLK1_GTREFCLK_PAD_N_IN,
-    Q0_CLK1_GTREFCLK_PAD_P_IN           =>      Q0_CLK1_GTREFCLK_PAD_P_IN,
+    Q0_CLK1_GTREFCLK_PAD_N_IN           =>      REFCLK1_RX_N_i,
+    Q0_CLK1_GTREFCLK_PAD_P_IN           =>      REFCLK1_RX_P_i,
 
     GT0_TX_FSM_RESET_DONE_OUT           =>      open,
     GT0_RX_FSM_RESET_DONE_OUT           =>      rx_fsm_reset_done,
     GT0_DATA_VALID_IN                   =>      '1',
 
     GT0_RXUSRCLK_OUT                    =>      open,
-    GT0_RXUSRCLK2_OUT                   =>      gck,
+    GT0_RXUSRCLK2_OUT                   =>      gckrx,
 
     --_________________________________________________________________________
     --GT0  (X0Y2)
@@ -640,35 +694,33 @@ port map
         gt0_rxdisperr_out               =>      open,
         gt0_rxnotintable_out            =>      open,
     ------------------------ Receive Ports - RX AFE Ports ----------------------
-        gt0_gtprxn_in                   =>      RXN_IN,
-        gt0_gtprxp_in                   =>      RXP_IN,
+        gt0_gtprxn_in                   =>      RXN_i,
+        gt0_gtprxp_in                   =>      RXP_i,
     -------------- Receive Ports - RX Byte and Word Alignment Ports ------------
         gt0_rxbyteisaligned_out         =>      gtp_is_aligned,
         gt0_rxbyterealign_out           =>      gtp_realign,
-        gt0_rxcommadet_out              =>      open,
-        gt0_rxmcommaalignen_in          =>      '1', -- gtp_minus_align_en,
-        gt0_rxpcommaalignen_in          =>      '1', -- gtp_plus_align_en,
     ------------ Receive Ports - RX Decision Feedback Equalizer(DFE) -----------
         gt0_dmonitorout_out             =>      open,
     -------------------- Receive Ports - RX Equailizer Ports -------------------
         gt0_rxlpmhfhold_in              =>      '0',
         gt0_rxlpmlfhold_in              =>      '0',
     --------------- Receive Ports - RX Fabric Output Control Ports -------------
-        gt0_rxoutclkfabric_out          =>      open,
+        gt0_rxoutclkfabric_out          =>      gtp_ref_clk,
     ------------- Receive Ports - RX Initialization and Reset Ports ------------
-        gt0_gtrxreset_in                =>      gtp_gtrxreset,
-        gt0_rxlpmreset_in               =>      gtp_rxlpmreset,
+        gt0_gtrxreset_in                =>      '0', -- , -- gtp_gtrxreset,
+        gt0_rxlpmreset_in               =>      '0', -- gtp_rxlpmreset,
     -------------- Receive Ports -RX Initialization and Reset Ports ------------
         gt0_rxresetdone_out             =>      gtp_rx_reset_done,
     --------------------- TX Initialization and Reset Ports --------------------
         gt0_gttxreset_in                =>      '0',
 
+GT0_PLL0PD_IN => '0',
     --____________________________COMMON PORTS________________________________
         GT0_PLL0RESET_OUT               =>      open,
         GT0_PLL0OUTCLK_OUT              =>      open,
         GT0_PLL0OUTREFCLK_OUT           =>      open,
-        GT0_PLL0LOCK_OUT                =>      gtp_pll_locked,
-        GT0_PLL0REFCLKLOST_OUT          =>      open,    
+        GT0_PLL0LOCK_OUT                =>      gtp_pll_lock,
+        GT0_PLL0REFCLKLOST_OUT          =>      gtp_clk_lost,    
         GT0_PLL1OUTCLK_OUT              =>      open,
         GT0_PLL1OUTREFCLK_OUT           =>      open,
         sysclk_in                       =>      clk_100
@@ -686,68 +738,68 @@ PS_i : PS
   );
 
 
-ila_gtp_probe0 <= gtp_stream;
-ila_gtp_probe1 <= x"0000";
-ila_gtp_probe2 <= "0000" & "0000" & "00" & gtp_realign & gtp_is_aligned & gtp_char_is_comma & gtp_char_is_k;
--- ila_gtp_probe2 <= dummy_cnt_gck(15 downto 0);
-
-
-ILA_GTP : ila_0
-PORT MAP (
-	clk    => gck,
-	probe0 => ila_gtp_probe0,
-	probe1 => ila_gtp_probe1,
-	probe2 => ila_gtp_probe2	
-);
-
-ila_fpga_probe0 <= gtp_rx_data;
-ila_fpga_probe1 <= gtp_rx_data_p1;
-ila_fpga_probe2 <= gtp_rx_msg;
-ila_fpga_probe3 <= gtp_rx_msg_p1;
-ila_fpga_probe4 <= "00000000000000" & rx_msg_match & rx_data_match;
--- ila_fpga_probe4 <= dummy_cnt(15 downto 0);
-
-
-ILA_FPGA : ila_1
-PORT MAP (
-	clk    => clk_100,
-	probe0 => ila_fpga_probe0,
-	probe1 => ila_fpga_probe1,
-	probe2 => ila_fpga_probe2,
-	probe3 => ila_fpga_probe3,
-	probe4 => ila_fpga_probe4
-);
-
-
-
-
-vio_gtp_probe_in0 <= "00000000000000" & gtp_is_aligned & gtp_pll_locked;
-
-VIO_GTP_i : VIO_GTP
-  PORT MAP (
-    clk => gck,
-    probe_in0  => vio_gtp_probe_in0,
-    probe_out0 => vio_gtp_probe_out0
-  );
-
-
-vio_fpga_probe_in0 <= "0000000000000" & rx_fsm_reset_done & rx_msg_match & rx_data_match;
-
-
-VIO_FPGA_i : VIO_FPGA
-  PORT MAP (
-    clk => clk_100,
-    probe_in0  => vio_fpga_probe_in0,
-    probe_out0 => vio_fpga_probe_out0
-  );
-
+-- ila_gtp_probe0 <= gtp_stream;
+-- ila_gtp_probe1 <= x"0000";
+-- ila_gtp_probe2 <= "0000" & "0000" & "00" & gtp_realign & gtp_is_aligned & gtp_char_is_comma & gtp_char_is_k;
+-- -- ila_gtp_probe2 <= dummy_cnt_gck(15 downto 0);
+-- 
+-- 
+-- ILA_GTP : ila_0
+-- PORT MAP (
+-- 	clk    => gckrx,
+-- 	probe0 => ila_gtp_probe0,
+-- 	probe1 => ila_gtp_probe1,
+-- 	probe2 => ila_gtp_probe2	
+-- );
+-- 
+-- ila_fpga_probe0 <= gtp_rx_data;
+-- ila_fpga_probe1 <= gtp_rx_data_p1;
+-- ila_fpga_probe2 <= gtp_rx_msg;
+-- ila_fpga_probe3 <= gtp_rx_msg_p1;
+-- ila_fpga_probe4 <= "0000000000000" & align_req & rx_msg_match & rx_data_match;
+-- -- ila_fpga_probe4 <= dummy_cnt(15 downto 0);
+-- 
+-- 
+-- ILA_FPGA : ila_1
+-- PORT MAP (
+-- 	clk    => clk_100,
+-- 	probe0 => ila_fpga_probe0,
+-- 	probe1 => ila_fpga_probe1,
+-- 	probe2 => ila_fpga_probe2,
+-- 	probe3 => ila_fpga_probe3,
+-- 	probe4 => ila_fpga_probe4
+-- );
+-- 
+-- 
+-- 
+-- 
+-- vio_gtp_probe_in0 <= "00000000000000" & gtp_is_aligned & gtp_pll_lock;
+-- 
+-- VIO_GTP_i : VIO_GTP
+--   PORT MAP (
+--     clk => gckrx,
+--     probe_in0  => vio_gtp_probe_in0,
+--     probe_out0 => vio_gtp_probe_out0
+--   );
+-- 
+-- 
+-- vio_fpga_probe_in0 <= "00000000000000" & rx_msg_match & rx_data_match;
+-- 
+-- 
+-- VIO_FPGA_i : VIO_FPGA
+--   PORT MAP (
+--     clk => clk_100,
+--     probe_in0  => vio_fpga_probe_in0,
+--     probe_out0 => vio_fpga_probe_out0
+--   );
+-- 
 
 -- ----------------------------------------------------
 -- Stretch
 
-process (gck)
+process (gckrx)
 begin
-  if rising_edge(gck) then
+  if rising_edge(gckrx) then
     if (gtp_is_aligned = '1') then
       stretch_a <= x"FFFF";
     else
@@ -797,7 +849,7 @@ end process;
 -- ------------------------------------------------------------
 -- AD9517
 
-
+spi_init <= '0'; -- vio_fpga_probe_out0(1);
 
 
 AD9517_Manager_i : AD9517_Manager
@@ -813,6 +865,7 @@ AD9517_Manager_i : AD9517_Manager
     RST_N_i   => pon_reset_n,             
     
     -- Controland status ports
+    INIT_i    => spi_init,
     ERROR_o   => spi_error,
     DONE_o    => spi_done,
     
@@ -852,36 +905,16 @@ SPI_MASTER_i : spi_3_wire_master
     rx_data   => spi_rx_data               -- : out    std_logic_vector(d_width-1 downto 0));  --data received
     );
 
+
+
 ad9517_pd_n    <= '1';
 ad9517_sync_n  <= '1';
 ad9517_reset_n <= '1';
 
--- process (GT0_RXUSRCLK2_OUT, pon_reset_n)
--- begin
---   if (pon_reset_n = '0') then
---     toggle_1s <= '0';
---   elsif rising_edge(GT0_RXUSRCLK2_OUT) then
---     if (en1s = '1') then
---       toggle_1s <= not toggle_1s;
---     end if;
---   end if;
--- end process;
--- 
--- process (GT0_RXUSRCLK2_OUT, pon_reset_n)
--- begin
---   if (pon_reset_n = '0') then
---     align_req_r_n <= '1';
---   elsif rising_edge(GT0_RXUSRCLK2_OUT) then
---     align_req_r_n <= not toggle_1s;
---   end if;
--- end process;
-
 -- --------------------------------------------------------------------------
 -- OUTPUTS
 
-
-
-AD9517_PD_N_o    <= ad9517_pd_n;     -- : out STD_LOGIC;
+AD9517_PD_N_o    <= '1'; -- not vio_fpga_probe_out0(0); -- ad9517_pd_n; --     -- : out STD_LOGIC;
 AD9517_SYNC_N_o  <= ad9517_sync_n;   -- : out STD_LOGIC;
 AD9517_RESET_N_o <= ad9517_reset_n;  -- : out STD_LOGIC;
 AD9517_SDIO_io   <= spi_sdio;-- : inout STD_LOGIC;
@@ -891,12 +924,25 @@ AD9517_CS_N_o    <= spi_ss_n(0);-- : out STD_LOGIC);
 
 EN_GTP_OSC_o     <= pon_reset_n;
 
+-- gtp_ref_clk
 
-
-
-process(gck)
+process(rxusrclk)
 begin
-  if rising_edge(gck) then
+  if rising_edge(rxusrclk) then
+    dummy_cnt_generic <= dummy_cnt_generic + 1;
+  end if;	
+end process;
+
+process(gtp_ref_clk)
+begin
+  if rising_edge(gtp_ref_clk) then
+    dummy_cnt_ref_clk <= dummy_cnt_ref_clk + 1;
+  end if;	
+end process;
+
+process(gckrx)
+begin
+  if rising_edge(gckrx) then
     dummy_cnt_gck <= dummy_cnt_gck + 1;
   end if;	
 end process;
@@ -909,6 +955,39 @@ begin
 end process;
 
 
+
+process (clk_100, rst_n)
+begin
+  if (rst_n = '0') then
+    flag         <= '0';
+    flag_d       <= '0';
+    flag_dw      <= '0';
+    start        <= '0';
+  elsif rising_edge(clk_100) then
+    flag    <= '0'; -- vio_fpga_probe_out0(15);
+    flag_d  <= flag;
+    flag_dw <= not flag and flag_d;
+    start   <= flag_dw;
+  end if;
+end process;
+
+process (clk_100, rst_n)
+begin
+  if (rst_n = '0') then
+    gtp_reset_cnt  <= conv_std_logic_vector(0, gtp_reset_cnt'length);
+    gtp_reset      <= '0';
+  elsif rising_edge(clk_100) then
+    if (start = '1') then
+      gtp_reset_cnt <= conv_std_logic_vector(15, gtp_reset_cnt'length);
+    elsif (gtp_reset_cnt /= conv_std_logic_vector(0, gtp_reset_cnt'length)) then
+      gtp_reset_cnt <= gtp_reset_cnt - 1;
+    end if;
+    
+    gtp_reset <= or_reduce(gtp_reset_cnt);
+    
+  end if;
+end process;
+
 -- process(ALIGN_REQ_R_N_o)
 -- begin
 --   if rising_edge(ALIGN_REQ_R_N_o) then
@@ -918,11 +997,11 @@ end process;
 
 
 
-LEDS_o(4) <= align_req; -- spi_error(0);                   -- RED    
+LEDS_o(4) <= not gtp_pll_lock or gtp_clk_lost; -- ; -- align_req; -- spi_error(0);                   -- RED    
 LEDS_o(3) <= rx_msg_match and rx_data_match;               -- GREEN  
-LEDS_o(2) <= gtp_is_aligned;     -- rx_data_match;         -- BLUE   
-LEDS_o(1) <= '0';           -- PHY 1
-LEDS_o(0) <= '0';           -- PHY 2
+LEDS_o(2) <= align_req; -- gtp_is_aligned;     -- rx_data_match;         -- BLUE   
+LEDS_o(1) <= dummy_cnt_gck(26); -- vio_fpga_probe_out0(0);           -- PHY 1 -- GREEN
+LEDS_o(0) <= gtp_rx_reset_done;           -- PHY 2 -- YELLOW
 
 end RTL;
 

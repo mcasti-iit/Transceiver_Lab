@@ -1,7 +1,7 @@
 // Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2019.1 (win64) Build 2552052 Fri May 24 14:49:42 MDT 2019
-// Date        : Tue Feb 23 16:28:22 2021
+// Date        : Fri Mar 12 15:16:01 2021
 // Host        : IITICUBLAP127 running 64-bit major release  (build 9200)
 // Command     : write_verilog -force -mode funcsim -rename_top GTP_Zynq -prefix
 //               GTP_Zynq_ GTP_Zynq_sim_netlist.v
@@ -43,9 +43,6 @@ module GTP_Zynq
     gt0_gtprxp_in,
     gt0_rxbyteisaligned_out,
     gt0_rxbyterealign_out,
-    gt0_rxcommadet_out,
-    gt0_rxmcommaalignen_in,
-    gt0_rxpcommaalignen_in,
     gt0_dmonitorout_out,
     gt0_rxlpmhfhold_in,
     gt0_rxlpmlfhold_in,
@@ -54,6 +51,7 @@ module GTP_Zynq
     gt0_rxlpmreset_in,
     gt0_rxresetdone_out,
     gt0_gttxreset_in,
+    GT0_PLL0PD_IN,
     GT0_PLL0RESET_OUT,
     GT0_PLL0OUTCLK_OUT,
     GT0_PLL0OUTREFCLK_OUT,
@@ -90,9 +88,6 @@ module GTP_Zynq
   input gt0_gtprxp_in;
   output gt0_rxbyteisaligned_out;
   output gt0_rxbyterealign_out;
-  output gt0_rxcommadet_out;
-  input gt0_rxmcommaalignen_in;
-  input gt0_rxpcommaalignen_in;
   output [14:0]gt0_dmonitorout_out;
   input gt0_rxlpmhfhold_in;
   input gt0_rxlpmlfhold_in;
@@ -101,6 +96,7 @@ module GTP_Zynq
   input gt0_rxlpmreset_in;
   output gt0_rxresetdone_out;
   input gt0_gttxreset_in;
+  input GT0_PLL0PD_IN;
   output GT0_PLL0RESET_OUT;
   output GT0_PLL0OUTCLK_OUT;
   output GT0_PLL0OUTREFCLK_OUT;
@@ -115,6 +111,7 @@ module GTP_Zynq
   wire GT0_PLL0LOCK_OUT;
   wire GT0_PLL0OUTCLK_OUT;
   wire GT0_PLL0OUTREFCLK_OUT;
+  wire GT0_PLL0PD_IN;
   wire GT0_PLL0REFCLKLOST_OUT;
   wire GT0_PLL0RESET_OUT;
   wire GT0_PLL1OUTCLK_OUT;
@@ -144,16 +141,13 @@ module GTP_Zynq
   wire gt0_rxbyterealign_out;
   wire [1:0]gt0_rxchariscomma_out;
   wire [1:0]gt0_rxcharisk_out;
-  wire gt0_rxcommadet_out;
   wire [15:0]gt0_rxdata_out;
   wire [1:0]gt0_rxdisperr_out;
   wire gt0_rxlpmhfhold_in;
   wire gt0_rxlpmlfhold_in;
   wire gt0_rxlpmreset_in;
-  wire gt0_rxmcommaalignen_in;
   wire [1:0]gt0_rxnotintable_out;
   wire gt0_rxoutclkfabric_out;
-  wire gt0_rxpcommaalignen_in;
   wire gt0_rxresetdone_out;
   wire gt0_rxuserrdy_in;
   wire sysclk_in;
@@ -167,6 +161,7 @@ module GTP_Zynq
         .GT0_PLL0LOCK_OUT(GT0_PLL0LOCK_OUT),
         .GT0_PLL0OUTCLK_OUT(GT0_PLL0OUTCLK_OUT),
         .GT0_PLL0OUTREFCLK_OUT(GT0_PLL0OUTREFCLK_OUT),
+        .GT0_PLL0PD_IN(GT0_PLL0PD_IN),
         .GT0_PLL0REFCLKLOST_OUT(GT0_PLL0REFCLKLOST_OUT),
         .GT0_PLL0RESET_OUT(GT0_PLL0RESET_OUT),
         .GT0_PLL1OUTCLK_OUT(GT0_PLL1OUTCLK_OUT),
@@ -196,16 +191,13 @@ module GTP_Zynq
         .gt0_rxbyterealign_out(gt0_rxbyterealign_out),
         .gt0_rxchariscomma_out(gt0_rxchariscomma_out),
         .gt0_rxcharisk_out(gt0_rxcharisk_out),
-        .gt0_rxcommadet_out(gt0_rxcommadet_out),
         .gt0_rxdata_out(gt0_rxdata_out),
         .gt0_rxdisperr_out(gt0_rxdisperr_out),
         .gt0_rxlpmhfhold_in(gt0_rxlpmhfhold_in),
         .gt0_rxlpmlfhold_in(gt0_rxlpmlfhold_in),
         .gt0_rxlpmreset_in(gt0_rxlpmreset_in),
-        .gt0_rxmcommaalignen_in(gt0_rxmcommaalignen_in),
         .gt0_rxnotintable_out(gt0_rxnotintable_out),
         .gt0_rxoutclkfabric_out(gt0_rxoutclkfabric_out),
-        .gt0_rxpcommaalignen_in(gt0_rxpcommaalignen_in),
         .gt0_rxresetdone_out(gt0_rxresetdone_out),
         .gt0_rxuserrdy_in(gt0_rxuserrdy_in),
         .sysclk_in(sysclk_in));
@@ -216,7 +208,6 @@ module GTP_Zynq_GTP_Zynq_GT
     gt0_eyescandataerror_out,
     gt0_rxbyteisaligned_out,
     gt0_rxbyterealign_out,
-    gt0_rxcommadet_out,
     GT0_RXOUTCLK_IN,
     gt0_rxoutclkfabric_out,
     gt0_rxresetdone_out,
@@ -239,8 +230,6 @@ module GTP_Zynq_GTP_Zynq_GT
     gt0_rxlpmhfhold_in,
     gt0_rxlpmlfhold_in,
     gt0_rxlpmreset_in,
-    gt0_rxmcommaalignen_in,
-    gt0_rxpcommaalignen_in,
     gt0_rxuserrdy_t,
     GT0_RXUSRCLK_OUT,
     gtrxreset_i,
@@ -253,7 +242,6 @@ module GTP_Zynq_GTP_Zynq_GT
   output gt0_eyescandataerror_out;
   output gt0_rxbyteisaligned_out;
   output gt0_rxbyterealign_out;
-  output gt0_rxcommadet_out;
   output GT0_RXOUTCLK_IN;
   output gt0_rxoutclkfabric_out;
   output gt0_rxresetdone_out;
@@ -276,8 +264,6 @@ module GTP_Zynq_GTP_Zynq_GT
   input gt0_rxlpmhfhold_in;
   input gt0_rxlpmlfhold_in;
   input gt0_rxlpmreset_in;
-  input gt0_rxmcommaalignen_in;
-  input gt0_rxpcommaalignen_in;
   input gt0_rxuserrdy_t;
   input GT0_RXUSRCLK_OUT;
   input gtrxreset_i;
@@ -315,16 +301,13 @@ module GTP_Zynq_GTP_Zynq_GT
   wire gt0_rxbyterealign_out;
   wire [1:0]gt0_rxchariscomma_out;
   wire [1:0]gt0_rxcharisk_out;
-  wire gt0_rxcommadet_out;
   wire [15:0]gt0_rxdata_out;
   wire [1:0]gt0_rxdisperr_out;
   wire gt0_rxlpmhfhold_in;
   wire gt0_rxlpmlfhold_in;
   wire gt0_rxlpmreset_in;
-  wire gt0_rxmcommaalignen_in;
   wire [1:0]gt0_rxnotintable_out;
   wire gt0_rxoutclkfabric_out;
-  wire gt0_rxpcommaalignen_in;
   wire gt0_rxpmaresetdone_i;
   wire gt0_rxresetdone_out;
   wire gt0_rxuserrdy_t;
@@ -352,6 +335,7 @@ module GTP_Zynq_GTP_Zynq_GT
   wire NLW_gtpe2_i_RXCHANISALIGNED_UNCONNECTED;
   wire NLW_gtpe2_i_RXCHANREALIGN_UNCONNECTED;
   wire NLW_gtpe2_i_RXCOMINITDET_UNCONNECTED;
+  wire NLW_gtpe2_i_RXCOMMADET_UNCONNECTED;
   wire NLW_gtpe2_i_RXCOMSASDET_UNCONNECTED;
   wire NLW_gtpe2_i_RXCOMWAKEDET_UNCONNECTED;
   wire NLW_gtpe2_i_RXDLYSRESETDONE_UNCONNECTED;
@@ -709,7 +693,7 @@ module GTP_Zynq_GTP_Zynq_GT
         .RXCHBONDSLAVE(1'b0),
         .RXCLKCORCNT(NLW_gtpe2_i_RXCLKCORCNT_UNCONNECTED[1:0]),
         .RXCOMINITDET(NLW_gtpe2_i_RXCOMINITDET_UNCONNECTED),
-        .RXCOMMADET(gt0_rxcommadet_out),
+        .RXCOMMADET(NLW_gtpe2_i_RXCOMMADET_UNCONNECTED),
         .RXCOMMADETEN(1'b1),
         .RXCOMSASDET(NLW_gtpe2_i_RXCOMSASDET_UNCONNECTED),
         .RXCOMWAKEDET(NLW_gtpe2_i_RXCOMWAKEDET_UNCONNECTED),
@@ -734,7 +718,7 @@ module GTP_Zynq_GTP_Zynq_GT
         .RXLPMLFOVRDEN(1'b0),
         .RXLPMOSINTNTRLEN(1'b0),
         .RXLPMRESET(gt0_rxlpmreset_in),
-        .RXMCOMMAALIGNEN(gt0_rxmcommaalignen_in),
+        .RXMCOMMAALIGNEN(1'b1),
         .RXNOTINTABLE({NLW_gtpe2_i_RXNOTINTABLE_UNCONNECTED[3:2],gt0_rxnotintable_out}),
         .RXOOBRESET(1'b0),
         .RXOSCALRESET(1'b0),
@@ -757,7 +741,7 @@ module GTP_Zynq_GTP_Zynq_GT
         .RXOUTCLKFABRIC(gt0_rxoutclkfabric_out),
         .RXOUTCLKPCS(NLW_gtpe2_i_RXOUTCLKPCS_UNCONNECTED),
         .RXOUTCLKSEL({1'b0,1'b1,1'b0}),
-        .RXPCOMMAALIGNEN(gt0_rxpcommaalignen_in),
+        .RXPCOMMAALIGNEN(1'b1),
         .RXPCSRESET(1'b0),
         .RXPD({1'b0,1'b0}),
         .RXPHALIGN(1'b0),
@@ -3115,7 +3099,6 @@ module GTP_Zynq_GTP_Zynq_init
     gt0_eyescandataerror_out,
     gt0_rxbyteisaligned_out,
     gt0_rxbyterealign_out,
-    gt0_rxcommadet_out,
     GT0_RXOUTCLK_IN,
     gt0_rxoutclkfabric_out,
     gt0_rxresetdone_out,
@@ -3140,8 +3123,6 @@ module GTP_Zynq_GTP_Zynq_init
     gt0_rxlpmhfhold_in,
     gt0_rxlpmlfhold_in,
     gt0_rxlpmreset_in,
-    gt0_rxmcommaalignen_in,
-    gt0_rxpcommaalignen_in,
     GT0_RXUSRCLK_OUT,
     SOFT_RESET_RX_IN,
     DONT_RESET_ON_DATA_ERROR_IN,
@@ -3156,7 +3137,6 @@ module GTP_Zynq_GTP_Zynq_init
   output gt0_eyescandataerror_out;
   output gt0_rxbyteisaligned_out;
   output gt0_rxbyterealign_out;
-  output gt0_rxcommadet_out;
   output GT0_RXOUTCLK_IN;
   output gt0_rxoutclkfabric_out;
   output gt0_rxresetdone_out;
@@ -3181,8 +3161,6 @@ module GTP_Zynq_GTP_Zynq_init
   input gt0_rxlpmhfhold_in;
   input gt0_rxlpmlfhold_in;
   input gt0_rxlpmreset_in;
-  input gt0_rxmcommaalignen_in;
-  input gt0_rxpcommaalignen_in;
   input GT0_RXUSRCLK_OUT;
   input SOFT_RESET_RX_IN;
   input DONT_RESET_ON_DATA_ERROR_IN;
@@ -3253,16 +3231,13 @@ module GTP_Zynq_GTP_Zynq_init
   wire gt0_rxbyterealign_out;
   wire [1:0]gt0_rxchariscomma_out;
   wire [1:0]gt0_rxcharisk_out;
-  wire gt0_rxcommadet_out;
   wire [15:0]gt0_rxdata_out;
   wire [1:0]gt0_rxdisperr_out;
   wire gt0_rxlpmhfhold_in;
   wire gt0_rxlpmlfhold_in;
   wire gt0_rxlpmreset_in;
-  wire gt0_rxmcommaalignen_in;
   wire [1:0]gt0_rxnotintable_out;
   wire gt0_rxoutclkfabric_out;
-  wire gt0_rxpcommaalignen_in;
   wire gt0_rxresetdone_out;
   wire gt0_rxresetfsm_i_n_4;
   wire gt0_rxuserrdy_t;
@@ -3294,16 +3269,13 @@ module GTP_Zynq_GTP_Zynq_init
         .gt0_rxbyterealign_out(gt0_rxbyterealign_out),
         .gt0_rxchariscomma_out(gt0_rxchariscomma_out),
         .gt0_rxcharisk_out(gt0_rxcharisk_out),
-        .gt0_rxcommadet_out(gt0_rxcommadet_out),
         .gt0_rxdata_out(gt0_rxdata_out),
         .gt0_rxdisperr_out(gt0_rxdisperr_out),
         .gt0_rxlpmhfhold_in(gt0_rxlpmhfhold_in),
         .gt0_rxlpmlfhold_in(gt0_rxlpmlfhold_in),
         .gt0_rxlpmreset_in(gt0_rxlpmreset_in),
-        .gt0_rxmcommaalignen_in(gt0_rxmcommaalignen_in),
         .gt0_rxnotintable_out(gt0_rxnotintable_out),
         .gt0_rxoutclkfabric_out(gt0_rxoutclkfabric_out),
-        .gt0_rxpcommaalignen_in(gt0_rxpcommaalignen_in),
         .gt0_rxresetdone_out(gt0_rxresetdone_out),
         .gt0_rxuserrdy_t(gt0_rxuserrdy_t),
         .gtrxreset_i(gtrxreset_i),
@@ -3507,7 +3479,6 @@ module GTP_Zynq_GTP_Zynq_multi_gt
     gt0_eyescandataerror_out,
     gt0_rxbyteisaligned_out,
     gt0_rxbyterealign_out,
-    gt0_rxcommadet_out,
     GT0_RXOUTCLK_IN,
     gt0_rxoutclkfabric_out,
     gt0_rxresetdone_out,
@@ -3530,8 +3501,6 @@ module GTP_Zynq_GTP_Zynq_multi_gt
     gt0_rxlpmhfhold_in,
     gt0_rxlpmlfhold_in,
     gt0_rxlpmreset_in,
-    gt0_rxmcommaalignen_in,
-    gt0_rxpcommaalignen_in,
     gt0_rxuserrdy_t,
     GT0_RXUSRCLK_OUT,
     gtrxreset_i,
@@ -3544,7 +3513,6 @@ module GTP_Zynq_GTP_Zynq_multi_gt
   output gt0_eyescandataerror_out;
   output gt0_rxbyteisaligned_out;
   output gt0_rxbyterealign_out;
-  output gt0_rxcommadet_out;
   output GT0_RXOUTCLK_IN;
   output gt0_rxoutclkfabric_out;
   output gt0_rxresetdone_out;
@@ -3567,8 +3535,6 @@ module GTP_Zynq_GTP_Zynq_multi_gt
   input gt0_rxlpmhfhold_in;
   input gt0_rxlpmlfhold_in;
   input gt0_rxlpmreset_in;
-  input gt0_rxmcommaalignen_in;
-  input gt0_rxpcommaalignen_in;
   input gt0_rxuserrdy_t;
   input GT0_RXUSRCLK_OUT;
   input gtrxreset_i;
@@ -3600,16 +3566,13 @@ module GTP_Zynq_GTP_Zynq_multi_gt
   wire gt0_rxbyterealign_out;
   wire [1:0]gt0_rxchariscomma_out;
   wire [1:0]gt0_rxcharisk_out;
-  wire gt0_rxcommadet_out;
   wire [15:0]gt0_rxdata_out;
   wire [1:0]gt0_rxdisperr_out;
   wire gt0_rxlpmhfhold_in;
   wire gt0_rxlpmlfhold_in;
   wire gt0_rxlpmreset_in;
-  wire gt0_rxmcommaalignen_in;
   wire [1:0]gt0_rxnotintable_out;
   wire gt0_rxoutclkfabric_out;
-  wire gt0_rxpcommaalignen_in;
   wire gt0_rxresetdone_out;
   wire gt0_rxuserrdy_t;
   wire gtrxreset_i;
@@ -3639,16 +3602,13 @@ module GTP_Zynq_GTP_Zynq_multi_gt
         .gt0_rxbyterealign_out(gt0_rxbyterealign_out),
         .gt0_rxchariscomma_out(gt0_rxchariscomma_out),
         .gt0_rxcharisk_out(gt0_rxcharisk_out),
-        .gt0_rxcommadet_out(gt0_rxcommadet_out),
         .gt0_rxdata_out(gt0_rxdata_out),
         .gt0_rxdisperr_out(gt0_rxdisperr_out),
         .gt0_rxlpmhfhold_in(gt0_rxlpmhfhold_in),
         .gt0_rxlpmlfhold_in(gt0_rxlpmlfhold_in),
         .gt0_rxlpmreset_in(gt0_rxlpmreset_in),
-        .gt0_rxmcommaalignen_in(gt0_rxmcommaalignen_in),
         .gt0_rxnotintable_out(gt0_rxnotintable_out),
         .gt0_rxoutclkfabric_out(gt0_rxoutclkfabric_out),
-        .gt0_rxpcommaalignen_in(gt0_rxpcommaalignen_in),
         .gt0_rxresetdone_out(gt0_rxresetdone_out),
         .gt0_rxuserrdy_t(gt0_rxuserrdy_t),
         .gtrxreset_i(gtrxreset_i),
@@ -3686,9 +3646,6 @@ module GTP_Zynq_GTP_Zynq_support
     gt0_gtprxp_in,
     gt0_rxbyteisaligned_out,
     gt0_rxbyterealign_out,
-    gt0_rxcommadet_out,
-    gt0_rxmcommaalignen_in,
-    gt0_rxpcommaalignen_in,
     gt0_dmonitorout_out,
     gt0_rxlpmhfhold_in,
     gt0_rxlpmlfhold_in,
@@ -3697,6 +3654,7 @@ module GTP_Zynq_GTP_Zynq_support
     gt0_rxlpmreset_in,
     gt0_rxresetdone_out,
     gt0_gttxreset_in,
+    GT0_PLL0PD_IN,
     GT0_PLL0RESET_OUT,
     GT0_PLL0OUTCLK_OUT,
     GT0_PLL0OUTREFCLK_OUT,
@@ -3733,9 +3691,6 @@ module GTP_Zynq_GTP_Zynq_support
   input gt0_gtprxp_in;
   output gt0_rxbyteisaligned_out;
   output gt0_rxbyterealign_out;
-  output gt0_rxcommadet_out;
-  input gt0_rxmcommaalignen_in;
-  input gt0_rxpcommaalignen_in;
   output [14:0]gt0_dmonitorout_out;
   input gt0_rxlpmhfhold_in;
   input gt0_rxlpmlfhold_in;
@@ -3744,6 +3699,7 @@ module GTP_Zynq_GTP_Zynq_support
   input gt0_rxlpmreset_in;
   output gt0_rxresetdone_out;
   input gt0_gttxreset_in;
+  input GT0_PLL0PD_IN;
   output GT0_PLL0RESET_OUT;
   output GT0_PLL0OUTCLK_OUT;
   output GT0_PLL0OUTREFCLK_OUT;
@@ -3785,17 +3741,14 @@ module GTP_Zynq_GTP_Zynq_support
   wire gt0_rxbyterealign_out;
   wire [1:0]gt0_rxchariscomma_out;
   wire [1:0]gt0_rxcharisk_out;
-  wire gt0_rxcommadet_out;
   wire [15:0]gt0_rxdata_out;
   wire [1:0]gt0_rxdisperr_out;
   wire gt0_rxlpmhfhold_in;
   wire gt0_rxlpmlfhold_in;
   wire gt0_rxlpmreset_in;
-  wire gt0_rxmcommaalignen_in;
   wire [1:0]gt0_rxnotintable_out;
   wire gt0_rxoutclk_i;
   wire gt0_rxoutclkfabric_out;
-  wire gt0_rxpcommaalignen_in;
   wire gt0_rxresetdone_out;
   wire q0_clk1_refclk_i;
   wire sysclk_in;
@@ -3833,16 +3786,13 @@ module GTP_Zynq_GTP_Zynq_support
         .gt0_rxbyterealign_out(gt0_rxbyterealign_out),
         .gt0_rxchariscomma_out(gt0_rxchariscomma_out),
         .gt0_rxcharisk_out(gt0_rxcharisk_out),
-        .gt0_rxcommadet_out(gt0_rxcommadet_out),
         .gt0_rxdata_out(gt0_rxdata_out),
         .gt0_rxdisperr_out(gt0_rxdisperr_out),
         .gt0_rxlpmhfhold_in(gt0_rxlpmhfhold_in),
         .gt0_rxlpmlfhold_in(gt0_rxlpmlfhold_in),
         .gt0_rxlpmreset_in(gt0_rxlpmreset_in),
-        .gt0_rxmcommaalignen_in(gt0_rxmcommaalignen_in),
         .gt0_rxnotintable_out(gt0_rxnotintable_out),
         .gt0_rxoutclkfabric_out(gt0_rxoutclkfabric_out),
-        .gt0_rxpcommaalignen_in(gt0_rxpcommaalignen_in),
         .gt0_rxresetdone_out(gt0_rxresetdone_out),
         .sysclk_in(sysclk_in),
         .sysclk_in_0(gt0_drprdy_out));

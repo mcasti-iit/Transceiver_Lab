@@ -124,9 +124,6 @@ port
     -------------- Receive Ports - RX Byte and Word Alignment Ports ------------
     gt0_rxbyteisaligned_out                 : out  std_logic;
     gt0_rxbyterealign_out                   : out  std_logic;
-    gt0_rxcommadet_out                      : out  std_logic;
-    gt0_rxmcommaalignen_in                  : in   std_logic;
-    gt0_rxpcommaalignen_in                  : in   std_logic;
     ------------ Receive Ports - RX Decision Feedback Equalizer(DFE) -----------
     gt0_dmonitorout_out                     : out  std_logic_vector(14 downto 0);
     -------------------- Receive Ports - RX Equailizer Ports -------------------
@@ -211,9 +208,6 @@ port
     -------------- Receive Ports - RX Byte and Word Alignment Ports ------------
     gt0_rxbyteisaligned_out                 : out  std_logic;
     gt0_rxbyterealign_out                   : out  std_logic;
-    gt0_rxcommadet_out                      : out  std_logic;
-    gt0_rxmcommaalignen_in                  : in   std_logic;
-    gt0_rxpcommaalignen_in                  : in   std_logic;
     ------------ Receive Ports - RX Decision Feedback Equalizer(DFE) -----------
     gt0_dmonitorout_out                     : out  std_logic_vector(14 downto 0);
     -------------------- Receive Ports - RX Equailizer Ports -------------------
@@ -450,9 +444,6 @@ begin
         -------------- Receive Ports - RX Byte and Word Alignment Ports ------------
         gt0_rxbyteisaligned_out         =>      gt0_rxbyteisaligned_out,
         gt0_rxbyterealign_out           =>      gt0_rxbyterealign_out,
-        gt0_rxcommadet_out              =>      gt0_rxcommadet_out,
-        gt0_rxmcommaalignen_in          =>      gt0_rxmcommaalignen_in,
-        gt0_rxpcommaalignen_in          =>      gt0_rxpcommaalignen_in,
         ------------ Receive Ports - RX Decision Feedback Equalizer(DFE) -----------
         gt0_dmonitorout_out             =>      gt0_dmonitorout_out,
         -------------------- Receive Ports - RX Equailizer Ports -------------------

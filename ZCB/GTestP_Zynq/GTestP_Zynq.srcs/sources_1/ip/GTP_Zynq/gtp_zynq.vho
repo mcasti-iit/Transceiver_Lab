@@ -62,9 +62,6 @@ port
     -------------- Receive Ports - RX Byte and Word Alignment Ports ------------
     gt0_rxbyteisaligned_out                 : out  std_logic;
     gt0_rxbyterealign_out                   : out  std_logic;
-    gt0_rxcommadet_out                      : out  std_logic;
-    gt0_rxmcommaalignen_in                  : in   std_logic;
-    gt0_rxpcommaalignen_in                  : in   std_logic;
     ------------ Receive Ports - RX Decision Feedback Equalizer(DFE) -----------
     gt0_dmonitorout_out                     : out  std_logic_vector(14 downto 0);
     -------------------- Receive Ports - RX Equailizer Ports -------------------
@@ -80,6 +77,7 @@ port
     --------------------- TX Initialization and Reset Ports --------------------
     gt0_gttxreset_in                        : in   std_logic;
 
+GT0_PLL0PD_IN                           : in   std_logic;
     --____________________________COMMON PORTS________________________________
    GT0_PLL0RESET_OUT  : out std_logic;
          GT0_PLL0OUTCLK_OUT  : out std_logic;
@@ -141,9 +139,6 @@ port map
     -------------- Receive Ports - RX Byte and Word Alignment Ports ------------
         gt0_rxbyteisaligned_out         =>      gt0_rxbyteisaligned_out,
         gt0_rxbyterealign_out           =>      gt0_rxbyterealign_out,
-        gt0_rxcommadet_out              =>      gt0_rxcommadet_out,
-        gt0_rxmcommaalignen_in          =>      gt0_rxmcommaalignen_in,
-        gt0_rxpcommaalignen_in          =>      gt0_rxpcommaalignen_in,
     ------------ Receive Ports - RX Decision Feedback Equalizer(DFE) -----------
         gt0_dmonitorout_out             =>      gt0_dmonitorout_out,
     -------------------- Receive Ports - RX Equailizer Ports -------------------
@@ -159,6 +154,7 @@ port map
     --------------------- TX Initialization and Reset Ports --------------------
         gt0_gttxreset_in                =>      gt0_gttxreset_in,
 
+     GT0_PLL0PD_IN => GT0_PLL0PD_IN,
     --____________________________COMMON PORTS________________________________
    GT0_PLL0RESET_OUT  => GT0_PLL0RESET_OUT,
          GT0_PLL0OUTCLK_OUT  => GT0_PLL0OUTCLK_OUT,

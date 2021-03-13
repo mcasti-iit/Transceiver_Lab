@@ -115,9 +115,6 @@ port
     -------------- Receive Ports - RX Byte and Word Alignment Ports ------------
     gt0_rxbyteisaligned_out                 : out  std_logic;
     gt0_rxbyterealign_out                   : out  std_logic;
-    gt0_rxcommadet_out                      : out  std_logic;
-    gt0_rxmcommaalignen_in                  : in   std_logic;
-    gt0_rxpcommaalignen_in                  : in   std_logic;
     ------------ Receive Ports - RX Decision Feedback Equalizer(DFE) -----------
     gt0_dmonitorout_out                     : out  std_logic_vector(14 downto 0);
     -------------------- Receive Ports - RX Equailizer Ports -------------------
@@ -233,9 +230,6 @@ port
     -------------- Receive Ports - RX Byte and Word Alignment Ports ------------
     rxbyteisaligned_out                     : out  std_logic;
     rxbyterealign_out                       : out  std_logic;
-    rxcommadet_out                          : out  std_logic;
-    rxmcommaalignen_in                      : in   std_logic;
-    rxpcommaalignen_in                      : in   std_logic;
     ------------ Receive Ports - RX Decision Feedback Equalizer(DFE) -----------
     dmonitorout_out                         : out  std_logic_vector(14 downto 0);
     -------------------- Receive Ports - RX Equailizer Ports -------------------
@@ -330,9 +324,6 @@ gt0_GTP_Zynq_i : GTP_Zynq_GT
         -------------- Receive Ports - RX Byte and Word Alignment Ports ------------
         rxbyteisaligned_out             =>      gt0_rxbyteisaligned_out,
         rxbyterealign_out               =>      gt0_rxbyterealign_out,
-        rxcommadet_out                  =>      gt0_rxcommadet_out,
-        rxmcommaalignen_in              =>      gt0_rxmcommaalignen_in,
-        rxpcommaalignen_in              =>      gt0_rxpcommaalignen_in,
         ------------ Receive Ports - RX Decision Feedback Equalizer(DFE) -----------
         dmonitorout_out                 =>      gt0_dmonitorout_out,
         -------------------- Receive Ports - RX Equailizer Ports -------------------

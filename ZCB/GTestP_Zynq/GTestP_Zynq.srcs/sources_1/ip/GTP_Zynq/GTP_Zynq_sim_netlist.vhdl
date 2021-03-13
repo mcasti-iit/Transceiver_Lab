@@ -1,7 +1,7 @@
 -- Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2019.1 (win64) Build 2552052 Fri May 24 14:49:42 MDT 2019
--- Date        : Tue Feb 23 16:28:22 2021
+-- Date        : Fri Mar 12 15:16:01 2021
 -- Host        : IITICUBLAP127 running 64-bit major release  (build 9200)
 -- Command     : write_vhdl -force -mode funcsim -rename_top GTP_Zynq -prefix
 --               GTP_Zynq_ GTP_Zynq_sim_netlist.vhdl
@@ -4865,7 +4865,6 @@ entity GTP_Zynq_GTP_Zynq_GT is
     gt0_eyescandataerror_out : out STD_LOGIC;
     gt0_rxbyteisaligned_out : out STD_LOGIC;
     gt0_rxbyterealign_out : out STD_LOGIC;
-    gt0_rxcommadet_out : out STD_LOGIC;
     GT0_RXOUTCLK_IN : out STD_LOGIC;
     gt0_rxoutclkfabric_out : out STD_LOGIC;
     gt0_rxresetdone_out : out STD_LOGIC;
@@ -4888,8 +4887,6 @@ entity GTP_Zynq_GTP_Zynq_GT is
     gt0_rxlpmhfhold_in : in STD_LOGIC;
     gt0_rxlpmlfhold_in : in STD_LOGIC;
     gt0_rxlpmreset_in : in STD_LOGIC;
-    gt0_rxmcommaalignen_in : in STD_LOGIC;
-    gt0_rxpcommaalignen_in : in STD_LOGIC;
     gt0_rxuserrdy_t : in STD_LOGIC;
     GT0_RXUSRCLK_OUT : in STD_LOGIC;
     gtrxreset_i : in STD_LOGIC;
@@ -4932,6 +4929,7 @@ architecture STRUCTURE of GTP_Zynq_GTP_Zynq_GT is
   signal NLW_gtpe2_i_RXCHANISALIGNED_UNCONNECTED : STD_LOGIC;
   signal NLW_gtpe2_i_RXCHANREALIGN_UNCONNECTED : STD_LOGIC;
   signal NLW_gtpe2_i_RXCOMINITDET_UNCONNECTED : STD_LOGIC;
+  signal NLW_gtpe2_i_RXCOMMADET_UNCONNECTED : STD_LOGIC;
   signal NLW_gtpe2_i_RXCOMSASDET_UNCONNECTED : STD_LOGIC;
   signal NLW_gtpe2_i_RXCOMWAKEDET_UNCONNECTED : STD_LOGIC;
   signal NLW_gtpe2_i_RXDLYSRESETDONE_UNCONNECTED : STD_LOGIC;
@@ -5307,7 +5305,7 @@ gtpe2_i: unisim.vcomponents.GTPE2_CHANNEL
       RXCHBONDSLAVE => '0',
       RXCLKCORCNT(1 downto 0) => NLW_gtpe2_i_RXCLKCORCNT_UNCONNECTED(1 downto 0),
       RXCOMINITDET => NLW_gtpe2_i_RXCOMINITDET_UNCONNECTED,
-      RXCOMMADET => gt0_rxcommadet_out,
+      RXCOMMADET => NLW_gtpe2_i_RXCOMMADET_UNCONNECTED,
       RXCOMMADETEN => '1',
       RXCOMSASDET => NLW_gtpe2_i_RXCOMSASDET_UNCONNECTED,
       RXCOMWAKEDET => NLW_gtpe2_i_RXCOMWAKEDET_UNCONNECTED,
@@ -5334,7 +5332,7 @@ gtpe2_i: unisim.vcomponents.GTPE2_CHANNEL
       RXLPMLFOVRDEN => '0',
       RXLPMOSINTNTRLEN => '0',
       RXLPMRESET => gt0_rxlpmreset_in,
-      RXMCOMMAALIGNEN => gt0_rxmcommaalignen_in,
+      RXMCOMMAALIGNEN => '1',
       RXNOTINTABLE(3 downto 2) => NLW_gtpe2_i_RXNOTINTABLE_UNCONNECTED(3 downto 2),
       RXNOTINTABLE(1 downto 0) => gt0_rxnotintable_out(1 downto 0),
       RXOOBRESET => '0',
@@ -5358,7 +5356,7 @@ gtpe2_i: unisim.vcomponents.GTPE2_CHANNEL
       RXOUTCLKFABRIC => gt0_rxoutclkfabric_out,
       RXOUTCLKPCS => NLW_gtpe2_i_RXOUTCLKPCS_UNCONNECTED,
       RXOUTCLKSEL(2 downto 0) => B"010",
-      RXPCOMMAALIGNEN => gt0_rxpcommaalignen_in,
+      RXPCOMMAALIGNEN => '1',
       RXPCSRESET => '0',
       RXPD(1 downto 0) => B"00",
       RXPHALIGN => '0',
@@ -5721,7 +5719,6 @@ entity GTP_Zynq_GTP_Zynq_multi_gt is
     gt0_eyescandataerror_out : out STD_LOGIC;
     gt0_rxbyteisaligned_out : out STD_LOGIC;
     gt0_rxbyterealign_out : out STD_LOGIC;
-    gt0_rxcommadet_out : out STD_LOGIC;
     GT0_RXOUTCLK_IN : out STD_LOGIC;
     gt0_rxoutclkfabric_out : out STD_LOGIC;
     gt0_rxresetdone_out : out STD_LOGIC;
@@ -5744,8 +5741,6 @@ entity GTP_Zynq_GTP_Zynq_multi_gt is
     gt0_rxlpmhfhold_in : in STD_LOGIC;
     gt0_rxlpmlfhold_in : in STD_LOGIC;
     gt0_rxlpmreset_in : in STD_LOGIC;
-    gt0_rxmcommaalignen_in : in STD_LOGIC;
-    gt0_rxpcommaalignen_in : in STD_LOGIC;
     gt0_rxuserrdy_t : in STD_LOGIC;
     GT0_RXUSRCLK_OUT : in STD_LOGIC;
     gtrxreset_i : in STD_LOGIC;
@@ -5783,16 +5778,13 @@ gt0_GTP_Zynq_i: entity work.GTP_Zynq_GTP_Zynq_GT
       gt0_rxbyterealign_out => gt0_rxbyterealign_out,
       gt0_rxchariscomma_out(1 downto 0) => gt0_rxchariscomma_out(1 downto 0),
       gt0_rxcharisk_out(1 downto 0) => gt0_rxcharisk_out(1 downto 0),
-      gt0_rxcommadet_out => gt0_rxcommadet_out,
       gt0_rxdata_out(15 downto 0) => gt0_rxdata_out(15 downto 0),
       gt0_rxdisperr_out(1 downto 0) => gt0_rxdisperr_out(1 downto 0),
       gt0_rxlpmhfhold_in => gt0_rxlpmhfhold_in,
       gt0_rxlpmlfhold_in => gt0_rxlpmlfhold_in,
       gt0_rxlpmreset_in => gt0_rxlpmreset_in,
-      gt0_rxmcommaalignen_in => gt0_rxmcommaalignen_in,
       gt0_rxnotintable_out(1 downto 0) => gt0_rxnotintable_out(1 downto 0),
       gt0_rxoutclkfabric_out => gt0_rxoutclkfabric_out,
-      gt0_rxpcommaalignen_in => gt0_rxpcommaalignen_in,
       gt0_rxresetdone_out => gt0_rxresetdone_out,
       gt0_rxuserrdy_t => gt0_rxuserrdy_t,
       gtrxreset_i => gtrxreset_i,
@@ -5810,7 +5802,6 @@ entity GTP_Zynq_GTP_Zynq_init is
     gt0_eyescandataerror_out : out STD_LOGIC;
     gt0_rxbyteisaligned_out : out STD_LOGIC;
     gt0_rxbyterealign_out : out STD_LOGIC;
-    gt0_rxcommadet_out : out STD_LOGIC;
     GT0_RXOUTCLK_IN : out STD_LOGIC;
     gt0_rxoutclkfabric_out : out STD_LOGIC;
     gt0_rxresetdone_out : out STD_LOGIC;
@@ -5835,8 +5826,6 @@ entity GTP_Zynq_GTP_Zynq_init is
     gt0_rxlpmhfhold_in : in STD_LOGIC;
     gt0_rxlpmlfhold_in : in STD_LOGIC;
     gt0_rxlpmreset_in : in STD_LOGIC;
-    gt0_rxmcommaalignen_in : in STD_LOGIC;
-    gt0_rxpcommaalignen_in : in STD_LOGIC;
     GT0_RXUSRCLK_OUT : in STD_LOGIC;
     SOFT_RESET_RX_IN : in STD_LOGIC;
     DONT_RESET_ON_DATA_ERROR_IN : in STD_LOGIC;
@@ -5915,16 +5904,13 @@ GTP_Zynq_i: entity work.GTP_Zynq_GTP_Zynq_multi_gt
       gt0_rxbyterealign_out => gt0_rxbyterealign_out,
       gt0_rxchariscomma_out(1 downto 0) => gt0_rxchariscomma_out(1 downto 0),
       gt0_rxcharisk_out(1 downto 0) => gt0_rxcharisk_out(1 downto 0),
-      gt0_rxcommadet_out => gt0_rxcommadet_out,
       gt0_rxdata_out(15 downto 0) => gt0_rxdata_out(15 downto 0),
       gt0_rxdisperr_out(1 downto 0) => gt0_rxdisperr_out(1 downto 0),
       gt0_rxlpmhfhold_in => gt0_rxlpmhfhold_in,
       gt0_rxlpmlfhold_in => gt0_rxlpmlfhold_in,
       gt0_rxlpmreset_in => gt0_rxlpmreset_in,
-      gt0_rxmcommaalignen_in => gt0_rxmcommaalignen_in,
       gt0_rxnotintable_out(1 downto 0) => gt0_rxnotintable_out(1 downto 0),
       gt0_rxoutclkfabric_out => gt0_rxoutclkfabric_out,
-      gt0_rxpcommaalignen_in => gt0_rxpcommaalignen_in,
       gt0_rxresetdone_out => \^gt0_rxresetdone_out\,
       gt0_rxuserrdy_t => gt0_rxuserrdy_t,
       gtrxreset_i => gtrxreset_i,
@@ -6240,9 +6226,6 @@ entity GTP_Zynq_GTP_Zynq_support is
     gt0_gtprxp_in : in STD_LOGIC;
     gt0_rxbyteisaligned_out : out STD_LOGIC;
     gt0_rxbyterealign_out : out STD_LOGIC;
-    gt0_rxcommadet_out : out STD_LOGIC;
-    gt0_rxmcommaalignen_in : in STD_LOGIC;
-    gt0_rxpcommaalignen_in : in STD_LOGIC;
     gt0_dmonitorout_out : out STD_LOGIC_VECTOR ( 14 downto 0 );
     gt0_rxlpmhfhold_in : in STD_LOGIC;
     gt0_rxlpmlfhold_in : in STD_LOGIC;
@@ -6251,6 +6234,7 @@ entity GTP_Zynq_GTP_Zynq_support is
     gt0_rxlpmreset_in : in STD_LOGIC;
     gt0_rxresetdone_out : out STD_LOGIC;
     gt0_gttxreset_in : in STD_LOGIC;
+    GT0_PLL0PD_IN : in STD_LOGIC;
     GT0_PLL0RESET_OUT : out STD_LOGIC;
     GT0_PLL0OUTCLK_OUT : out STD_LOGIC;
     GT0_PLL0OUTREFCLK_OUT : out STD_LOGIC;
@@ -6324,16 +6308,13 @@ GTP_Zynq_init_i: entity work.GTP_Zynq_GTP_Zynq_init
       gt0_rxbyterealign_out => gt0_rxbyterealign_out,
       gt0_rxchariscomma_out(1 downto 0) => gt0_rxchariscomma_out(1 downto 0),
       gt0_rxcharisk_out(1 downto 0) => gt0_rxcharisk_out(1 downto 0),
-      gt0_rxcommadet_out => gt0_rxcommadet_out,
       gt0_rxdata_out(15 downto 0) => gt0_rxdata_out(15 downto 0),
       gt0_rxdisperr_out(1 downto 0) => gt0_rxdisperr_out(1 downto 0),
       gt0_rxlpmhfhold_in => gt0_rxlpmhfhold_in,
       gt0_rxlpmlfhold_in => gt0_rxlpmlfhold_in,
       gt0_rxlpmreset_in => gt0_rxlpmreset_in,
-      gt0_rxmcommaalignen_in => gt0_rxmcommaalignen_in,
       gt0_rxnotintable_out(1 downto 0) => gt0_rxnotintable_out(1 downto 0),
       gt0_rxoutclkfabric_out => gt0_rxoutclkfabric_out,
-      gt0_rxpcommaalignen_in => gt0_rxpcommaalignen_in,
       gt0_rxresetdone_out => gt0_rxresetdone_out,
       sysclk_in => sysclk_in,
       sysclk_in_0 => gt0_drprdy_out
@@ -6403,9 +6384,6 @@ entity GTP_Zynq is
     gt0_gtprxp_in : in STD_LOGIC;
     gt0_rxbyteisaligned_out : out STD_LOGIC;
     gt0_rxbyterealign_out : out STD_LOGIC;
-    gt0_rxcommadet_out : out STD_LOGIC;
-    gt0_rxmcommaalignen_in : in STD_LOGIC;
-    gt0_rxpcommaalignen_in : in STD_LOGIC;
     gt0_dmonitorout_out : out STD_LOGIC_VECTOR ( 14 downto 0 );
     gt0_rxlpmhfhold_in : in STD_LOGIC;
     gt0_rxlpmlfhold_in : in STD_LOGIC;
@@ -6414,6 +6392,7 @@ entity GTP_Zynq is
     gt0_rxlpmreset_in : in STD_LOGIC;
     gt0_rxresetdone_out : out STD_LOGIC;
     gt0_gttxreset_in : in STD_LOGIC;
+    GT0_PLL0PD_IN : in STD_LOGIC;
     GT0_PLL0RESET_OUT : out STD_LOGIC;
     GT0_PLL0OUTCLK_OUT : out STD_LOGIC;
     GT0_PLL0OUTREFCLK_OUT : out STD_LOGIC;
@@ -6444,6 +6423,7 @@ U0: entity work.GTP_Zynq_GTP_Zynq_support
       GT0_PLL0LOCK_OUT => GT0_PLL0LOCK_OUT,
       GT0_PLL0OUTCLK_OUT => GT0_PLL0OUTCLK_OUT,
       GT0_PLL0OUTREFCLK_OUT => GT0_PLL0OUTREFCLK_OUT,
+      GT0_PLL0PD_IN => GT0_PLL0PD_IN,
       GT0_PLL0REFCLKLOST_OUT => GT0_PLL0REFCLKLOST_OUT,
       GT0_PLL0RESET_OUT => GT0_PLL0RESET_OUT,
       GT0_PLL1OUTCLK_OUT => GT0_PLL1OUTCLK_OUT,
@@ -6473,16 +6453,13 @@ U0: entity work.GTP_Zynq_GTP_Zynq_support
       gt0_rxbyterealign_out => gt0_rxbyterealign_out,
       gt0_rxchariscomma_out(1 downto 0) => gt0_rxchariscomma_out(1 downto 0),
       gt0_rxcharisk_out(1 downto 0) => gt0_rxcharisk_out(1 downto 0),
-      gt0_rxcommadet_out => gt0_rxcommadet_out,
       gt0_rxdata_out(15 downto 0) => gt0_rxdata_out(15 downto 0),
       gt0_rxdisperr_out(1 downto 0) => gt0_rxdisperr_out(1 downto 0),
       gt0_rxlpmhfhold_in => gt0_rxlpmhfhold_in,
       gt0_rxlpmlfhold_in => gt0_rxlpmlfhold_in,
       gt0_rxlpmreset_in => gt0_rxlpmreset_in,
-      gt0_rxmcommaalignen_in => gt0_rxmcommaalignen_in,
       gt0_rxnotintable_out(1 downto 0) => gt0_rxnotintable_out(1 downto 0),
       gt0_rxoutclkfabric_out => gt0_rxoutclkfabric_out,
-      gt0_rxpcommaalignen_in => gt0_rxpcommaalignen_in,
       gt0_rxresetdone_out => gt0_rxresetdone_out,
       gt0_rxuserrdy_in => gt0_rxuserrdy_in,
       sysclk_in => sysclk_in

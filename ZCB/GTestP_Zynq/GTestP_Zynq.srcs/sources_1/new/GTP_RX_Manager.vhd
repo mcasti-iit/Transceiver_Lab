@@ -33,19 +33,27 @@ library ieee;
   use ieee.std_logic_1164.all;
   use ieee.std_logic_arith.all;
   use ieee.std_logic_unsigned.all;
+  use ieee.std_logic_misc.all;
 
 entity GTP_RX_Manager is
   generic ( 
-    GTP_STREAM_WIDTH_g      : integer range 0 to 64 := 16;    -- Width of RX Data - GTP side 
-    RX_DATA_OUT_WIDTH_g     : integer range 0 to 64 := 32     -- Width of RX Data - Fabric side
+    RX_DATA_OUT_WIDTH_g     : integer range 0 to 64 := 32;    -- Width of RX Data - Fabric side
+    GTP_STREAM_WIDTH_g      : integer range 0 to 64 := 16     -- Width of RX Data - GTP side 
     );
   port (
+    -- *** ASYNC PORTS  
+    GTP_PLL_LOCK_i          : in  std_logic;
+      
     -- *** SYSTEM CLOCK DOMAIN ***
     -- Bare Control ports
     CLK_i                   : in  std_logic;   -- Input clock - Fabric side    
     RST_N_i                 : in  std_logic;   -- Asynchronous active low reset (clk clock)
-    EN1MS_i                 : in  std_logic;  
-    
+    EN1MS_i                 : in  std_logic;   -- Enable @ 1 msec in clk domain 
+    EN1S_i                  : in  std_logic;   -- Enable @ 1 sec in clk domain 
+
+    -- Control in
+    GTP_PLL_REFCLKLOST_i    : in  std_logic;
+     
     -- Control out
     GTP_SOFT_RESET_RX_o     : out std_logic;     
          
@@ -63,9 +71,9 @@ entity GTP_RX_Manager is
     -- Bare Control ports   
     GCK_i                   : in  std_logic;   -- Input clock - GTP side       
     RST_N_GCK_i             : in  std_logic;   -- Asynchronous active low reset (gck clock)    
-    EN1MS_GCK_i             : in  std_logic;  
+    EN1MS_GCK_i             : in  std_logic;   -- Enable @ 1 msec in gck domain 
 
-    -- Controls         
+    -- Control out         
     GTP_IS_ALIGNED_i        : in  std_logic;
     ALIGN_REQ_o             : out std_logic;
 
@@ -209,8 +217,6 @@ signal unknown_k_flag_d   : std_logic;
 signal unknown_k_detect   : std_logic;
 signal unknown_k_detected : std_logic;
 
-signal gtp_reset_cnt      : std_logic_vector(7 downto 0);
-signal gtp_reset          : std_logic;
 
 -- Counters
 signal data_cnt           : std_logic_vector(15 downto 0); 
@@ -222,34 +228,23 @@ signal msg_rate           : std_logic_vector(15 downto 0);
 signal idle_cnt           : std_logic_vector(15 downto 0); 
 signal idle_rate          : std_logic_vector(15 downto 0); 
 
+signal gtp_pll_lock_meta    : std_logic;
+signal gtp_pll_lock_sync    : std_logic;
+signal gtp_pll_lock         : std_logic;
+signal gtp_clk_lost_meta    : std_logic;
+signal gtp_clk_lost_sync    : std_logic;
+signal gtp_clk_lost         : std_logic;
+
+signal gtp_pll_fail         : std_logic;
+signal gtp_pll_alarm_cnt    : std_logic_vector(1 downto 0);
+signal gtp_pll_alarm        : std_logic;
+
+signal gtp_reset_cnt        : std_logic_vector(3 downto 0);
+signal gtp_reset            : std_logic;
+signal gtp_reset_sent       : std_logic;
+
+
 begin
-
--- ----------------------------------------------------------------------------------
--- Reset Machine
-
-process (CLK_i, RST_N_GCK_i)
-begin
-  if (RST_N_GCK_i = '0') then
-    gtp_reset_cnt <= conv_std_logic_vector(255, gtp_reset_cnt'length);
-    gtp_reset     <= '0';
-  elsif rising_edge(CLK_i) then
-  
-    if (false) then
-      gtp_reset_cnt <= conv_std_logic_vector(255, gtp_reset_cnt'length);
-    elsif (gtp_reset_cnt /= conv_std_logic_vector(0, gtp_reset_cnt'length)) then
-      gtp_reset_cnt <= gtp_reset_cnt - 1;
-    end if;
-    
-    if (gtp_reset_cnt = conv_std_logic_vector(16, gtp_reset_cnt'length)) then 
-      gtp_reset <= '1';
-    elsif (gtp_reset_cnt = conv_std_logic_vector(0, gtp_reset_cnt'length)) then 
-      gtp_reset <= '0';
-    end if;
-    
-  end if;
-end process;
-
-
 
 -- ----------------------------------------------------------------------------------
 -- Kind of data
@@ -480,7 +475,70 @@ MSG_FIFO_RX_i :  MSG_SYNC_FIFO
   );
   
 
+-- ----------------------------------------------------------------------------------
+-- GTP RESET
 
+process(CLK_i, RST_N_i)
+begin
+  if (RST_N_i = '0') then 
+    gtp_pll_lock_meta <= '0';
+    gtp_pll_lock_sync <= '0';
+    gtp_pll_lock <= '0';
+  elsif rising_edge(CLK_i) then
+    gtp_pll_lock_meta  <= GTP_PLL_LOCK_i;
+    gtp_pll_lock_sync  <= gtp_pll_lock_meta;
+    gtp_pll_lock       <= gtp_pll_lock_sync;
+  end if;
+end process;
+
+process(CLK_i, RST_N_i)
+begin
+  if (RST_N_i = '0') then 
+    gtp_clk_lost_meta <= '0';
+    gtp_clk_lost_sync <= '0';
+    gtp_clk_lost <= '0';
+  elsif rising_edge(CLK_i) then
+    gtp_clk_lost_meta  <= GTP_PLL_REFCLKLOST_i;
+    gtp_clk_lost_sync  <= gtp_clk_lost_meta;
+    gtp_clk_lost       <= gtp_clk_lost_sync;
+  end if;
+end process;
+
+
+gtp_pll_fail <= (gtp_clk_lost or not gtp_pll_lock);
+
+process(CLK_i, RST_N_i)
+begin
+  if (RST_N_i = '0') then 
+    gtp_pll_alarm_cnt  <= "00";
+  elsif rising_edge(CLK_i) then
+    if (gtp_pll_alarm_cnt /= "00" ) then
+      if (EN1S_i = '1') then
+        gtp_pll_alarm_cnt <= gtp_pll_alarm_cnt - 1;
+      end if;
+    elsif (gtp_pll_fail = '1') then
+      gtp_pll_alarm_cnt <= "11";      
+    end if;
+  end if;
+end process;
+
+
+process (CLK_i, RST_N_i)
+begin
+  if (RST_N_i = '0') then
+    gtp_reset_cnt  <= conv_std_logic_vector(0, gtp_reset_cnt'length);
+    gtp_reset      <= '0';
+  elsif rising_edge(CLK_i) then
+    if (gtp_pll_alarm_cnt = "10" and EN1S_i = '1') then
+      gtp_reset_cnt <= conv_std_logic_vector(15, gtp_reset_cnt'length);
+    elsif (gtp_reset_cnt /= conv_std_logic_vector(0, gtp_reset_cnt'length)) then
+      gtp_reset_cnt <= gtp_reset_cnt - 1;
+    end if;
+    
+    gtp_reset <= or_reduce(gtp_reset_cnt);
+    
+  end if;
+end process;
 
 -- ----------------------------------------------------------------------------------
 -- OUTPUTs

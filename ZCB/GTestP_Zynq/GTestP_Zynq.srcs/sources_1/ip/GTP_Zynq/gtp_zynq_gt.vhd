@@ -117,9 +117,6 @@ port
     -------------- Receive Ports - RX Byte and Word Alignment Ports ------------
     rxbyteisaligned_out                     : out  std_logic;
     rxbyterealign_out                       : out  std_logic;
-    rxcommadet_out                          : out  std_logic;
-    rxmcommaalignen_in                      : in   std_logic;
-    rxpcommaalignen_in                      : in   std_logic;
     ------------ Receive Ports - RX Decision Feedback Equalizer(DFE) -----------
     dmonitorout_out                         : out  std_logic_vector(14 downto 0);
     -------------------- Receive Ports - RX Equailizer Ports -------------------
@@ -742,10 +739,10 @@ begin
         -------------- Receive Ports - RX Byte and Word Alignment Ports ------------
         RXBYTEISALIGNED                 =>      rxbyteisaligned_out,
         RXBYTEREALIGN                   =>      rxbyterealign_out,
-        RXCOMMADET                      =>      rxcommadet_out,
+        RXCOMMADET                      =>      open,
         RXCOMMADETEN                    =>      tied_to_vcc_i,
-        RXMCOMMAALIGNEN                 =>      rxmcommaalignen_in,
-        RXPCOMMAALIGNEN                 =>      rxpcommaalignen_in,
+        RXMCOMMAALIGNEN                 =>      tied_to_vcc_i,
+        RXPCOMMAALIGNEN                 =>      tied_to_vcc_i,
         RXSLIDE                         =>      tied_to_ground_i,
         ------------------ Receive Ports - RX Channel Bonding Ports ----------------
         RXCHANBONDSEQ                   =>      open,

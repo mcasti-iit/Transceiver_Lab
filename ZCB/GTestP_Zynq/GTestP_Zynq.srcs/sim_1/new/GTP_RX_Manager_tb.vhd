@@ -47,16 +47,23 @@ end component;
 
 component GTP_RX_Manager is
   generic ( 
-    GTP_STREAM_WIDTH_g      : integer range 0 to 64 := 16;    -- Width of RX Data - GTP side 
-    RX_DATA_OUT_WIDTH_g     : integer range 0 to 64 := 32     -- Width of RX Data - Fabric side
+    RX_DATA_OUT_WIDTH_g     : integer range 0 to 64 := 32;    -- Width of RX Data - Fabric side
+    GTP_STREAM_WIDTH_g      : integer range 0 to 64 := 16     -- Width of RX Data - GTP side 
     );
   port (
+    -- *** ASYNC PORTS  
+    GTP_PLL_LOCK_i          : in  std_logic;
+      
     -- *** SYSTEM CLOCK DOMAIN ***
     -- Bare Control ports
     CLK_i                   : in  std_logic;   -- Input clock - Fabric side    
     RST_N_i                 : in  std_logic;   -- Asynchronous active low reset (clk clock)
-    EN1MS_i                 : in  std_logic;  
-    
+    EN1MS_i                 : in  std_logic;   -- Enable @ 1 msec in clk domain 
+    EN1S_i                  : in  std_logic;   -- Enable @ 1 sec in clk domain 
+
+    -- Control in
+    GTP_PLL_REFCLKLOST_i    : in  std_logic;
+     
     -- Control out
     GTP_SOFT_RESET_RX_o     : out std_logic;     
          
@@ -73,10 +80,10 @@ component GTP_RX_Manager is
     -- *** GTP CLOCK DOMAIN ***
     -- Bare Control ports   
     GCK_i                   : in  std_logic;   -- Input clock - GTP side       
-    RST_GCK_N_i             : in  std_logic;   -- Asynchronous active low reset (gck clock)    
-    EN1MS_GCK_i             : in  std_logic;  
+    RST_N_GCK_i             : in  std_logic;   -- Asynchronous active low reset (gck clock)    
+    EN1MS_GCK_i             : in  std_logic;   -- Enable @ 1 msec in gck domain 
 
-    -- Controls         
+    -- Control out         
     GTP_IS_ALIGNED_i        : in  std_logic;
     ALIGN_REQ_o             : out std_logic;
 
@@ -92,16 +99,21 @@ component GTP_TX_Manager is
     GTP_STREAM_WIDTH_g      : integer range 0 to 64 := 16     -- Width of TX Data - GTP side
     );
   port (
+    -- *** ASYNC PORTS  
+    GTP_PLL_LOCK_i          : in  std_logic;
+      
     -- *** SYSTEM CLOCK DOMAIN ***
     -- Bare Control ports
     CLK_i                   : in  std_logic;   -- Input clock - Fabric side
     RST_N_i                 : in  std_logic;   -- Asynchronous active low reset (clk clock)
-
+    EN1S_i                  : in  std_logic;   -- Enable @ 1 sec in clk domain 
+    
     -- Control in
     AUTO_ALIGN_i            : in  std_logic;
     ALIGN_REQ_i             : in  std_logic;
     ALIGN_KEY_i             : in  std_logic_vector((GTP_STREAM_WIDTH_g/8)-1 downto 0);
     TX_ERROR_INJECTION_i    : in  std_logic;
+    GTP_PLL_REFCLKLOST_i    : in  std_logic;
  
     -- Control out
     GTP_SOFT_RESET_TX_o     : out std_logic;
@@ -172,7 +184,8 @@ signal tx_error_injection : std_logic;
 
 signal auto_align : std_logic;
 signal align_flag : std_logic;
-
+signal gtp_pll_lock : std_logic;
+signal gtp_clk_lost : std_logic;
 
 -- signal tx_msg               : std_logic_vector(7 downto 0);
 -- signal tx_msg_valid_cnt     : std_logic_vector(7 downto 0);
@@ -251,6 +264,41 @@ begin
   end loop;
 end process proc_clock_gtp;
 
+
+
+
+proc_pll_lock : process 
+begin 
+  gtp_pll_lock    <= '1';
+  gtp_clk_lost    <= '0';
+  
+  wait for 10 us;
+  gtp_pll_lock <= '0';
+  
+  wait for 10 us;
+  gtp_pll_lock <= '1';
+  
+  wait for 200 us;
+  gtp_pll_lock <= '0';
+
+  wait for 25.6 us;
+  gtp_pll_lock <= '1';
+
+  wait for 200 us;
+  gtp_pll_lock <= '0';
+
+  wait for 51.2 us;
+  gtp_pll_lock <= '1';
+  
+  wait for 200 us;
+  gtp_pll_lock <= '0';
+
+  wait for 204.8 us;
+  gtp_pll_lock <= '1';
+  
+  wait;
+    
+end process proc_pll_lock;
 
 proc_align_req : process 
 begin 
@@ -390,15 +438,20 @@ GTP_TX_Manager_i : GTP_TX_Manager
     GTP_STREAM_WIDTH_g      => 16   
     )
   port map(
+    -- *** ASYNC PORTS  
+    GTP_PLL_LOCK_i          => gtp_pll_lock,
+      
     -- *** SYSTEM CLOCK DOMAIN ***
     -- Bare Control ports
     CLK_i                   => clk_100,
     RST_N_i                 => rst_n, 
-
+    EN1S_i                  => en1s, 
+    
     -- Control
     AUTO_ALIGN_i            => auto_align,
     ALIGN_REQ_i             => align_req,
     ALIGN_KEY_i             => align_key,
+    GTP_PLL_REFCLKLOST_i    => gtp_clk_lost,
     TX_ERROR_INJECTION_i    => tx_error_injection,
  
     -- Control out
@@ -434,16 +487,24 @@ gtp_rx_msg_dst_rdy  <= '1';
 
 GTP_RX_Manager_i : GTP_RX_Manager 
   generic map( 
-    GTP_STREAM_WIDTH_g      => 16,   
-    RX_DATA_OUT_WIDTH_g     => 32   
+    RX_DATA_OUT_WIDTH_g     => 32,
+    GTP_STREAM_WIDTH_g      => 16
+      
     )
   port map(
+    -- *** ASYNC PORTS  
+    GTP_PLL_LOCK_i          => gtp_pll_lock,
+      
     -- *** SYSTEM CLOCK DOMAIN ***
     -- Bare Control ports
     CLK_i                   => clk_100,
     RST_N_i                 => rst_n, 
-    EN1MS_i                 => en1ms, 
+    EN1MS_i                 => en1ms,
+    EN1S_i                  => en1s, 
     
+    -- Control in
+    GTP_PLL_REFCLKLOST_i    => gtp_clk_lost,
+     
     -- Control out
     GTP_SOFT_RESET_RX_o     => gtp_soft_reset_rx,
          
@@ -460,7 +521,7 @@ GTP_RX_Manager_i : GTP_RX_Manager
     -- *** GTP CLOCK DOMAIN ***
     -- Bare Control ports   
     GCK_i                   => gck,       
-    RST_GCK_N_i             => rst_n_gck,
+    RST_N_GCK_i             => rst_n_gck,
     EN1MS_GCK_i             => en1ms_gck,
     
     -- Controls         
@@ -471,7 +532,6 @@ GTP_RX_Manager_i : GTP_RX_Manager
     GTP_STREAM_IN_i         => gtp_stream, 
     GTP_CHAR_IS_K_i         => gtp_char_is_k 
     );    
-
 
 
 

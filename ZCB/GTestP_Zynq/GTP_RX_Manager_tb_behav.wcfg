@@ -12,14 +12,17 @@
    </db_ref_list>
    <zoom_setting>
       <ZoomStartTime time="0fs"></ZoomStartTime>
-      <ZoomEndTime time="44527301641fs"></ZoomEndTime>
-      <Cursor1Time time="1000000000fs"></Cursor1Time>
+      <ZoomEndTime time="1146096100001fs"></ZoomEndTime>
+      <Cursor1Time time="1146096100000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="255"></NameColumnWidth>
-      <ValueColumnWidth column_width="106"></ValueColumnWidth>
+      <ValueColumnWidth column_width="94"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="150" />
+   <WVObjectSize size="170" />
+   <wave_markers>
+      <marker time="51225000000" label="" />
+   </wave_markers>
    <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/CLK_i" type="logic">
       <obj_property name="ElementShortName">CLK_i</obj_property>
       <obj_property name="ObjectShortName">CLK_i</obj_property>
@@ -27,10 +30,6 @@
    <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/GCK_i" type="logic">
       <obj_property name="ElementShortName">GCK_i</obj_property>
       <obj_property name="ObjectShortName">GCK_i</obj_property>
-   </wvobject>
-   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/RST_GCK_N_i" type="logic">
-      <obj_property name="ElementShortName">RST_GCK_N_i</obj_property>
-      <obj_property name="ObjectShortName">RST_GCK_N_i</obj_property>
    </wvobject>
    <wvobject fp_name="/GTP_RX_Manager_tb/tx_data_rate_cnt" type="array">
       <obj_property name="ElementShortName">tx_data_rate_cnt[7:0]</obj_property>
@@ -113,20 +112,112 @@
       <obj_property name="ObjectShortName">msg_fifo_full</obj_property>
    </wvobject>
    <wvobject type="divider" fp_name="divider202">
-      <obj_property name="label">Reset</obj_property>
+      <obj_property name="label">Reset RX GTP</obj_property>
       <obj_property name="DisplayName">label</obj_property>
    </wvobject>
    <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/gtp_reset_cnt" type="array">
-      <obj_property name="ElementShortName">gtp_reset_cnt[7:0]</obj_property>
-      <obj_property name="ObjectShortName">gtp_reset_cnt[7:0]</obj_property>
+      <obj_property name="ElementShortName">gtp_reset_cnt[3:0]</obj_property>
+      <obj_property name="ObjectShortName">gtp_reset_cnt[3:0]</obj_property>
    </wvobject>
    <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/gtp_reset" type="logic">
       <obj_property name="ElementShortName">gtp_reset</obj_property>
       <obj_property name="ObjectShortName">gtp_reset</obj_property>
    </wvobject>
-   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/GTP_RESET_o" type="logic">
-      <obj_property name="ElementShortName">GTP_RESET_o</obj_property>
-      <obj_property name="ObjectShortName">GTP_RESET_o</obj_property>
+   <wvobject type="divider" fp_name="divider202">
+      <obj_property name="label">Reset TX GTP</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_TX_Manager_i/EN1S_i" type="logic">
+      <obj_property name="ElementShortName">EN1S_i</obj_property>
+      <obj_property name="ObjectShortName">EN1S_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_TX_Manager_i/GTP_PLL_LOCK_i" type="logic">
+      <obj_property name="ElementShortName">GTP_PLL_LOCK_i</obj_property>
+      <obj_property name="ObjectShortName">GTP_PLL_LOCK_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_TX_Manager_i/gtp_pll_lock_meta" type="logic">
+      <obj_property name="ElementShortName">gtp_pll_lock_meta</obj_property>
+      <obj_property name="ObjectShortName">gtp_pll_lock_meta</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_TX_Manager_i/gtp_pll_lock_sync" type="logic">
+      <obj_property name="ElementShortName">gtp_pll_lock_sync</obj_property>
+      <obj_property name="ObjectShortName">gtp_pll_lock_sync</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_TX_Manager_i/gtp_pll_lock" type="logic">
+      <obj_property name="ElementShortName">gtp_pll_lock</obj_property>
+      <obj_property name="ObjectShortName">gtp_pll_lock</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_TX_Manager_i/gtp_clk_lost_meta" type="logic">
+      <obj_property name="ElementShortName">gtp_clk_lost_meta</obj_property>
+      <obj_property name="ObjectShortName">gtp_clk_lost_meta</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_TX_Manager_i/gtp_clk_lost_sync" type="logic">
+      <obj_property name="ElementShortName">gtp_clk_lost_sync</obj_property>
+      <obj_property name="ObjectShortName">gtp_clk_lost_sync</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_TX_Manager_i/gtp_clk_lost" type="logic">
+      <obj_property name="ElementShortName">gtp_clk_lost</obj_property>
+      <obj_property name="ObjectShortName">gtp_clk_lost</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_TX_Manager_i/gtp_pll_fail" type="logic">
+      <obj_property name="ElementShortName">gtp_pll_fail</obj_property>
+      <obj_property name="ObjectShortName">gtp_pll_fail</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_TX_Manager_i/gtp_pll_alarm_cnt" type="array">
+      <obj_property name="ElementShortName">gtp_pll_alarm_cnt[1:0]</obj_property>
+      <obj_property name="ObjectShortName">gtp_pll_alarm_cnt[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_TX_Manager_i/gtp_pll_alarm" type="logic">
+      <obj_property name="ElementShortName">gtp_pll_alarm</obj_property>
+      <obj_property name="ObjectShortName">gtp_pll_alarm</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_TX_Manager_i/gtp_reset_cnt" type="array">
+      <obj_property name="ElementShortName">gtp_reset_cnt[3:0]</obj_property>
+      <obj_property name="ObjectShortName">gtp_reset_cnt[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_TX_Manager_i/gtp_reset" type="logic">
+      <obj_property name="ElementShortName">gtp_reset</obj_property>
+      <obj_property name="ObjectShortName">gtp_reset</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_TX_Manager_i/GTP_SOFT_RESET_TX_o" type="logic">
+      <obj_property name="ElementShortName">GTP_SOFT_RESET_TX_o</obj_property>
+      <obj_property name="ObjectShortName">GTP_SOFT_RESET_TX_o</obj_property>
+   </wvobject>
+   <wvobject type="divider" fp_name="divider186">
+      <obj_property name="label">Reset RX GTP</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/EN1S_i" type="logic">
+      <obj_property name="ElementShortName">EN1S_i</obj_property>
+      <obj_property name="ObjectShortName">EN1S_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/GTP_PLL_LOCK_i" type="logic">
+      <obj_property name="ElementShortName">GTP_PLL_LOCK_i</obj_property>
+      <obj_property name="ObjectShortName">GTP_PLL_LOCK_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/gtp_pll_fail" type="logic">
+      <obj_property name="ElementShortName">gtp_pll_fail</obj_property>
+      <obj_property name="ObjectShortName">gtp_pll_fail</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/gtp_pll_alarm_cnt" type="array">
+      <obj_property name="ElementShortName">gtp_pll_alarm_cnt[1:0]</obj_property>
+      <obj_property name="ObjectShortName">gtp_pll_alarm_cnt[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/gtp_pll_alarm" type="logic">
+      <obj_property name="ElementShortName">gtp_pll_alarm</obj_property>
+      <obj_property name="ObjectShortName">gtp_pll_alarm</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/gtp_reset_cnt" type="array">
+      <obj_property name="ElementShortName">gtp_reset_cnt[3:0]</obj_property>
+      <obj_property name="ObjectShortName">gtp_reset_cnt[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/gtp_reset" type="logic">
+      <obj_property name="ElementShortName">gtp_reset</obj_property>
+      <obj_property name="ObjectShortName">gtp_reset</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/GTP_SOFT_RESET_RX_o" type="logic">
+      <obj_property name="ElementShortName">GTP_SOFT_RESET_RX_o</obj_property>
+      <obj_property name="ObjectShortName">GTP_SOFT_RESET_RX_o</obj_property>
    </wvobject>
    <wvobject type="divider" fp_name="divider142">
       <obj_property name="label">Rate counters</obj_property>
@@ -204,10 +295,6 @@
       <obj_property name="ElementShortName">msg_flag_d</obj_property>
       <obj_property name="ObjectShortName">msg_flag_d</obj_property>
    </wvobject>
-   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/RST_GCK_N_i" type="logic">
-      <obj_property name="ElementShortName">RST_GCK_N_i</obj_property>
-      <obj_property name="ObjectShortName">RST_GCK_N_i</obj_property>
-   </wvobject>
    <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/idle_flag_d" type="logic">
       <obj_property name="ElementShortName">idle_flag_d</obj_property>
       <obj_property name="ObjectShortName">idle_flag_d</obj_property>
@@ -259,10 +346,6 @@
    <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/ALIGN_REQ_o" type="logic">
       <obj_property name="ElementShortName">ALIGN_REQ_o</obj_property>
       <obj_property name="ObjectShortName">ALIGN_REQ_o</obj_property>
-   </wvobject>
-   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/OVERRIDE_GCK_o" type="logic">
-      <obj_property name="ElementShortName">OVERRIDE_GCK_o</obj_property>
-      <obj_property name="ObjectShortName">OVERRIDE_GCK_o</obj_property>
    </wvobject>
    <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/data_fifo_din" type="array">
       <obj_property name="ElementShortName">data_fifo_din[31:0]</obj_property>

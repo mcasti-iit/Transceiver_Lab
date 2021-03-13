@@ -33,6 +33,7 @@ library ieee;
   use ieee.std_logic_1164.all;
   use ieee.std_logic_arith.all;
   use ieee.std_logic_unsigned.all;
+  use ieee.std_logic_misc.all;
 
 entity GTP_TX_Manager is
   generic ( 
@@ -40,16 +41,21 @@ entity GTP_TX_Manager is
     GTP_STREAM_WIDTH_g      : integer range 0 to 64 := 16     -- Width of TX Data - GTP side
     );
   port (
+    -- *** ASYNC PORTS  
+    GTP_PLL_LOCK_i          : in  std_logic;
+      
     -- *** SYSTEM CLOCK DOMAIN ***
     -- Bare Control ports
     CLK_i                   : in  std_logic;   -- Input clock - Fabric side
     RST_N_i                 : in  std_logic;   -- Asynchronous active low reset (clk clock)
+    EN1S_i                  : in  std_logic;   -- Enable @ 100 us in clk domain 
 
     -- Control in
     AUTO_ALIGN_i            : in  std_logic;
     ALIGN_REQ_i             : in  std_logic;
     ALIGN_KEY_i             : in  std_logic_vector((GTP_STREAM_WIDTH_g/8)-1 downto 0);
     TX_ERROR_INJECTION_i    : in  std_logic;
+    GTP_PLL_REFCLKLOST_i    : in  std_logic;
  
     -- Control out
     GTP_SOFT_RESET_TX_o     : out std_logic;
@@ -183,23 +189,37 @@ signal align_flag      : std_logic;
 
 
 
-signal idle_head_flag     : std_logic;
-signal idle_tail_flag     : std_logic;
-signal gtp_align_flag     : std_logic;          
-signal msg_flag           : std_logic; 
-signal data_w0_flag       : std_logic;
-signal data_w1_flag       : std_logic;
+signal idle_head_flag       : std_logic;
+signal idle_tail_flag       : std_logic;
+signal gtp_align_flag       : std_logic;          
+signal msg_flag             : std_logic; 
+signal data_w0_flag         : std_logic;
+signal data_w1_flag         : std_logic;
 
-signal p_align_req        : std_logic;
-signal align_req          : std_logic;
-signal align_req_r        : std_logic;
-signal send_error_req     : std_logic;
+signal p_align_req          : std_logic;
+signal align_req            : std_logic;
+signal align_req_r          : std_logic;
+signal send_error_req       : std_logic;
 
 
-signal msg_r              : std_logic_vector(7 downto 0);
-signal msg_src_rdy        : std_logic;
-signal msg_dst_rdy        : std_logic;
+signal msg_r                : std_logic_vector(7 downto 0);
+signal msg_src_rdy          : std_logic;
+signal msg_dst_rdy          : std_logic;
 
+signal gtp_pll_lock_meta    : std_logic;
+signal gtp_pll_lock_sync    : std_logic;
+signal gtp_pll_lock         : std_logic;
+signal gtp_clk_lost_meta    : std_logic;
+signal gtp_clk_lost_sync    : std_logic;
+signal gtp_clk_lost         : std_logic;
+
+signal gtp_pll_fail         : std_logic;
+signal gtp_pll_alarm_cnt    : std_logic_vector(1 downto 0);
+signal gtp_pll_alarm        : std_logic;
+
+signal gtp_reset_cnt        : std_logic_vector(3 downto 0);
+signal gtp_reset            : std_logic;
+signal gtp_reset_sent       : std_logic;
 
 begin
 
@@ -368,7 +388,72 @@ begin
 end process;
 
 
+-- ----------------------------------------------------------------------------------
+-- GTP RESET
 
+process(CLK_i, RST_N_i)
+begin
+  if (RST_N_i = '0') then 
+    gtp_pll_lock_meta <= '0';
+    gtp_pll_lock_sync <= '0';
+    gtp_pll_lock <= '0';
+  elsif rising_edge(CLK_i) then
+    gtp_pll_lock_meta  <= GTP_PLL_LOCK_i;
+    gtp_pll_lock_sync  <= gtp_pll_lock_meta;
+    gtp_pll_lock       <= gtp_pll_lock_sync;
+  end if;
+end process;
+
+process(CLK_i, RST_N_i)
+begin
+  if (RST_N_i = '0') then 
+    gtp_clk_lost_meta <= '0';
+    gtp_clk_lost_sync <= '0';
+    gtp_clk_lost <= '0';
+  elsif rising_edge(CLK_i) then
+    gtp_clk_lost_meta  <= GTP_PLL_REFCLKLOST_i;
+    gtp_clk_lost_sync  <= gtp_clk_lost_meta;
+    gtp_clk_lost       <= gtp_clk_lost_sync;
+  end if;
+end process;
+
+
+gtp_pll_fail <= (gtp_clk_lost or not gtp_pll_lock);
+
+process(CLK_i, RST_N_i)
+begin
+  if (RST_N_i = '0') then 
+    gtp_pll_alarm_cnt  <= "00";
+  elsif rising_edge(CLK_i) then
+    if (gtp_pll_alarm_cnt /= "00" ) then
+      if (EN1S_i = '1') then
+        gtp_pll_alarm_cnt <= gtp_pll_alarm_cnt - 1;
+      end if;
+    elsif (gtp_pll_fail = '1') then
+      gtp_pll_alarm_cnt <= "11";      
+    end if;
+  end if;
+end process;
+
+
+
+
+process (CLK_i, RST_N_i)
+begin
+  if (RST_N_i = '0') then
+    gtp_reset_cnt  <= conv_std_logic_vector(0, gtp_reset_cnt'length);
+    gtp_reset      <= '0';
+  elsif rising_edge(CLK_i) then
+    if (gtp_pll_alarm_cnt = "10" and EN1S_i = '1') then
+      gtp_reset_cnt <= conv_std_logic_vector(15, gtp_reset_cnt'length);
+    elsif (gtp_reset_cnt /= conv_std_logic_vector(0, gtp_reset_cnt'length)) then
+      gtp_reset_cnt <= gtp_reset_cnt - 1;
+    end if;
+    
+    gtp_reset <= or_reduce(gtp_reset_cnt);
+    
+  end if;
+end process;
 
 -- ----------------------------------------------------------------------------------
 -- OUTPUTs
@@ -378,6 +463,6 @@ GTP_STREAM_OUT_o     <= gtp_stream_out;
 GTP_CHAR_IS_K_o      <= tx_char_is_k;
 ALIGN_FLAG_o         <= gtp_align_flag;
 
-GTP_SOFT_RESET_TX_o  <= '0';
+GTP_SOFT_RESET_TX_o  <= gtp_reset;
 
 end Behavioral;

@@ -1,0 +1,1857 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="GTP_Test_tb_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="GTP_Test_tb" />
+            <top_module name="glbl" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="0fs"></ZoomStartTime>
+      <ZoomEndTime time="199077938001fs"></ZoomEndTime>
+      <Cursor1Time time="12110424000fs"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="255"></NameColumnWidth>
+      <ValueColumnWidth column_width="90"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="461" />
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/GT0_TXUSRCLK2_OUT" type="logic">
+      <obj_property name="ElementShortName">GT0_TXUSRCLK2_OUT</obj_property>
+      <obj_property name="ObjectShortName">GT0_TXUSRCLK2_OUT</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/GT0_PLL0LOCK_OUT" type="logic">
+      <obj_property name="ElementShortName">GT0_PLL0LOCK_OUT</obj_property>
+      <obj_property name="ObjectShortName">GT0_PLL0LOCK_OUT</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/tx_data" type="array">
+      <obj_property name="ElementShortName">tx_data[31:0]</obj_property>
+      <obj_property name="ObjectShortName">tx_data[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/tx_data_src_rdy" type="logic">
+      <obj_property name="ElementShortName">tx_data_src_rdy</obj_property>
+      <obj_property name="ObjectShortName">tx_data_src_rdy</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/tx_data_dst_rdy" type="logic">
+      <obj_property name="ElementShortName">tx_data_dst_rdy</obj_property>
+      <obj_property name="ObjectShortName">tx_data_dst_rdy</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/tx_msg" type="array">
+      <obj_property name="ElementShortName">tx_msg[7:0]</obj_property>
+      <obj_property name="ObjectShortName">tx_msg[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/tx_msg_src_rdy" type="logic">
+      <obj_property name="ElementShortName">tx_msg_src_rdy</obj_property>
+      <obj_property name="ObjectShortName">tx_msg_src_rdy</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/tx_msg_dst_rdy" type="logic">
+      <obj_property name="ElementShortName">tx_msg_dst_rdy</obj_property>
+      <obj_property name="ObjectShortName">tx_msg_dst_rdy</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/gtp_tx_stream" type="array">
+      <obj_property name="ElementShortName">gtp_tx_stream[15:0]</obj_property>
+      <obj_property name="ObjectShortName">gtp_tx_stream[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/gtp_tx_char_is_k" type="array">
+      <obj_property name="ElementShortName">gtp_tx_char_is_k[1:0]</obj_property>
+      <obj_property name="ObjectShortName">gtp_tx_char_is_k[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/TXP_o" type="logic">
+      <obj_property name="ElementShortName">TXP_o</obj_property>
+      <obj_property name="ObjectShortName">TXP_o</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/TXN_o" type="logic">
+      <obj_property name="ElementShortName">TXN_o</obj_property>
+      <obj_property name="ObjectShortName">TXN_o</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/gtp_rx_stream" type="array">
+      <obj_property name="ElementShortName">gtp_rx_stream[15:0]</obj_property>
+      <obj_property name="ObjectShortName">gtp_rx_stream[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/gtp_rx_char_is_k" type="array">
+      <obj_property name="ElementShortName">gtp_rx_char_is_k[1:0]</obj_property>
+      <obj_property name="ObjectShortName">gtp_rx_char_is_k[1:0]</obj_property>
+   </wvobject>
+   <wvobject type="divider" fp_name="divider453">
+      <obj_property name="label">TX Manager</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_Manager_i/GTP_PLL_LOCK_i" type="logic">
+      <obj_property name="ElementShortName">GTP_PLL_LOCK_i</obj_property>
+      <obj_property name="ObjectShortName">GTP_PLL_LOCK_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_Manager_i/CLK_i" type="logic">
+      <obj_property name="ElementShortName">CLK_i</obj_property>
+      <obj_property name="ObjectShortName">CLK_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_Manager_i/RST_N_i" type="logic">
+      <obj_property name="ElementShortName">RST_N_i</obj_property>
+      <obj_property name="ObjectShortName">RST_N_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_Manager_i/EN1S_i" type="logic">
+      <obj_property name="ElementShortName">EN1S_i</obj_property>
+      <obj_property name="ObjectShortName">EN1S_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_Manager_i/AUTO_ALIGN_i" type="logic">
+      <obj_property name="ElementShortName">AUTO_ALIGN_i</obj_property>
+      <obj_property name="ObjectShortName">AUTO_ALIGN_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_Manager_i/ALIGN_REQ_i" type="logic">
+      <obj_property name="ElementShortName">ALIGN_REQ_i</obj_property>
+      <obj_property name="ObjectShortName">ALIGN_REQ_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_Manager_i/ALIGN_KEY_i" type="array">
+      <obj_property name="ElementShortName">ALIGN_KEY_i[1:0]</obj_property>
+      <obj_property name="ObjectShortName">ALIGN_KEY_i[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_Manager_i/TX_ERROR_INJECTION_i" type="logic">
+      <obj_property name="ElementShortName">TX_ERROR_INJECTION_i</obj_property>
+      <obj_property name="ObjectShortName">TX_ERROR_INJECTION_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_Manager_i/GTP_PLL_REFCLKLOST_i" type="logic">
+      <obj_property name="ElementShortName">GTP_PLL_REFCLKLOST_i</obj_property>
+      <obj_property name="ObjectShortName">GTP_PLL_REFCLKLOST_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_Manager_i/GTP_SOFT_RESET_TX_o" type="logic">
+      <obj_property name="ElementShortName">GTP_SOFT_RESET_TX_o</obj_property>
+      <obj_property name="ObjectShortName">GTP_SOFT_RESET_TX_o</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_Manager_i/ALIGN_FLAG_o" type="logic">
+      <obj_property name="ElementShortName">ALIGN_FLAG_o</obj_property>
+      <obj_property name="ObjectShortName">ALIGN_FLAG_o</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_Manager_i/TX_DATA_i" type="array">
+      <obj_property name="ElementShortName">TX_DATA_i[31:0]</obj_property>
+      <obj_property name="ObjectShortName">TX_DATA_i[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_Manager_i/TX_DATA_SRC_RDY_i" type="logic">
+      <obj_property name="ElementShortName">TX_DATA_SRC_RDY_i</obj_property>
+      <obj_property name="ObjectShortName">TX_DATA_SRC_RDY_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_Manager_i/TX_DATA_DST_RDY_o" type="logic">
+      <obj_property name="ElementShortName">TX_DATA_DST_RDY_o</obj_property>
+      <obj_property name="ObjectShortName">TX_DATA_DST_RDY_o</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_Manager_i/TX_MSG_i" type="array">
+      <obj_property name="ElementShortName">TX_MSG_i[7:0]</obj_property>
+      <obj_property name="ObjectShortName">TX_MSG_i[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_Manager_i/TX_MSG_SRC_RDY_i" type="logic">
+      <obj_property name="ElementShortName">TX_MSG_SRC_RDY_i</obj_property>
+      <obj_property name="ObjectShortName">TX_MSG_SRC_RDY_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_Manager_i/TX_MSG_DST_RDY_o" type="logic">
+      <obj_property name="ElementShortName">TX_MSG_DST_RDY_o</obj_property>
+      <obj_property name="ObjectShortName">TX_MSG_DST_RDY_o</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_Manager_i/GCK_i" type="logic">
+      <obj_property name="ElementShortName">GCK_i</obj_property>
+      <obj_property name="ObjectShortName">GCK_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_Manager_i/RST_N_GCK_i" type="logic">
+      <obj_property name="ElementShortName">RST_N_GCK_i</obj_property>
+      <obj_property name="ObjectShortName">RST_N_GCK_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_Manager_i/EN100US_GCK_i" type="logic">
+      <obj_property name="ElementShortName">EN100US_GCK_i</obj_property>
+      <obj_property name="ObjectShortName">EN100US_GCK_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_Manager_i/GTP_STREAM_OUT_o" type="array">
+      <obj_property name="ElementShortName">GTP_STREAM_OUT_o[15:0]</obj_property>
+      <obj_property name="ObjectShortName">GTP_STREAM_OUT_o[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_Manager_i/GTP_CHAR_IS_K_o" type="array">
+      <obj_property name="ElementShortName">GTP_CHAR_IS_K_o[1:0]</obj_property>
+      <obj_property name="ObjectShortName">GTP_CHAR_IS_K_o[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_Manager_i/state" type="other">
+      <obj_property name="ElementShortName">state</obj_property>
+      <obj_property name="ObjectShortName">state</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_Manager_i/next_state" type="other">
+      <obj_property name="ElementShortName">next_state</obj_property>
+      <obj_property name="ObjectShortName">next_state</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_Manager_i/data_fifo_wr_en" type="logic">
+      <obj_property name="ElementShortName">data_fifo_wr_en</obj_property>
+      <obj_property name="ObjectShortName">data_fifo_wr_en</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_Manager_i/data_fifo_rd_en" type="logic">
+      <obj_property name="ElementShortName">data_fifo_rd_en</obj_property>
+      <obj_property name="ObjectShortName">data_fifo_rd_en</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_Manager_i/data_fifo_din" type="array">
+      <obj_property name="ElementShortName">data_fifo_din[31:0]</obj_property>
+      <obj_property name="ObjectShortName">data_fifo_din[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_Manager_i/data_fifo_dout" type="array">
+      <obj_property name="ElementShortName">data_fifo_dout[31:0]</obj_property>
+      <obj_property name="ObjectShortName">data_fifo_dout[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_Manager_i/data_fifo_full" type="logic">
+      <obj_property name="ElementShortName">data_fifo_full</obj_property>
+      <obj_property name="ObjectShortName">data_fifo_full</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_Manager_i/data_fifo_overflow" type="logic">
+      <obj_property name="ElementShortName">data_fifo_overflow</obj_property>
+      <obj_property name="ObjectShortName">data_fifo_overflow</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_Manager_i/data_fifo_empty" type="logic">
+      <obj_property name="ElementShortName">data_fifo_empty</obj_property>
+      <obj_property name="ObjectShortName">data_fifo_empty</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_Manager_i/data_fifo_valid" type="logic">
+      <obj_property name="ElementShortName">data_fifo_valid</obj_property>
+      <obj_property name="ObjectShortName">data_fifo_valid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_Manager_i/data_fifo_rst" type="logic">
+      <obj_property name="ElementShortName">data_fifo_rst</obj_property>
+      <obj_property name="ObjectShortName">data_fifo_rst</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_Manager_i/msg_fifo_wr_en" type="logic">
+      <obj_property name="ElementShortName">msg_fifo_wr_en</obj_property>
+      <obj_property name="ObjectShortName">msg_fifo_wr_en</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_Manager_i/msg_fifo_rd_en" type="logic">
+      <obj_property name="ElementShortName">msg_fifo_rd_en</obj_property>
+      <obj_property name="ObjectShortName">msg_fifo_rd_en</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_Manager_i/msg_fifo_din" type="array">
+      <obj_property name="ElementShortName">msg_fifo_din[7:0]</obj_property>
+      <obj_property name="ObjectShortName">msg_fifo_din[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_Manager_i/msg_fifo_dout" type="array">
+      <obj_property name="ElementShortName">msg_fifo_dout[7:0]</obj_property>
+      <obj_property name="ObjectShortName">msg_fifo_dout[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_Manager_i/msg_fifo_full" type="logic">
+      <obj_property name="ElementShortName">msg_fifo_full</obj_property>
+      <obj_property name="ObjectShortName">msg_fifo_full</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_Manager_i/msg_fifo_overflow" type="logic">
+      <obj_property name="ElementShortName">msg_fifo_overflow</obj_property>
+      <obj_property name="ObjectShortName">msg_fifo_overflow</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_Manager_i/msg_fifo_empty" type="logic">
+      <obj_property name="ElementShortName">msg_fifo_empty</obj_property>
+      <obj_property name="ObjectShortName">msg_fifo_empty</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_Manager_i/msg_fifo_valid" type="logic">
+      <obj_property name="ElementShortName">msg_fifo_valid</obj_property>
+      <obj_property name="ObjectShortName">msg_fifo_valid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_Manager_i/msg_fifo_rst" type="logic">
+      <obj_property name="ElementShortName">msg_fifo_rst</obj_property>
+      <obj_property name="ObjectShortName">msg_fifo_rst</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_Manager_i/p_gtp_stream_out" type="array">
+      <obj_property name="ElementShortName">p_gtp_stream_out[15:0]</obj_property>
+      <obj_property name="ObjectShortName">p_gtp_stream_out[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_Manager_i/gtp_stream_out" type="array">
+      <obj_property name="ElementShortName">gtp_stream_out[15:0]</obj_property>
+      <obj_property name="ObjectShortName">gtp_stream_out[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_Manager_i/p_tx_char_is_k" type="array">
+      <obj_property name="ElementShortName">p_tx_char_is_k[1:0]</obj_property>
+      <obj_property name="ObjectShortName">p_tx_char_is_k[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_Manager_i/tx_char_is_k" type="array">
+      <obj_property name="ElementShortName">tx_char_is_k[1:0]</obj_property>
+      <obj_property name="ObjectShortName">tx_char_is_k[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_Manager_i/data_w_sel" type="logic">
+      <obj_property name="ElementShortName">data_w_sel</obj_property>
+      <obj_property name="ObjectShortName">data_w_sel</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_Manager_i/idle_w_sel" type="logic">
+      <obj_property name="ElementShortName">idle_w_sel</obj_property>
+      <obj_property name="ObjectShortName">idle_w_sel</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_Manager_i/word_toggle" type="logic">
+      <obj_property name="ElementShortName">word_toggle</obj_property>
+      <obj_property name="ObjectShortName">word_toggle</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_Manager_i/data_w_enable" type="logic">
+      <obj_property name="ElementShortName">data_w_enable</obj_property>
+      <obj_property name="ObjectShortName">data_w_enable</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_Manager_i/idle_w_enable" type="logic">
+      <obj_property name="ElementShortName">idle_w_enable</obj_property>
+      <obj_property name="ObjectShortName">idle_w_enable</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_Manager_i/msg_enable" type="logic">
+      <obj_property name="ElementShortName">msg_enable</obj_property>
+      <obj_property name="ObjectShortName">msg_enable</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_Manager_i/gtp_align_enable" type="logic">
+      <obj_property name="ElementShortName">gtp_align_enable</obj_property>
+      <obj_property name="ObjectShortName">gtp_align_enable</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_Manager_i/data_out_sel" type="array">
+      <obj_property name="ElementShortName">data_out_sel[2:0]</obj_property>
+      <obj_property name="ObjectShortName">data_out_sel[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_Manager_i/align_flag" type="logic">
+      <obj_property name="ElementShortName">align_flag</obj_property>
+      <obj_property name="ObjectShortName">align_flag</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_Manager_i/idle_head_flag" type="logic">
+      <obj_property name="ElementShortName">idle_head_flag</obj_property>
+      <obj_property name="ObjectShortName">idle_head_flag</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_Manager_i/idle_tail_flag" type="logic">
+      <obj_property name="ElementShortName">idle_tail_flag</obj_property>
+      <obj_property name="ObjectShortName">idle_tail_flag</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_Manager_i/gtp_align_flag" type="logic">
+      <obj_property name="ElementShortName">gtp_align_flag</obj_property>
+      <obj_property name="ObjectShortName">gtp_align_flag</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_Manager_i/msg_flag" type="logic">
+      <obj_property name="ElementShortName">msg_flag</obj_property>
+      <obj_property name="ObjectShortName">msg_flag</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_Manager_i/data_w0_flag" type="logic">
+      <obj_property name="ElementShortName">data_w0_flag</obj_property>
+      <obj_property name="ObjectShortName">data_w0_flag</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_Manager_i/data_w1_flag" type="logic">
+      <obj_property name="ElementShortName">data_w1_flag</obj_property>
+      <obj_property name="ObjectShortName">data_w1_flag</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_Manager_i/p_align_req" type="logic">
+      <obj_property name="ElementShortName">p_align_req</obj_property>
+      <obj_property name="ObjectShortName">p_align_req</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_Manager_i/align_req" type="logic">
+      <obj_property name="ElementShortName">align_req</obj_property>
+      <obj_property name="ObjectShortName">align_req</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_Manager_i/align_req_r" type="logic">
+      <obj_property name="ElementShortName">align_req_r</obj_property>
+      <obj_property name="ObjectShortName">align_req_r</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_Manager_i/send_error_req" type="logic">
+      <obj_property name="ElementShortName">send_error_req</obj_property>
+      <obj_property name="ObjectShortName">send_error_req</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_Manager_i/msg_r" type="array">
+      <obj_property name="ElementShortName">msg_r[7:0]</obj_property>
+      <obj_property name="ObjectShortName">msg_r[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_Manager_i/msg_src_rdy" type="logic">
+      <obj_property name="ElementShortName">msg_src_rdy</obj_property>
+      <obj_property name="ObjectShortName">msg_src_rdy</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_Manager_i/msg_dst_rdy" type="logic">
+      <obj_property name="ElementShortName">msg_dst_rdy</obj_property>
+      <obj_property name="ObjectShortName">msg_dst_rdy</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_Manager_i/gtp_pll_lock_meta" type="logic">
+      <obj_property name="ElementShortName">gtp_pll_lock_meta</obj_property>
+      <obj_property name="ObjectShortName">gtp_pll_lock_meta</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_Manager_i/gtp_pll_lock_sync" type="logic">
+      <obj_property name="ElementShortName">gtp_pll_lock_sync</obj_property>
+      <obj_property name="ObjectShortName">gtp_pll_lock_sync</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_Manager_i/gtp_pll_lock" type="logic">
+      <obj_property name="ElementShortName">gtp_pll_lock</obj_property>
+      <obj_property name="ObjectShortName">gtp_pll_lock</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_Manager_i/gtp_clk_lost_meta" type="logic">
+      <obj_property name="ElementShortName">gtp_clk_lost_meta</obj_property>
+      <obj_property name="ObjectShortName">gtp_clk_lost_meta</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_Manager_i/gtp_clk_lost_sync" type="logic">
+      <obj_property name="ElementShortName">gtp_clk_lost_sync</obj_property>
+      <obj_property name="ObjectShortName">gtp_clk_lost_sync</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_Manager_i/gtp_clk_lost" type="logic">
+      <obj_property name="ElementShortName">gtp_clk_lost</obj_property>
+      <obj_property name="ObjectShortName">gtp_clk_lost</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_Manager_i/gtp_pll_fail" type="logic">
+      <obj_property name="ElementShortName">gtp_pll_fail</obj_property>
+      <obj_property name="ObjectShortName">gtp_pll_fail</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_Manager_i/gtp_pll_alarm_cnt" type="array">
+      <obj_property name="ElementShortName">gtp_pll_alarm_cnt[1:0]</obj_property>
+      <obj_property name="ObjectShortName">gtp_pll_alarm_cnt[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_Manager_i/gtp_pll_alarm" type="logic">
+      <obj_property name="ElementShortName">gtp_pll_alarm</obj_property>
+      <obj_property name="ObjectShortName">gtp_pll_alarm</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_Manager_i/gtp_reset_cnt" type="array">
+      <obj_property name="ElementShortName">gtp_reset_cnt[3:0]</obj_property>
+      <obj_property name="ObjectShortName">gtp_reset_cnt[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_Manager_i/gtp_reset" type="logic">
+      <obj_property name="ElementShortName">gtp_reset</obj_property>
+      <obj_property name="ObjectShortName">gtp_reset</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_Manager_i/gtp_reset_sent" type="logic">
+      <obj_property name="ElementShortName">gtp_reset_sent</obj_property>
+      <obj_property name="ObjectShortName">gtp_reset_sent</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_Manager_i/TX_DATA_IN_WIDTH_g" type="other">
+      <obj_property name="ElementShortName">TX_DATA_IN_WIDTH_g</obj_property>
+      <obj_property name="ObjectShortName">TX_DATA_IN_WIDTH_g</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_Manager_i/GTP_STREAM_WIDTH_g" type="other">
+      <obj_property name="ElementShortName">GTP_STREAM_WIDTH_g</obj_property>
+      <obj_property name="ObjectShortName">GTP_STREAM_WIDTH_g</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_Manager_i/K28_0" type="array">
+      <obj_property name="ElementShortName">K28_0[7:0]</obj_property>
+      <obj_property name="ObjectShortName">K28_0[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_Manager_i/K28_1" type="array">
+      <obj_property name="ElementShortName">K28_1[7:0]</obj_property>
+      <obj_property name="ObjectShortName">K28_1[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_Manager_i/K28_2" type="array">
+      <obj_property name="ElementShortName">K28_2[7:0]</obj_property>
+      <obj_property name="ObjectShortName">K28_2[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_Manager_i/K28_3" type="array">
+      <obj_property name="ElementShortName">K28_3[7:0]</obj_property>
+      <obj_property name="ObjectShortName">K28_3[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_Manager_i/K28_4" type="array">
+      <obj_property name="ElementShortName">K28_4[7:0]</obj_property>
+      <obj_property name="ObjectShortName">K28_4[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_Manager_i/K28_5" type="array">
+      <obj_property name="ElementShortName">K28_5[7:0]</obj_property>
+      <obj_property name="ObjectShortName">K28_5[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_Manager_i/K28_6" type="array">
+      <obj_property name="ElementShortName">K28_6[7:0]</obj_property>
+      <obj_property name="ObjectShortName">K28_6[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_Manager_i/K28_7" type="array">
+      <obj_property name="ElementShortName">K28_7[7:0]</obj_property>
+      <obj_property name="ObjectShortName">K28_7[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_Manager_i/K23_7" type="array">
+      <obj_property name="ElementShortName">K23_7[7:0]</obj_property>
+      <obj_property name="ObjectShortName">K23_7[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_Manager_i/K27_7" type="array">
+      <obj_property name="ElementShortName">K27_7[7:0]</obj_property>
+      <obj_property name="ObjectShortName">K27_7[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_Manager_i/K29_7" type="array">
+      <obj_property name="ElementShortName">K29_7[7:0]</obj_property>
+      <obj_property name="ObjectShortName">K29_7[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_Manager_i/K30_7" type="array">
+      <obj_property name="ElementShortName">K30_7[7:0]</obj_property>
+      <obj_property name="ObjectShortName">K30_7[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_Manager_i/IDLE_HEAD_c" type="array">
+      <obj_property name="ElementShortName">IDLE_HEAD_c[15:0]</obj_property>
+      <obj_property name="ObjectShortName">IDLE_HEAD_c[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_Manager_i/IDLE_TAIL_c" type="array">
+      <obj_property name="ElementShortName">IDLE_TAIL_c[15:0]</obj_property>
+      <obj_property name="ObjectShortName">IDLE_TAIL_c[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_Manager_i/ALIGN_c" type="array">
+      <obj_property name="ElementShortName">ALIGN_c[15:0]</obj_property>
+      <obj_property name="ObjectShortName">ALIGN_c[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_Manager_i/MSG_c" type="array">
+      <obj_property name="ElementShortName">MSG_c[7:0]</obj_property>
+      <obj_property name="ObjectShortName">MSG_c[7:0]</obj_property>
+   </wvobject>
+   <wvobject type="divider" fp_name="divider568">
+      <obj_property name="label">GTP TX</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/common0_i/PLL0OUTCLK_OUT" type="logic">
+      <obj_property name="ElementShortName">PLL0OUTCLK_OUT</obj_property>
+      <obj_property name="ObjectShortName">PLL0OUTCLK_OUT</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/common0_i/PLL0OUTREFCLK_OUT" type="logic">
+      <obj_property name="ElementShortName">PLL0OUTREFCLK_OUT</obj_property>
+      <obj_property name="ObjectShortName">PLL0OUTREFCLK_OUT</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/common0_i/PLL0LOCK_OUT" type="logic">
+      <obj_property name="ElementShortName">PLL0LOCK_OUT</obj_property>
+      <obj_property name="ObjectShortName">PLL0LOCK_OUT</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/common0_i/PLL0LOCKDETCLK_IN" type="logic">
+      <obj_property name="ElementShortName">PLL0LOCKDETCLK_IN</obj_property>
+      <obj_property name="ObjectShortName">PLL0LOCKDETCLK_IN</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/common0_i/PLL0REFCLKLOST_OUT" type="logic">
+      <obj_property name="ElementShortName">PLL0REFCLKLOST_OUT</obj_property>
+      <obj_property name="ObjectShortName">PLL0REFCLKLOST_OUT</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/common0_i/PLL0RESET_IN" type="logic">
+      <obj_property name="ElementShortName">PLL0RESET_IN</obj_property>
+      <obj_property name="ObjectShortName">PLL0RESET_IN</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/common0_i/PLL0REFCLKSEL_IN" type="array">
+      <obj_property name="ElementShortName">PLL0REFCLKSEL_IN[2:0]</obj_property>
+      <obj_property name="ObjectShortName">PLL0REFCLKSEL_IN[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/common0_i/PLL0PD_IN" type="logic">
+      <obj_property name="ElementShortName">PLL0PD_IN</obj_property>
+      <obj_property name="ObjectShortName">PLL0PD_IN</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/common0_i/PLL1OUTCLK_OUT" type="logic">
+      <obj_property name="ElementShortName">PLL1OUTCLK_OUT</obj_property>
+      <obj_property name="ObjectShortName">PLL1OUTCLK_OUT</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/common0_i/PLL1OUTREFCLK_OUT" type="logic">
+      <obj_property name="ElementShortName">PLL1OUTREFCLK_OUT</obj_property>
+      <obj_property name="ObjectShortName">PLL1OUTREFCLK_OUT</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/common0_i/GTREFCLK1_IN" type="logic">
+      <obj_property name="ElementShortName">GTREFCLK1_IN</obj_property>
+      <obj_property name="ObjectShortName">GTREFCLK1_IN</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/common0_i/GTREFCLK0_IN" type="logic">
+      <obj_property name="ElementShortName">GTREFCLK0_IN</obj_property>
+      <obj_property name="ObjectShortName">GTREFCLK0_IN</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/common0_i/tied_to_ground_i" type="logic">
+      <obj_property name="ElementShortName">tied_to_ground_i</obj_property>
+      <obj_property name="ObjectShortName">tied_to_ground_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/common0_i/tied_to_ground_vec_i" type="array">
+      <obj_property name="ElementShortName">tied_to_ground_vec_i[63:0]</obj_property>
+      <obj_property name="ObjectShortName">tied_to_ground_vec_i[63:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/common0_i/tied_to_vcc_i" type="logic">
+      <obj_property name="ElementShortName">tied_to_vcc_i</obj_property>
+      <obj_property name="ObjectShortName">tied_to_vcc_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/common0_i/tied_to_vcc_vec_i" type="array">
+      <obj_property name="ElementShortName">tied_to_vcc_vec_i[63:0]</obj_property>
+      <obj_property name="ObjectShortName">tied_to_vcc_vec_i[63:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/common0_i/WRAPPER_SIM_GTRESET_SPEEDUP" type="array">
+      <obj_property name="ElementShortName">WRAPPER_SIM_GTRESET_SPEEDUP[1:4]</obj_property>
+      <obj_property name="ObjectShortName">WRAPPER_SIM_GTRESET_SPEEDUP[1:4]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/common0_i/SIM_PLL0REFCLK_SEL" type="array">
+      <obj_property name="ElementShortName">SIM_PLL0REFCLK_SEL[0:2]</obj_property>
+      <obj_property name="ObjectShortName">SIM_PLL0REFCLK_SEL[0:2]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/common0_i/SIM_PLL1REFCLK_SEL" type="array">
+      <obj_property name="ElementShortName">SIM_PLL1REFCLK_SEL[0:2]</obj_property>
+      <obj_property name="ObjectShortName">SIM_PLL1REFCLK_SEL[0:2]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/common0_i/PLL0_FBDIV_IN" type="other">
+      <obj_property name="ElementShortName">PLL0_FBDIV_IN</obj_property>
+      <obj_property name="ObjectShortName">PLL0_FBDIV_IN</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/common0_i/PLL1_FBDIV_IN" type="other">
+      <obj_property name="ElementShortName">PLL1_FBDIV_IN</obj_property>
+      <obj_property name="ObjectShortName">PLL1_FBDIV_IN</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/common0_i/PLL0_FBDIV_45_IN" type="other">
+      <obj_property name="ElementShortName">PLL0_FBDIV_45_IN</obj_property>
+      <obj_property name="ObjectShortName">PLL0_FBDIV_45_IN</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/common0_i/PLL1_FBDIV_45_IN" type="other">
+      <obj_property name="ElementShortName">PLL1_FBDIV_45_IN</obj_property>
+      <obj_property name="ObjectShortName">PLL1_FBDIV_45_IN</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/common0_i/PLL0_REFCLK_DIV_IN" type="other">
+      <obj_property name="ElementShortName">PLL0_REFCLK_DIV_IN</obj_property>
+      <obj_property name="ObjectShortName">PLL0_REFCLK_DIV_IN</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/common0_i/PLL1_REFCLK_DIV_IN" type="other">
+      <obj_property name="ElementShortName">PLL1_REFCLK_DIV_IN</obj_property>
+      <obj_property name="ObjectShortName">PLL1_REFCLK_DIV_IN</obj_property>
+   </wvobject>
+   <wvobject type="divider" fp_name="divider797">
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/common_reset_i/STABLE_CLOCK" type="logic">
+      <obj_property name="ElementShortName">STABLE_CLOCK</obj_property>
+      <obj_property name="ObjectShortName">STABLE_CLOCK</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/common_reset_i/SOFT_RESET" type="logic">
+      <obj_property name="ElementShortName">SOFT_RESET</obj_property>
+      <obj_property name="ObjectShortName">SOFT_RESET</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/common_reset_i/COMMON_RESET" type="logic">
+      <obj_property name="ElementShortName">COMMON_RESET</obj_property>
+      <obj_property name="ObjectShortName">COMMON_RESET</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/common_reset_i/init_wait_count" type="array">
+      <obj_property name="ElementShortName">init_wait_count[7:0]</obj_property>
+      <obj_property name="ObjectShortName">init_wait_count[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/common_reset_i/init_wait_done" type="logic">
+      <obj_property name="ElementShortName">init_wait_done</obj_property>
+      <obj_property name="ObjectShortName">init_wait_done</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/common_reset_i/common_reset_asserted" type="logic">
+      <obj_property name="ElementShortName">common_reset_asserted</obj_property>
+      <obj_property name="ObjectShortName">common_reset_asserted</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/common_reset_i/common_reset_i" type="logic">
+      <obj_property name="ElementShortName">common_reset_i</obj_property>
+      <obj_property name="ObjectShortName">common_reset_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/common_reset_i/state" type="other">
+      <obj_property name="ElementShortName">state</obj_property>
+      <obj_property name="ObjectShortName">state</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/common_reset_i/STABLE_CLOCK_PERIOD" type="other">
+      <obj_property name="ElementShortName">STABLE_CLOCK_PERIOD</obj_property>
+      <obj_property name="ObjectShortName">STABLE_CLOCK_PERIOD</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/common_reset_i/STARTUP_DELAY" type="other">
+      <obj_property name="ElementShortName">STARTUP_DELAY</obj_property>
+      <obj_property name="ObjectShortName">STARTUP_DELAY</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/common_reset_i/WAIT_CYCLES" type="other">
+      <obj_property name="ElementShortName">WAIT_CYCLES</obj_property>
+      <obj_property name="ObjectShortName">WAIT_CYCLES</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/common_reset_i/WAIT_MAX" type="other">
+      <obj_property name="ElementShortName">WAIT_MAX</obj_property>
+      <obj_property name="ObjectShortName">WAIT_MAX</obj_property>
+   </wvobject>
+   <wvobject type="divider" fp_name="divider836">
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/SOFT_RESET_TX_IN" type="logic">
+      <obj_property name="ElementShortName">SOFT_RESET_TX_IN</obj_property>
+      <obj_property name="ObjectShortName">SOFT_RESET_TX_IN</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/DONT_RESET_ON_DATA_ERROR_IN" type="logic">
+      <obj_property name="ElementShortName">DONT_RESET_ON_DATA_ERROR_IN</obj_property>
+      <obj_property name="ObjectShortName">DONT_RESET_ON_DATA_ERROR_IN</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/Q0_CLK0_GTREFCLK_PAD_N_IN" type="logic">
+      <obj_property name="ElementShortName">Q0_CLK0_GTREFCLK_PAD_N_IN</obj_property>
+      <obj_property name="ObjectShortName">Q0_CLK0_GTREFCLK_PAD_N_IN</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/Q0_CLK0_GTREFCLK_PAD_P_IN" type="logic">
+      <obj_property name="ElementShortName">Q0_CLK0_GTREFCLK_PAD_P_IN</obj_property>
+      <obj_property name="ObjectShortName">Q0_CLK0_GTREFCLK_PAD_P_IN</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/GT0_TX_FSM_RESET_DONE_OUT" type="logic">
+      <obj_property name="ElementShortName">GT0_TX_FSM_RESET_DONE_OUT</obj_property>
+      <obj_property name="ObjectShortName">GT0_TX_FSM_RESET_DONE_OUT</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/GT0_RX_FSM_RESET_DONE_OUT" type="logic">
+      <obj_property name="ElementShortName">GT0_RX_FSM_RESET_DONE_OUT</obj_property>
+      <obj_property name="ObjectShortName">GT0_RX_FSM_RESET_DONE_OUT</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/GT0_DATA_VALID_IN" type="logic">
+      <obj_property name="ElementShortName">GT0_DATA_VALID_IN</obj_property>
+      <obj_property name="ObjectShortName">GT0_DATA_VALID_IN</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/GT0_TXUSRCLK_OUT" type="logic">
+      <obj_property name="ElementShortName">GT0_TXUSRCLK_OUT</obj_property>
+      <obj_property name="ObjectShortName">GT0_TXUSRCLK_OUT</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/GT0_TXUSRCLK2_OUT" type="logic">
+      <obj_property name="ElementShortName">GT0_TXUSRCLK2_OUT</obj_property>
+      <obj_property name="ObjectShortName">GT0_TXUSRCLK2_OUT</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/gt0_drpaddr_in" type="array">
+      <obj_property name="ElementShortName">gt0_drpaddr_in[8:0]</obj_property>
+      <obj_property name="ObjectShortName">gt0_drpaddr_in[8:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/gt0_drpdi_in" type="array">
+      <obj_property name="ElementShortName">gt0_drpdi_in[15:0]</obj_property>
+      <obj_property name="ObjectShortName">gt0_drpdi_in[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/gt0_drpdo_out" type="array">
+      <obj_property name="ElementShortName">gt0_drpdo_out[15:0]</obj_property>
+      <obj_property name="ObjectShortName">gt0_drpdo_out[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/gt0_drpen_in" type="logic">
+      <obj_property name="ElementShortName">gt0_drpen_in</obj_property>
+      <obj_property name="ObjectShortName">gt0_drpen_in</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/gt0_drprdy_out" type="logic">
+      <obj_property name="ElementShortName">gt0_drprdy_out</obj_property>
+      <obj_property name="ObjectShortName">gt0_drprdy_out</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/gt0_drpwe_in" type="logic">
+      <obj_property name="ElementShortName">gt0_drpwe_in</obj_property>
+      <obj_property name="ObjectShortName">gt0_drpwe_in</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/gt0_eyescanreset_in" type="logic">
+      <obj_property name="ElementShortName">gt0_eyescanreset_in</obj_property>
+      <obj_property name="ObjectShortName">gt0_eyescanreset_in</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/gt0_eyescandataerror_out" type="logic">
+      <obj_property name="ElementShortName">gt0_eyescandataerror_out</obj_property>
+      <obj_property name="ObjectShortName">gt0_eyescandataerror_out</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/gt0_eyescantrigger_in" type="logic">
+      <obj_property name="ElementShortName">gt0_eyescantrigger_in</obj_property>
+      <obj_property name="ObjectShortName">gt0_eyescantrigger_in</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/gt0_dmonitorout_out" type="array">
+      <obj_property name="ElementShortName">gt0_dmonitorout_out[14:0]</obj_property>
+      <obj_property name="ObjectShortName">gt0_dmonitorout_out[14:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/gt0_gtrxreset_in" type="logic">
+      <obj_property name="ElementShortName">gt0_gtrxreset_in</obj_property>
+      <obj_property name="ObjectShortName">gt0_gtrxreset_in</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/gt0_rxlpmreset_in" type="logic">
+      <obj_property name="ElementShortName">gt0_rxlpmreset_in</obj_property>
+      <obj_property name="ObjectShortName">gt0_rxlpmreset_in</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/gt0_gttxreset_in" type="logic">
+      <obj_property name="ElementShortName">gt0_gttxreset_in</obj_property>
+      <obj_property name="ObjectShortName">gt0_gttxreset_in</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/gt0_txuserrdy_in" type="logic">
+      <obj_property name="ElementShortName">gt0_txuserrdy_in</obj_property>
+      <obj_property name="ObjectShortName">gt0_txuserrdy_in</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/gt0_txdata_in" type="array">
+      <obj_property name="ElementShortName">gt0_txdata_in[15:0]</obj_property>
+      <obj_property name="ObjectShortName">gt0_txdata_in[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/gt0_txcharisk_in" type="array">
+      <obj_property name="ElementShortName">gt0_txcharisk_in[1:0]</obj_property>
+      <obj_property name="ObjectShortName">gt0_txcharisk_in[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/gt0_gtptxn_out" type="logic">
+      <obj_property name="ElementShortName">gt0_gtptxn_out</obj_property>
+      <obj_property name="ObjectShortName">gt0_gtptxn_out</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/gt0_gtptxp_out" type="logic">
+      <obj_property name="ElementShortName">gt0_gtptxp_out</obj_property>
+      <obj_property name="ObjectShortName">gt0_gtptxp_out</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/gt0_txoutclkfabric_out" type="logic">
+      <obj_property name="ElementShortName">gt0_txoutclkfabric_out</obj_property>
+      <obj_property name="ObjectShortName">gt0_txoutclkfabric_out</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/gt0_txoutclkpcs_out" type="logic">
+      <obj_property name="ElementShortName">gt0_txoutclkpcs_out</obj_property>
+      <obj_property name="ObjectShortName">gt0_txoutclkpcs_out</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/gt0_txresetdone_out" type="logic">
+      <obj_property name="ElementShortName">gt0_txresetdone_out</obj_property>
+      <obj_property name="ObjectShortName">gt0_txresetdone_out</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/GT0_PLL0OUTCLK_OUT" type="logic">
+      <obj_property name="ElementShortName">GT0_PLL0OUTCLK_OUT</obj_property>
+      <obj_property name="ObjectShortName">GT0_PLL0OUTCLK_OUT</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/GT0_PLL0OUTREFCLK_OUT" type="logic">
+      <obj_property name="ElementShortName">GT0_PLL0OUTREFCLK_OUT</obj_property>
+      <obj_property name="ObjectShortName">GT0_PLL0OUTREFCLK_OUT</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/GT0_PLL0LOCK_OUT" type="logic">
+      <obj_property name="ElementShortName">GT0_PLL0LOCK_OUT</obj_property>
+      <obj_property name="ObjectShortName">GT0_PLL0LOCK_OUT</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/GT0_PLL0REFCLKLOST_OUT" type="logic">
+      <obj_property name="ElementShortName">GT0_PLL0REFCLKLOST_OUT</obj_property>
+      <obj_property name="ObjectShortName">GT0_PLL0REFCLKLOST_OUT</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/GT0_PLL1OUTCLK_OUT" type="logic">
+      <obj_property name="ElementShortName">GT0_PLL1OUTCLK_OUT</obj_property>
+      <obj_property name="ObjectShortName">GT0_PLL1OUTCLK_OUT</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/GT0_PLL1OUTREFCLK_OUT" type="logic">
+      <obj_property name="ElementShortName">GT0_PLL1OUTREFCLK_OUT</obj_property>
+      <obj_property name="ObjectShortName">GT0_PLL1OUTREFCLK_OUT</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/sysclk_in" type="logic">
+      <obj_property name="ElementShortName">sysclk_in</obj_property>
+      <obj_property name="ObjectShortName">sysclk_in</obj_property>
+   </wvobject>
+   <wvobject type="divider" fp_name="divider606">
+      <obj_property name="label">GTP RX</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_i/U0/common0_i/PLL0OUTCLK_OUT" type="logic">
+      <obj_property name="ElementShortName">PLL0OUTCLK_OUT</obj_property>
+      <obj_property name="ObjectShortName">PLL0OUTCLK_OUT</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_i/U0/common0_i/PLL0OUTREFCLK_OUT" type="logic">
+      <obj_property name="ElementShortName">PLL0OUTREFCLK_OUT</obj_property>
+      <obj_property name="ObjectShortName">PLL0OUTREFCLK_OUT</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_i/U0/common0_i/PLL0LOCK_OUT" type="logic">
+      <obj_property name="ElementShortName">PLL0LOCK_OUT</obj_property>
+      <obj_property name="ObjectShortName">PLL0LOCK_OUT</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_i/U0/common0_i/PLL0LOCKDETCLK_IN" type="logic">
+      <obj_property name="ElementShortName">PLL0LOCKDETCLK_IN</obj_property>
+      <obj_property name="ObjectShortName">PLL0LOCKDETCLK_IN</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_i/U0/common0_i/PLL0REFCLKLOST_OUT" type="logic">
+      <obj_property name="ElementShortName">PLL0REFCLKLOST_OUT</obj_property>
+      <obj_property name="ObjectShortName">PLL0REFCLKLOST_OUT</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_i/U0/common0_i/PLL0RESET_IN" type="logic">
+      <obj_property name="ElementShortName">PLL0RESET_IN</obj_property>
+      <obj_property name="ObjectShortName">PLL0RESET_IN</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_i/U0/common0_i/PLL0REFCLKSEL_IN" type="array">
+      <obj_property name="ElementShortName">PLL0REFCLKSEL_IN[2:0]</obj_property>
+      <obj_property name="ObjectShortName">PLL0REFCLKSEL_IN[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_i/U0/common0_i/PLL0PD_IN" type="logic">
+      <obj_property name="ElementShortName">PLL0PD_IN</obj_property>
+      <obj_property name="ObjectShortName">PLL0PD_IN</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_i/U0/common0_i/PLL1OUTCLK_OUT" type="logic">
+      <obj_property name="ElementShortName">PLL1OUTCLK_OUT</obj_property>
+      <obj_property name="ObjectShortName">PLL1OUTCLK_OUT</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_i/U0/common0_i/PLL1OUTREFCLK_OUT" type="logic">
+      <obj_property name="ElementShortName">PLL1OUTREFCLK_OUT</obj_property>
+      <obj_property name="ObjectShortName">PLL1OUTREFCLK_OUT</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_i/U0/common0_i/GTREFCLK1_IN" type="logic">
+      <obj_property name="ElementShortName">GTREFCLK1_IN</obj_property>
+      <obj_property name="ObjectShortName">GTREFCLK1_IN</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_i/U0/common0_i/GTREFCLK0_IN" type="logic">
+      <obj_property name="ElementShortName">GTREFCLK0_IN</obj_property>
+      <obj_property name="ObjectShortName">GTREFCLK0_IN</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_i/U0/common0_i/tied_to_ground_i" type="logic">
+      <obj_property name="ElementShortName">tied_to_ground_i</obj_property>
+      <obj_property name="ObjectShortName">tied_to_ground_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_i/U0/common0_i/tied_to_ground_vec_i" type="array">
+      <obj_property name="ElementShortName">tied_to_ground_vec_i[63:0]</obj_property>
+      <obj_property name="ObjectShortName">tied_to_ground_vec_i[63:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_i/U0/common0_i/tied_to_vcc_i" type="logic">
+      <obj_property name="ElementShortName">tied_to_vcc_i</obj_property>
+      <obj_property name="ObjectShortName">tied_to_vcc_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_i/U0/common0_i/tied_to_vcc_vec_i" type="array">
+      <obj_property name="ElementShortName">tied_to_vcc_vec_i[63:0]</obj_property>
+      <obj_property name="ObjectShortName">tied_to_vcc_vec_i[63:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_i/U0/common0_i/WRAPPER_SIM_GTRESET_SPEEDUP" type="array">
+      <obj_property name="ElementShortName">WRAPPER_SIM_GTRESET_SPEEDUP[1:5]</obj_property>
+      <obj_property name="ObjectShortName">WRAPPER_SIM_GTRESET_SPEEDUP[1:5]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_i/U0/common0_i/SIM_PLL0REFCLK_SEL" type="array">
+      <obj_property name="ElementShortName">SIM_PLL0REFCLK_SEL[0:2]</obj_property>
+      <obj_property name="ObjectShortName">SIM_PLL0REFCLK_SEL[0:2]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_i/U0/common0_i/SIM_PLL1REFCLK_SEL" type="array">
+      <obj_property name="ElementShortName">SIM_PLL1REFCLK_SEL[0:2]</obj_property>
+      <obj_property name="ObjectShortName">SIM_PLL1REFCLK_SEL[0:2]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_i/U0/common0_i/PLL0_FBDIV_IN" type="other">
+      <obj_property name="ElementShortName">PLL0_FBDIV_IN</obj_property>
+      <obj_property name="ObjectShortName">PLL0_FBDIV_IN</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_i/U0/common0_i/PLL1_FBDIV_IN" type="other">
+      <obj_property name="ElementShortName">PLL1_FBDIV_IN</obj_property>
+      <obj_property name="ObjectShortName">PLL1_FBDIV_IN</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_i/U0/common0_i/PLL0_FBDIV_45_IN" type="other">
+      <obj_property name="ElementShortName">PLL0_FBDIV_45_IN</obj_property>
+      <obj_property name="ObjectShortName">PLL0_FBDIV_45_IN</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_i/U0/common0_i/PLL1_FBDIV_45_IN" type="other">
+      <obj_property name="ElementShortName">PLL1_FBDIV_45_IN</obj_property>
+      <obj_property name="ObjectShortName">PLL1_FBDIV_45_IN</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_i/U0/common0_i/PLL0_REFCLK_DIV_IN" type="other">
+      <obj_property name="ElementShortName">PLL0_REFCLK_DIV_IN</obj_property>
+      <obj_property name="ObjectShortName">PLL0_REFCLK_DIV_IN</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_i/U0/common0_i/PLL1_REFCLK_DIV_IN" type="other">
+      <obj_property name="ElementShortName">PLL1_REFCLK_DIV_IN</obj_property>
+      <obj_property name="ObjectShortName">PLL1_REFCLK_DIV_IN</obj_property>
+   </wvobject>
+   <wvobject type="divider" fp_name="divider652">
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_i/U0/common_reset_i/STABLE_CLOCK" type="logic">
+      <obj_property name="ElementShortName">STABLE_CLOCK</obj_property>
+      <obj_property name="ObjectShortName">STABLE_CLOCK</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_i/U0/common_reset_i/SOFT_RESET" type="logic">
+      <obj_property name="ElementShortName">SOFT_RESET</obj_property>
+      <obj_property name="ObjectShortName">SOFT_RESET</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_i/U0/common_reset_i/COMMON_RESET" type="logic">
+      <obj_property name="ElementShortName">COMMON_RESET</obj_property>
+      <obj_property name="ObjectShortName">COMMON_RESET</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_i/U0/common_reset_i/init_wait_count" type="array">
+      <obj_property name="ElementShortName">init_wait_count[7:0]</obj_property>
+      <obj_property name="ObjectShortName">init_wait_count[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_i/U0/common_reset_i/init_wait_done" type="logic">
+      <obj_property name="ElementShortName">init_wait_done</obj_property>
+      <obj_property name="ObjectShortName">init_wait_done</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_i/U0/common_reset_i/common_reset_asserted" type="logic">
+      <obj_property name="ElementShortName">common_reset_asserted</obj_property>
+      <obj_property name="ObjectShortName">common_reset_asserted</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_i/U0/common_reset_i/common_reset_i" type="logic">
+      <obj_property name="ElementShortName">common_reset_i</obj_property>
+      <obj_property name="ObjectShortName">common_reset_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_i/U0/common_reset_i/state" type="other">
+      <obj_property name="ElementShortName">state</obj_property>
+      <obj_property name="ObjectShortName">state</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_i/U0/common_reset_i/STABLE_CLOCK_PERIOD" type="other">
+      <obj_property name="ElementShortName">STABLE_CLOCK_PERIOD</obj_property>
+      <obj_property name="ObjectShortName">STABLE_CLOCK_PERIOD</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_i/U0/common_reset_i/STARTUP_DELAY" type="other">
+      <obj_property name="ElementShortName">STARTUP_DELAY</obj_property>
+      <obj_property name="ObjectShortName">STARTUP_DELAY</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_i/U0/common_reset_i/WAIT_CYCLES" type="other">
+      <obj_property name="ElementShortName">WAIT_CYCLES</obj_property>
+      <obj_property name="ObjectShortName">WAIT_CYCLES</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_i/U0/common_reset_i/WAIT_MAX" type="other">
+      <obj_property name="ElementShortName">WAIT_MAX</obj_property>
+      <obj_property name="ObjectShortName">WAIT_MAX</obj_property>
+   </wvobject>
+   <wvobject type="divider" fp_name="divider823">
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/GTP_Artix_init_i/SYSCLK_IN" type="logic">
+      <obj_property name="ElementShortName">SYSCLK_IN</obj_property>
+      <obj_property name="ObjectShortName">SYSCLK_IN</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/GTP_Artix_init_i/SOFT_RESET_TX_IN" type="logic">
+      <obj_property name="ElementShortName">SOFT_RESET_TX_IN</obj_property>
+      <obj_property name="ObjectShortName">SOFT_RESET_TX_IN</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/GTP_Artix_init_i/DONT_RESET_ON_DATA_ERROR_IN" type="logic">
+      <obj_property name="ElementShortName">DONT_RESET_ON_DATA_ERROR_IN</obj_property>
+      <obj_property name="ObjectShortName">DONT_RESET_ON_DATA_ERROR_IN</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/GTP_Artix_init_i/GT0_TX_FSM_RESET_DONE_OUT" type="logic">
+      <obj_property name="ElementShortName">GT0_TX_FSM_RESET_DONE_OUT</obj_property>
+      <obj_property name="ObjectShortName">GT0_TX_FSM_RESET_DONE_OUT</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/GTP_Artix_init_i/GT0_RX_FSM_RESET_DONE_OUT" type="logic">
+      <obj_property name="ElementShortName">GT0_RX_FSM_RESET_DONE_OUT</obj_property>
+      <obj_property name="ObjectShortName">GT0_RX_FSM_RESET_DONE_OUT</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/GTP_Artix_init_i/GT0_DATA_VALID_IN" type="logic">
+      <obj_property name="ElementShortName">GT0_DATA_VALID_IN</obj_property>
+      <obj_property name="ObjectShortName">GT0_DATA_VALID_IN</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/GTP_Artix_init_i/gt0_drpaddr_in" type="array">
+      <obj_property name="ElementShortName">gt0_drpaddr_in[8:0]</obj_property>
+      <obj_property name="ObjectShortName">gt0_drpaddr_in[8:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/GTP_Artix_init_i/gt0_drpclk_in" type="logic">
+      <obj_property name="ElementShortName">gt0_drpclk_in</obj_property>
+      <obj_property name="ObjectShortName">gt0_drpclk_in</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/GTP_Artix_init_i/gt0_drpdi_in" type="array">
+      <obj_property name="ElementShortName">gt0_drpdi_in[15:0]</obj_property>
+      <obj_property name="ObjectShortName">gt0_drpdi_in[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/GTP_Artix_init_i/gt0_drpdo_out" type="array">
+      <obj_property name="ElementShortName">gt0_drpdo_out[15:0]</obj_property>
+      <obj_property name="ObjectShortName">gt0_drpdo_out[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/GTP_Artix_init_i/gt0_drpen_in" type="logic">
+      <obj_property name="ElementShortName">gt0_drpen_in</obj_property>
+      <obj_property name="ObjectShortName">gt0_drpen_in</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/GTP_Artix_init_i/gt0_drprdy_out" type="logic">
+      <obj_property name="ElementShortName">gt0_drprdy_out</obj_property>
+      <obj_property name="ObjectShortName">gt0_drprdy_out</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/GTP_Artix_init_i/gt0_drpwe_in" type="logic">
+      <obj_property name="ElementShortName">gt0_drpwe_in</obj_property>
+      <obj_property name="ObjectShortName">gt0_drpwe_in</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/GTP_Artix_init_i/gt0_eyescanreset_in" type="logic">
+      <obj_property name="ElementShortName">gt0_eyescanreset_in</obj_property>
+      <obj_property name="ObjectShortName">gt0_eyescanreset_in</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/GTP_Artix_init_i/gt0_eyescandataerror_out" type="logic">
+      <obj_property name="ElementShortName">gt0_eyescandataerror_out</obj_property>
+      <obj_property name="ObjectShortName">gt0_eyescandataerror_out</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/GTP_Artix_init_i/gt0_eyescantrigger_in" type="logic">
+      <obj_property name="ElementShortName">gt0_eyescantrigger_in</obj_property>
+      <obj_property name="ObjectShortName">gt0_eyescantrigger_in</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/GTP_Artix_init_i/gt0_dmonitorout_out" type="array">
+      <obj_property name="ElementShortName">gt0_dmonitorout_out[14:0]</obj_property>
+      <obj_property name="ObjectShortName">gt0_dmonitorout_out[14:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/GTP_Artix_init_i/gt0_gtrxreset_in" type="logic">
+      <obj_property name="ElementShortName">gt0_gtrxreset_in</obj_property>
+      <obj_property name="ObjectShortName">gt0_gtrxreset_in</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/GTP_Artix_init_i/gt0_rxlpmreset_in" type="logic">
+      <obj_property name="ElementShortName">gt0_rxlpmreset_in</obj_property>
+      <obj_property name="ObjectShortName">gt0_rxlpmreset_in</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/GTP_Artix_init_i/gt0_gttxreset_in" type="logic">
+      <obj_property name="ElementShortName">gt0_gttxreset_in</obj_property>
+      <obj_property name="ObjectShortName">gt0_gttxreset_in</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/GTP_Artix_init_i/gt0_txuserrdy_in" type="logic">
+      <obj_property name="ElementShortName">gt0_txuserrdy_in</obj_property>
+      <obj_property name="ObjectShortName">gt0_txuserrdy_in</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/GTP_Artix_init_i/gt0_txdata_in" type="array">
+      <obj_property name="ElementShortName">gt0_txdata_in[15:0]</obj_property>
+      <obj_property name="ObjectShortName">gt0_txdata_in[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/GTP_Artix_init_i/gt0_txusrclk_in" type="logic">
+      <obj_property name="ElementShortName">gt0_txusrclk_in</obj_property>
+      <obj_property name="ObjectShortName">gt0_txusrclk_in</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/GTP_Artix_init_i/gt0_txusrclk2_in" type="logic">
+      <obj_property name="ElementShortName">gt0_txusrclk2_in</obj_property>
+      <obj_property name="ObjectShortName">gt0_txusrclk2_in</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/GTP_Artix_init_i/gt0_txcharisk_in" type="array">
+      <obj_property name="ElementShortName">gt0_txcharisk_in[1:0]</obj_property>
+      <obj_property name="ObjectShortName">gt0_txcharisk_in[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/GTP_Artix_init_i/gt0_gtptxn_out" type="logic">
+      <obj_property name="ElementShortName">gt0_gtptxn_out</obj_property>
+      <obj_property name="ObjectShortName">gt0_gtptxn_out</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/GTP_Artix_init_i/gt0_gtptxp_out" type="logic">
+      <obj_property name="ElementShortName">gt0_gtptxp_out</obj_property>
+      <obj_property name="ObjectShortName">gt0_gtptxp_out</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/GTP_Artix_init_i/gt0_txoutclk_out" type="logic">
+      <obj_property name="ElementShortName">gt0_txoutclk_out</obj_property>
+      <obj_property name="ObjectShortName">gt0_txoutclk_out</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/GTP_Artix_init_i/gt0_txoutclkfabric_out" type="logic">
+      <obj_property name="ElementShortName">gt0_txoutclkfabric_out</obj_property>
+      <obj_property name="ObjectShortName">gt0_txoutclkfabric_out</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/GTP_Artix_init_i/gt0_txoutclkpcs_out" type="logic">
+      <obj_property name="ElementShortName">gt0_txoutclkpcs_out</obj_property>
+      <obj_property name="ObjectShortName">gt0_txoutclkpcs_out</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/GTP_Artix_init_i/gt0_txresetdone_out" type="logic">
+      <obj_property name="ElementShortName">gt0_txresetdone_out</obj_property>
+      <obj_property name="ObjectShortName">gt0_txresetdone_out</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/GTP_Artix_init_i/GT0_PLL0RESET_OUT" type="logic">
+      <obj_property name="ElementShortName">GT0_PLL0RESET_OUT</obj_property>
+      <obj_property name="ObjectShortName">GT0_PLL0RESET_OUT</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/GTP_Artix_init_i/GT0_PLL0OUTCLK_IN" type="logic">
+      <obj_property name="ElementShortName">GT0_PLL0OUTCLK_IN</obj_property>
+      <obj_property name="ObjectShortName">GT0_PLL0OUTCLK_IN</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/GTP_Artix_init_i/GT0_PLL0OUTREFCLK_IN" type="logic">
+      <obj_property name="ElementShortName">GT0_PLL0OUTREFCLK_IN</obj_property>
+      <obj_property name="ObjectShortName">GT0_PLL0OUTREFCLK_IN</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/GTP_Artix_init_i/GT0_PLL0LOCK_IN" type="logic">
+      <obj_property name="ElementShortName">GT0_PLL0LOCK_IN</obj_property>
+      <obj_property name="ObjectShortName">GT0_PLL0LOCK_IN</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/GTP_Artix_init_i/GT0_PLL0REFCLKLOST_IN" type="logic">
+      <obj_property name="ElementShortName">GT0_PLL0REFCLKLOST_IN</obj_property>
+      <obj_property name="ObjectShortName">GT0_PLL0REFCLKLOST_IN</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/GTP_Artix_init_i/GT0_PLL1OUTCLK_IN" type="logic">
+      <obj_property name="ElementShortName">GT0_PLL1OUTCLK_IN</obj_property>
+      <obj_property name="ObjectShortName">GT0_PLL1OUTCLK_IN</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/GTP_Artix_init_i/GT0_PLL1OUTREFCLK_IN" type="logic">
+      <obj_property name="ElementShortName">GT0_PLL1OUTREFCLK_IN</obj_property>
+      <obj_property name="ObjectShortName">GT0_PLL1OUTREFCLK_IN</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/GTP_Artix_init_i/gt0_txpmaresetdone_i" type="logic">
+      <obj_property name="ElementShortName">gt0_txpmaresetdone_i</obj_property>
+      <obj_property name="ObjectShortName">gt0_txpmaresetdone_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/GTP_Artix_init_i/gt0_rxpmaresetdone_i" type="logic">
+      <obj_property name="ElementShortName">gt0_rxpmaresetdone_i</obj_property>
+      <obj_property name="ObjectShortName">gt0_rxpmaresetdone_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/GTP_Artix_init_i/gt0_txresetdone_i" type="logic">
+      <obj_property name="ElementShortName">gt0_txresetdone_i</obj_property>
+      <obj_property name="ObjectShortName">gt0_txresetdone_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/GTP_Artix_init_i/gt0_rxresetdone_i" type="logic">
+      <obj_property name="ElementShortName">gt0_rxresetdone_i</obj_property>
+      <obj_property name="ObjectShortName">gt0_rxresetdone_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/GTP_Artix_init_i/gt0_txresetdone_ii" type="logic">
+      <obj_property name="ElementShortName">gt0_txresetdone_ii</obj_property>
+      <obj_property name="ObjectShortName">gt0_txresetdone_ii</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/GTP_Artix_init_i/gt0_rxresetdone_ii" type="logic">
+      <obj_property name="ElementShortName">gt0_rxresetdone_ii</obj_property>
+      <obj_property name="ObjectShortName">gt0_rxresetdone_ii</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/GTP_Artix_init_i/gt0_gttxreset_i" type="logic">
+      <obj_property name="ElementShortName">gt0_gttxreset_i</obj_property>
+      <obj_property name="ObjectShortName">gt0_gttxreset_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/GTP_Artix_init_i/gt0_gttxreset_t" type="logic">
+      <obj_property name="ElementShortName">gt0_gttxreset_t</obj_property>
+      <obj_property name="ObjectShortName">gt0_gttxreset_t</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/GTP_Artix_init_i/gt0_gtrxreset_i" type="logic">
+      <obj_property name="ElementShortName">gt0_gtrxreset_i</obj_property>
+      <obj_property name="ObjectShortName">gt0_gtrxreset_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/GTP_Artix_init_i/gt0_gtrxreset_t" type="logic">
+      <obj_property name="ElementShortName">gt0_gtrxreset_t</obj_property>
+      <obj_property name="ObjectShortName">gt0_gtrxreset_t</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/GTP_Artix_init_i/gt0_txuserrdy_i" type="logic">
+      <obj_property name="ElementShortName">gt0_txuserrdy_i</obj_property>
+      <obj_property name="ObjectShortName">gt0_txuserrdy_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/GTP_Artix_init_i/gt0_txuserrdy_t" type="logic">
+      <obj_property name="ElementShortName">gt0_txuserrdy_t</obj_property>
+      <obj_property name="ObjectShortName">gt0_txuserrdy_t</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/GTP_Artix_init_i/gt0_rxuserrdy_i" type="logic">
+      <obj_property name="ElementShortName">gt0_rxuserrdy_i</obj_property>
+      <obj_property name="ObjectShortName">gt0_rxuserrdy_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/GTP_Artix_init_i/gt0_rxuserrdy_t" type="logic">
+      <obj_property name="ElementShortName">gt0_rxuserrdy_t</obj_property>
+      <obj_property name="ObjectShortName">gt0_rxuserrdy_t</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/GTP_Artix_init_i/gt0_pll0reset_i" type="logic">
+      <obj_property name="ElementShortName">gt0_pll0reset_i</obj_property>
+      <obj_property name="ObjectShortName">gt0_pll0reset_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/GTP_Artix_init_i/gt0_pll0reset_t" type="logic">
+      <obj_property name="ElementShortName">gt0_pll0reset_t</obj_property>
+      <obj_property name="ObjectShortName">gt0_pll0reset_t</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/GTP_Artix_init_i/gt0_pll0refclklost_i" type="logic">
+      <obj_property name="ElementShortName">gt0_pll0refclklost_i</obj_property>
+      <obj_property name="ObjectShortName">gt0_pll0refclklost_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/GTP_Artix_init_i/gt0_pll0lock_i" type="logic">
+      <obj_property name="ElementShortName">gt0_pll0lock_i</obj_property>
+      <obj_property name="ObjectShortName">gt0_pll0lock_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/GTP_Artix_init_i/tied_to_ground_i" type="logic">
+      <obj_property name="ElementShortName">tied_to_ground_i</obj_property>
+      <obj_property name="ObjectShortName">tied_to_ground_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/GTP_Artix_init_i/tied_to_vcc_i" type="logic">
+      <obj_property name="ElementShortName">tied_to_vcc_i</obj_property>
+      <obj_property name="ObjectShortName">tied_to_vcc_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/GTP_Artix_init_i/gt0_txoutclk_i" type="logic">
+      <obj_property name="ElementShortName">gt0_txoutclk_i</obj_property>
+      <obj_property name="ObjectShortName">gt0_txoutclk_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/GTP_Artix_init_i/gt0_rxoutclk_i" type="logic">
+      <obj_property name="ElementShortName">gt0_rxoutclk_i</obj_property>
+      <obj_property name="ObjectShortName">gt0_rxoutclk_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/GTP_Artix_init_i/gt0_rxoutclk_i2" type="logic">
+      <obj_property name="ElementShortName">gt0_rxoutclk_i2</obj_property>
+      <obj_property name="ObjectShortName">gt0_rxoutclk_i2</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/GTP_Artix_init_i/gt0_txoutclk_i2" type="logic">
+      <obj_property name="ElementShortName">gt0_txoutclk_i2</obj_property>
+      <obj_property name="ObjectShortName">gt0_txoutclk_i2</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/GTP_Artix_init_i/gt0_recclk_stable_i" type="logic">
+      <obj_property name="ElementShortName">gt0_recclk_stable_i</obj_property>
+      <obj_property name="ObjectShortName">gt0_recclk_stable_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/GTP_Artix_init_i/gt0_rx_cdrlocked" type="logic">
+      <obj_property name="ElementShortName">gt0_rx_cdrlocked</obj_property>
+      <obj_property name="ObjectShortName">gt0_rx_cdrlocked</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/GTP_Artix_init_i/gt0_rx_cdrlock_counter" type="other">
+      <obj_property name="ElementShortName">gt0_rx_cdrlock_counter</obj_property>
+      <obj_property name="ObjectShortName">gt0_rx_cdrlock_counter</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/GTP_Artix_init_i/EXAMPLE_SIM_GTRESET_SPEEDUP" type="array">
+      <obj_property name="ElementShortName">EXAMPLE_SIM_GTRESET_SPEEDUP[1:4]</obj_property>
+      <obj_property name="ObjectShortName">EXAMPLE_SIM_GTRESET_SPEEDUP[1:4]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/GTP_Artix_init_i/EXAMPLE_SIMULATION" type="other">
+      <obj_property name="ElementShortName">EXAMPLE_SIMULATION</obj_property>
+      <obj_property name="ObjectShortName">EXAMPLE_SIMULATION</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/GTP_Artix_init_i/STABLE_CLOCK_PERIOD" type="other">
+      <obj_property name="ElementShortName">STABLE_CLOCK_PERIOD</obj_property>
+      <obj_property name="ObjectShortName">STABLE_CLOCK_PERIOD</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/GTP_Artix_init_i/EXAMPLE_USE_CHIPSCOPE" type="other">
+      <obj_property name="ElementShortName">EXAMPLE_USE_CHIPSCOPE</obj_property>
+      <obj_property name="ObjectShortName">EXAMPLE_USE_CHIPSCOPE</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/GTP_Artix_init_i/DLY" type="other">
+      <obj_property name="ElementShortName">DLY</obj_property>
+      <obj_property name="ObjectShortName">DLY</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/GTP_Artix_init_i/RX_CDRLOCK_TIME" type="other">
+      <obj_property name="ElementShortName">RX_CDRLOCK_TIME</obj_property>
+      <obj_property name="ObjectShortName">RX_CDRLOCK_TIME</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_TX_i/U0/GTP_Artix_init_i/WAIT_TIME_CDRLOCK" type="other">
+      <obj_property name="ElementShortName">WAIT_TIME_CDRLOCK</obj_property>
+      <obj_property name="ObjectShortName">WAIT_TIME_CDRLOCK</obj_property>
+   </wvobject>
+   <wvobject type="divider" fp_name="divider849">
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_i/SOFT_RESET_RX_IN" type="logic">
+      <obj_property name="ElementShortName">SOFT_RESET_RX_IN</obj_property>
+      <obj_property name="ObjectShortName">SOFT_RESET_RX_IN</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_i/DONT_RESET_ON_DATA_ERROR_IN" type="logic">
+      <obj_property name="ElementShortName">DONT_RESET_ON_DATA_ERROR_IN</obj_property>
+      <obj_property name="ObjectShortName">DONT_RESET_ON_DATA_ERROR_IN</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_i/Q0_CLK1_GTREFCLK_PAD_N_IN" type="logic">
+      <obj_property name="ElementShortName">Q0_CLK1_GTREFCLK_PAD_N_IN</obj_property>
+      <obj_property name="ObjectShortName">Q0_CLK1_GTREFCLK_PAD_N_IN</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_i/Q0_CLK1_GTREFCLK_PAD_P_IN" type="logic">
+      <obj_property name="ElementShortName">Q0_CLK1_GTREFCLK_PAD_P_IN</obj_property>
+      <obj_property name="ObjectShortName">Q0_CLK1_GTREFCLK_PAD_P_IN</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_i/GT0_TX_FSM_RESET_DONE_OUT" type="logic">
+      <obj_property name="ElementShortName">GT0_TX_FSM_RESET_DONE_OUT</obj_property>
+      <obj_property name="ObjectShortName">GT0_TX_FSM_RESET_DONE_OUT</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_i/GT0_RX_FSM_RESET_DONE_OUT" type="logic">
+      <obj_property name="ElementShortName">GT0_RX_FSM_RESET_DONE_OUT</obj_property>
+      <obj_property name="ObjectShortName">GT0_RX_FSM_RESET_DONE_OUT</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_i/GT0_DATA_VALID_IN" type="logic">
+      <obj_property name="ElementShortName">GT0_DATA_VALID_IN</obj_property>
+      <obj_property name="ObjectShortName">GT0_DATA_VALID_IN</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_i/GT0_RXUSRCLK_OUT" type="logic">
+      <obj_property name="ElementShortName">GT0_RXUSRCLK_OUT</obj_property>
+      <obj_property name="ObjectShortName">GT0_RXUSRCLK_OUT</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_i/GT0_RXUSRCLK2_OUT" type="logic">
+      <obj_property name="ElementShortName">GT0_RXUSRCLK2_OUT</obj_property>
+      <obj_property name="ObjectShortName">GT0_RXUSRCLK2_OUT</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_i/gt0_drpaddr_in" type="array">
+      <obj_property name="ElementShortName">gt0_drpaddr_in[8:0]</obj_property>
+      <obj_property name="ObjectShortName">gt0_drpaddr_in[8:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_i/gt0_drpdi_in" type="array">
+      <obj_property name="ElementShortName">gt0_drpdi_in[15:0]</obj_property>
+      <obj_property name="ObjectShortName">gt0_drpdi_in[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_i/gt0_drpdo_out" type="array">
+      <obj_property name="ElementShortName">gt0_drpdo_out[15:0]</obj_property>
+      <obj_property name="ObjectShortName">gt0_drpdo_out[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_i/gt0_drpen_in" type="logic">
+      <obj_property name="ElementShortName">gt0_drpen_in</obj_property>
+      <obj_property name="ObjectShortName">gt0_drpen_in</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_i/gt0_drprdy_out" type="logic">
+      <obj_property name="ElementShortName">gt0_drprdy_out</obj_property>
+      <obj_property name="ObjectShortName">gt0_drprdy_out</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_i/gt0_drpwe_in" type="logic">
+      <obj_property name="ElementShortName">gt0_drpwe_in</obj_property>
+      <obj_property name="ObjectShortName">gt0_drpwe_in</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_i/gt0_eyescanreset_in" type="logic">
+      <obj_property name="ElementShortName">gt0_eyescanreset_in</obj_property>
+      <obj_property name="ObjectShortName">gt0_eyescanreset_in</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_i/gt0_rxuserrdy_in" type="logic">
+      <obj_property name="ElementShortName">gt0_rxuserrdy_in</obj_property>
+      <obj_property name="ObjectShortName">gt0_rxuserrdy_in</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_i/gt0_eyescandataerror_out" type="logic">
+      <obj_property name="ElementShortName">gt0_eyescandataerror_out</obj_property>
+      <obj_property name="ObjectShortName">gt0_eyescandataerror_out</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_i/gt0_eyescantrigger_in" type="logic">
+      <obj_property name="ElementShortName">gt0_eyescantrigger_in</obj_property>
+      <obj_property name="ObjectShortName">gt0_eyescantrigger_in</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_i/gt0_rxdata_out" type="array">
+      <obj_property name="ElementShortName">gt0_rxdata_out[15:0]</obj_property>
+      <obj_property name="ObjectShortName">gt0_rxdata_out[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_i/gt0_rxchariscomma_out" type="array">
+      <obj_property name="ElementShortName">gt0_rxchariscomma_out[1:0]</obj_property>
+      <obj_property name="ObjectShortName">gt0_rxchariscomma_out[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_i/gt0_rxcharisk_out" type="array">
+      <obj_property name="ElementShortName">gt0_rxcharisk_out[1:0]</obj_property>
+      <obj_property name="ObjectShortName">gt0_rxcharisk_out[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_i/gt0_rxdisperr_out" type="array">
+      <obj_property name="ElementShortName">gt0_rxdisperr_out[1:0]</obj_property>
+      <obj_property name="ObjectShortName">gt0_rxdisperr_out[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_i/gt0_rxnotintable_out" type="array">
+      <obj_property name="ElementShortName">gt0_rxnotintable_out[1:0]</obj_property>
+      <obj_property name="ObjectShortName">gt0_rxnotintable_out[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_i/gt0_gtprxn_in" type="logic">
+      <obj_property name="ElementShortName">gt0_gtprxn_in</obj_property>
+      <obj_property name="ObjectShortName">gt0_gtprxn_in</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_i/gt0_gtprxp_in" type="logic">
+      <obj_property name="ElementShortName">gt0_gtprxp_in</obj_property>
+      <obj_property name="ObjectShortName">gt0_gtprxp_in</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_i/gt0_rxbyteisaligned_out" type="logic">
+      <obj_property name="ElementShortName">gt0_rxbyteisaligned_out</obj_property>
+      <obj_property name="ObjectShortName">gt0_rxbyteisaligned_out</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_i/gt0_rxbyterealign_out" type="logic">
+      <obj_property name="ElementShortName">gt0_rxbyterealign_out</obj_property>
+      <obj_property name="ObjectShortName">gt0_rxbyterealign_out</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_i/gt0_dmonitorout_out" type="array">
+      <obj_property name="ElementShortName">gt0_dmonitorout_out[14:0]</obj_property>
+      <obj_property name="ObjectShortName">gt0_dmonitorout_out[14:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_i/gt0_rxlpmhfhold_in" type="logic">
+      <obj_property name="ElementShortName">gt0_rxlpmhfhold_in</obj_property>
+      <obj_property name="ObjectShortName">gt0_rxlpmhfhold_in</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_i/gt0_rxlpmlfhold_in" type="logic">
+      <obj_property name="ElementShortName">gt0_rxlpmlfhold_in</obj_property>
+      <obj_property name="ObjectShortName">gt0_rxlpmlfhold_in</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_i/gt0_rxoutclkfabric_out" type="logic">
+      <obj_property name="ElementShortName">gt0_rxoutclkfabric_out</obj_property>
+      <obj_property name="ObjectShortName">gt0_rxoutclkfabric_out</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_i/gt0_gtrxreset_in" type="logic">
+      <obj_property name="ElementShortName">gt0_gtrxreset_in</obj_property>
+      <obj_property name="ObjectShortName">gt0_gtrxreset_in</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_i/gt0_rxlpmreset_in" type="logic">
+      <obj_property name="ElementShortName">gt0_rxlpmreset_in</obj_property>
+      <obj_property name="ObjectShortName">gt0_rxlpmreset_in</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_i/gt0_rxresetdone_out" type="logic">
+      <obj_property name="ElementShortName">gt0_rxresetdone_out</obj_property>
+      <obj_property name="ObjectShortName">gt0_rxresetdone_out</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_i/gt0_gttxreset_in" type="logic">
+      <obj_property name="ElementShortName">gt0_gttxreset_in</obj_property>
+      <obj_property name="ObjectShortName">gt0_gttxreset_in</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_i/GT0_PLL0RESET_OUT" type="logic">
+      <obj_property name="ElementShortName">GT0_PLL0RESET_OUT</obj_property>
+      <obj_property name="ObjectShortName">GT0_PLL0RESET_OUT</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_i/GT0_PLL0OUTCLK_OUT" type="logic">
+      <obj_property name="ElementShortName">GT0_PLL0OUTCLK_OUT</obj_property>
+      <obj_property name="ObjectShortName">GT0_PLL0OUTCLK_OUT</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_i/GT0_PLL0OUTREFCLK_OUT" type="logic">
+      <obj_property name="ElementShortName">GT0_PLL0OUTREFCLK_OUT</obj_property>
+      <obj_property name="ObjectShortName">GT0_PLL0OUTREFCLK_OUT</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_i/GT0_PLL0LOCK_OUT" type="logic">
+      <obj_property name="ElementShortName">GT0_PLL0LOCK_OUT</obj_property>
+      <obj_property name="ObjectShortName">GT0_PLL0LOCK_OUT</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_i/GT0_PLL0REFCLKLOST_OUT" type="logic">
+      <obj_property name="ElementShortName">GT0_PLL0REFCLKLOST_OUT</obj_property>
+      <obj_property name="ObjectShortName">GT0_PLL0REFCLKLOST_OUT</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_i/GT0_PLL1OUTCLK_OUT" type="logic">
+      <obj_property name="ElementShortName">GT0_PLL1OUTCLK_OUT</obj_property>
+      <obj_property name="ObjectShortName">GT0_PLL1OUTCLK_OUT</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_i/GT0_PLL1OUTREFCLK_OUT" type="logic">
+      <obj_property name="ElementShortName">GT0_PLL1OUTREFCLK_OUT</obj_property>
+      <obj_property name="ObjectShortName">GT0_PLL1OUTREFCLK_OUT</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_i/sysclk_in" type="logic">
+      <obj_property name="ElementShortName">sysclk_in</obj_property>
+      <obj_property name="ObjectShortName">sysclk_in</obj_property>
+   </wvobject>
+   <wvobject type="divider" fp_name="divider454">
+      <obj_property name="label">RX Manager</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/GTP_PLL_LOCK_i" type="logic">
+      <obj_property name="ElementShortName">GTP_PLL_LOCK_i</obj_property>
+      <obj_property name="ObjectShortName">GTP_PLL_LOCK_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/CLK_i" type="logic">
+      <obj_property name="ElementShortName">CLK_i</obj_property>
+      <obj_property name="ObjectShortName">CLK_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/RST_N_i" type="logic">
+      <obj_property name="ElementShortName">RST_N_i</obj_property>
+      <obj_property name="ObjectShortName">RST_N_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/EN1MS_i" type="logic">
+      <obj_property name="ElementShortName">EN1MS_i</obj_property>
+      <obj_property name="ObjectShortName">EN1MS_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/EN1S_i" type="logic">
+      <obj_property name="ElementShortName">EN1S_i</obj_property>
+      <obj_property name="ObjectShortName">EN1S_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/GTP_PLL_REFCLKLOST_i" type="logic">
+      <obj_property name="ElementShortName">GTP_PLL_REFCLKLOST_i</obj_property>
+      <obj_property name="ObjectShortName">GTP_PLL_REFCLKLOST_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/GTP_SOFT_RESET_RX_o" type="logic">
+      <obj_property name="ElementShortName">GTP_SOFT_RESET_RX_o</obj_property>
+      <obj_property name="ObjectShortName">GTP_SOFT_RESET_RX_o</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/RX_DATA_o" type="array">
+      <obj_property name="ElementShortName">RX_DATA_o[31:0]</obj_property>
+      <obj_property name="ObjectShortName">RX_DATA_o[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/RX_DATA_SRC_RDY_o" type="logic">
+      <obj_property name="ElementShortName">RX_DATA_SRC_RDY_o</obj_property>
+      <obj_property name="ObjectShortName">RX_DATA_SRC_RDY_o</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/RX_DATA_DST_RDY_i" type="logic">
+      <obj_property name="ElementShortName">RX_DATA_DST_RDY_i</obj_property>
+      <obj_property name="ObjectShortName">RX_DATA_DST_RDY_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/RX_MSG_o" type="array">
+      <obj_property name="ElementShortName">RX_MSG_o[7:0]</obj_property>
+      <obj_property name="ObjectShortName">RX_MSG_o[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/RX_MSG_SRC_RDY_o" type="logic">
+      <obj_property name="ElementShortName">RX_MSG_SRC_RDY_o</obj_property>
+      <obj_property name="ObjectShortName">RX_MSG_SRC_RDY_o</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/RX_MSG_DST_RDY_i" type="logic">
+      <obj_property name="ElementShortName">RX_MSG_DST_RDY_i</obj_property>
+      <obj_property name="ObjectShortName">RX_MSG_DST_RDY_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/GCK_i" type="logic">
+      <obj_property name="ElementShortName">GCK_i</obj_property>
+      <obj_property name="ObjectShortName">GCK_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/RST_N_GCK_i" type="logic">
+      <obj_property name="ElementShortName">RST_N_GCK_i</obj_property>
+      <obj_property name="ObjectShortName">RST_N_GCK_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/EN1MS_GCK_i" type="logic">
+      <obj_property name="ElementShortName">EN1MS_GCK_i</obj_property>
+      <obj_property name="ObjectShortName">EN1MS_GCK_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/GTP_IS_ALIGNED_i" type="logic">
+      <obj_property name="ElementShortName">GTP_IS_ALIGNED_i</obj_property>
+      <obj_property name="ObjectShortName">GTP_IS_ALIGNED_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/ALIGN_REQ_o" type="logic">
+      <obj_property name="ElementShortName">ALIGN_REQ_o</obj_property>
+      <obj_property name="ObjectShortName">ALIGN_REQ_o</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/GTP_STREAM_IN_i" type="array">
+      <obj_property name="ElementShortName">GTP_STREAM_IN_i[15:0]</obj_property>
+      <obj_property name="ObjectShortName">GTP_STREAM_IN_i[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/GTP_CHAR_IS_K_i" type="array">
+      <obj_property name="ElementShortName">GTP_CHAR_IS_K_i[1:0]</obj_property>
+      <obj_property name="ObjectShortName">GTP_CHAR_IS_K_i[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/data_fifo_din" type="array">
+      <obj_property name="ElementShortName">data_fifo_din[31:0]</obj_property>
+      <obj_property name="ObjectShortName">data_fifo_din[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/data_fifo_wr_en" type="logic">
+      <obj_property name="ElementShortName">data_fifo_wr_en</obj_property>
+      <obj_property name="ObjectShortName">data_fifo_wr_en</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/data_fifo_rd_en" type="logic">
+      <obj_property name="ElementShortName">data_fifo_rd_en</obj_property>
+      <obj_property name="ObjectShortName">data_fifo_rd_en</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/data_fifo_dout" type="array">
+      <obj_property name="ElementShortName">data_fifo_dout[31:0]</obj_property>
+      <obj_property name="ObjectShortName">data_fifo_dout[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/data_fifo_full" type="logic">
+      <obj_property name="ElementShortName">data_fifo_full</obj_property>
+      <obj_property name="ObjectShortName">data_fifo_full</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/data_fifo_overflow" type="logic">
+      <obj_property name="ElementShortName">data_fifo_overflow</obj_property>
+      <obj_property name="ObjectShortName">data_fifo_overflow</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/data_fifo_empty" type="logic">
+      <obj_property name="ElementShortName">data_fifo_empty</obj_property>
+      <obj_property name="ObjectShortName">data_fifo_empty</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/data_fifo_valid" type="logic">
+      <obj_property name="ElementShortName">data_fifo_valid</obj_property>
+      <obj_property name="ObjectShortName">data_fifo_valid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/data_fifo_rst" type="logic">
+      <obj_property name="ElementShortName">data_fifo_rst</obj_property>
+      <obj_property name="ObjectShortName">data_fifo_rst</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/msg_fifo_din" type="array">
+      <obj_property name="ElementShortName">msg_fifo_din[7:0]</obj_property>
+      <obj_property name="ObjectShortName">msg_fifo_din[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/msg_fifo_wr_en" type="logic">
+      <obj_property name="ElementShortName">msg_fifo_wr_en</obj_property>
+      <obj_property name="ObjectShortName">msg_fifo_wr_en</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/msg_fifo_rd_en" type="logic">
+      <obj_property name="ElementShortName">msg_fifo_rd_en</obj_property>
+      <obj_property name="ObjectShortName">msg_fifo_rd_en</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/msg_fifo_dout" type="array">
+      <obj_property name="ElementShortName">msg_fifo_dout[7:0]</obj_property>
+      <obj_property name="ObjectShortName">msg_fifo_dout[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/msg_fifo_full" type="logic">
+      <obj_property name="ElementShortName">msg_fifo_full</obj_property>
+      <obj_property name="ObjectShortName">msg_fifo_full</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/msg_fifo_overflow" type="logic">
+      <obj_property name="ElementShortName">msg_fifo_overflow</obj_property>
+      <obj_property name="ObjectShortName">msg_fifo_overflow</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/msg_fifo_empty" type="logic">
+      <obj_property name="ElementShortName">msg_fifo_empty</obj_property>
+      <obj_property name="ObjectShortName">msg_fifo_empty</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/msg_fifo_valid" type="logic">
+      <obj_property name="ElementShortName">msg_fifo_valid</obj_property>
+      <obj_property name="ObjectShortName">msg_fifo_valid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/msg_fifo_rst" type="logic">
+      <obj_property name="ElementShortName">msg_fifo_rst</obj_property>
+      <obj_property name="ObjectShortName">msg_fifo_rst</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/fifo_valid_d" type="logic">
+      <obj_property name="ElementShortName">fifo_valid_d</obj_property>
+      <obj_property name="ObjectShortName">fifo_valid_d</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/p_rx_data_out" type="array">
+      <obj_property name="ElementShortName">p_rx_data_out[31:0]</obj_property>
+      <obj_property name="ObjectShortName">p_rx_data_out[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/rx_data_out" type="array">
+      <obj_property name="ElementShortName">rx_data_out[31:0]</obj_property>
+      <obj_property name="ObjectShortName">rx_data_out[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/p_rx_char_is_k" type="array">
+      <obj_property name="ElementShortName">p_rx_char_is_k[3:0]</obj_property>
+      <obj_property name="ObjectShortName">p_rx_char_is_k[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/rx_char_is_k" type="array">
+      <obj_property name="ElementShortName">rx_char_is_k[3:0]</obj_property>
+      <obj_property name="ObjectShortName">rx_char_is_k[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/tx_data_sel" type="array">
+      <obj_property name="ElementShortName">tx_data_sel[2:0]</obj_property>
+      <obj_property name="ObjectShortName">tx_data_sel[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/align_req" type="logic">
+      <obj_property name="ElementShortName">align_req</obj_property>
+      <obj_property name="ObjectShortName">align_req</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/k_chars" type="logic">
+      <obj_property name="ElementShortName">k_chars</obj_property>
+      <obj_property name="ObjectShortName">k_chars</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/k_chars_d" type="logic">
+      <obj_property name="ElementShortName">k_chars_d</obj_property>
+      <obj_property name="ObjectShortName">k_chars_d</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/k_chars_up" type="logic">
+      <obj_property name="ElementShortName">k_chars_up</obj_property>
+      <obj_property name="ObjectShortName">k_chars_up</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/gtp_rx_stream" type="array">
+      <obj_property name="ElementShortName">gtp_rx_stream[15:0]</obj_property>
+      <obj_property name="ObjectShortName">gtp_rx_stream[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/flag_enable" type="logic">
+      <obj_property name="ElementShortName">flag_enable</obj_property>
+      <obj_property name="ObjectShortName">flag_enable</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/idle_exp_toggle" type="logic">
+      <obj_property name="ElementShortName">idle_exp_toggle</obj_property>
+      <obj_property name="ObjectShortName">idle_exp_toggle</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/idle_head" type="array">
+      <obj_property name="ElementShortName">idle_head[15:0]</obj_property>
+      <obj_property name="ObjectShortName">idle_head[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/idle_head_flag" type="logic">
+      <obj_property name="ElementShortName">idle_head_flag</obj_property>
+      <obj_property name="ObjectShortName">idle_head_flag</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/idle_head_exp" type="logic">
+      <obj_property name="ElementShortName">idle_head_exp</obj_property>
+      <obj_property name="ObjectShortName">idle_head_exp</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/idle_tail" type="array">
+      <obj_property name="ElementShortName">idle_tail[15:0]</obj_property>
+      <obj_property name="ObjectShortName">idle_tail[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/idle_tail_flag" type="logic">
+      <obj_property name="ElementShortName">idle_tail_flag</obj_property>
+      <obj_property name="ObjectShortName">idle_tail_flag</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/idle_tail_exp" type="logic">
+      <obj_property name="ElementShortName">idle_tail_exp</obj_property>
+      <obj_property name="ObjectShortName">idle_tail_exp</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/gtp_align" type="array">
+      <obj_property name="ElementShortName">gtp_align[15:0]</obj_property>
+      <obj_property name="ObjectShortName">gtp_align[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/gtp_align_flag" type="logic">
+      <obj_property name="ElementShortName">gtp_align_flag</obj_property>
+      <obj_property name="ObjectShortName">gtp_align_flag</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/gtp_align_flag_d" type="logic">
+      <obj_property name="ElementShortName">gtp_align_flag_d</obj_property>
+      <obj_property name="ObjectShortName">gtp_align_flag_d</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/msg_word" type="array">
+      <obj_property name="ElementShortName">msg_word[15:0]</obj_property>
+      <obj_property name="ObjectShortName">msg_word[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/msg_flag" type="logic">
+      <obj_property name="ElementShortName">msg_flag</obj_property>
+      <obj_property name="ObjectShortName">msg_flag</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/msg_flag_d" type="logic">
+      <obj_property name="ElementShortName">msg_flag_d</obj_property>
+      <obj_property name="ObjectShortName">msg_flag_d</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/data_w_exp_toggle" type="logic">
+      <obj_property name="ElementShortName">data_w_exp_toggle</obj_property>
+      <obj_property name="ObjectShortName">data_w_exp_toggle</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/data_flag" type="logic">
+      <obj_property name="ElementShortName">data_flag</obj_property>
+      <obj_property name="ObjectShortName">data_flag</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/data_flag_d" type="logic">
+      <obj_property name="ElementShortName">data_flag_d</obj_property>
+      <obj_property name="ObjectShortName">data_flag_d</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/data_w0_exp" type="logic">
+      <obj_property name="ElementShortName">data_w0_exp</obj_property>
+      <obj_property name="ObjectShortName">data_w0_exp</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/data_w1_exp" type="logic">
+      <obj_property name="ElementShortName">data_w1_exp</obj_property>
+      <obj_property name="ObjectShortName">data_w1_exp</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/data_w1" type="array">
+      <obj_property name="ElementShortName">data_w1[15:0]</obj_property>
+      <obj_property name="ObjectShortName">data_w1[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/idle_flag" type="logic">
+      <obj_property name="ElementShortName">idle_flag</obj_property>
+      <obj_property name="ObjectShortName">idle_flag</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/idle_flag_d" type="logic">
+      <obj_property name="ElementShortName">idle_flag_d</obj_property>
+      <obj_property name="ObjectShortName">idle_flag_d</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/unknown_k_flag" type="logic">
+      <obj_property name="ElementShortName">unknown_k_flag</obj_property>
+      <obj_property name="ObjectShortName">unknown_k_flag</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/unknown_k_flag_d" type="logic">
+      <obj_property name="ElementShortName">unknown_k_flag_d</obj_property>
+      <obj_property name="ObjectShortName">unknown_k_flag_d</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/unknown_k_detect" type="logic">
+      <obj_property name="ElementShortName">unknown_k_detect</obj_property>
+      <obj_property name="ObjectShortName">unknown_k_detect</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/unknown_k_detected" type="logic">
+      <obj_property name="ElementShortName">unknown_k_detected</obj_property>
+      <obj_property name="ObjectShortName">unknown_k_detected</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/data_cnt" type="array">
+      <obj_property name="ElementShortName">data_cnt[15:0]</obj_property>
+      <obj_property name="ObjectShortName">data_cnt[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/data_rate" type="array">
+      <obj_property name="ElementShortName">data_rate[15:0]</obj_property>
+      <obj_property name="ObjectShortName">data_rate[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/gtp_align_cnt" type="array">
+      <obj_property name="ElementShortName">gtp_align_cnt[7:0]</obj_property>
+      <obj_property name="ObjectShortName">gtp_align_cnt[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/gtp_align_rate" type="array">
+      <obj_property name="ElementShortName">gtp_align_rate[7:0]</obj_property>
+      <obj_property name="ObjectShortName">gtp_align_rate[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/msg_cnt" type="array">
+      <obj_property name="ElementShortName">msg_cnt[15:0]</obj_property>
+      <obj_property name="ObjectShortName">msg_cnt[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/msg_rate" type="array">
+      <obj_property name="ElementShortName">msg_rate[15:0]</obj_property>
+      <obj_property name="ObjectShortName">msg_rate[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/idle_cnt" type="array">
+      <obj_property name="ElementShortName">idle_cnt[15:0]</obj_property>
+      <obj_property name="ObjectShortName">idle_cnt[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/idle_rate" type="array">
+      <obj_property name="ElementShortName">idle_rate[15:0]</obj_property>
+      <obj_property name="ObjectShortName">idle_rate[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/gtp_pll_lock_meta" type="logic">
+      <obj_property name="ElementShortName">gtp_pll_lock_meta</obj_property>
+      <obj_property name="ObjectShortName">gtp_pll_lock_meta</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/gtp_pll_lock_sync" type="logic">
+      <obj_property name="ElementShortName">gtp_pll_lock_sync</obj_property>
+      <obj_property name="ObjectShortName">gtp_pll_lock_sync</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/gtp_pll_lock" type="logic">
+      <obj_property name="ElementShortName">gtp_pll_lock</obj_property>
+      <obj_property name="ObjectShortName">gtp_pll_lock</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/gtp_clk_lost_meta" type="logic">
+      <obj_property name="ElementShortName">gtp_clk_lost_meta</obj_property>
+      <obj_property name="ObjectShortName">gtp_clk_lost_meta</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/gtp_clk_lost_sync" type="logic">
+      <obj_property name="ElementShortName">gtp_clk_lost_sync</obj_property>
+      <obj_property name="ObjectShortName">gtp_clk_lost_sync</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/gtp_clk_lost" type="logic">
+      <obj_property name="ElementShortName">gtp_clk_lost</obj_property>
+      <obj_property name="ObjectShortName">gtp_clk_lost</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/gtp_pll_fail" type="logic">
+      <obj_property name="ElementShortName">gtp_pll_fail</obj_property>
+      <obj_property name="ObjectShortName">gtp_pll_fail</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/gtp_pll_alarm_cnt" type="array">
+      <obj_property name="ElementShortName">gtp_pll_alarm_cnt[1:0]</obj_property>
+      <obj_property name="ObjectShortName">gtp_pll_alarm_cnt[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/gtp_pll_alarm" type="logic">
+      <obj_property name="ElementShortName">gtp_pll_alarm</obj_property>
+      <obj_property name="ObjectShortName">gtp_pll_alarm</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/gtp_reset_cnt" type="array">
+      <obj_property name="ElementShortName">gtp_reset_cnt[3:0]</obj_property>
+      <obj_property name="ObjectShortName">gtp_reset_cnt[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/gtp_reset" type="logic">
+      <obj_property name="ElementShortName">gtp_reset</obj_property>
+      <obj_property name="ObjectShortName">gtp_reset</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/gtp_reset_sent" type="logic">
+      <obj_property name="ElementShortName">gtp_reset_sent</obj_property>
+      <obj_property name="ObjectShortName">gtp_reset_sent</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/RX_DATA_OUT_WIDTH_g" type="other">
+      <obj_property name="ElementShortName">RX_DATA_OUT_WIDTH_g</obj_property>
+      <obj_property name="ObjectShortName">RX_DATA_OUT_WIDTH_g</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/GTP_STREAM_WIDTH_g" type="other">
+      <obj_property name="ElementShortName">GTP_STREAM_WIDTH_g</obj_property>
+      <obj_property name="ObjectShortName">GTP_STREAM_WIDTH_g</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/K28_0" type="array">
+      <obj_property name="ElementShortName">K28_0[7:0]</obj_property>
+      <obj_property name="ObjectShortName">K28_0[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/K28_1" type="array">
+      <obj_property name="ElementShortName">K28_1[7:0]</obj_property>
+      <obj_property name="ObjectShortName">K28_1[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/K28_2" type="array">
+      <obj_property name="ElementShortName">K28_2[7:0]</obj_property>
+      <obj_property name="ObjectShortName">K28_2[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/K28_3" type="array">
+      <obj_property name="ElementShortName">K28_3[7:0]</obj_property>
+      <obj_property name="ObjectShortName">K28_3[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/K28_4" type="array">
+      <obj_property name="ElementShortName">K28_4[7:0]</obj_property>
+      <obj_property name="ObjectShortName">K28_4[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/K28_5" type="array">
+      <obj_property name="ElementShortName">K28_5[7:0]</obj_property>
+      <obj_property name="ObjectShortName">K28_5[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/K28_6" type="array">
+      <obj_property name="ElementShortName">K28_6[7:0]</obj_property>
+      <obj_property name="ObjectShortName">K28_6[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/K28_7" type="array">
+      <obj_property name="ElementShortName">K28_7[7:0]</obj_property>
+      <obj_property name="ObjectShortName">K28_7[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/K23_7" type="array">
+      <obj_property name="ElementShortName">K23_7[7:0]</obj_property>
+      <obj_property name="ObjectShortName">K23_7[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/K27_7" type="array">
+      <obj_property name="ElementShortName">K27_7[7:0]</obj_property>
+      <obj_property name="ObjectShortName">K27_7[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/K29_7" type="array">
+      <obj_property name="ElementShortName">K29_7[7:0]</obj_property>
+      <obj_property name="ObjectShortName">K29_7[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/K30_7" type="array">
+      <obj_property name="ElementShortName">K30_7[7:0]</obj_property>
+      <obj_property name="ObjectShortName">K30_7[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/IDLE_HEAD_c" type="array">
+      <obj_property name="ElementShortName">IDLE_HEAD_c[15:0]</obj_property>
+      <obj_property name="ObjectShortName">IDLE_HEAD_c[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/IDLE_TAIL_c" type="array">
+      <obj_property name="ElementShortName">IDLE_TAIL_c[15:0]</obj_property>
+      <obj_property name="ObjectShortName">IDLE_TAIL_c[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/ALIGN_c" type="array">
+      <obj_property name="ElementShortName">ALIGN_c[15:0]</obj_property>
+      <obj_property name="ObjectShortName">ALIGN_c[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_Test_tb/GTP_RX_Manager_i/MSG_c" type="array">
+      <obj_property name="ElementShortName">MSG_c[7:0]</obj_property>
+      <obj_property name="ObjectShortName">MSG_c[7:0]</obj_property>
+   </wvobject>
+</wave_config>
