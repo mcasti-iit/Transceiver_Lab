@@ -146,15 +146,18 @@ end component;
 component GTP_Zynq
 port
 (
+    SOFT_RESET_TX_IN                        : in   std_logic;
     SOFT_RESET_RX_IN                        : in   std_logic;
     DONT_RESET_ON_DATA_ERROR_IN             : in   std_logic;
-    Q0_CLK1_GTREFCLK_PAD_N_IN               : in   std_logic;
-    Q0_CLK1_GTREFCLK_PAD_P_IN               : in   std_logic;
+    Q0_CLK0_GTREFCLK_PAD_N_IN               : in   std_logic;
+    Q0_CLK0_GTREFCLK_PAD_P_IN               : in   std_logic;
 
     GT0_TX_FSM_RESET_DONE_OUT               : out  std_logic;
     GT0_RX_FSM_RESET_DONE_OUT               : out  std_logic;
     GT0_DATA_VALID_IN                       : in   std_logic;
  
+    GT0_TXUSRCLK_OUT                        : out  std_logic;
+    GT0_TXUSRCLK2_OUT                       : out  std_logic;
     GT0_RXUSRCLK_OUT                        : out  std_logic;
     GT0_RXUSRCLK2_OUT                       : out  std_logic;
 
@@ -201,21 +204,31 @@ port
     gt0_rxresetdone_out                     : out  std_logic;
     --------------------- TX Initialization and Reset Ports --------------------
     gt0_gttxreset_in                        : in   std_logic;
+    gt0_txuserrdy_in                        : in   std_logic;
+    ------------------ Transmit Ports - FPGA TX Interface Ports ----------------
+    gt0_txdata_in                           : in   std_logic_vector(15 downto 0);
+    --------------- Transmit Ports - TX Configurable Driver Ports --------------
+    gt0_gtptxn_out                          : out  std_logic;
+    gt0_gtptxp_out                          : out  std_logic;
+    ----------- Transmit Ports - TX Fabric Clock Output Control Ports ----------
+    gt0_txoutclkfabric_out                  : out  std_logic;
+    gt0_txoutclkpcs_out                     : out  std_logic;
+    ------------- Transmit Ports - TX Initialization and Reset Ports -----------
+    gt0_txresetdone_out                     : out  std_logic;
 
-GT0_PLL0PD_IN                           : in   std_logic;
     --____________________________COMMON PORTS________________________________
-   GT0_PLL0RESET_OUT  : out std_logic;
+   GT0_PLL1RESET_OUT  : out std_logic;
          GT0_PLL0OUTCLK_OUT  : out std_logic;
          GT0_PLL0OUTREFCLK_OUT  : out std_logic;
-         GT0_PLL0LOCK_OUT  : out std_logic;
-         GT0_PLL0REFCLKLOST_OUT  : out std_logic;    
+         GT0_PLL1LOCK_OUT  : out std_logic;
+         GT0_PLL1REFCLKLOST_OUT  : out std_logic;    
          GT0_PLL1OUTCLK_OUT  : out std_logic;
          GT0_PLL1OUTREFCLK_OUT  : out std_logic;
 
           sysclk_in                               : in   std_logic
 
 );
-end component;
+end component; 
 
 component GTP_Artix
 port
@@ -292,6 +305,9 @@ signal REFCLK0_TX_P_i             : std_logic;
 signal REFCLK0_TX_N_i             : std_logic;
 signal REFCLK0_RX_P_i             : std_logic;
 signal REFCLK0_RX_N_i             : std_logic;
+signal REFCLK1_RX_P_i             : std_logic;
+signal REFCLK1_RX_N_i             : std_logic;
+
 
 signal TXP_o                      : std_logic;
 signal TXN_o                      : std_logic;
@@ -299,12 +315,18 @@ signal RXP_i                      : std_logic;
 signal RXN_i                      : std_logic;
 
 signal clk_100, gcktx, gckrx      : std_logic;
-signal rst_n, rst                 : std_logic;                    --active high reset
-signal pon_reset_n                : std_logic;                    --active high reset
-signal rst_n_gcktx, rst_gcktx     : std_logic;                    --active high reset
-signal rst_n_gckrx, rst_gckrx     : std_logic;                    --active high reset
+signal rst_n, rst                 : std_logic;                    
+signal pon_reset_n                : std_logic;                    
+signal rst_n_gcktx, rst_gcktx     : std_logic;                    
+signal rst_n_gckrx, rst_gckrx     : std_logic;                    
+signal pon_reset_n_gckrx          : std_logic;                    
+signal pon_reset_n_gcktx          : std_logic;                    
 signal en1s                       : std_logic;  
 signal en1ms                      : std_logic;  
+
+signal gtp_pll_lock               : std_logic;
+signal gtp_clk_lost               : std_logic;
+signal gtp_ref_clk                : std_logic;
 
 signal en100us_gcktx              : std_logic;
 signal en1ms_gcktx                : std_logic;
@@ -315,6 +337,10 @@ signal gtp_tx_stream              : std_logic_vector(15 downto 0);
 signal gtp_tx_char_is_k           : std_logic_vector(1 downto 0);
 signal gtp_rx_stream              : std_logic_vector(15 downto 0);
 signal gtp_rx_char_is_k           : std_logic_vector(1 downto 0);
+signal gtp_rx_char_is_comma       : std_logic_vector(1 downto 0);
+
+
+
 
 signal rx_data_gtp                : std_logic_vector(15 downto 0);
 signal rx_char_is_k               : std_logic_vector(1 downto 0);
@@ -416,6 +442,17 @@ begin
   end loop;
 end process proc_refclk0_rx;
 
+proc_refclk1_rx : process 
+begin
+  REFCLK1_RX_N_i <= '1';
+  REFCLK1_RX_P_i <= '0';
+  wait for REFCLK0_RX_PERIOD_C/2.0;
+  clk_loop : loop
+    REFCLK1_RX_N_i <= not REFCLK1_RX_N_i;
+    REFCLK1_RX_P_i <= not REFCLK1_RX_P_i;
+    wait for REFCLK0_RX_PERIOD_C/2.0;
+  end loop;
+end process proc_refclk1_rx;
 
 -- proc_pll_lock : process 
 -- begin 
@@ -518,7 +555,7 @@ TIME_MACHINE_GCKTX_i : time_machine
     RESET_o                 => open,
     RESET_N_o               => rst_n_gcktx,
     PON_RESET_OUT_o         => open,
-    PON_RESET_N_OUT_o       => open,
+    PON_RESET_N_OUT_o       => pon_reset_n_gcktx,
     
     -- Output ports for generated clock enables
     EN200NS_o               => open,
@@ -547,7 +584,7 @@ TIME_MACHINE_GCKRX_i : time_machine
     RESET_o                 => open,
     RESET_N_o               => rst_n_gckrx,
     PON_RESET_OUT_o         => open,
-    PON_RESET_N_OUT_o       => open,
+    PON_RESET_N_OUT_o       => pon_reset_n_gckrx,
     
     -- Output ports for generated clock enables
     EN200NS_o               => open,
@@ -702,7 +739,7 @@ GTP_TX_i : GTP_Artix
       gt0_rxlpmreset_in               =>      '0',
       --------------------- TX Initialization and Reset Ports --------------------
       gt0_gttxreset_in                =>      '0', -- fpga_probe_out0(0),
-      gt0_txuserrdy_in                =>      '1',
+      gt0_txuserrdy_in                =>      pon_reset_n_gcktx,
       ------------------ Transmit Ports - FPGA TX Interface Ports ----------------
       gt0_txdata_in                   =>      gtp_tx_stream, -- gt0_txdata_in,
       ------------------ Transmit Ports - TX 8B/10B Encoder Ports ----------------
@@ -732,20 +769,23 @@ RXP_i <= TXP_o;
 RXN_i <= TXN_o;
 
 
-GTP_RX_i : GTP_Zynq
+GTP_Zynq_i : GTP_Zynq
 port map
 (
-    SOFT_RESET_RX_IN                    =>      gtp_rx_soft_reset,  -- '0', -- gtp_reset, -- '0', -- 
-    DONT_RESET_ON_DATA_ERROR_IN         =>      '0',
-    Q0_CLK1_GTREFCLK_PAD_N_IN           =>      REFCLK0_RX_N_i,
-    Q0_CLK1_GTREFCLK_PAD_P_IN           =>      REFCLK0_RX_N_i,
+    SOFT_RESET_TX_IN => '0',
+    SOFT_RESET_RX_IN => '0', -- spare_in,
+    DONT_RESET_ON_DATA_ERROR_IN => '0',
+    Q0_CLK0_GTREFCLK_PAD_N_IN => REFCLK0_RX_N_i,
+    Q0_CLK0_GTREFCLK_PAD_P_IN => REFCLK0_RX_P_i,
 
-    GT0_TX_FSM_RESET_DONE_OUT           =>      open,
-    GT0_RX_FSM_RESET_DONE_OUT           =>      open,
-    GT0_DATA_VALID_IN                   =>      '1',
-
-    GT0_RXUSRCLK_OUT                    =>      open,
-    GT0_RXUSRCLK2_OUT                   =>      gckrx,
+     GT0_TX_FSM_RESET_DONE_OUT => open,
+     GT0_RX_FSM_RESET_DONE_OUT => open,
+     GT0_DATA_VALID_IN => '1',
+ 
+     GT0_TXUSRCLK_OUT => open,
+     GT0_TXUSRCLK2_OUT => open,
+     GT0_RXUSRCLK_OUT => open,
+     GT0_RXUSRCLK2_OUT => gckrx,
 
     --_________________________________________________________________________
     --GT0  (X0Y2)
@@ -759,15 +799,15 @@ port map
         gt0_drpwe_in                    =>      '0',
     --------------------- RX Initialization and Reset Ports --------------------
         gt0_eyescanreset_in             =>      '0',
-        gt0_rxuserrdy_in                =>      '1',
+        gt0_rxuserrdy_in                =>      pon_reset_n_gckrx,
     -------------------------- RX Margin Analysis Ports ------------------------
         gt0_eyescandataerror_out        =>      open,
         gt0_eyescantrigger_in           =>      '0',
     ------------------ Receive Ports - FPGA RX Interface Ports -----------------
-        gt0_rxdata_out                  =>      gtp_rx_stream, --gt0_rxdata_out,
+        gt0_rxdata_out                  =>      gtp_rx_stream,
     ------------------ Receive Ports - RX 8B/10B Decoder Ports -----------------
-        gt0_rxchariscomma_out           =>      open,
-        gt0_rxcharisk_out               =>      gtp_rx_char_is_k, 
+        gt0_rxchariscomma_out           =>      gtp_rx_char_is_comma,
+        gt0_rxcharisk_out               =>      gtp_rx_char_is_k,
         gt0_rxdisperr_out               =>      open,
         gt0_rxnotintable_out            =>      open,
     ------------------------ Receive Ports - RX AFE Ports ----------------------
@@ -782,26 +822,36 @@ port map
         gt0_rxlpmhfhold_in              =>      '0',
         gt0_rxlpmlfhold_in              =>      '0',
     --------------- Receive Ports - RX Fabric Output Control Ports -------------
-        gt0_rxoutclkfabric_out          =>      open,
+        gt0_rxoutclkfabric_out          =>      gtp_ref_clk,
     ------------- Receive Ports - RX Initialization and Reset Ports ------------
-        gt0_gtrxreset_in                =>      '0', -- , -- gtp_gtrxreset,
-        gt0_rxlpmreset_in               =>      '0', -- gtp_rxlpmreset,
+        gt0_gtrxreset_in                =>      '0',
+        gt0_rxlpmreset_in               =>      '0',
     -------------- Receive Ports -RX Initialization and Reset Ports ------------
         gt0_rxresetdone_out             =>      open,
     --------------------- TX Initialization and Reset Ports --------------------
         gt0_gttxreset_in                =>      '0',
+        gt0_txuserrdy_in                =>      '1',
+    ------------------ Transmit Ports - FPGA TX Interface Ports ----------------
+        gt0_txdata_in                   =>      (others => '0'),
+    --------------- Transmit Ports - TX Configurable Driver Ports --------------
+        gt0_gtptxn_out                  =>      open,
+        gt0_gtptxp_out                  =>      open,
+    ----------- Transmit Ports - TX Fabric Clock Output Control Ports ----------
+        gt0_txoutclkfabric_out          =>      open,
+        gt0_txoutclkpcs_out             =>      open,
+    ------------- Transmit Ports - TX Initialization and Reset Ports -----------
+        gt0_txresetdone_out             =>      open,
 
-
-GT0_PLL0PD_IN                           => '0',
     --____________________________COMMON PORTS________________________________
-        GT0_PLL0RESET_OUT               =>      open,
-        GT0_PLL0OUTCLK_OUT              =>      open,
-        GT0_PLL0OUTREFCLK_OUT           =>      open,
-        GT0_PLL0LOCK_OUT                =>      gtp_rx_pll_lock,
-        GT0_PLL0REFCLKLOST_OUT          =>      gtp_rx_clk_lost,    
-        GT0_PLL1OUTCLK_OUT              =>      open,
-        GT0_PLL1OUTREFCLK_OUT           =>      open,
-        sysclk_in                       =>      clk_100
+        GT0_PLL1RESET_OUT  => open,
+        GT0_PLL0OUTCLK_OUT  => open,
+        GT0_PLL0OUTREFCLK_OUT  => open,
+        GT0_PLL1LOCK_OUT  => gtp_pll_lock,
+        GT0_PLL1REFCLKLOST_OUT  => gtp_clk_lost,    
+        GT0_PLL1OUTCLK_OUT  => open,
+        GT0_PLL1OUTREFCLK_OUT  => open,
+        sysclk_in => clk_100
+
 );
 
 

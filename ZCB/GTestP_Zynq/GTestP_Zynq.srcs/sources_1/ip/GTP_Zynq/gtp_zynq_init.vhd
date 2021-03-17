@@ -86,6 +86,7 @@ generic
 port
 (
     SYSCLK_IN                               : in   std_logic;
+    SOFT_RESET_TX_IN                        : in   std_logic;
     SOFT_RESET_RX_IN                        : in   std_logic;
     DONT_RESET_ON_DATA_ERROR_IN             : in   std_logic;
     GT0_DRP_BUSY_OUT                        : out  std_logic;
@@ -139,6 +140,20 @@ port
     gt0_rxresetdone_out                     : out  std_logic;
     --------------------- TX Initialization and Reset Ports --------------------
     gt0_gttxreset_in                        : in   std_logic;
+    gt0_txuserrdy_in                        : in   std_logic;
+    ------------------ Transmit Ports - FPGA TX Interface Ports ----------------
+    gt0_txdata_in                           : in   std_logic_vector(15 downto 0);
+    gt0_txusrclk_in                         : in   std_logic;
+    gt0_txusrclk2_in                        : in   std_logic;
+    --------------- Transmit Ports - TX Configurable Driver Ports --------------
+    gt0_gtptxn_out                          : out  std_logic;
+    gt0_gtptxp_out                          : out  std_logic;
+    ----------- Transmit Ports - TX Fabric Clock Output Control Ports ----------
+    gt0_txoutclk_out                        : out  std_logic;
+    gt0_txoutclkfabric_out                  : out  std_logic;
+    gt0_txoutclkpcs_out                     : out  std_logic;
+    ------------- Transmit Ports - TX Initialization and Reset Ports -----------
+    gt0_txresetdone_out                     : out  std_logic;
 
 
     --____________________________COMMON PORTS________________________________
@@ -178,6 +193,7 @@ port
     --____________________________CHANNEL PORTS________________________________
     GT0_DRP_BUSY_OUT                        : out  std_logic;
     GT0_RXPMARESETDONE_OUT                        : out  std_logic;
+    GT0_TXPMARESETDONE_OUT                        : out  std_logic;
 
     ---------------------------- Channel - DRP Ports  --------------------------
     gt0_drpaddr_in                          : in   std_logic_vector(8 downto 0);
@@ -223,6 +239,20 @@ port
     gt0_rxresetdone_out                     : out  std_logic;
     --------------------- TX Initialization and Reset Ports --------------------
     gt0_gttxreset_in                        : in   std_logic;
+    gt0_txuserrdy_in                        : in   std_logic;
+    ------------------ Transmit Ports - FPGA TX Interface Ports ----------------
+    gt0_txdata_in                           : in   std_logic_vector(15 downto 0);
+    gt0_txusrclk_in                         : in   std_logic;
+    gt0_txusrclk2_in                        : in   std_logic;
+    --------------- Transmit Ports - TX Configurable Driver Ports --------------
+    gt0_gtptxn_out                          : out  std_logic;
+    gt0_gtptxp_out                          : out  std_logic;
+    ----------- Transmit Ports - TX Fabric Clock Output Control Ports ----------
+    gt0_txoutclk_out                        : out  std_logic;
+    gt0_txoutclkfabric_out                  : out  std_logic;
+    gt0_txoutclkpcs_out                     : out  std_logic;
+    ------------- Transmit Ports - TX Initialization and Reset Ports -----------
+    gt0_txresetdone_out                     : out  std_logic;
    
 
     --____________________________COMMON PORTS________________________________
@@ -411,6 +441,7 @@ begin
     (
         GT0_DRP_BUSY_OUT                =>      GT0_DRP_BUSY_OUT,
         GT0_RXPMARESETDONE_OUT          =>      gt0_rxpmaresetdone_i,
+        GT0_TXPMARESETDONE_OUT          =>      gt0_txpmaresetdone_i,
         --_____________________________________________________________________
         --_____________________________________________________________________
         --GT0  (X0Y2)
@@ -459,6 +490,20 @@ begin
         gt0_rxresetdone_out             =>      gt0_rxresetdone_i,
         --------------------- TX Initialization and Reset Ports --------------------
         gt0_gttxreset_in                =>      gt0_gttxreset_i,
+        gt0_txuserrdy_in                =>      gt0_txuserrdy_i,
+        ------------------ Transmit Ports - FPGA TX Interface Ports ----------------
+        gt0_txdata_in                   =>      gt0_txdata_in,
+        gt0_txusrclk_in                 =>      gt0_txusrclk_in,
+        gt0_txusrclk2_in                =>      gt0_txusrclk2_in,
+        --------------- Transmit Ports - TX Configurable Driver Ports --------------
+        gt0_gtptxn_out                  =>      gt0_gtptxn_out,
+        gt0_gtptxp_out                  =>      gt0_gtptxp_out,
+        ----------- Transmit Ports - TX Fabric Clock Output Control Ports ----------
+        gt0_txoutclk_out                =>      gt0_txoutclk_i,
+        gt0_txoutclkfabric_out          =>      gt0_txoutclkfabric_out,
+        gt0_txoutclkpcs_out             =>      gt0_txoutclkpcs_out,
+        ------------- Transmit Ports - TX Initialization and Reset Ports -----------
+        gt0_txresetdone_out             =>      gt0_txresetdone_i,
 
 
 
@@ -474,13 +519,16 @@ begin
 
 
 
+GT0_TXRESETDONE_OUT                          <= gt0_txresetdone_i;
 GT0_RXRESETDONE_OUT                          <= gt0_rxresetdone_i;
 GT0_RXOUTCLK_OUT                             <= gt0_rxoutclk_i;
+GT0_TXOUTCLK_OUT                             <= gt0_txoutclk_i;
     GT0_PLL0RESET_OUT                            <= gt0_pll0reset_t;
 
 chipscope : if EXAMPLE_USE_CHIPSCOPE = 1 generate
     gt0_gttxreset_i                              <= GT0_GTTXRESET_IN or gt0_gttxreset_t;
     gt0_gtrxreset_i                              <= GT0_GTRXRESET_IN or gt0_gtrxreset_t;
+    gt0_txuserrdy_i                              <= GT0_TXUSERRDY_IN and gt0_txuserrdy_t;
     gt0_rxuserrdy_i                              <= GT0_RXUSERRDY_IN and gt0_rxuserrdy_t;
 end generate chipscope;
 
@@ -492,8 +540,40 @@ gt0_rxuserrdy_i                              <= gt0_rxuserrdy_t;
 end generate no_chipscope;
 
 
- gt0_txuserrdy_t <= tied_to_ground_i;
- gt0_gttxreset_t <= tied_to_vcc_i;
+gt0_txresetfsm_i:  GTP_Zynq_TX_STARTUP_FSM 
+
+  generic map(
+           EXAMPLE_SIMULATION       => EXAMPLE_SIMULATION,
+           STABLE_CLOCK_PERIOD      => STABLE_CLOCK_PERIOD,           -- Period of the stable clock driving this state-machine, unit is [ns]
+           RETRY_COUNTER_BITWIDTH   => 8, 
+           TX_PLL0_USED             => TRUE ,                        -- the TX and RX Reset FSMs must 
+           RX_PLL0_USED             => TRUE,                         -- share these two generic values
+           PHASE_ALIGNMENT_MANUAL   => FALSE                 -- Decision if a manual phase-alignment is necessary or the automatic 
+                                                                     -- is enough. For single-lane applications the automatic alignment is 
+                                                                     -- sufficient              
+             )     
+    port map ( 
+        STABLE_CLOCK                    =>      SYSCLK_IN,
+        TXUSERCLK                       =>      GT0_TXUSRCLK_IN,
+        SOFT_RESET                      =>      SOFT_RESET_TX_IN,
+        PLL0REFCLKLOST                  =>      GT0_PLL0REFCLKLOST_IN,
+        PLL0LOCK                        =>      GT0_PLL0LOCK_IN,
+        PLL1REFCLKLOST                  =>      tied_to_ground_i,
+        PLL1LOCK                        =>      tied_to_vcc_i,
+        TXRESETDONE                     =>      gt0_txresetdone_i,
+        MMCM_LOCK                       =>      tied_to_vcc_i,
+        GTTXRESET                       =>      gt0_gttxreset_t,
+        MMCM_RESET                      =>      open,
+        PLL0_RESET                      =>      gt0_pll0reset_t,
+        PLL1_RESET                      =>      open,
+        TX_FSM_RESET_DONE               =>      GT0_TX_FSM_RESET_DONE_OUT,
+        TXUSERRDY                       =>      gt0_txuserrdy_t,
+        RUN_PHALIGNMENT                 =>      open,
+        RESET_PHALIGNMENT               =>      open,
+        PHALIGNMENT_DONE                =>      tied_to_vcc_i,
+        RETRY_COUNTER                   =>      open
+           );
+
 
 
 
@@ -507,7 +587,7 @@ gt0_rxresetfsm_i:  GTP_Zynq_RX_STARTUP_FSM
            EXAMPLE_SIMULATION       => EXAMPLE_SIMULATION,
            STABLE_CLOCK_PERIOD      => STABLE_CLOCK_PERIOD,           --Period of the stable clock driving this state-machine, unit is [ns]
            RETRY_COUNTER_BITWIDTH   => 8, 
-           TX_PLL0_USED             => FALSE ,                       -- the TX and RX Reset FSMs must
+           TX_PLL0_USED             => TRUE ,                        -- the TX and RX Reset FSMs must 
            RX_PLL0_USED             => TRUE,                         -- share these two generic values
            PHASE_ALIGNMENT_MANUAL   =>  FALSE                        -- Decision if a manual phase-alignment is necessary or the automatic 
                                                                      -- is enough. For single-lane applications the automatic alignment is 
@@ -532,7 +612,7 @@ gt0_rxresetfsm_i:  GTP_Zynq_RX_STARTUP_FSM
         TXUSERRDY                       =>      tied_to_vcc_i,
         GTRXRESET                       =>      gt0_gtrxreset_t,
         MMCM_RESET                      =>      open,
-        PLL0_RESET                      =>      gt0_pll0reset_t,
+        PLL0_RESET                      =>      open,
         PLL1_RESET                      =>      open,
         RX_FSM_RESET_DONE               =>      GT0_RX_FSM_RESET_DONE_OUT,
         RXUSERRDY                       =>      gt0_rxuserrdy_t,

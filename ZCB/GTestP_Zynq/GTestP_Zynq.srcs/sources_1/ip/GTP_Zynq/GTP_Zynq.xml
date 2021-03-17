@@ -88,11 +88,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Fri Mar 12 17:59:45 UTC 2021</spirit:value>
+            <spirit:value>Tue Mar 16 14:06:51 UTC 2021</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:a8061187</spirit:value>
+            <spirit:value>9:5205bc74</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -107,11 +107,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Fri Mar 12 17:59:36 UTC 2021</spirit:value>
+            <spirit:value>Tue Mar 16 14:06:41 UTC 2021</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:1bfa920c</spirit:value>
+            <spirit:value>9:16ff9ef2</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -126,11 +126,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Fri Mar 12 17:59:41 UTC 2021</spirit:value>
+            <spirit:value>Tue Mar 16 14:06:46 UTC 2021</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:1bfa920c</spirit:value>
+            <spirit:value>9:16ff9ef2</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -141,7 +141,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:1bfa920c</spirit:value>
+            <spirit:value>9:16ff9ef2</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -157,11 +157,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Fri Mar 12 17:59:41 UTC 2021</spirit:value>
+            <spirit:value>Tue Mar 16 14:06:46 UTC 2021</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:1bfa920c</spirit:value>
+            <spirit:value>9:16ff9ef2</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -176,11 +176,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Fri Mar 12 17:59:41 UTC 2021</spirit:value>
+            <spirit:value>Tue Mar 16 14:06:46 UTC 2021</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:fdcb97cf</spirit:value>
+            <spirit:value>9:9b60b731</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -196,11 +196,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Fri Mar 12 17:59:41 UTC 2021</spirit:value>
+            <spirit:value>Tue Mar 16 14:06:46 UTC 2021</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:fdcb97cf</spirit:value>
+            <spirit:value>9:9b60b731</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -214,11 +214,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Fri Mar 12 17:59:44 UTC 2021</spirit:value>
+            <spirit:value>Tue Mar 16 14:06:50 UTC 2021</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:1bfa920c</spirit:value>
+            <spirit:value>9:16ff9ef2</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -232,11 +232,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Fri Mar 12 17:59:44 UTC 2021</spirit:value>
+            <spirit:value>Tue Mar 16 14:06:50 UTC 2021</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:1bfa920c</spirit:value>
+            <spirit:value>9:16ff9ef2</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -295,7 +295,7 @@
       </spirit:modelParameter>
       <spirit:modelParameter spirit:dataType="boolean">
         <spirit:name>identical_val_no_tx</spirit:name>
-        <spirit:value spirit:format="bool" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.identical_val_no_tx">true</spirit:value>
+        <spirit:value spirit:format="bool" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.identical_val_no_tx">false</spirit:value>
       </spirit:modelParameter>
       <spirit:modelParameter spirit:dataType="string">
         <spirit:name>identical_val_rx_line_rate</spirit:name>
@@ -479,7 +479,7 @@
       </spirit:modelParameter>
       <spirit:modelParameter spirit:dataType="string">
         <spirit:name>gt2_val_tx_refclk</spirit:name>
-        <spirit:value spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.gt2_val_tx_refclk">REFCLK1_Q0</spirit:value>
+        <spirit:value spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.gt2_val_tx_refclk">REFCLK0_Q0</spirit:value>
       </spirit:modelParameter>
       <spirit:modelParameter spirit:dataType="string">
         <spirit:name>gt3_val_tx_refclk</spirit:name>
@@ -623,7 +623,7 @@
       </spirit:modelParameter>
       <spirit:modelParameter spirit:dataType="string">
         <spirit:name>gt2_val_rx_refclk</spirit:name>
-        <spirit:value spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.gt2_val_rx_refclk">REFCLK1_Q0</spirit:value>
+        <spirit:value spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.gt2_val_rx_refclk">REFCLK0_Q0</spirit:value>
       </spirit:modelParameter>
       <spirit:modelParameter spirit:dataType="string">
         <spirit:name>gt3_val_rx_refclk</spirit:name>
@@ -771,7 +771,7 @@
       </spirit:modelParameter>
       <spirit:modelParameter spirit:dataType="boolean">
         <spirit:name>gt0_val_no_tx</spirit:name>
-        <spirit:value spirit:format="bool" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.gt0_val_no_tx">true</spirit:value>
+        <spirit:value spirit:format="bool" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.gt0_val_no_tx">false</spirit:value>
       </spirit:modelParameter>
       <spirit:modelParameter spirit:dataType="boolean">
         <spirit:name>gt0_val_no_rx</spirit:name>
@@ -1775,7 +1775,7 @@
       </spirit:modelParameter>
       <spirit:modelParameter spirit:dataType="boolean">
         <spirit:name>gt0_val_port_pll0pd</spirit:name>
-        <spirit:value spirit:format="bool" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.gt0_val_port_pll0pd">true</spirit:value>
+        <spirit:value spirit:format="bool" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.gt0_val_port_pll0pd">false</spirit:value>
       </spirit:modelParameter>
       <spirit:modelParameter spirit:dataType="boolean">
         <spirit:name>gt0_val_port_pll1pd</spirit:name>
@@ -3417,7 +3417,7 @@
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>identical_val_no_tx</spirit:name>
-      <spirit:value spirit:format="bool" spirit:resolve="user" spirit:id="PARAM_VALUE.identical_val_no_tx" spirit:order="9">true</spirit:value>
+      <spirit:value spirit:format="bool" spirit:resolve="user" spirit:id="PARAM_VALUE.identical_val_no_tx" spirit:order="9">false</spirit:value>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>identical_val_rx_line_rate</spirit:name>
@@ -3481,12 +3481,12 @@
     <spirit:parameter>
       <spirit:name>gt2_val_tx_refclk</spirit:name>
       <spirit:displayName>Gt2 Val Tx Refclk</spirit:displayName>
-      <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.gt2_val_tx_refclk" spirit:choiceRef="choice_pairs_07eb33bf" spirit:order="26">REFCLK1_Q0</spirit:value>
+      <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.gt2_val_tx_refclk" spirit:choiceRef="choice_pairs_07eb33bf" spirit:order="26">REFCLK0_Q0</spirit:value>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>gt2_val_rx_refclk</spirit:name>
       <spirit:displayName>Gt2 Val Rx Refclk</spirit:displayName>
-      <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.gt2_val_rx_refclk" spirit:choiceRef="choice_pairs_07eb33bf" spirit:order="28">REFCLK1_Q0</spirit:value>
+      <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.gt2_val_rx_refclk" spirit:choiceRef="choice_pairs_07eb33bf" spirit:order="28">REFCLK0_Q0</spirit:value>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>gt3_val</spirit:name>
@@ -4183,7 +4183,7 @@
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>gt0_val_no_tx</spirit:name>
-      <spirit:value spirit:format="bool" spirit:resolve="user" spirit:id="PARAM_VALUE.gt0_val_no_tx" spirit:order="242">true</spirit:value>
+      <spirit:value spirit:format="bool" spirit:resolve="user" spirit:id="PARAM_VALUE.gt0_val_no_tx" spirit:order="242">false</spirit:value>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>gt0_val_no_rx</spirit:name>
@@ -5055,7 +5055,7 @@
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>gt0_val_port_pll0pd</spirit:name>
-      <spirit:value spirit:format="bool" spirit:resolve="user" spirit:id="PARAM_VALUE.gt0_val_port_pll0pd" spirit:order="453">true</spirit:value>
+      <spirit:value spirit:format="bool" spirit:resolve="user" spirit:id="PARAM_VALUE.gt0_val_port_pll0pd" spirit:order="453">false</spirit:value>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>gt0_val_port_pll1pd</spirit:name>
@@ -5790,6 +5790,8 @@
         <xilinx:configElementInfo xilinx:referenceId="PARAM_VALUE.gt0_pll0_fbdiv_45" xilinx:valueSource="user"/>
         <xilinx:configElementInfo xilinx:referenceId="PARAM_VALUE.gt0_pll0_rxout_div" xilinx:valueSource="user"/>
         <xilinx:configElementInfo xilinx:referenceId="PARAM_VALUE.gt0_pll0_txout_div" xilinx:valueSource="user"/>
+        <xilinx:configElementInfo xilinx:referenceId="PARAM_VALUE.gt0_pll1_fbdiv" xilinx:valueSource="user"/>
+        <xilinx:configElementInfo xilinx:referenceId="PARAM_VALUE.gt0_pll1_fbdiv_45" xilinx:valueSource="user"/>
         <xilinx:configElementInfo xilinx:referenceId="PARAM_VALUE.gt0_pll1_rxout_div" xilinx:valueSource="user"/>
         <xilinx:configElementInfo xilinx:referenceId="PARAM_VALUE.gt0_pll1_txout_div" xilinx:valueSource="user"/>
         <xilinx:configElementInfo xilinx:referenceId="PARAM_VALUE.gt0_uselabtools" xilinx:valueSource="user"/>

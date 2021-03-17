@@ -65,7 +65,10 @@ component GTP_RX_Manager is
     GTP_PLL_REFCLKLOST_i    : in  std_logic;
      
     -- Control out
-    GTP_SOFT_RESET_RX_o     : out std_logic;     
+    GTP_SOFT_RESET_RX_o     : out std_logic;    
+    
+    -- Status
+    GTP_PLL_ALARM_o         : out std_logic; 
          
     -- Data out
     RX_DATA_o               : out std_logic_vector(RX_DATA_OUT_WIDTH_g-1 downto 0);
@@ -106,8 +109,8 @@ component GTP_TX_Manager is
     -- Bare Control ports
     CLK_i                   : in  std_logic;   -- Input clock - Fabric side
     RST_N_i                 : in  std_logic;   -- Asynchronous active low reset (clk clock)
-    EN1S_i                  : in  std_logic;   -- Enable @ 1 sec in clk domain 
-    
+    EN1S_i                  : in  std_logic;   -- Enable @ 100 us in clk domain 
+
     -- Control in
     AUTO_ALIGN_i            : in  std_logic;
     ALIGN_REQ_i             : in  std_logic;
@@ -207,6 +210,8 @@ signal tx_msg_rate_cnt      : std_logic_vector(7 downto 0);
 signal en100us_gck       : std_logic;
 signal en1ms_gck         : std_logic;
 
+signal gtp_pll_alarm     : std_logic;
+
 begin
 
 -- -- RESETs
@@ -275,6 +280,12 @@ begin
   wait for 10 us;
   gtp_pll_lock <= '0';
   
+  wait for 10 ns;
+  gtp_pll_lock <= '1';
+  
+  wait for 200 us;
+  gtp_pll_lock <= '0';
+  
   wait for 10 us;
   gtp_pll_lock <= '1';
   
@@ -295,6 +306,38 @@ begin
 
   wait for 204.8 us;
   gtp_pll_lock <= '1';
+  
+  wait for 500 us;
+  
+  wait for 10 us;
+  gtp_clk_lost <= '1';
+  
+  wait for 10 ns;
+  gtp_clk_lost <= '0';
+  
+  wait for 200 us;
+  gtp_clk_lost <= '1';
+  
+  wait for 10 us;
+  gtp_clk_lost <= '0';
+  
+  wait for 200 us;
+  gtp_clk_lost <= '1';
+
+  wait for 25.6 us;
+  gtp_clk_lost <= '0';
+
+  wait for 200 us;
+  gtp_clk_lost <= '1';
+
+  wait for 51.2 us;
+  gtp_clk_lost <= '0';
+  
+  wait for 200 us;
+  gtp_clk_lost <= '1';
+
+  wait for 204.8 us;
+  gtp_clk_lost <= '0';
   
   wait;
     
@@ -507,7 +550,10 @@ GTP_RX_Manager_i : GTP_RX_Manager
      
     -- Control out
     GTP_SOFT_RESET_RX_o     => gtp_soft_reset_rx,
-         
+    
+    -- Status
+    GTP_PLL_ALARM_o         => gtp_pll_alarm,
+    
     -- Data out
     RX_DATA_o               => gtp_rx_data,
     RX_DATA_SRC_RDY_o       => gtp_rx_data_src_rdy,

@@ -10,14 +10,21 @@
    </db_ref_list>
    <zoom_setting>
       <ZoomStartTime time="0fs"></ZoomStartTime>
-      <ZoomEndTime time="15561fs"></ZoomEndTime>
-      <Cursor1Time time="148000fs"></Cursor1Time>
+      <ZoomEndTime time="15761fs"></ZoomEndTime>
+      <Cursor1Time time="86000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
-      <NameColumnWidth column_width="255"></NameColumnWidth>
-      <ValueColumnWidth column_width="62"></ValueColumnWidth>
+      <NameColumnWidth column_width="239"></NameColumnWidth>
+      <ValueColumnWidth column_width="58"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="8" />
+   <WVObjectSize size="10" />
+   <wvobject fp_name="gtp_rx_data_src_rdy" type="logic">
+      <obj_property name="DisplayName">FullPathName</obj_property>
+      <obj_property name="ElementShortName">gtp_rx_data_src_rdy</obj_property>
+      <obj_property name="ObjectShortName">gtp_rx_data_src_rdy</obj_property>
+      <obj_property name="LABELRADIX">true</obj_property>
+      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
+   </wvobject>
    <wvobject fp_name="gtp_rx_data" type="array">
       <obj_property name="DisplayName">FullPathName</obj_property>
       <obj_property name="ElementShortName">gtp_rx_data[31:0]</obj_property>
@@ -31,6 +38,13 @@
       <obj_property name="ElementShortName">gtp_rx_data_p1[31:0]</obj_property>
       <obj_property name="ObjectShortName">gtp_rx_data_p1[31:0]</obj_property>
       <obj_property name="Radix">HEXRADIX</obj_property>
+      <obj_property name="LABELRADIX">true</obj_property>
+      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
+   </wvobject>
+   <wvobject fp_name="gtp_rx_msg_src_rdy" type="logic">
+      <obj_property name="DisplayName">FullPathName</obj_property>
+      <obj_property name="ElementShortName">gtp_rx_msg_src_rdy</obj_property>
+      <obj_property name="ObjectShortName">gtp_rx_msg_src_rdy</obj_property>
       <obj_property name="LABELRADIX">true</obj_property>
       <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
    </wvobject>
@@ -64,19 +78,17 @@
       <obj_property name="LABELRADIX">true</obj_property>
       <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
    </wvobject>
-   <wvobject fp_name="LEDS_o_OBUF" type="array">
+   <wvobject fp_name="gtp_rx_data_dst_rdy" type="logic">
       <obj_property name="DisplayName">FullPathName</obj_property>
-      <obj_property name="ElementShortName">LEDS_o_OBUF[4:3]</obj_property>
-      <obj_property name="ObjectShortName">LEDS_o_OBUF[4:3]</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
+      <obj_property name="ElementShortName">gtp_rx_data_dst_rdy</obj_property>
+      <obj_property name="ObjectShortName">gtp_rx_data_dst_rdy</obj_property>
       <obj_property name="LABELRADIX">true</obj_property>
       <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
    </wvobject>
-   <wvobject fp_name="LEDS_o_OBUF_1" type="array">
+   <wvobject fp_name="gtp_rx_msg_dst_rdy" type="logic">
       <obj_property name="DisplayName">FullPathName</obj_property>
-      <obj_property name="ElementShortName">LEDS_o_OBUF_1[2:2]</obj_property>
-      <obj_property name="ObjectShortName">LEDS_o_OBUF_1[2:2]</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
+      <obj_property name="ElementShortName">gtp_rx_msg_dst_rdy</obj_property>
+      <obj_property name="ObjectShortName">gtp_rx_msg_dst_rdy</obj_property>
       <obj_property name="LABELRADIX">true</obj_property>
       <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
    </wvobject>

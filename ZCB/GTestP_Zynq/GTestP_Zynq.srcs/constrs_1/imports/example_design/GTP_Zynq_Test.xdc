@@ -26,6 +26,9 @@ set_property PACKAGE_PIN V5 [get_ports REFCLK1_RX_N_i]
 set_property PACKAGE_PIN AB9 [get_ports RXN_i]
 set_property PACKAGE_PIN AA9 [get_ports RXP_i]
 
+set_property PACKAGE_PIN AB5 [get_ports TXN_o]
+set_property PACKAGE_PIN AA5 [get_ports TXP_o]
+
 ###################################################################################################
 
 ## -------------------------------------------------------------------------------
@@ -54,3 +57,4 @@ set_property -dict {PACKAGE_PIN C5 IOSTANDARD LVCMOS33} [get_ports {LEDS_o[0]}]
 
 set_property BITSTREAM.CONFIG.UNUSEDPIN PULLUP [current_design]
 
+connect_debug_port dbg_hub/clk [get_nets gckrx]

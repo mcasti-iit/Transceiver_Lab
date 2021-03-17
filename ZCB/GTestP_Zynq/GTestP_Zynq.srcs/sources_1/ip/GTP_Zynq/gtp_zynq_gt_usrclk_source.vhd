@@ -73,12 +73,15 @@ entity GTP_Zynq_GT_USRCLK_SOURCE is
 port
 (
  
+    GT0_TXUSRCLK_OUT             : out std_logic;
+    GT0_TXUSRCLK2_OUT            : out std_logic;
+    GT0_TXOUTCLK_IN              : in  std_logic;
     GT0_RXUSRCLK_OUT             : out std_logic;
     GT0_RXUSRCLK2_OUT            : out std_logic;
     GT0_RXOUTCLK_IN              : in  std_logic;
-    Q0_CLK1_GTREFCLK_PAD_N_IN               : in   std_logic;
-    Q0_CLK1_GTREFCLK_PAD_P_IN               : in   std_logic;
-    Q0_CLK1_GTREFCLK_OUT                    : out  std_logic
+    Q0_CLK0_GTREFCLK_PAD_N_IN               : in   std_logic;
+    Q0_CLK0_GTREFCLK_PAD_P_IN               : in   std_logic;
+    Q0_CLK0_GTREFCLK_OUT                    : out  std_logic
 );
 
 
@@ -120,9 +123,10 @@ end component;
     signal   gt0_rxoutclk_i :   std_logic;
 
     attribute syn_noclockbuf : boolean;
-    signal   q0_clk1_gtrefclk :   std_logic;
-    attribute syn_noclockbuf of q0_clk1_gtrefclk : signal is true;
+    signal   q0_clk0_gtrefclk :   std_logic;
+    attribute syn_noclockbuf of q0_clk0_gtrefclk : signal is true;
 
+    signal  gt0_txusrclk_i                  : std_logic;
     signal  gt0_rxusrclk_i                  : std_logic;
 
 
@@ -133,26 +137,35 @@ begin
     --  Static signal Assigments    
     tied_to_ground_i         <= '0';
     tied_to_vcc_i            <= '1';
+    gt0_txoutclk_i                               <= GT0_TXOUTCLK_IN;
     gt0_rxoutclk_i                               <= GT0_RXOUTCLK_IN;
 
-    Q0_CLK1_GTREFCLK_OUT                         <= q0_clk1_gtrefclk;
+    Q0_CLK0_GTREFCLK_OUT                         <= q0_clk0_gtrefclk;
 
     --IBUFDS_GTE2
-    ibufds_instq0_clk1 : IBUFDS_GTE2  
+    ibufds_instq0_clk0 : IBUFDS_GTE2  
     port map
     (
-        O               => 	q0_clk1_gtrefclk,
+        O               => 	q0_clk0_gtrefclk,
         ODIV2           =>    open,
         CEB             => 	tied_to_ground_i,
-        I               => 	Q0_CLK1_GTREFCLK_PAD_P_IN,
-        IB              => 	Q0_CLK1_GTREFCLK_PAD_N_IN
+        I               => 	Q0_CLK0_GTREFCLK_PAD_P_IN,
+        IB              => 	Q0_CLK0_GTREFCLK_PAD_N_IN
     );
 
 
     
     -- Instantiate a MMCM module to divide the reference clock. Uses internal feedback
     -- for improved jitter performance, and to avoid consuming an additional BUFG
-    rxoutclk_bufg0_i : BUFG
+    txoutclk_bufg0_i : BUFG
+    port map
+    (
+        I                               =>      gt0_txoutclk_i,
+        O                               =>      gt0_txusrclk_i
+    );
+
+
+    rxoutclk_bufg1_i : BUFG
     port map
     (
         I                               =>      gt0_rxoutclk_i,
@@ -162,6 +175,8 @@ begin
 
 
  
+GT0_TXUSRCLK_OUT                             <= gt0_txusrclk_i;
+GT0_TXUSRCLK2_OUT                            <= gt0_txusrclk_i;
 GT0_RXUSRCLK_OUT                             <= gt0_rxusrclk_i;
 GT0_RXUSRCLK2_OUT                            <= gt0_rxusrclk_i;
 end RTL;

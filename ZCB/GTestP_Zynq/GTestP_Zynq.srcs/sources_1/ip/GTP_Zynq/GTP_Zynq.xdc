@@ -91,13 +91,13 @@ set_false_path -to [get_cells -hierarchical -filter {NAME =~ *data_sync_reg1}]
 ####################### GT reference clock constraints #########################
  
 
-    #create_clock -period 8.0 [get_ports Q0_CLK1_GTREFCLK_PAD_P_IN]
+    #create_clock -period 8.0 [get_ports Q0_CLK0_GTREFCLK_PAD_P_IN]
 
 
 #create_clock -name GT0_GTREFCLK0_IN -period 8.0 [get_pins -hier -filter {name=~*common0_i*gtpe2_common_i*GTREFCLK0}] 
 
 ################################# RefClk Location constraints (Can be uncommented) ##################### 
-## set_property LOC V5 [get_ports  Q0_CLK1_GTREFCLK_PAD_N_IN ] 
-## set_property LOC U5 [get_ports  Q0_CLK1_GTREFCLK_PAD_P_IN ]
+## set_property LOC V9 [get_ports  Q0_CLK0_GTREFCLK_PAD_N_IN ] 
+## set_property LOC U9 [get_ports  Q0_CLK0_GTREFCLK_PAD_P_IN ]
 
 

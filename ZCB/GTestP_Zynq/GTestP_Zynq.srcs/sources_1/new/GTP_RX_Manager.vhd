@@ -55,7 +55,10 @@ entity GTP_RX_Manager is
     GTP_PLL_REFCLKLOST_i    : in  std_logic;
      
     -- Control out
-    GTP_SOFT_RESET_RX_o     : out std_logic;     
+    GTP_SOFT_RESET_RX_o     : out std_logic;    
+    
+    -- Status
+    GTP_PLL_ALARM_o         : out std_logic; 
          
     -- Data out
     RX_DATA_o               : out std_logic_vector(RX_DATA_OUT_WIDTH_g-1 downto 0);
@@ -507,21 +510,81 @@ end process;
 
 gtp_pll_fail <= (gtp_clk_lost or not gtp_pll_lock);
 
+--process(CLK_i, RST_N_i)
+--begin
+--  if (RST_N_i = '0') then 
+--    gtp_pll_alarm_cnt  <= "00";
+--    gtp_pll_alarm      <= '0';
+--  elsif rising_edge(CLK_i) then
+--    if (gtp_pll_alarm_cnt /= "00" ) then
+--      if (EN1S_i = '1') then
+--        gtp_pll_alarm_cnt <= gtp_pll_alarm_cnt - 1;
+--      end if;
+--    elsif (gtp_pll_fail = '1') then
+--      gtp_pll_alarm_cnt <= "11";      
+--    end if;
+    
+--    if (gtp_pll_alarm_cnt /= "00" or gtp_pll_fail = '1') then
+--      gtp_pll_alarm <= '1';
+--    else
+--      gtp_pll_alarm <= '0';
+--    end if;
+--  end if;
+--end process;
+
+--process(CLK_i, RST_N_i)
+--begin
+--  if (RST_N_i = '0') then 
+--    gtp_pll_alarm_cnt  <= "00";
+--    gtp_pll_alarm      <= '0';
+--  elsif rising_edge(CLK_i) then
+  
+--    if (gtp_clk_lost = '1') then
+--      gtp_pll_alarm_cnt <= "11";
+--    else 
+--      if (gtp_pll_alarm_cnt /= "00" ) then
+--        if (EN1S_i = '1') then
+--          gtp_pll_alarm_cnt <= gtp_pll_alarm_cnt - 1;
+--        end if;
+--      elsif (gtp_pll_lock = '0') then
+--        gtp_pll_alarm_cnt <= "11";      
+--      end if;
+--    end if;
+    
+--    if (gtp_pll_alarm_cnt /= "00" or gtp_pll_fail = '1') then
+--      gtp_pll_alarm <= '1';
+--    else
+--      gtp_pll_alarm <= '0';
+--    end if;
+    
+--  end if;
+--end process;
+
 process(CLK_i, RST_N_i)
 begin
   if (RST_N_i = '0') then 
     gtp_pll_alarm_cnt  <= "00";
+    gtp_pll_alarm      <= '0';
   elsif rising_edge(CLK_i) then
     if (gtp_pll_alarm_cnt /= "00" ) then
       if (EN1S_i = '1') then
-        gtp_pll_alarm_cnt <= gtp_pll_alarm_cnt - 1;
+        if (gtp_clk_lost = '1') then
+          gtp_pll_alarm_cnt <= "11";
+        else
+          gtp_pll_alarm_cnt <= gtp_pll_alarm_cnt - 1;
+        end if;
       end if;
     elsif (gtp_pll_fail = '1') then
       gtp_pll_alarm_cnt <= "11";      
     end if;
+   
+    if (gtp_pll_alarm_cnt /= "00" or gtp_pll_fail = '1') then
+      gtp_pll_alarm <= '1';
+    else
+      gtp_pll_alarm <= '0';
+    end if;
   end if;
 end process;
-
 
 process (CLK_i, RST_N_i)
 begin
@@ -556,5 +619,8 @@ ALIGN_REQ_o <= align_req;
   
 -- Reset
 GTP_SOFT_RESET_RX_o <= gtp_reset;
+
+-- Status
+GTP_PLL_ALARM_o <= gtp_pll_alarm;
 
 end Behavioral;

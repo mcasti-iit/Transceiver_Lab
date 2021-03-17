@@ -10,34 +10,26 @@
    </db_ref_list>
    <zoom_setting>
       <ZoomStartTime time="0fs"></ZoomStartTime>
-      <ZoomEndTime time="15521fs"></ZoomEndTime>
+      <ZoomEndTime time="15761fs"></ZoomEndTime>
       <Cursor1Time time="236000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
-      <NameColumnWidth column_width="255"></NameColumnWidth>
-      <ValueColumnWidth column_width="66"></ValueColumnWidth>
+      <NameColumnWidth column_width="239"></NameColumnWidth>
+      <ValueColumnWidth column_width="58"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="4" />
-   <wvobject fp_name="gtp_stream" type="array">
+   <WVObjectSize size="8" />
+   <wvobject fp_name="gtp_rx_stream" type="array">
       <obj_property name="DisplayName">FullPathName</obj_property>
-      <obj_property name="ElementShortName">gtp_stream[15:0]</obj_property>
-      <obj_property name="ObjectShortName">gtp_stream[15:0]</obj_property>
-      <obj_property name="Radix">BINARYRADIX</obj_property>
-      <obj_property name="LABELRADIX">true</obj_property>
-      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
-   </wvobject>
-   <wvobject fp_name="gtp_char_is_comma" type="array">
-      <obj_property name="DisplayName">FullPathName</obj_property>
-      <obj_property name="ElementShortName">gtp_char_is_comma[1:0]</obj_property>
-      <obj_property name="ObjectShortName">gtp_char_is_comma[1:0]</obj_property>
+      <obj_property name="ElementShortName">gtp_rx_stream[15:0]</obj_property>
+      <obj_property name="ObjectShortName">gtp_rx_stream[15:0]</obj_property>
       <obj_property name="Radix">HEXRADIX</obj_property>
       <obj_property name="LABELRADIX">true</obj_property>
       <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
    </wvobject>
-   <wvobject fp_name="gtp_char_is_k" type="array">
+   <wvobject fp_name="gtp_rx_char_is_k" type="array">
       <obj_property name="DisplayName">FullPathName</obj_property>
-      <obj_property name="ElementShortName">gtp_char_is_k[1:0]</obj_property>
-      <obj_property name="ObjectShortName">gtp_char_is_k[1:0]</obj_property>
+      <obj_property name="ElementShortName">gtp_rx_char_is_k[1:0]</obj_property>
+      <obj_property name="ObjectShortName">gtp_rx_char_is_k[1:0]</obj_property>
       <obj_property name="Radix">HEXRADIX</obj_property>
       <obj_property name="LABELRADIX">true</obj_property>
       <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
@@ -46,6 +38,42 @@
       <obj_property name="DisplayName">FullPathName</obj_property>
       <obj_property name="ElementShortName">gtp_realign</obj_property>
       <obj_property name="ObjectShortName">gtp_realign</obj_property>
+      <obj_property name="LABELRADIX">true</obj_property>
+      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
+   </wvobject>
+   <wvobject fp_name="gtp_is_aligned_1" type="logic">
+      <obj_property name="DisplayName">FullPathName</obj_property>
+      <obj_property name="ElementShortName">gtp_is_aligned_1</obj_property>
+      <obj_property name="ObjectShortName">gtp_is_aligned_1</obj_property>
+      <obj_property name="LABELRADIX">true</obj_property>
+      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
+   </wvobject>
+   <wvobject fp_name="gtp_rx_char_is_comma" type="array">
+      <obj_property name="DisplayName">FullPathName</obj_property>
+      <obj_property name="ElementShortName">gtp_rx_char_is_comma[1:0]</obj_property>
+      <obj_property name="ObjectShortName">gtp_rx_char_is_comma[1:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+      <obj_property name="LABELRADIX">true</obj_property>
+      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
+   </wvobject>
+   <wvobject fp_name="gtp_clk_lost_1" type="logic">
+      <obj_property name="DisplayName">FullPathName</obj_property>
+      <obj_property name="ElementShortName">gtp_clk_lost_1</obj_property>
+      <obj_property name="ObjectShortName">gtp_clk_lost_1</obj_property>
+      <obj_property name="LABELRADIX">true</obj_property>
+      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
+   </wvobject>
+   <wvobject fp_name="gtp_pll_lock_1" type="logic">
+      <obj_property name="DisplayName">FullPathName</obj_property>
+      <obj_property name="ElementShortName">gtp_pll_lock_1</obj_property>
+      <obj_property name="ObjectShortName">gtp_pll_lock_1</obj_property>
+      <obj_property name="LABELRADIX">true</obj_property>
+      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
+   </wvobject>
+   <wvobject fp_name="gtp_soft_reset_rx_1" type="logic">
+      <obj_property name="DisplayName">FullPathName</obj_property>
+      <obj_property name="ElementShortName">gtp_soft_reset_rx_1</obj_property>
+      <obj_property name="ObjectShortName">gtp_soft_reset_rx_1</obj_property>
       <obj_property name="LABELRADIX">true</obj_property>
       <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
    </wvobject>

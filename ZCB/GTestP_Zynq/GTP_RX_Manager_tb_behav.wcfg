@@ -11,15 +11,15 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="0fs"></ZoomStartTime>
-      <ZoomEndTime time="1146096100001fs"></ZoomEndTime>
-      <Cursor1Time time="1146096100000fs"></Cursor1Time>
+      <ZoomStartTime time="331354883334fs"></ZoomStartTime>
+      <ZoomEndTime time="3790889983334fs"></ZoomEndTime>
+      <Cursor1Time time="3214300800000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="255"></NameColumnWidth>
-      <ValueColumnWidth column_width="94"></ValueColumnWidth>
+      <ValueColumnWidth column_width="90"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="170" />
+   <WVObjectSize size="178" />
    <wave_markers>
       <marker time="51225000000" label="" />
    </wave_markers>
@@ -115,6 +115,34 @@
       <obj_property name="label">Reset RX GTP</obj_property>
       <obj_property name="DisplayName">label</obj_property>
    </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/EN1MS_i" type="logic">
+      <obj_property name="ElementShortName">EN1MS_i</obj_property>
+      <obj_property name="ObjectShortName">EN1MS_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/EN1S_i" type="logic">
+      <obj_property name="ElementShortName">EN1S_i</obj_property>
+      <obj_property name="ObjectShortName">EN1S_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/GTP_PLL_REFCLKLOST_i" type="logic">
+      <obj_property name="ElementShortName">GTP_PLL_REFCLKLOST_i</obj_property>
+      <obj_property name="ObjectShortName">GTP_PLL_REFCLKLOST_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/GTP_PLL_LOCK_i" type="logic">
+      <obj_property name="ElementShortName">GTP_PLL_LOCK_i</obj_property>
+      <obj_property name="ObjectShortName">GTP_PLL_LOCK_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/gtp_pll_fail" type="logic">
+      <obj_property name="ElementShortName">gtp_pll_fail</obj_property>
+      <obj_property name="ObjectShortName">gtp_pll_fail</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/gtp_pll_alarm_cnt" type="array">
+      <obj_property name="ElementShortName">gtp_pll_alarm_cnt[1:0]</obj_property>
+      <obj_property name="ObjectShortName">gtp_pll_alarm_cnt[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/gtp_pll_alarm" type="logic">
+      <obj_property name="ElementShortName">gtp_pll_alarm</obj_property>
+      <obj_property name="ObjectShortName">gtp_pll_alarm</obj_property>
+   </wvobject>
    <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/gtp_reset_cnt" type="array">
       <obj_property name="ElementShortName">gtp_reset_cnt[3:0]</obj_property>
       <obj_property name="ObjectShortName">gtp_reset_cnt[3:0]</obj_property>
@@ -122,6 +150,10 @@
    <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/gtp_reset" type="logic">
       <obj_property name="ElementShortName">gtp_reset</obj_property>
       <obj_property name="ObjectShortName">gtp_reset</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/GTP_PLL_ALARM_o" type="logic">
+      <obj_property name="ElementShortName">GTP_PLL_ALARM_o</obj_property>
+      <obj_property name="ObjectShortName">GTP_PLL_ALARM_o</obj_property>
    </wvobject>
    <wvobject type="divider" fp_name="divider202">
       <obj_property name="label">Reset TX GTP</obj_property>

@@ -75,11 +75,14 @@ port (
 );
 end component  ;
 
-component ila_1
+COMPONENT ila_1
+
 port (
-	clk    : in std_logic;
-	probe0 : in std_logic_vector(31 downto 0);
-	probe1 : in std_logic_vector(15 downto 0)
+	clk : in std_logic;
+	probe0 : in std_logic_vector(31 downto 0); 
+	probe1 : in std_logic_vector(1 downto 0); 
+	probe2 : in std_logic_vector(7 downto 0); 
+	probe3 : in std_logic_vector(1 downto 0)
 );
 end component  ;
 
@@ -326,7 +329,9 @@ signal    ila_gtp_probe1       : std_logic_vector(15 downto 0);
 -- signal    ila_gtp_probe2       : std_logic_vector(31 downto 0);
 
 signal    ila_fpga_probe0       : std_logic_vector(31 downto 0);
-signal    ila_fpga_probe1       : std_logic_vector(15 downto 0);
+signal    ila_fpga_probe1       : std_logic_vector(31 downto 0);
+signal    ila_fpga_probe2       : std_logic_vector(31 downto 0);
+signal    ila_fpga_probe3       : std_logic_vector(31 downto 0);
 -- signal    ila_fpga_probe2       : std_logic_vector(31 downto 0);
 
 -- -------------------------------------------------------------------------------------
@@ -605,7 +610,7 @@ begin
   elsif rising_edge(gcktx) then
     align_req_n_meta  <= ALIGN_REQ_N_i;
     align_req_n_sync  <= align_req_n_meta;
-    align_req         <= align_req_n_sync;
+    align_req         <= align_req_n_sync or gtp_probe_out0(0);
   end if;
 end process;
 
@@ -735,16 +740,20 @@ VIO_GTP : vio_0
 -- -----------------------------------------------------------------------------
 -- ILAs
 
-ila_fpga_probe0 <= tx_data;
-ila_fpga_probe1 <= "00000000000000" & tx_data_dst_rdy & tx_data_src_rdy; 
+-- ila_fpga_probe0 <= tx_data;
+-- ila_fpga_probe1 <= "00000000000000" & tx_data_dst_rdy & tx_data_src_rdy; 
+
+ila_fpga_probe1 (1 downto 0) <= (tx_data_dst_rdy & tx_data_src_rdy);
+ila_fpga_probe3 (1 downto 0) <= (tx_msg_dst_rdy & tx_msg_src_rdy);
 
 ILA_FPGA_i : ila_1
 PORT MAP (
-	clk      => clk_100,
-	probe0   => ila_fpga_probe0,
-	probe1   => ila_fpga_probe1
-);
-
+	clk => clk_100,
+	probe0 => tx_data, 
+	probe1 => ila_fpga_probe1(1 downto 0), 
+	probe2 => tx_msg, 
+	probe3 => ila_fpga_probe3(1 downto 0)
+  );
 
 ila_gtp_probe0 <= gtp_tx_stream;
 ila_gtp_probe1 <= "00000000000" & align_flag & gtp_tx_char_is_k & align_req & rst_n_gck;

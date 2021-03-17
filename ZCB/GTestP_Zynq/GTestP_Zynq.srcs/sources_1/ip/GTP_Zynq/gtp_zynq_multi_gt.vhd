@@ -85,6 +85,7 @@ port
     --____________________________CHANNEL PORTS________________________________
     GT0_DRP_BUSY_OUT                        : out  std_logic; 
  GT0_RXPMARESETDONE_OUT  : out  std_logic;
+ GT0_TXPMARESETDONE_OUT  : out  std_logic;
 
     ---------------------------- Channel - DRP Ports  --------------------------
     gt0_drpaddr_in                          : in   std_logic_vector(8 downto 0);
@@ -130,6 +131,20 @@ port
     gt0_rxresetdone_out                     : out  std_logic;
     --------------------- TX Initialization and Reset Ports --------------------
     gt0_gttxreset_in                        : in   std_logic;
+    gt0_txuserrdy_in                        : in   std_logic;
+    ------------------ Transmit Ports - FPGA TX Interface Ports ----------------
+    gt0_txdata_in                           : in   std_logic_vector(15 downto 0);
+    gt0_txusrclk_in                         : in   std_logic;
+    gt0_txusrclk2_in                        : in   std_logic;
+    --------------- Transmit Ports - TX Configurable Driver Ports --------------
+    gt0_gtptxn_out                          : out  std_logic;
+    gt0_gtptxp_out                          : out  std_logic;
+    ----------- Transmit Ports - TX Fabric Clock Output Control Ports ----------
+    gt0_txoutclk_out                        : out  std_logic;
+    gt0_txoutclkfabric_out                  : out  std_logic;
+    gt0_txoutclkpcs_out                     : out  std_logic;
+    ------------- Transmit Ports - TX Initialization and Reset Ports -----------
+    gt0_txresetdone_out                     : out  std_logic;
 
 
     --____________________________COMMON PORTS________________________________
@@ -195,6 +210,7 @@ port
     RST_IN                                  : in   std_logic;
     DRP_BUSY_OUT                            : out  std_logic;
  RXPMARESETDONE  : out  std_logic;
+ TXPMARESETDONE  : out  std_logic;
 
     ---------------------------- Channel - DRP Ports  --------------------------
     drpaddr_in                              : in   std_logic_vector(8 downto 0);
@@ -244,7 +260,21 @@ port
     -------------- Receive Ports -RX Initialization and Reset Ports ------------
     rxresetdone_out                         : out  std_logic;
     --------------------- TX Initialization and Reset Ports --------------------
-    gttxreset_in                            : in   std_logic
+    gttxreset_in                            : in   std_logic;
+    txuserrdy_in                            : in   std_logic;
+    ------------------ Transmit Ports - FPGA TX Interface Ports ----------------
+    txdata_in                               : in   std_logic_vector(15 downto 0);
+    txusrclk_in                             : in   std_logic;
+    txusrclk2_in                            : in   std_logic;
+    --------------- Transmit Ports - TX Configurable Driver Ports --------------
+    gtptxn_out                              : out  std_logic;
+    gtptxp_out                              : out  std_logic;
+    ----------- Transmit Ports - TX Fabric Clock Output Control Ports ----------
+    txoutclk_out                            : out  std_logic;
+    txoutclkfabric_out                      : out  std_logic;
+    txoutclkpcs_out                         : out  std_logic;
+    ------------- Transmit Ports - TX Initialization and Reset Ports -----------
+    txresetdone_out                         : out  std_logic
 
 
 );
@@ -290,6 +320,7 @@ gt0_GTP_Zynq_i : GTP_Zynq_GT
         RST_IN                          =>      gt0_rst_i,
         DRP_BUSY_OUT                    =>      GT0_DRP_BUSY_OUT,
         RXPMARESETDONE                  =>      GT0_RXPMARESETDONE_OUT,
+        TXPMARESETDONE                  =>      GT0_TXPMARESETDONE_OUT,
         ---------------------------- Channel - DRP Ports  --------------------------
         drpaddr_in                      =>      gt0_drpaddr_in,
         drpclk_in                       =>      gt0_drpclk_in,
@@ -338,7 +369,21 @@ gt0_GTP_Zynq_i : GTP_Zynq_GT
         -------------- Receive Ports -RX Initialization and Reset Ports ------------
         rxresetdone_out                 =>      gt0_rxresetdone_out,
         --------------------- TX Initialization and Reset Ports --------------------
-        gttxreset_in                    =>      gt0_gttxreset_in
+        gttxreset_in                    =>      gt0_gttxreset_in,
+        txuserrdy_in                    =>      gt0_txuserrdy_in,
+        ------------------ Transmit Ports - FPGA TX Interface Ports ----------------
+        txdata_in                       =>      gt0_txdata_in,
+        txusrclk_in                     =>      gt0_txusrclk_in,
+        txusrclk2_in                    =>      gt0_txusrclk2_in,
+        --------------- Transmit Ports - TX Configurable Driver Ports --------------
+        gtptxn_out                      =>      gt0_gtptxn_out,
+        gtptxp_out                      =>      gt0_gtptxp_out,
+        ----------- Transmit Ports - TX Fabric Clock Output Control Ports ----------
+        txoutclk_out                    =>      gt0_txoutclk_out,
+        txoutclkfabric_out              =>      gt0_txoutclkfabric_out,
+        txoutclkpcs_out                 =>      gt0_txoutclkpcs_out,
+        ------------- Transmit Ports - TX Initialization and Reset Ports -----------
+        txresetdone_out                 =>      gt0_txresetdone_out
 
     );
 

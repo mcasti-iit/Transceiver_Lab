@@ -646,14 +646,14 @@ process(STABLE_CLOCK)
             --case the transceiver never comes up for some reason, this machine 
             --will still continue its best and rerun until the FPGA is turned off
             --or the transceivers come up correctly.
-             if RX_PLL0_USED then
+             if RX_PLL0_USED and not TX_PLL0_USED then
               if (pll_reset_asserted = '0' and refclk_lost = '0')   then
                 PLL0_RESET          <= '1';
                 pll_reset_asserted  <= '1';
               else
                 PLL0_RESET          <= '0';
               end if;
-            else
+            elsif not RX_PLL0_USED and TX_PLL0_USED then
               if (pll_reset_asserted = '0' and refclk_lost = '0')   then
                 PLL1_RESET <= '1';
                 pll_reset_asserted  <= '1';
@@ -662,7 +662,6 @@ process(STABLE_CLOCK)
               end if;  
             end if;
 
-
             RXUSERRDY               <= '0';
             gtrxreset_i               <= '1';
             mmcm_reset_i              <= '1';
@@ -670,8 +669,10 @@ process(STABLE_CLOCK)
             RESET_PHALIGNMENT       <= '1';
             check_tlock_max         <= '0';
             recclk_mon_count_reset  <= '1';
-            if (RX_PLL0_USED  and (pll0lock_sync = '0') and pll_reset_asserted = '1' ) or
-               (not RX_PLL0_USED  and (pll1lock_sync = '0') and pll_reset_asserted = '1' ) then
+            if (RX_PLL0_USED     and not TX_PLL0_USED  and (pll0lock_sync = '0') and pll_reset_asserted = '1' ) or
+               (not RX_PLL0_USED and TX_PLL0_USED  and (pll1lock_sync = '0') and pll_reset_asserted = '1' ) or
+               (RX_PLL0_USED     and TX_PLL0_USED ) or
+               (not RX_PLL0_USED  and not TX_PLL0_USED ) then
               rx_state  <= WAIT_FOR_PLL_LOCK;
               reset_time_out          <= '1';
             end if;           

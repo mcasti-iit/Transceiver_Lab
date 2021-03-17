@@ -83,6 +83,7 @@ port
   RST_IN         : in   std_logic;          -- Connect to System Reset
   DRP_BUSY_OUT   : out  std_logic;          -- Indicates that the DRP bus is not accessible to the User
   RXPMARESETDONE : out  std_logic;          
+  TXPMARESETDONE : out  std_logic;          
     ---------------------------- Channel - DRP Ports  --------------------------
     drpaddr_in                              : in   std_logic_vector(8 downto 0);
     drpclk_in                               : in   std_logic;
@@ -131,7 +132,21 @@ port
     -------------- Receive Ports -RX Initialization and Reset Ports ------------
     rxresetdone_out                         : out  std_logic;
     --------------------- TX Initialization and Reset Ports --------------------
-    gttxreset_in                            : in   std_logic
+    gttxreset_in                            : in   std_logic;
+    txuserrdy_in                            : in   std_logic;
+    ------------------ Transmit Ports - FPGA TX Interface Ports ----------------
+    txdata_in                               : in   std_logic_vector(15 downto 0);
+    txusrclk_in                             : in   std_logic;
+    txusrclk2_in                            : in   std_logic;
+    --------------- Transmit Ports - TX Configurable Driver Ports --------------
+    gtptxn_out                              : out  std_logic;
+    gtptxp_out                              : out  std_logic;
+    ----------- Transmit Ports - TX Fabric Clock Output Control Ports ----------
+    txoutclk_out                            : out  std_logic;
+    txoutclkfabric_out                      : out  std_logic;
+    txoutclkpcs_out                         : out  std_logic;
+    ------------- Transmit Ports - TX Initialization and Reset Ports -----------
+    txresetdone_out                         : out  std_logic
 
 
 );
@@ -219,6 +234,7 @@ end component;
     signal  tied_to_vcc_i                   :   std_logic;
 
 
+    signal    txpmaresetdone_t                : std_logic;
     signal    rxpmaresetdone_t                : std_logic;
     signal    gtrxreset_out                   : std_logic;
     signal    rxpmareset_out                  : std_logic;
@@ -262,6 +278,11 @@ end component;
     signal rxnotintable_float_i             :   std_logic_vector(1 downto 0);
     signal rxrundisp_float_i                :   std_logic_vector(1 downto 0);
 
+
+    -- TX Datapath signals
+    signal txdata_i                         :   std_logic_vector(31 downto 0);
+    signal txkerr_float_i                   :   std_logic_vector(1 downto 0);
+    signal txrundisp_float_i                :   std_logic_vector(1 downto 0);
     signal rxdatavalid_float_i              :   std_logic;
        
 --******************************** Main Body of Code***************************
@@ -274,9 +295,13 @@ begin
     tied_to_ground_vec_i(63 downto 0)   <= (others => '0');
     tied_to_vcc_i                       <= '1';
     RXPMARESETDONE <=rxpmaresetdone_t;
+    TXPMARESETDONE <=txpmaresetdone_t;
 
     -------------------  GT Datapath byte mapping  -----------------
     RXDATA_OUT    <=   rxdata_i(15 downto 0);
+
+    --The GT serializes the rightmost parallel bit (LSb) first
+    txdata_i <=   (tied_to_ground_vec_i(15 downto 0) & TXDATA_IN); 
 
 
 
@@ -632,7 +657,7 @@ begin
         DRPWE                           =>      drpwe_i,
         ------------------------------- Clocking Ports -----------------------------
         RXSYSCLKSEL                     =>      "00",
-        TXSYSCLKSEL                     =>      "11",
+        TXSYSCLKSEL                     =>      "00",
         ----------------- FPGA TX Interface Datapath Configuration  ----------------
         TX8B10BEN                       =>      tied_to_ground_i,
         ------------------------ GTPE2_CHANNEL Clocking Ports ----------------------
@@ -651,7 +676,7 @@ begin
         PMARSVDIN4                      =>      '0',
         ------------------------------ Power-Down Ports ----------------------------
         RXPD                            =>      "00",
-        TXPD                            =>      "11",
+        TXPD                            =>      "00",
         -------------------------- RX 8B/10B Decoder Ports -------------------------
         SETERRSTATUS                    =>      tied_to_ground_i,
         --------------------- RX Initialization and Reset Ports --------------------
@@ -820,27 +845,27 @@ begin
         CFGRESET                        =>      tied_to_ground_i,
         GTTXRESET                       =>      gttxreset_in,
         PCSRSVDOUT                      =>      open,
-        TXUSERRDY                       =>      tied_to_ground_i,
+        TXUSERRDY                       =>      txuserrdy_in,
         ----------------- TX Phase Interpolator PPM Controller Ports ---------------
         TXPIPPMEN                       =>      tied_to_ground_i,
         TXPIPPMOVRDEN                   =>      tied_to_ground_i,
-        TXPIPPMPD                       =>      tied_to_vcc_i,
-        TXPIPPMSEL                      =>      tied_to_ground_i,
+        TXPIPPMPD                       =>      tied_to_ground_i,
+        TXPIPPMSEL                      =>      tied_to_vcc_i,
         TXPIPPMSTEPSIZE                 =>      tied_to_ground_vec_i(4 downto 0),
         ---------------------- Transceiver Reset Mode Operation --------------------
         GTRESETSEL                      =>      tied_to_ground_i,
         RESETOVRD                       =>      tied_to_ground_i,
         ------------------------------- Transmit Ports -----------------------------
-        TXPMARESETDONE                  =>      open,
+        TXPMARESETDONE                  =>      txpmaresetdone_t,
         ----------------- Transmit Ports - Configurable Driver Ports ---------------
         PMARSVDIN0                      =>      '0',
         PMARSVDIN1                      =>      '0',
         ------------------ Transmit Ports - FPGA TX Interface Ports ----------------
-        TXDATA                          =>      tied_to_ground_vec_i(31 downto 0),
-        TXUSRCLK                        =>      tied_to_ground_i,
-        TXUSRCLK2                       =>      tied_to_ground_i,
+        TXDATA                          =>      txdata_i,
+        TXUSRCLK                        =>      txusrclk_in,
+        TXUSRCLK2                       =>      txusrclk2_in,
         --------------------- Transmit Ports - PCI Express Ports -------------------
-        TXELECIDLE                      =>      tied_to_vcc_i,
+        TXELECIDLE                      =>      tied_to_ground_i,
         TXMARGIN                        =>      tied_to_ground_vec_i(2 downto 0),
         TXRATE                          =>      tied_to_ground_vec_i(2 downto 0),
         TXSWING                         =>      tied_to_ground_i,
@@ -862,7 +887,7 @@ begin
         TXPHALIGN                       =>      tied_to_ground_i,
         TXPHALIGNDONE                   =>      open,
         TXPHALIGNEN                     =>      tied_to_ground_i,
-        TXPHDLYPD                       =>      tied_to_vcc_i,
+        TXPHDLYPD                       =>      tied_to_ground_i,
         TXPHDLYRESET                    =>      tied_to_ground_i,
         TXPHINIT                        =>      tied_to_ground_i,
         TXPHINITDONE                    =>      open,
@@ -876,19 +901,19 @@ begin
         TXSYNCMODE                      =>      tied_to_ground_i,
         TXSYNCOUT                       =>      open,
         --------------- Transmit Ports - TX Configurable Driver Ports --------------
-        GTPTXN                          =>      open,
-        GTPTXP                          =>      open,
+        GTPTXN                          =>      gtptxn_out,
+        GTPTXP                          =>      gtptxp_out,
         TXBUFDIFFCTRL                   =>      "100",
         TXDEEMPH                        =>      tied_to_ground_i,
         TXDIFFCTRL                      =>      "1000",
-        TXDIFFPD                        =>      tied_to_vcc_i,
+        TXDIFFPD                        =>      tied_to_ground_i,
         TXINHIBIT                       =>      tied_to_ground_i,
         TXMAINCURSOR                    =>      "0000000",
-        TXPISOPD                        =>      tied_to_vcc_i,
+        TXPISOPD                        =>      tied_to_ground_i,
         ----------- Transmit Ports - TX Fabric Clock Output Control Ports ----------
-        TXOUTCLK                        =>      open,
-        TXOUTCLKFABRIC                  =>      open,
-        TXOUTCLKPCS                     =>      open,
+        TXOUTCLK                        =>      txoutclk_out,
+        TXOUTCLKFABRIC                  =>      txoutclkfabric_out,
+        TXOUTCLKPCS                     =>      txoutclkpcs_out,
         TXOUTCLKSEL                     =>      "010",
         TXRATEDONE                      =>      open,
         --------------------- Transmit Ports - TX Gearbox Ports --------------------
@@ -899,13 +924,13 @@ begin
         ------------- Transmit Ports - TX Initialization and Reset Ports -----------
         TXPCSRESET                      =>      tied_to_ground_i,
         TXPMARESET                      =>      tied_to_ground_i,
-        TXRESETDONE                     =>      open,
+        TXRESETDONE                     =>      txresetdone_out,
         ------------------ Transmit Ports - TX OOB signalling Ports ----------------
         TXCOMFINISH                     =>      open,
         TXCOMINIT                       =>      tied_to_ground_i,
         TXCOMSAS                        =>      tied_to_ground_i,
         TXCOMWAKE                       =>      tied_to_ground_i,
-        TXPDELECIDLEMODE                =>      tied_to_vcc_i,
+        TXPDELECIDLEMODE                =>      tied_to_ground_i,
         ----------------- Transmit Ports - TX Polarity Control Ports ---------------
         TXPOLARITY                      =>      tied_to_ground_i,
         --------------- Transmit Ports - TX Receiver Detection Ports  --------------
