@@ -3,11 +3,15 @@
 -- Provides clock enables to FPGA fabric
 -- ------------------------------------------
 -- File        : time_machine.vhd
--- Revision    : 1.0
+-- Revision    : 1.2
 -- Author      : M. Casti
--- Date        : 15/02/2021
+-- Date        : 19/03/2021
 -- ==============================================================================
 -- HISTORY (main changes) :
+--
+-- Revision 1.2:  19/03/2021 - M. Casti
+-- - Output Reset RST_o fixed
+-- - Added ASYNC attribute to reset synchronizers
 --
 -- Revision 1.1:  15/02/2021 - M. Casti
 -- - Output Reset
@@ -66,6 +70,8 @@ end time_machine;
 
 architecture Behavioral of time_machine is
 
+attribute ASYNC_REG : string;
+
 -- Internal signals
 
 -- -------------------------------------------------------------------------------------------------------------------------
@@ -81,12 +87,15 @@ begin
 end function;
 
 constant CLR_POL_c    : std_logic := clr_pol(CLEAR_POLARITY_g); 
-signal pp_rst_n       : std_logic := '0';
-signal p_rst_n        : std_logic := '0';
-signal rst_n          : std_logic := '0';
-signal pp_rst         : std_logic := '1';
-signal p_rst          : std_logic := '1';
-signal rst            : std_logic := '1';
+
+signal pp_rst_n, p_rst_n, rst_n : std_logic := '0';
+attribute ASYNC_REG of pp_rst_n : signal is "TRUE";
+attribute ASYNC_REG of p_rst_n  : signal is "TRUE";
+attribute ASYNC_REG of rst_n    : signal is "TRUE";
+signal pp_rst, p_rst, rst       : std_logic := '1';
+attribute ASYNC_REG of pp_rst   : signal is "TRUE";
+attribute ASYNC_REG of p_rst    : signal is "TRUE";
+attribute ASYNC_REG of rst      : signal is "TRUE";
 
 -- Power On Reset
 signal pon_reset_cnt  : std_logic_vector(7 downto 0);
@@ -193,8 +202,8 @@ begin
     rst       <= '1';
   elsif rising_edge(CLK_i) then
     pp_rst   <= '0';
-    p_rst    <= pp_rst_n;
-    rst      <= p_rst_n;
+    p_rst    <= pp_rst;
+    rst      <= p_rst;
   end if;
 end process;  
 

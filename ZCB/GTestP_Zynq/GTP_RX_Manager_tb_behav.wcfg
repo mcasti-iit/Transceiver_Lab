@@ -11,25 +11,21 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="331354883334fs"></ZoomStartTime>
-      <ZoomEndTime time="3790889983334fs"></ZoomEndTime>
-      <Cursor1Time time="3214300800000fs"></Cursor1Time>
+      <ZoomStartTime time="0fs"></ZoomStartTime>
+      <ZoomEndTime time="369219200001fs"></ZoomEndTime>
+      <Cursor1Time time="1000000000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="255"></NameColumnWidth>
-      <ValueColumnWidth column_width="90"></ValueColumnWidth>
+      <ValueColumnWidth column_width="86"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="178" />
+   <WVObjectSize size="301" />
    <wave_markers>
-      <marker time="51225000000" label="" />
+      <marker time="157602435000" label="" />
    </wave_markers>
    <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/CLK_i" type="logic">
       <obj_property name="ElementShortName">CLK_i</obj_property>
       <obj_property name="ObjectShortName">CLK_i</obj_property>
-   </wvobject>
-   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/GCK_i" type="logic">
-      <obj_property name="ElementShortName">GCK_i</obj_property>
-      <obj_property name="ObjectShortName">GCK_i</obj_property>
    </wvobject>
    <wvobject fp_name="/GTP_RX_Manager_tb/tx_data_rate_cnt" type="array">
       <obj_property name="ElementShortName">tx_data_rate_cnt[7:0]</obj_property>
@@ -79,26 +75,6 @@
       <obj_property name="ElementShortName">idle_flag</obj_property>
       <obj_property name="ObjectShortName">idle_flag</obj_property>
    </wvobject>
-   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/idle_head_exp" type="logic">
-      <obj_property name="ElementShortName">idle_head_exp</obj_property>
-      <obj_property name="ObjectShortName">idle_head_exp</obj_property>
-   </wvobject>
-   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/idle_head_flag" type="logic">
-      <obj_property name="ElementShortName">idle_head_flag</obj_property>
-      <obj_property name="ObjectShortName">idle_head_flag</obj_property>
-      <obj_property name="CustomSignalColor">#808000</obj_property>
-      <obj_property name="UseCustomSignalColor">true</obj_property>
-   </wvobject>
-   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/idle_tail_exp" type="logic">
-      <obj_property name="ElementShortName">idle_tail_exp</obj_property>
-      <obj_property name="ObjectShortName">idle_tail_exp</obj_property>
-   </wvobject>
-   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/idle_tail_flag" type="logic">
-      <obj_property name="ElementShortName">idle_tail_flag</obj_property>
-      <obj_property name="ObjectShortName">idle_tail_flag</obj_property>
-      <obj_property name="CustomSignalColor">#808000</obj_property>
-      <obj_property name="UseCustomSignalColor">true</obj_property>
-   </wvobject>
    <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/gtp_align_flag" type="logic">
       <obj_property name="ElementShortName">gtp_align_flag</obj_property>
       <obj_property name="ObjectShortName">gtp_align_flag</obj_property>
@@ -115,21 +91,9 @@
       <obj_property name="label">Reset RX GTP</obj_property>
       <obj_property name="DisplayName">label</obj_property>
    </wvobject>
-   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/EN1MS_i" type="logic">
-      <obj_property name="ElementShortName">EN1MS_i</obj_property>
-      <obj_property name="ObjectShortName">EN1MS_i</obj_property>
-   </wvobject>
    <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/EN1S_i" type="logic">
       <obj_property name="ElementShortName">EN1S_i</obj_property>
       <obj_property name="ObjectShortName">EN1S_i</obj_property>
-   </wvobject>
-   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/GTP_PLL_REFCLKLOST_i" type="logic">
-      <obj_property name="ElementShortName">GTP_PLL_REFCLKLOST_i</obj_property>
-      <obj_property name="ObjectShortName">GTP_PLL_REFCLKLOST_i</obj_property>
-   </wvobject>
-   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/GTP_PLL_LOCK_i" type="logic">
-      <obj_property name="ElementShortName">GTP_PLL_LOCK_i</obj_property>
-      <obj_property name="ObjectShortName">GTP_PLL_LOCK_i</obj_property>
    </wvobject>
    <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/gtp_pll_fail" type="logic">
       <obj_property name="ElementShortName">gtp_pll_fail</obj_property>
@@ -223,10 +187,6 @@
       <obj_property name="ElementShortName">EN1S_i</obj_property>
       <obj_property name="ObjectShortName">EN1S_i</obj_property>
    </wvobject>
-   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/GTP_PLL_LOCK_i" type="logic">
-      <obj_property name="ElementShortName">GTP_PLL_LOCK_i</obj_property>
-      <obj_property name="ObjectShortName">GTP_PLL_LOCK_i</obj_property>
-   </wvobject>
    <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/gtp_pll_fail" type="logic">
       <obj_property name="ElementShortName">gtp_pll_fail</obj_property>
       <obj_property name="ObjectShortName">gtp_pll_fail</obj_property>
@@ -246,10 +206,6 @@
    <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/gtp_reset" type="logic">
       <obj_property name="ElementShortName">gtp_reset</obj_property>
       <obj_property name="ObjectShortName">gtp_reset</obj_property>
-   </wvobject>
-   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/GTP_SOFT_RESET_RX_o" type="logic">
-      <obj_property name="ElementShortName">GTP_SOFT_RESET_RX_o</obj_property>
-      <obj_property name="ObjectShortName">GTP_SOFT_RESET_RX_o</obj_property>
    </wvobject>
    <wvobject type="divider" fp_name="divider142">
       <obj_property name="label">Rate counters</obj_property>
@@ -274,10 +230,6 @@
    <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/idle_flag" type="logic">
       <obj_property name="ElementShortName">idle_flag</obj_property>
       <obj_property name="ObjectShortName">idle_flag</obj_property>
-   </wvobject>
-   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/EN1MS_i" type="logic">
-      <obj_property name="ElementShortName">EN1MS_i</obj_property>
-      <obj_property name="ObjectShortName">EN1MS_i</obj_property>
    </wvobject>
    <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/data_cnt" type="array">
       <obj_property name="ElementShortName">data_cnt[15:0]</obj_property>
@@ -351,33 +303,245 @@
       <obj_property name="ElementShortName">ALIGN_REQ_i</obj_property>
       <obj_property name="ObjectShortName">ALIGN_REQ_i</obj_property>
    </wvobject>
-   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/GTP_STREAM_IN_i" type="array">
-      <obj_property name="ElementShortName">GTP_STREAM_IN_i[15:0]</obj_property>
-      <obj_property name="ObjectShortName">GTP_STREAM_IN_i[15:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/GTP_CHAR_IS_K_i" type="array">
-      <obj_property name="ElementShortName">GTP_CHAR_IS_K_i[1:0]</obj_property>
-      <obj_property name="ObjectShortName">GTP_CHAR_IS_K_i[1:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/GCK_i" type="logic">
-      <obj_property name="ElementShortName">GCK_i</obj_property>
-      <obj_property name="ObjectShortName">GCK_i</obj_property>
-   </wvobject>
    <wvobject type="divider" fp_name="divider199">
-      <obj_property name="label">Mug</obj_property>
+      <obj_property name="label">Mug RX</obj_property>
       <obj_property name="DisplayName">label</obj_property>
    </wvobject>
-   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/GCK_i" type="logic">
-      <obj_property name="ElementShortName">GCK_i</obj_property>
-      <obj_property name="ObjectShortName">GCK_i</obj_property>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/CLK_i" type="logic">
+      <obj_property name="ElementShortName">CLK_i</obj_property>
+      <obj_property name="ObjectShortName">CLK_i</obj_property>
    </wvobject>
-   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/GTP_IS_ALIGNED_i" type="logic">
-      <obj_property name="ElementShortName">GTP_IS_ALIGNED_i</obj_property>
-      <obj_property name="ObjectShortName">GTP_IS_ALIGNED_i</obj_property>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/RST_N_i" type="logic">
+      <obj_property name="ElementShortName">RST_N_i</obj_property>
+      <obj_property name="ObjectShortName">RST_N_i</obj_property>
    </wvobject>
-   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/ALIGN_REQ_o" type="logic">
-      <obj_property name="ElementShortName">ALIGN_REQ_o</obj_property>
-      <obj_property name="ObjectShortName">ALIGN_REQ_o</obj_property>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/EN1S_i" type="logic">
+      <obj_property name="ElementShortName">EN1S_i</obj_property>
+      <obj_property name="ObjectShortName">EN1S_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/GTP_PLL_ALARM_o" type="logic">
+      <obj_property name="ElementShortName">GTP_PLL_ALARM_o</obj_property>
+      <obj_property name="ObjectShortName">GTP_PLL_ALARM_o</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/ALIGN_REQUEST_o" type="logic">
+      <obj_property name="ElementShortName">ALIGN_REQUEST_o</obj_property>
+      <obj_property name="ObjectShortName">ALIGN_REQUEST_o</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/RX_DATA_o" type="array">
+      <obj_property name="ElementShortName">RX_DATA_o[31:0]</obj_property>
+      <obj_property name="ObjectShortName">RX_DATA_o[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/RX_DATA_SRC_RDY_o" type="logic">
+      <obj_property name="ElementShortName">RX_DATA_SRC_RDY_o</obj_property>
+      <obj_property name="ObjectShortName">RX_DATA_SRC_RDY_o</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/RX_DATA_DST_RDY_i" type="logic">
+      <obj_property name="ElementShortName">RX_DATA_DST_RDY_i</obj_property>
+      <obj_property name="ObjectShortName">RX_DATA_DST_RDY_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/RX_MSG_o" type="array">
+      <obj_property name="ElementShortName">RX_MSG_o[7:0]</obj_property>
+      <obj_property name="ObjectShortName">RX_MSG_o[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/RX_MSG_SRC_RDY_o" type="logic">
+      <obj_property name="ElementShortName">RX_MSG_SRC_RDY_o</obj_property>
+      <obj_property name="ObjectShortName">RX_MSG_SRC_RDY_o</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/RX_MSG_DST_RDY_i" type="logic">
+      <obj_property name="ElementShortName">RX_MSG_DST_RDY_i</obj_property>
+      <obj_property name="ObjectShortName">RX_MSG_DST_RDY_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/SOFT_RESET_TX_o" type="logic">
+      <obj_property name="ElementShortName">SOFT_RESET_TX_o</obj_property>
+      <obj_property name="ObjectShortName">SOFT_RESET_TX_o</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/SOFT_RESET_RX_o" type="logic">
+      <obj_property name="ElementShortName">SOFT_RESET_RX_o</obj_property>
+      <obj_property name="ObjectShortName">SOFT_RESET_RX_o</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/DONT_RESET_ON_DATA_ERROR_o" type="logic">
+      <obj_property name="ElementShortName">DONT_RESET_ON_DATA_ERROR_o</obj_property>
+      <obj_property name="ObjectShortName">DONT_RESET_ON_DATA_ERROR_o</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/GTP_TX_FSM_RESET_DONE_i" type="logic">
+      <obj_property name="ElementShortName">GTP_TX_FSM_RESET_DONE_i</obj_property>
+      <obj_property name="ObjectShortName">GTP_TX_FSM_RESET_DONE_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/GTP_RX_FSM_RESET_DONE_i" type="logic">
+      <obj_property name="ElementShortName">GTP_RX_FSM_RESET_DONE_i</obj_property>
+      <obj_property name="ObjectShortName">GTP_RX_FSM_RESET_DONE_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/GTP_DATA_VALID_o" type="logic">
+      <obj_property name="ElementShortName">GTP_DATA_VALID_o</obj_property>
+      <obj_property name="ObjectShortName">GTP_DATA_VALID_o</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/GTP_RXUSRCLK2_i" type="logic">
+      <obj_property name="ElementShortName">GTP_RXUSRCLK2_i</obj_property>
+      <obj_property name="ObjectShortName">GTP_RXUSRCLK2_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/GTP_DRPADDR_o" type="array">
+      <obj_property name="ElementShortName">GTP_DRPADDR_o[8:0]</obj_property>
+      <obj_property name="ObjectShortName">GTP_DRPADDR_o[8:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/GTP_DRPDI_o" type="array">
+      <obj_property name="ElementShortName">GTP_DRPDI_o[15:0]</obj_property>
+      <obj_property name="ObjectShortName">GTP_DRPDI_o[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/GTP_DRPDO_i" type="array">
+      <obj_property name="ElementShortName">GTP_DRPDO_i[15:0]</obj_property>
+      <obj_property name="ObjectShortName">GTP_DRPDO_i[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/GTP_DRPEN_o" type="logic">
+      <obj_property name="ElementShortName">GTP_DRPEN_o</obj_property>
+      <obj_property name="ObjectShortName">GTP_DRPEN_o</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/GTP_DRPRDY_i" type="logic">
+      <obj_property name="ElementShortName">GTP_DRPRDY_i</obj_property>
+      <obj_property name="ObjectShortName">GTP_DRPRDY_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/GTP_DRPWE_o" type="logic">
+      <obj_property name="ElementShortName">GTP_DRPWE_o</obj_property>
+      <obj_property name="ObjectShortName">GTP_DRPWE_o</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/GTP_EYESCANRESET_o" type="logic">
+      <obj_property name="ElementShortName">GTP_EYESCANRESET_o</obj_property>
+      <obj_property name="ObjectShortName">GTP_EYESCANRESET_o</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/GTP_RXUSERRDY_o" type="logic">
+      <obj_property name="ElementShortName">GTP_RXUSERRDY_o</obj_property>
+      <obj_property name="ObjectShortName">GTP_RXUSERRDY_o</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/GTP_EYESCANDATAERROR_i" type="logic">
+      <obj_property name="ElementShortName">GTP_EYESCANDATAERROR_i</obj_property>
+      <obj_property name="ObjectShortName">GTP_EYESCANDATAERROR_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/GTP_EYESCANTRIGGER_o" type="logic">
+      <obj_property name="ElementShortName">GTP_EYESCANTRIGGER_o</obj_property>
+      <obj_property name="ObjectShortName">GTP_EYESCANTRIGGER_o</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/GTP_RXDATA_i" type="array">
+      <obj_property name="ElementShortName">GTP_RXDATA_i[15:0]</obj_property>
+      <obj_property name="ObjectShortName">GTP_RXDATA_i[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/GTP_RXCHARISCOMMA_i" type="array">
+      <obj_property name="ElementShortName">GTP_RXCHARISCOMMA_i[1:0]</obj_property>
+      <obj_property name="ObjectShortName">GTP_RXCHARISCOMMA_i[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/GTP_RXCHARISK_i" type="array">
+      <obj_property name="ElementShortName">GTP_RXCHARISK_i[1:0]</obj_property>
+      <obj_property name="ObjectShortName">GTP_RXCHARISK_i[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/GTP_RXDISPERR_i" type="array">
+      <obj_property name="ElementShortName">GTP_RXDISPERR_i[1:0]</obj_property>
+      <obj_property name="ObjectShortName">GTP_RXDISPERR_i[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/GTP_RXNOTINTABLE_i" type="array">
+      <obj_property name="ElementShortName">GTP_RXNOTINTABLE_i[1:0]</obj_property>
+      <obj_property name="ObjectShortName">GTP_RXNOTINTABLE_i[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/GTP_RXBYTEISALIGNED_i" type="logic">
+      <obj_property name="ElementShortName">GTP_RXBYTEISALIGNED_i</obj_property>
+      <obj_property name="ObjectShortName">GTP_RXBYTEISALIGNED_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/GTP_RXBYTEREALIGN_i" type="logic">
+      <obj_property name="ElementShortName">GTP_RXBYTEREALIGN_i</obj_property>
+      <obj_property name="ObjectShortName">GTP_RXBYTEREALIGN_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/GTP_DMONITOROUT_i" type="array">
+      <obj_property name="ElementShortName">GTP_DMONITOROUT_i[14:0]</obj_property>
+      <obj_property name="ObjectShortName">GTP_DMONITOROUT_i[14:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/GTP_RXLPMHFHOLD_o" type="logic">
+      <obj_property name="ElementShortName">GTP_RXLPMHFHOLD_o</obj_property>
+      <obj_property name="ObjectShortName">GTP_RXLPMHFHOLD_o</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/GTP_RXLPMLFHOLD_o" type="logic">
+      <obj_property name="ElementShortName">GTP_RXLPMLFHOLD_o</obj_property>
+      <obj_property name="ObjectShortName">GTP_RXLPMLFHOLD_o</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/GTP_RXOUTCLKFABRIC_i" type="logic">
+      <obj_property name="ElementShortName">GTP_RXOUTCLKFABRIC_i</obj_property>
+      <obj_property name="ObjectShortName">GTP_RXOUTCLKFABRIC_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/GTP_GTRXRESET_o" type="logic">
+      <obj_property name="ElementShortName">GTP_GTRXRESET_o</obj_property>
+      <obj_property name="ObjectShortName">GTP_GTRXRESET_o</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/GTP_RXLPMRESET_o" type="logic">
+      <obj_property name="ElementShortName">GTP_RXLPMRESET_o</obj_property>
+      <obj_property name="ObjectShortName">GTP_RXLPMRESET_o</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/GTP_RXRESETDONE_i" type="logic">
+      <obj_property name="ElementShortName">GTP_RXRESETDONE_i</obj_property>
+      <obj_property name="ObjectShortName">GTP_RXRESETDONE_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/GTP_GTTXRESET_o" type="logic">
+      <obj_property name="ElementShortName">GTP_GTTXRESET_o</obj_property>
+      <obj_property name="ObjectShortName">GTP_GTTXRESET_o</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/GTP_TXUSERRDY_o" type="logic">
+      <obj_property name="ElementShortName">GTP_TXUSERRDY_o</obj_property>
+      <obj_property name="ObjectShortName">GTP_TXUSERRDY_o</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/GTP_TXDATA_o" type="array">
+      <obj_property name="ElementShortName">GTP_TXDATA_o[15:0]</obj_property>
+      <obj_property name="ObjectShortName">GTP_TXDATA_o[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/GTP_TXOUTCLKFABRIC_i" type="logic">
+      <obj_property name="ElementShortName">GTP_TXOUTCLKFABRIC_i</obj_property>
+      <obj_property name="ObjectShortName">GTP_TXOUTCLKFABRIC_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/GTP_TXOUTCLKPCS_i" type="logic">
+      <obj_property name="ElementShortName">GTP_TXOUTCLKPCS_i</obj_property>
+      <obj_property name="ObjectShortName">GTP_TXOUTCLKPCS_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/GTP_TXRESETDONE_i" type="logic">
+      <obj_property name="ElementShortName">GTP_TXRESETDONE_i</obj_property>
+      <obj_property name="ObjectShortName">GTP_TXRESETDONE_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/GTP_PLL0RESET_i" type="logic">
+      <obj_property name="ElementShortName">GTP_PLL0RESET_i</obj_property>
+      <obj_property name="ObjectShortName">GTP_PLL0RESET_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/GTP_PLL0OUTCLK_i" type="logic">
+      <obj_property name="ElementShortName">GTP_PLL0OUTCLK_i</obj_property>
+      <obj_property name="ObjectShortName">GTP_PLL0OUTCLK_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/GTP_PLL0OUTREFCLK_i" type="logic">
+      <obj_property name="ElementShortName">GTP_PLL0OUTREFCLK_i</obj_property>
+      <obj_property name="ObjectShortName">GTP_PLL0OUTREFCLK_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/GTP_PLL0LOCK_i" type="logic">
+      <obj_property name="ElementShortName">GTP_PLL0LOCK_i</obj_property>
+      <obj_property name="ObjectShortName">GTP_PLL0LOCK_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/GTP_PLL0REFCLKLOST_i" type="logic">
+      <obj_property name="ElementShortName">GTP_PLL0REFCLKLOST_i</obj_property>
+      <obj_property name="ObjectShortName">GTP_PLL0REFCLKLOST_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/GTP_PLL1OUTCLK_i" type="logic">
+      <obj_property name="ElementShortName">GTP_PLL1OUTCLK_i</obj_property>
+      <obj_property name="ObjectShortName">GTP_PLL1OUTCLK_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/GTP_PLL1OUTREFCLK_i" type="logic">
+      <obj_property name="ElementShortName">GTP_PLL1OUTREFCLK_i</obj_property>
+      <obj_property name="ObjectShortName">GTP_PLL1OUTREFCLK_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/rst_gck" type="logic">
+      <obj_property name="ElementShortName">rst_gck</obj_property>
+      <obj_property name="ObjectShortName">rst_gck</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/rst_n_gck" type="logic">
+      <obj_property name="ElementShortName">rst_n_gck</obj_property>
+      <obj_property name="ObjectShortName">rst_n_gck</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/pon_reset_n_gck" type="logic">
+      <obj_property name="ElementShortName">pon_reset_n_gck</obj_property>
+      <obj_property name="ObjectShortName">pon_reset_n_gck</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/en1ms_gck" type="logic">
+      <obj_property name="ElementShortName">en1ms_gck</obj_property>
+      <obj_property name="ObjectShortName">en1ms_gck</obj_property>
    </wvobject>
    <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/data_fifo_din" type="array">
       <obj_property name="ElementShortName">data_fifo_din[31:0]</obj_property>
@@ -451,30 +615,6 @@
       <obj_property name="ElementShortName">msg_fifo_rst</obj_property>
       <obj_property name="ObjectShortName">msg_fifo_rst</obj_property>
    </wvobject>
-   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/fifo_valid_d" type="logic">
-      <obj_property name="ElementShortName">fifo_valid_d</obj_property>
-      <obj_property name="ObjectShortName">fifo_valid_d</obj_property>
-   </wvobject>
-   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/p_rx_data_out" type="array">
-      <obj_property name="ElementShortName">p_rx_data_out[31:0]</obj_property>
-      <obj_property name="ObjectShortName">p_rx_data_out[31:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/rx_data_out" type="array">
-      <obj_property name="ElementShortName">rx_data_out[31:0]</obj_property>
-      <obj_property name="ObjectShortName">rx_data_out[31:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/p_rx_char_is_k" type="array">
-      <obj_property name="ElementShortName">p_rx_char_is_k[3:0]</obj_property>
-      <obj_property name="ObjectShortName">p_rx_char_is_k[3:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/rx_char_is_k" type="array">
-      <obj_property name="ElementShortName">rx_char_is_k[3:0]</obj_property>
-      <obj_property name="ObjectShortName">rx_char_is_k[3:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/tx_data_sel" type="array">
-      <obj_property name="ElementShortName">tx_data_sel[2:0]</obj_property>
-      <obj_property name="ObjectShortName">tx_data_sel[2:0]</obj_property>
-   </wvobject>
    <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/align_req" type="logic">
       <obj_property name="ElementShortName">align_req</obj_property>
       <obj_property name="ObjectShortName">align_req</obj_property>
@@ -491,61 +631,21 @@
       <obj_property name="ElementShortName">k_chars_up</obj_property>
       <obj_property name="ObjectShortName">k_chars_up</obj_property>
    </wvobject>
-   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/gtp_rx_stream" type="array">
-      <obj_property name="ElementShortName">gtp_rx_stream[15:0]</obj_property>
-      <obj_property name="ObjectShortName">gtp_rx_stream[15:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/flag_enable" type="logic">
-      <obj_property name="ElementShortName">flag_enable</obj_property>
-      <obj_property name="ObjectShortName">flag_enable</obj_property>
-   </wvobject>
-   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/idle_exp_toggle" type="logic">
-      <obj_property name="ElementShortName">idle_exp_toggle</obj_property>
-      <obj_property name="ObjectShortName">idle_exp_toggle</obj_property>
-   </wvobject>
-   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/idle_head" type="array">
-      <obj_property name="ElementShortName">idle_head[15:0]</obj_property>
-      <obj_property name="ObjectShortName">idle_head[15:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/idle_head_flag" type="logic">
-      <obj_property name="ElementShortName">idle_head_flag</obj_property>
-      <obj_property name="ObjectShortName">idle_head_flag</obj_property>
-   </wvobject>
-   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/idle_head_exp" type="logic">
-      <obj_property name="ElementShortName">idle_head_exp</obj_property>
-      <obj_property name="ObjectShortName">idle_head_exp</obj_property>
-   </wvobject>
-   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/idle_tail" type="array">
-      <obj_property name="ElementShortName">idle_tail[15:0]</obj_property>
-      <obj_property name="ObjectShortName">idle_tail[15:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/idle_tail_flag" type="logic">
-      <obj_property name="ElementShortName">idle_tail_flag</obj_property>
-      <obj_property name="ObjectShortName">idle_tail_flag</obj_property>
-   </wvobject>
-   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/idle_tail_exp" type="logic">
-      <obj_property name="ElementShortName">idle_tail_exp</obj_property>
-      <obj_property name="ObjectShortName">idle_tail_exp</obj_property>
-   </wvobject>
-   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/idle_flag" type="logic">
-      <obj_property name="ElementShortName">idle_flag</obj_property>
-      <obj_property name="ObjectShortName">idle_flag</obj_property>
-   </wvobject>
-   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/gtp_align" type="array">
-      <obj_property name="ElementShortName">gtp_align[15:0]</obj_property>
-      <obj_property name="ObjectShortName">gtp_align[15:0]</obj_property>
-   </wvobject>
    <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/gtp_align_flag" type="logic">
       <obj_property name="ElementShortName">gtp_align_flag</obj_property>
       <obj_property name="ObjectShortName">gtp_align_flag</obj_property>
    </wvobject>
-   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/msg_word" type="array">
-      <obj_property name="ElementShortName">msg_word[15:0]</obj_property>
-      <obj_property name="ObjectShortName">msg_word[15:0]</obj_property>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/gtp_align_flag_d" type="logic">
+      <obj_property name="ElementShortName">gtp_align_flag_d</obj_property>
+      <obj_property name="ObjectShortName">gtp_align_flag_d</obj_property>
    </wvobject>
    <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/msg_flag" type="logic">
       <obj_property name="ElementShortName">msg_flag</obj_property>
       <obj_property name="ObjectShortName">msg_flag</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/msg_flag_d" type="logic">
+      <obj_property name="ElementShortName">msg_flag_d</obj_property>
+      <obj_property name="ObjectShortName">msg_flag_d</obj_property>
    </wvobject>
    <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/data_w_exp_toggle" type="logic">
       <obj_property name="ElementShortName">data_w_exp_toggle</obj_property>
@@ -555,25 +655,237 @@
       <obj_property name="ElementShortName">data_flag</obj_property>
       <obj_property name="ObjectShortName">data_flag</obj_property>
    </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/data_flag_d" type="logic">
+      <obj_property name="ElementShortName">data_flag_d</obj_property>
+      <obj_property name="ObjectShortName">data_flag_d</obj_property>
+   </wvobject>
    <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/data_w0_exp" type="logic">
       <obj_property name="ElementShortName">data_w0_exp</obj_property>
       <obj_property name="ObjectShortName">data_w0_exp</obj_property>
-   </wvobject>
-   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/data_w1" type="array">
-      <obj_property name="ElementShortName">data_w1[15:0]</obj_property>
-      <obj_property name="ObjectShortName">data_w1[15:0]</obj_property>
    </wvobject>
    <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/data_w1_exp" type="logic">
       <obj_property name="ElementShortName">data_w1_exp</obj_property>
       <obj_property name="ObjectShortName">data_w1_exp</obj_property>
    </wvobject>
-   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/GTP_STREAM_WIDTH_g" type="other">
-      <obj_property name="ElementShortName">GTP_STREAM_WIDTH_g</obj_property>
-      <obj_property name="ObjectShortName">GTP_STREAM_WIDTH_g</obj_property>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/data_w1" type="array">
+      <obj_property name="ElementShortName">data_w1[15:0]</obj_property>
+      <obj_property name="ObjectShortName">data_w1[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/idle_flag" type="logic">
+      <obj_property name="ElementShortName">idle_flag</obj_property>
+      <obj_property name="ObjectShortName">idle_flag</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/idle_flag_d" type="logic">
+      <obj_property name="ElementShortName">idle_flag_d</obj_property>
+      <obj_property name="ObjectShortName">idle_flag_d</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/unknown_k_flag" type="logic">
+      <obj_property name="ElementShortName">unknown_k_flag</obj_property>
+      <obj_property name="ObjectShortName">unknown_k_flag</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/unknown_k_flag_d" type="logic">
+      <obj_property name="ElementShortName">unknown_k_flag_d</obj_property>
+      <obj_property name="ObjectShortName">unknown_k_flag_d</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/unknown_k_detect" type="logic">
+      <obj_property name="ElementShortName">unknown_k_detect</obj_property>
+      <obj_property name="ObjectShortName">unknown_k_detect</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/unknown_k_detected" type="logic">
+      <obj_property name="ElementShortName">unknown_k_detected</obj_property>
+      <obj_property name="ObjectShortName">unknown_k_detected</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/data_cnt" type="array">
+      <obj_property name="ElementShortName">data_cnt[15:0]</obj_property>
+      <obj_property name="ObjectShortName">data_cnt[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/data_rate" type="array">
+      <obj_property name="ElementShortName">data_rate[15:0]</obj_property>
+      <obj_property name="ObjectShortName">data_rate[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/gtp_align_cnt" type="array">
+      <obj_property name="ElementShortName">gtp_align_cnt[7:0]</obj_property>
+      <obj_property name="ObjectShortName">gtp_align_cnt[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/gtp_align_rate" type="array">
+      <obj_property name="ElementShortName">gtp_align_rate[7:0]</obj_property>
+      <obj_property name="ObjectShortName">gtp_align_rate[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/msg_cnt" type="array">
+      <obj_property name="ElementShortName">msg_cnt[15:0]</obj_property>
+      <obj_property name="ObjectShortName">msg_cnt[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/msg_rate" type="array">
+      <obj_property name="ElementShortName">msg_rate[15:0]</obj_property>
+      <obj_property name="ObjectShortName">msg_rate[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/idle_cnt" type="array">
+      <obj_property name="ElementShortName">idle_cnt[15:0]</obj_property>
+      <obj_property name="ObjectShortName">idle_cnt[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/idle_rate" type="array">
+      <obj_property name="ElementShortName">idle_rate[15:0]</obj_property>
+      <obj_property name="ObjectShortName">idle_rate[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/gtp_pll_lock_meta" type="logic">
+      <obj_property name="ElementShortName">gtp_pll_lock_meta</obj_property>
+      <obj_property name="ObjectShortName">gtp_pll_lock_meta</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/gtp_pll_lock_sync" type="logic">
+      <obj_property name="ElementShortName">gtp_pll_lock_sync</obj_property>
+      <obj_property name="ObjectShortName">gtp_pll_lock_sync</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/gtp_pll_lock" type="logic">
+      <obj_property name="ElementShortName">gtp_pll_lock</obj_property>
+      <obj_property name="ObjectShortName">gtp_pll_lock</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/gtp_clk_lost_meta" type="logic">
+      <obj_property name="ElementShortName">gtp_clk_lost_meta</obj_property>
+      <obj_property name="ObjectShortName">gtp_clk_lost_meta</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/gtp_clk_lost_sync" type="logic">
+      <obj_property name="ElementShortName">gtp_clk_lost_sync</obj_property>
+      <obj_property name="ObjectShortName">gtp_clk_lost_sync</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/gtp_clk_lost" type="logic">
+      <obj_property name="ElementShortName">gtp_clk_lost</obj_property>
+      <obj_property name="ObjectShortName">gtp_clk_lost</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/align_request_meta" type="logic">
+      <obj_property name="ElementShortName">align_request_meta</obj_property>
+      <obj_property name="ObjectShortName">align_request_meta</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/align_request_sync" type="logic">
+      <obj_property name="ElementShortName">align_request_sync</obj_property>
+      <obj_property name="ObjectShortName">align_request_sync</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/align_request" type="logic">
+      <obj_property name="ElementShortName">align_request</obj_property>
+      <obj_property name="ObjectShortName">align_request</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/gtp_pll_fail" type="logic">
+      <obj_property name="ElementShortName">gtp_pll_fail</obj_property>
+      <obj_property name="ObjectShortName">gtp_pll_fail</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/gtp_pll_alarm_cnt" type="array">
+      <obj_property name="ElementShortName">gtp_pll_alarm_cnt[1:0]</obj_property>
+      <obj_property name="ObjectShortName">gtp_pll_alarm_cnt[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/gtp_pll_alarm" type="logic">
+      <obj_property name="ElementShortName">gtp_pll_alarm</obj_property>
+      <obj_property name="ObjectShortName">gtp_pll_alarm</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/gtp_reset_cnt" type="array">
+      <obj_property name="ElementShortName">gtp_reset_cnt[3:0]</obj_property>
+      <obj_property name="ObjectShortName">gtp_reset_cnt[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/gtp_reset" type="logic">
+      <obj_property name="ElementShortName">gtp_reset</obj_property>
+      <obj_property name="ObjectShortName">gtp_reset</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/gtp_tx_fsm_reset_done" type="logic">
+      <obj_property name="ElementShortName">gtp_tx_fsm_reset_done</obj_property>
+      <obj_property name="ObjectShortName">gtp_tx_fsm_reset_done</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/gtp_rx_fsm_reset_done" type="logic">
+      <obj_property name="ElementShortName">gtp_rx_fsm_reset_done</obj_property>
+      <obj_property name="ObjectShortName">gtp_rx_fsm_reset_done</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/gtp_drpdo" type="array">
+      <obj_property name="ElementShortName">gtp_drpdo[15:0]</obj_property>
+      <obj_property name="ObjectShortName">gtp_drpdo[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/gtp_drprdy" type="logic">
+      <obj_property name="ElementShortName">gtp_drprdy</obj_property>
+      <obj_property name="ObjectShortName">gtp_drprdy</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/gtp_eyescandataerror" type="logic">
+      <obj_property name="ElementShortName">gtp_eyescandataerror</obj_property>
+      <obj_property name="ObjectShortName">gtp_eyescandataerror</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/gtp_rxdata" type="array">
+      <obj_property name="ElementShortName">gtp_rxdata[15:0]</obj_property>
+      <obj_property name="ObjectShortName">gtp_rxdata[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/gtp_rxchariscomma" type="array">
+      <obj_property name="ElementShortName">gtp_rxchariscomma[1:0]</obj_property>
+      <obj_property name="ObjectShortName">gtp_rxchariscomma[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/gtp_rxcharisk" type="array">
+      <obj_property name="ElementShortName">gtp_rxcharisk[1:0]</obj_property>
+      <obj_property name="ObjectShortName">gtp_rxcharisk[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/gtp_rxdisperr" type="array">
+      <obj_property name="ElementShortName">gtp_rxdisperr[1:0]</obj_property>
+      <obj_property name="ObjectShortName">gtp_rxdisperr[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/gtp_rxnotintable" type="array">
+      <obj_property name="ElementShortName">gtp_rxnotintable[1:0]</obj_property>
+      <obj_property name="ObjectShortName">gtp_rxnotintable[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/gtp_rxbyteisaligned" type="logic">
+      <obj_property name="ElementShortName">gtp_rxbyteisaligned</obj_property>
+      <obj_property name="ObjectShortName">gtp_rxbyteisaligned</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/gtp_rxbyterealign" type="logic">
+      <obj_property name="ElementShortName">gtp_rxbyterealign</obj_property>
+      <obj_property name="ObjectShortName">gtp_rxbyterealign</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/gtp_dmonitorout" type="array">
+      <obj_property name="ElementShortName">gtp_dmonitorout[14:0]</obj_property>
+      <obj_property name="ObjectShortName">gtp_dmonitorout[14:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/gtp_rxoutclkfabric" type="logic">
+      <obj_property name="ElementShortName">gtp_rxoutclkfabric</obj_property>
+      <obj_property name="ObjectShortName">gtp_rxoutclkfabric</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/gtp_rxresetdone" type="logic">
+      <obj_property name="ElementShortName">gtp_rxresetdone</obj_property>
+      <obj_property name="ObjectShortName">gtp_rxresetdone</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/gtp_txoutclkfabric" type="logic">
+      <obj_property name="ElementShortName">gtp_txoutclkfabric</obj_property>
+      <obj_property name="ObjectShortName">gtp_txoutclkfabric</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/gtp_txoutclkpcs" type="logic">
+      <obj_property name="ElementShortName">gtp_txoutclkpcs</obj_property>
+      <obj_property name="ObjectShortName">gtp_txoutclkpcs</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/gtp_txresetdone" type="logic">
+      <obj_property name="ElementShortName">gtp_txresetdone</obj_property>
+      <obj_property name="ObjectShortName">gtp_txresetdone</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/gtp_pll0reset" type="logic">
+      <obj_property name="ElementShortName">gtp_pll0reset</obj_property>
+      <obj_property name="ObjectShortName">gtp_pll0reset</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/gtp_pll0outclk" type="logic">
+      <obj_property name="ElementShortName">gtp_pll0outclk</obj_property>
+      <obj_property name="ObjectShortName">gtp_pll0outclk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/gtp_pll0outrefclk" type="logic">
+      <obj_property name="ElementShortName">gtp_pll0outrefclk</obj_property>
+      <obj_property name="ObjectShortName">gtp_pll0outrefclk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/gtp_pll1outclk" type="logic">
+      <obj_property name="ElementShortName">gtp_pll1outclk</obj_property>
+      <obj_property name="ObjectShortName">gtp_pll1outclk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/gtp_pll1outrefclk" type="logic">
+      <obj_property name="ElementShortName">gtp_pll1outrefclk</obj_property>
+      <obj_property name="ObjectShortName">gtp_pll1outrefclk</obj_property>
    </wvobject>
    <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/RX_DATA_OUT_WIDTH_g" type="other">
       <obj_property name="ElementShortName">RX_DATA_OUT_WIDTH_g</obj_property>
       <obj_property name="ObjectShortName">RX_DATA_OUT_WIDTH_g</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/GTP_STREAM_WIDTH_g" type="other">
+      <obj_property name="ElementShortName">GTP_STREAM_WIDTH_g</obj_property>
+      <obj_property name="ObjectShortName">GTP_STREAM_WIDTH_g</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/GTP_RXUSRCLK2_PERIOD_NS_g" type="other">
+      <obj_property name="ElementShortName">GTP_RXUSRCLK2_PERIOD_NS_g</obj_property>
+      <obj_property name="ObjectShortName">GTP_RXUSRCLK2_PERIOD_NS_g</obj_property>
    </wvobject>
    <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/K28_0" type="array">
       <obj_property name="ElementShortName">K28_0[7:0]</obj_property>
@@ -639,102 +951,280 @@
       <obj_property name="ElementShortName">MSG_c[7:0]</obj_property>
       <obj_property name="ObjectShortName">MSG_c[7:0]</obj_property>
    </wvobject>
-   <wvobject type="divider" fp_name="divider227">
-      <obj_property name="label">Data TX</obj_property>
+   <wvobject type="divider" fp_name="divider441">
+      <obj_property name="label">Time machine RX</obj_property>
       <obj_property name="DisplayName">label</obj_property>
    </wvobject>
-   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_TX_Manager_i/GCK_i" type="logic">
-      <obj_property name="ElementShortName">GCK_i</obj_property>
-      <obj_property name="ObjectShortName">GCK_i</obj_property>
-   </wvobject>
-   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/CLK_i" type="logic">
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/TIME_MACHINE_GCK_i/CLK_i" type="logic">
       <obj_property name="ElementShortName">CLK_i</obj_property>
       <obj_property name="ObjectShortName">CLK_i</obj_property>
    </wvobject>
-   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_TX_Manager_i/ALIGN_REQ_i" type="logic">
-      <obj_property name="ElementShortName">ALIGN_REQ_i</obj_property>
-      <obj_property name="ObjectShortName">ALIGN_REQ_i</obj_property>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/TIME_MACHINE_GCK_i/CLEAR_i" type="logic">
+      <obj_property name="ElementShortName">CLEAR_i</obj_property>
+      <obj_property name="ObjectShortName">CLEAR_i</obj_property>
    </wvobject>
-   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_TX_Manager_i/p_align_req" type="logic">
-      <obj_property name="ElementShortName">p_align_req</obj_property>
-      <obj_property name="ObjectShortName">p_align_req</obj_property>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/TIME_MACHINE_GCK_i/RESET_o" type="logic">
+      <obj_property name="ElementShortName">RESET_o</obj_property>
+      <obj_property name="ObjectShortName">RESET_o</obj_property>
    </wvobject>
-   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_TX_Manager_i/align_req" type="logic">
-      <obj_property name="ElementShortName">align_req</obj_property>
-      <obj_property name="ObjectShortName">align_req</obj_property>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/TIME_MACHINE_GCK_i/RESET_N_o" type="logic">
+      <obj_property name="ElementShortName">RESET_N_o</obj_property>
+      <obj_property name="ObjectShortName">RESET_N_o</obj_property>
    </wvobject>
-   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_TX_Manager_i/align_req_r" type="logic">
-      <obj_property name="ElementShortName">align_req_r</obj_property>
-      <obj_property name="ObjectShortName">align_req_r</obj_property>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/TIME_MACHINE_GCK_i/PON_RESET_OUT_o" type="logic">
+      <obj_property name="ElementShortName">PON_RESET_OUT_o</obj_property>
+      <obj_property name="ObjectShortName">PON_RESET_OUT_o</obj_property>
    </wvobject>
-   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_TX_Manager_i/data_w_enable" type="logic">
-      <obj_property name="ElementShortName">data_w_enable</obj_property>
-      <obj_property name="ObjectShortName">data_w_enable</obj_property>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/TIME_MACHINE_GCK_i/PON_RESET_N_OUT_o" type="logic">
+      <obj_property name="ElementShortName">PON_RESET_N_OUT_o</obj_property>
+      <obj_property name="ObjectShortName">PON_RESET_N_OUT_o</obj_property>
    </wvobject>
-   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_TX_Manager_i/data_w1_flag" type="logic">
-      <obj_property name="ElementShortName">data_w1_flag</obj_property>
-      <obj_property name="ObjectShortName">data_w1_flag</obj_property>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/TIME_MACHINE_GCK_i/EN200NS_o" type="logic">
+      <obj_property name="ElementShortName">EN200NS_o</obj_property>
+      <obj_property name="ObjectShortName">EN200NS_o</obj_property>
    </wvobject>
-   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_TX_Manager_i/data_w0_flag" type="logic">
-      <obj_property name="ElementShortName">data_w0_flag</obj_property>
-      <obj_property name="ObjectShortName">data_w0_flag</obj_property>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/TIME_MACHINE_GCK_i/EN1US_o" type="logic">
+      <obj_property name="ElementShortName">EN1US_o</obj_property>
+      <obj_property name="ObjectShortName">EN1US_o</obj_property>
    </wvobject>
-   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_TX_Manager_i/idle_w_enable" type="logic">
-      <obj_property name="ElementShortName">idle_w_enable</obj_property>
-      <obj_property name="ObjectShortName">idle_w_enable</obj_property>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/TIME_MACHINE_GCK_i/EN10US_o" type="logic">
+      <obj_property name="ElementShortName">EN10US_o</obj_property>
+      <obj_property name="ObjectShortName">EN10US_o</obj_property>
    </wvobject>
-   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_TX_Manager_i/idle_head_flag" type="logic">
-      <obj_property name="ElementShortName">idle_head_flag</obj_property>
-      <obj_property name="ObjectShortName">idle_head_flag</obj_property>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/TIME_MACHINE_GCK_i/EN100US_o" type="logic">
+      <obj_property name="ElementShortName">EN100US_o</obj_property>
+      <obj_property name="ObjectShortName">EN100US_o</obj_property>
    </wvobject>
-   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_TX_Manager_i/idle_tail_flag" type="logic">
-      <obj_property name="ElementShortName">idle_tail_flag</obj_property>
-      <obj_property name="ObjectShortName">idle_tail_flag</obj_property>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/TIME_MACHINE_GCK_i/EN1MS_o" type="logic">
+      <obj_property name="ElementShortName">EN1MS_o</obj_property>
+      <obj_property name="ObjectShortName">EN1MS_o</obj_property>
    </wvobject>
-   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_TX_Manager_i/p_gtp_stream_out" type="array">
-      <obj_property name="ElementShortName">p_gtp_stream_out[15:0]</obj_property>
-      <obj_property name="ObjectShortName">p_gtp_stream_out[15:0]</obj_property>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/TIME_MACHINE_GCK_i/EN10MS_o" type="logic">
+      <obj_property name="ElementShortName">EN10MS_o</obj_property>
+      <obj_property name="ObjectShortName">EN10MS_o</obj_property>
    </wvobject>
-   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_TX_Manager_i/p_tx_char_is_k" type="array">
-      <obj_property name="ElementShortName">p_tx_char_is_k[1:0]</obj_property>
-      <obj_property name="ObjectShortName">p_tx_char_is_k[1:0]</obj_property>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/TIME_MACHINE_GCK_i/EN100MS_o" type="logic">
+      <obj_property name="ElementShortName">EN100MS_o</obj_property>
+      <obj_property name="ObjectShortName">EN100MS_o</obj_property>
    </wvobject>
-   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_TX_Manager_i/gtp_stream_out" type="array">
-      <obj_property name="ElementShortName">gtp_stream_out[15:0]</obj_property>
-      <obj_property name="ObjectShortName">gtp_stream_out[15:0]</obj_property>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/TIME_MACHINE_GCK_i/EN1S_o" type="logic">
+      <obj_property name="ElementShortName">EN1S_o</obj_property>
+      <obj_property name="ObjectShortName">EN1S_o</obj_property>
    </wvobject>
-   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_TX_Manager_i/tx_char_is_k" type="array">
-      <obj_property name="ElementShortName">tx_char_is_k[1:0]</obj_property>
-      <obj_property name="ObjectShortName">tx_char_is_k[1:0]</obj_property>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/TIME_MACHINE_GCK_i/pp_rst_n" type="logic">
+      <obj_property name="ElementShortName">pp_rst_n</obj_property>
+      <obj_property name="ObjectShortName">pp_rst_n</obj_property>
    </wvobject>
-   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_TX_Manager_i/idle_w_sel" type="logic">
-      <obj_property name="ElementShortName">idle_w_sel</obj_property>
-      <obj_property name="ObjectShortName">idle_w_sel</obj_property>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/TIME_MACHINE_GCK_i/p_rst_n" type="logic">
+      <obj_property name="ElementShortName">p_rst_n</obj_property>
+      <obj_property name="ObjectShortName">p_rst_n</obj_property>
    </wvobject>
-   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_TX_Manager_i/data_w_sel" type="logic">
-      <obj_property name="ElementShortName">data_w_sel</obj_property>
-      <obj_property name="ObjectShortName">data_w_sel</obj_property>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/TIME_MACHINE_GCK_i/rst_n" type="logic">
+      <obj_property name="ElementShortName">rst_n</obj_property>
+      <obj_property name="ObjectShortName">rst_n</obj_property>
    </wvobject>
-   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_TX_Manager_i/data_w_sel" type="logic">
-      <obj_property name="ElementShortName">data_w_sel</obj_property>
-      <obj_property name="ObjectShortName">data_w_sel</obj_property>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/TIME_MACHINE_GCK_i/pp_rst" type="logic">
+      <obj_property name="ElementShortName">pp_rst</obj_property>
+      <obj_property name="ObjectShortName">pp_rst</obj_property>
    </wvobject>
-   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_TX_Manager_i/state" type="other">
-      <obj_property name="ElementShortName">state</obj_property>
-      <obj_property name="ObjectShortName">state</obj_property>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/TIME_MACHINE_GCK_i/p_rst" type="logic">
+      <obj_property name="ElementShortName">p_rst</obj_property>
+      <obj_property name="ObjectShortName">p_rst</obj_property>
    </wvobject>
-   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_TX_Manager_i/align_flag" type="logic">
-      <obj_property name="ElementShortName">align_flag</obj_property>
-      <obj_property name="ObjectShortName">align_flag</obj_property>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/TIME_MACHINE_GCK_i/rst" type="logic">
+      <obj_property name="ElementShortName">rst</obj_property>
+      <obj_property name="ObjectShortName">rst</obj_property>
    </wvobject>
-   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_TX_Manager_i/gtp_align_flag" type="logic">
-      <obj_property name="ElementShortName">gtp_align_flag</obj_property>
-      <obj_property name="ObjectShortName">gtp_align_flag</obj_property>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/TIME_MACHINE_GCK_i/pon_reset_cnt" type="array">
+      <obj_property name="ElementShortName">pon_reset_cnt[7:0]</obj_property>
+      <obj_property name="ObjectShortName">pon_reset_cnt[7:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_TX_Manager_i/idle_w_sel" type="logic">
-      <obj_property name="ElementShortName">idle_w_sel</obj_property>
-      <obj_property name="ObjectShortName">idle_w_sel</obj_property>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/TIME_MACHINE_GCK_i/pon_reset" type="logic">
+      <obj_property name="ElementShortName">pon_reset</obj_property>
+      <obj_property name="ObjectShortName">pon_reset</obj_property>
    </wvobject>
-   <wvobject type="divider" fp_name="divider78">
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/TIME_MACHINE_GCK_i/pon_reset_n" type="logic">
+      <obj_property name="ElementShortName">pon_reset_n</obj_property>
+      <obj_property name="ObjectShortName">pon_reset_n</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/TIME_MACHINE_GCK_i/en200ns_cnt" type="array">
+      <obj_property name="ElementShortName">en200ns_cnt[4:0]</obj_property>
+      <obj_property name="ObjectShortName">en200ns_cnt[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/TIME_MACHINE_GCK_i/en200ns_cnt_tc" type="logic">
+      <obj_property name="ElementShortName">en200ns_cnt_tc</obj_property>
+      <obj_property name="ObjectShortName">en200ns_cnt_tc</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/TIME_MACHINE_GCK_i/p_en200ns" type="logic">
+      <obj_property name="ElementShortName">p_en200ns</obj_property>
+      <obj_property name="ObjectShortName">p_en200ns</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/TIME_MACHINE_GCK_i/en200ns" type="logic">
+      <obj_property name="ElementShortName">en200ns</obj_property>
+      <obj_property name="ObjectShortName">en200ns</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/TIME_MACHINE_GCK_i/en1us_cnt" type="array">
+      <obj_property name="ElementShortName">en1us_cnt[2:0]</obj_property>
+      <obj_property name="ObjectShortName">en1us_cnt[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/TIME_MACHINE_GCK_i/en1us_cnt_tc" type="logic">
+      <obj_property name="ElementShortName">en1us_cnt_tc</obj_property>
+      <obj_property name="ObjectShortName">en1us_cnt_tc</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/TIME_MACHINE_GCK_i/p_en1us" type="logic">
+      <obj_property name="ElementShortName">p_en1us</obj_property>
+      <obj_property name="ObjectShortName">p_en1us</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/TIME_MACHINE_GCK_i/en1us" type="logic">
+      <obj_property name="ElementShortName">en1us</obj_property>
+      <obj_property name="ObjectShortName">en1us</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/TIME_MACHINE_GCK_i/en10us_cnt" type="array">
+      <obj_property name="ElementShortName">en10us_cnt[3:0]</obj_property>
+      <obj_property name="ObjectShortName">en10us_cnt[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/TIME_MACHINE_GCK_i/en10us_cnt_tc" type="logic">
+      <obj_property name="ElementShortName">en10us_cnt_tc</obj_property>
+      <obj_property name="ObjectShortName">en10us_cnt_tc</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/TIME_MACHINE_GCK_i/p_en10us" type="logic">
+      <obj_property name="ElementShortName">p_en10us</obj_property>
+      <obj_property name="ObjectShortName">p_en10us</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/TIME_MACHINE_GCK_i/en10us" type="logic">
+      <obj_property name="ElementShortName">en10us</obj_property>
+      <obj_property name="ObjectShortName">en10us</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/TIME_MACHINE_GCK_i/en100us_cnt" type="array">
+      <obj_property name="ElementShortName">en100us_cnt[3:0]</obj_property>
+      <obj_property name="ObjectShortName">en100us_cnt[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/TIME_MACHINE_GCK_i/en100us_cnt_tc" type="logic">
+      <obj_property name="ElementShortName">en100us_cnt_tc</obj_property>
+      <obj_property name="ObjectShortName">en100us_cnt_tc</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/TIME_MACHINE_GCK_i/p_en100us" type="logic">
+      <obj_property name="ElementShortName">p_en100us</obj_property>
+      <obj_property name="ObjectShortName">p_en100us</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/TIME_MACHINE_GCK_i/en100us" type="logic">
+      <obj_property name="ElementShortName">en100us</obj_property>
+      <obj_property name="ObjectShortName">en100us</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/TIME_MACHINE_GCK_i/en1ms_cnt" type="array">
+      <obj_property name="ElementShortName">en1ms_cnt[3:0]</obj_property>
+      <obj_property name="ObjectShortName">en1ms_cnt[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/TIME_MACHINE_GCK_i/en1ms_cnt_tc" type="logic">
+      <obj_property name="ElementShortName">en1ms_cnt_tc</obj_property>
+      <obj_property name="ObjectShortName">en1ms_cnt_tc</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/TIME_MACHINE_GCK_i/p_en1ms" type="logic">
+      <obj_property name="ElementShortName">p_en1ms</obj_property>
+      <obj_property name="ObjectShortName">p_en1ms</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/TIME_MACHINE_GCK_i/en1ms" type="logic">
+      <obj_property name="ElementShortName">en1ms</obj_property>
+      <obj_property name="ObjectShortName">en1ms</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/TIME_MACHINE_GCK_i/en10ms_cnt" type="array">
+      <obj_property name="ElementShortName">en10ms_cnt[3:0]</obj_property>
+      <obj_property name="ObjectShortName">en10ms_cnt[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/TIME_MACHINE_GCK_i/en10ms_cnt_tc" type="logic">
+      <obj_property name="ElementShortName">en10ms_cnt_tc</obj_property>
+      <obj_property name="ObjectShortName">en10ms_cnt_tc</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/TIME_MACHINE_GCK_i/p_en10ms" type="logic">
+      <obj_property name="ElementShortName">p_en10ms</obj_property>
+      <obj_property name="ObjectShortName">p_en10ms</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/TIME_MACHINE_GCK_i/en10ms" type="logic">
+      <obj_property name="ElementShortName">en10ms</obj_property>
+      <obj_property name="ObjectShortName">en10ms</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/TIME_MACHINE_GCK_i/en100ms_cnt" type="array">
+      <obj_property name="ElementShortName">en100ms_cnt[3:0]</obj_property>
+      <obj_property name="ObjectShortName">en100ms_cnt[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/TIME_MACHINE_GCK_i/en100ms_cnt_tc" type="logic">
+      <obj_property name="ElementShortName">en100ms_cnt_tc</obj_property>
+      <obj_property name="ObjectShortName">en100ms_cnt_tc</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/TIME_MACHINE_GCK_i/p_en100ms" type="logic">
+      <obj_property name="ElementShortName">p_en100ms</obj_property>
+      <obj_property name="ObjectShortName">p_en100ms</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/TIME_MACHINE_GCK_i/en100ms" type="logic">
+      <obj_property name="ElementShortName">en100ms</obj_property>
+      <obj_property name="ObjectShortName">en100ms</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/TIME_MACHINE_GCK_i/en1s_cnt" type="array">
+      <obj_property name="ElementShortName">en1s_cnt[3:0]</obj_property>
+      <obj_property name="ObjectShortName">en1s_cnt[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/TIME_MACHINE_GCK_i/en1s_cnt_tc" type="logic">
+      <obj_property name="ElementShortName">en1s_cnt_tc</obj_property>
+      <obj_property name="ObjectShortName">en1s_cnt_tc</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/TIME_MACHINE_GCK_i/p_en1s" type="logic">
+      <obj_property name="ElementShortName">p_en1s</obj_property>
+      <obj_property name="ObjectShortName">p_en1s</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/TIME_MACHINE_GCK_i/en1s" type="logic">
+      <obj_property name="ElementShortName">en1s</obj_property>
+      <obj_property name="ObjectShortName">en1s</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/TIME_MACHINE_GCK_i/CLK_PERIOD_NS_g" type="other">
+      <obj_property name="ElementShortName">CLK_PERIOD_NS_g</obj_property>
+      <obj_property name="ObjectShortName">CLK_PERIOD_NS_g</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/TIME_MACHINE_GCK_i/CLEAR_POLARITY_g" type="array">
+      <obj_property name="ElementShortName">CLEAR_POLARITY_g[1:4]</obj_property>
+      <obj_property name="ObjectShortName">CLEAR_POLARITY_g[1:4]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/TIME_MACHINE_GCK_i/PON_RESET_DURATION_MS_g" type="other">
+      <obj_property name="ElementShortName">PON_RESET_DURATION_MS_g</obj_property>
+      <obj_property name="ObjectShortName">PON_RESET_DURATION_MS_g</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/TIME_MACHINE_GCK_i/SIM_TIME_COMPRESSION_g" type="other">
+      <obj_property name="ElementShortName">SIM_TIME_COMPRESSION_g</obj_property>
+      <obj_property name="ObjectShortName">SIM_TIME_COMPRESSION_g</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/TIME_MACHINE_GCK_i/CLR_POL_c" type="logic">
+      <obj_property name="ElementShortName">CLR_POL_c</obj_property>
+      <obj_property name="ObjectShortName">CLR_POL_c</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/TIME_MACHINE_GCK_i/EN200NS_CONSTANT_c" type="other">
+      <obj_property name="ElementShortName">EN200NS_CONSTANT_c</obj_property>
+      <obj_property name="ObjectShortName">EN200NS_CONSTANT_c</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/TIME_MACHINE_GCK_i/EN1US_CONSTANT_c" type="other">
+      <obj_property name="ElementShortName">EN1US_CONSTANT_c</obj_property>
+      <obj_property name="ObjectShortName">EN1US_CONSTANT_c</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/TIME_MACHINE_GCK_i/EN10US_CONSTANT_c" type="other">
+      <obj_property name="ElementShortName">EN10US_CONSTANT_c</obj_property>
+      <obj_property name="ObjectShortName">EN10US_CONSTANT_c</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/TIME_MACHINE_GCK_i/EN100US_CONSTANT_c" type="other">
+      <obj_property name="ElementShortName">EN100US_CONSTANT_c</obj_property>
+      <obj_property name="ObjectShortName">EN100US_CONSTANT_c</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/TIME_MACHINE_GCK_i/EN1MS_CONSTANT_c" type="other">
+      <obj_property name="ElementShortName">EN1MS_CONSTANT_c</obj_property>
+      <obj_property name="ObjectShortName">EN1MS_CONSTANT_c</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/TIME_MACHINE_GCK_i/EN10MS_CONSTANT_c" type="other">
+      <obj_property name="ElementShortName">EN10MS_CONSTANT_c</obj_property>
+      <obj_property name="ObjectShortName">EN10MS_CONSTANT_c</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/TIME_MACHINE_GCK_i/EN100MS_CONSTANT_c" type="other">
+      <obj_property name="ElementShortName">EN100MS_CONSTANT_c</obj_property>
+      <obj_property name="ObjectShortName">EN100MS_CONSTANT_c</obj_property>
+   </wvobject>
+   <wvobject fp_name="/GTP_RX_Manager_tb/GTP_RX_Manager_i/TIME_MACHINE_GCK_i/EN1S_CONSTANT_c" type="other">
+      <obj_property name="ElementShortName">EN1S_CONSTANT_c</obj_property>
+      <obj_property name="ObjectShortName">EN1S_CONSTANT_c</obj_property>
    </wvobject>
 </wave_config>

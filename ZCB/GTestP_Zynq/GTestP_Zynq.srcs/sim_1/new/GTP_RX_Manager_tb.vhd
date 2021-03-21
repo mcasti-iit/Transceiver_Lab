@@ -47,52 +47,107 @@ end component;
 
 component GTP_RX_Manager is
   generic ( 
-    RX_DATA_OUT_WIDTH_g     : integer range 0 to 64 := 32;    -- Width of RX Data - Fabric side
-    GTP_STREAM_WIDTH_g      : integer range 0 to 64 := 16     -- Width of RX Data - GTP side 
+    RX_DATA_OUT_WIDTH_g        : integer range 0 to 64 := 32;    -- Width of RX Data - Fabric side
+    GTP_STREAM_WIDTH_g         : integer range 0 to 64 := 16;    -- Width of RX Data - GTP side 
+    GTP_RXUSRCLK2_PERIOD_NS_g  : real := 10.0;                   -- GTP User clock period
+    SIM_TIME_COMPRESSION_g     : in boolean := FALSE             -- When "TRUE", simulation time is "compressed": frequencies of internal clock enables are speeded-up 
     );
   port (
-    -- *** ASYNC PORTS  
-    GTP_PLL_LOCK_i          : in  std_logic;
-      
-    -- *** SYSTEM CLOCK DOMAIN ***
     -- Bare Control ports
-    CLK_i                   : in  std_logic;   -- Input clock - Fabric side    
-    RST_N_i                 : in  std_logic;   -- Asynchronous active low reset (clk clock)
-    EN1MS_i                 : in  std_logic;   -- Enable @ 1 msec in clk domain 
-    EN1S_i                  : in  std_logic;   -- Enable @ 1 sec in clk domain 
-
-    -- Control in
-    GTP_PLL_REFCLKLOST_i    : in  std_logic;
-     
-    -- Control out
-    GTP_SOFT_RESET_RX_o     : out std_logic;    
+    CLK_i                      : in  std_logic;   -- Input clock - Fabric side    
+    RST_N_i                    : in  std_logic;   -- Asynchronous active low reset (clk clock)
+    EN1S_i                     : in  std_logic;   -- Enable @ 1 sec in clk domain 
     
     -- Status
-    GTP_PLL_ALARM_o         : out std_logic; 
-         
+    GTP_PLL_ALARM_o            : out std_logic; 
+    
+    -- Control out
+    ALIGN_REQUEST_o            : out std_logic;      
+       
     -- Data out
-    RX_DATA_o               : out std_logic_vector(RX_DATA_OUT_WIDTH_g-1 downto 0);
-    RX_DATA_SRC_RDY_o       : out std_logic;
-    RX_DATA_DST_RDY_i       : in  std_logic;
+    RX_DATA_o                  : out std_logic_vector(RX_DATA_OUT_WIDTH_g-1 downto 0);
+    RX_DATA_SRC_RDY_o          : out std_logic;
+    RX_DATA_DST_RDY_i          : in  std_logic;
     
-    RX_MSG_o                : out std_logic_vector(7 downto 0);
-    RX_MSG_SRC_RDY_o        : out std_logic;
-    RX_MSG_DST_RDY_i        : in  std_logic;
+    RX_MSG_o                   : out std_logic_vector(7 downto 0);
+    RX_MSG_SRC_RDY_o           : out std_logic;
+    RX_MSG_DST_RDY_i           : in  std_logic;
     
-        
-    -- *** GTP CLOCK DOMAIN ***
-    -- Bare Control ports   
-    GCK_i                   : in  std_logic;   -- Input clock - GTP side       
-    RST_N_GCK_i             : in  std_logic;   -- Asynchronous active low reset (gck clock)    
-    EN1MS_GCK_i             : in  std_logic;   -- Enable @ 1 msec in gck domain 
+    -- *****************************************************************************************
+    -- GTP Interface
 
-    -- Control out         
-    GTP_IS_ALIGNED_i        : in  std_logic;
-    ALIGN_REQ_o             : out std_logic;
+    SOFT_RESET_TX_o            : out  std_logic;
+    SOFT_RESET_RX_o            : out  std_logic;
+    DONT_RESET_ON_DATA_ERROR_o : out  std_logic;
 
-    -- Data in 
-    GTP_STREAM_IN_i         : in  std_logic_vector(GTP_STREAM_WIDTH_g-1 downto 0);
-    GTP_CHAR_IS_K_i         : in  std_logic_vector((GTP_STREAM_WIDTH_g/8)-1 downto 0)
+    GTP_TX_FSM_RESET_DONE_i    : in  std_logic;
+    GTP_RX_FSM_RESET_DONE_i    : in  std_logic;
+    GTP_DATA_VALID_o           : out   std_logic;
+ 
+    GTP_RXUSRCLK2_i            : in  std_logic;
+
+    --_________________________________________________________________________
+    -- GTP  (XxYy)
+    -- ____________________________CHANNEL PORTS________________________________
+    ---------------------------- Channel - DRP Ports  --------------------------
+    GTP_DRPADDR_o              : out std_logic_vector(8 downto 0);
+    GTP_DRPDI_o                : out std_logic_vector(15 downto 0);
+    GTP_DRPDO_i                : in  std_logic_vector(15 downto 0);
+    GTP_DRPEN_o                : out std_logic;
+    GTP_DRPRDY_i               : in  std_logic;
+    GTP_DRPWE_o                : out std_logic;
+    --------------------- RX Initialization and Reset Ports --------------------
+    GTP_EYESCANRESET_o         : out std_logic;
+    GTP_RXUSERRDY_o            : out std_logic;
+    -------------------------- RX Margin Analysis Ports ------------------------
+    GTP_EYESCANDATAERROR_i     : in  std_logic;
+    GTP_EYESCANTRIGGER_o       : out std_logic;
+    ------------------ Receive Ports - FPGA RX Interface Ports -----------------
+    GTP_RXDATA_i               : in  std_logic_vector(GTP_STREAM_WIDTH_g-1 downto 0);
+    ------------------ Receive Ports - RX 8B/10B Decoder Ports -----------------
+    GTP_RXCHARISCOMMA_i        : in  std_logic_vector((GTP_STREAM_WIDTH_g/8)-1 downto 0);
+    GTP_RXCHARISK_i            : in  std_logic_vector((GTP_STREAM_WIDTH_g/8)-1 downto 0);
+    GTP_RXDISPERR_i            : in  std_logic_vector((GTP_STREAM_WIDTH_g/8)-1 downto 0);
+    GTP_RXNOTINTABLE_i         : in  std_logic_vector((GTP_STREAM_WIDTH_g/8)-1 downto 0);
+    ------------------------ Receive Ports - RX AFE Ports ----------------------
+    
+    -------------- Receive Ports - RX Byte and Word Alignment Ports ------------
+    GTP_RXBYTEISALIGNED_i      : in  std_logic;
+    GTP_RXBYTEREALIGN_i        : in  std_logic;
+    ------------ Receive Ports - RX Decision Feedback Equalizer(DFE) -----------
+    GTP_DMONITOROUT_i          : in  std_logic_vector(14 downto 0);
+    -------------------- Receive Ports - RX Equailizer Ports -------------------
+    GTP_RXLPMHFHOLD_o          : out std_logic;
+    GTP_RXLPMLFHOLD_o          : out std_logic;
+    --------------- Receive Ports - RX Fabric Output Control Ports -------------
+    GTP_RXOUTCLKFABRIC_i       : in  std_logic;
+    ------------- Receive Ports - RX Initialization and Reset Ports ------------
+    GTP_GTRXRESET_o            : out std_logic;
+    GTP_RXLPMRESET_o           : out std_logic;
+    -------------- Receive Ports -RX Initialization and Reset Ports ------------
+    GTP_RXRESETDONE_i          : in  std_logic;
+    --------------------- TX Initialization and Reset Ports --------------------
+    GTP_GTTXRESET_o            : out std_logic;
+    GTP_TXUSERRDY_o            : out std_logic;
+    ------------------ Transmit Ports - FPGA TX Interface Ports ----------------
+    GTP_TXDATA_o               : out std_logic_vector(15 downto 0);
+    --------------- Transmit Ports - TX Configurable Driver Ports --------------
+
+    ----------- Transmit Ports - TX Fabric Clock Output Control Ports ----------
+    GTP_TXOUTCLKFABRIC_i       : in  std_logic;
+    GTP_TXOUTCLKPCS_i          : in  std_logic;
+    ------------- Transmit Ports - TX Initialization and Reset Ports -----------
+    GTP_TXRESETDONE_i          : in  std_logic;
+
+    --____________________________COMMON PORTS________________________________
+    GTP_PLL0RESET_i            : in  std_logic;
+    GTP_PLL0OUTCLK_i           : in  std_logic;
+    GTP_PLL0OUTREFCLK_i        : in  std_logic;
+    GTP_PLL0LOCK_i             : in  std_logic;
+    GTP_PLL0REFCLKLOST_i       : in  std_logic;    
+    GTP_PLL1OUTCLK_i           : in  std_logic;
+    GTP_PLL1OUTREFCLK_i        : in  std_logic 
+    -- *****************************************************************************************
     );
 end component;
 
@@ -177,7 +232,7 @@ signal gtp_rx_msg_dst_rdy    : std_logic;
 signal gtp_stream_src_rdy : std_logic;
 
 signal gtp_is_aligned : std_logic;
-signal align_req      : std_logic;
+signal align_request  : std_logic;
 signal align_key      : std_logic_vector(1 downto 0);
 
 signal gtp_soft_reset_tx : std_logic;
@@ -211,6 +266,73 @@ signal en100us_gck       : std_logic;
 signal en1ms_gck         : std_logic;
 
 signal gtp_pll_alarm     : std_logic;
+
+-- ---------------------------------------------------------------------------------------------------------------------------------
+
+signal soft_reset_tx            : std_logic;
+signal soft_reset_rx            : std_logic;
+signal dont_reset_on_data_error : std_logic;
+
+signal gtp_tx_fsm_reset_done    : std_logic;
+signal gtp_rx_fsm_reset_done    : std_logic;
+signal gtp_data_valid           : std_logic;
+
+signal gtp_rxusrclk2            : std_logic;
+
+signal gtp_drpaddr              : std_logic_vector(8 downto 0);
+signal gtp_drpdi                : std_logic_vector(15 downto 0);
+signal gtp_drpdo                : std_logic_vector(15 downto 0);
+signal gtp_drpen                : std_logic;
+signal gtp_drprdy               : std_logic;
+signal gtp_drpwe                : std_logic;
+
+signal gtp_eyescanreset         : std_logic;
+signal gtp_rxuserrdy            : std_logic;
+
+signal gtp_eyescandataerror     : std_logic;
+signal gtp_eyescantrigger       : std_logic;
+
+signal gtp_rxdata               : std_logic_vector(15 downto 0);
+
+signal gtp_rxchariscomma        : std_logic_vector(1 downto 0);
+signal gtp_rxcharisk            : std_logic_vector(1 downto 0);
+signal gtp_rxdisperr            : std_logic_vector(1 downto 0);
+signal gtp_rxnotintable         : std_logic_vector(1 downto 0);
+
+signal gtp_rxbyteisaligned      : std_logic;
+signal gtp_rxbyterealign        : std_logic;
+
+signal gtp_dmonitorout          : std_logic_vector(14 downto 0);
+
+signal gtp_rxlpmhfhold          : std_logic;
+signal gtp_rxlpmlfhold          : std_logic;
+
+signal gtp_rxoutclkfabric       : std_logic;
+
+signal gtp_gtrxreset            : std_logic;
+signal gtp_rxlpmreset           : std_logic;
+
+signal gtp_rxresetdone          : std_logic;
+
+signal gtp_gttxreset            : std_logic;
+signal gtp_txuserrdy            : std_logic;
+
+signal gtp_txdata               : std_logic_vector(15 downto 0);
+
+signal gtp_txoutclkfabric       : std_logic;
+signal gtp_txoutclkpcs          : std_logic;
+
+signal gtp_txresetdone          : std_logic;
+
+signal gtp_pll0reset            : std_logic;
+signal gtp_pll0outclk           : std_logic;
+signal gtp_pll0outrefclk        : std_logic;
+signal gtp_pll0lock             : std_logic;
+signal gtp_pll0refclklost       : std_logic;    
+signal gtp_pll1outclk           : std_logic;
+signal gtp_pll1outrefclk        : std_logic;
+
+-- ---------------------------------------------------------------------------------------------------------------------------------
 
 begin
 
@@ -492,7 +614,7 @@ GTP_TX_Manager_i : GTP_TX_Manager
     
     -- Control
     AUTO_ALIGN_i            => auto_align,
-    ALIGN_REQ_i             => align_req,
+    ALIGN_REQ_i             => align_request,
     ALIGN_KEY_i             => align_key,
     GTP_PLL_REFCLKLOST_i    => gtp_clk_lost,
     TX_ERROR_INJECTION_i    => tx_error_injection,
@@ -525,61 +647,117 @@ GTP_TX_Manager_i : GTP_TX_Manager
     );
 
 
+gtp_rxusrclk2 <= gck;
+gtp_rxdata    <= gtp_stream;
+gtp_rxcharisk <= gtp_char_is_k;
+
 gtp_rx_data_dst_rdy <= '1';
 gtp_rx_msg_dst_rdy  <= '1';
 
 GTP_RX_Manager_i : GTP_RX_Manager 
   generic map( 
-    RX_DATA_OUT_WIDTH_g     => 32,
-    GTP_STREAM_WIDTH_g      => 16
-      
+    RX_DATA_OUT_WIDTH_g        => 32, 
+    GTP_STREAM_WIDTH_g         => 16, 
+    GTP_RXUSRCLK2_PERIOD_NS_g  => 6.4, 
+    SIM_TIME_COMPRESSION_g     => TRUE
     )
   port map(
-    -- *** ASYNC PORTS  
-    GTP_PLL_LOCK_i          => gtp_pll_lock,
-      
-    -- *** SYSTEM CLOCK DOMAIN ***
     -- Bare Control ports
-    CLK_i                   => clk_100,
-    RST_N_i                 => rst_n, 
-    EN1MS_i                 => en1ms,
-    EN1S_i                  => en1s, 
-    
-    -- Control in
-    GTP_PLL_REFCLKLOST_i    => gtp_clk_lost,
-     
-    -- Control out
-    GTP_SOFT_RESET_RX_o     => gtp_soft_reset_rx,
+    CLK_i                      => clk_100,
+    RST_N_i                    => rst_n, 
+    EN1S_i                     => en1s, 
     
     -- Status
-    GTP_PLL_ALARM_o         => gtp_pll_alarm,
+    GTP_PLL_ALARM_o            => gtp_pll_alarm,
     
+    -- Control out
+    ALIGN_REQUEST_o            => align_request,
+
     -- Data out
-    RX_DATA_o               => gtp_rx_data,
-    RX_DATA_SRC_RDY_o       => gtp_rx_data_src_rdy,
-    RX_DATA_DST_RDY_i       => gtp_rx_data_dst_rdy,
+    RX_DATA_o                  => gtp_rx_data,
+    RX_DATA_SRC_RDY_o          => gtp_rx_data_src_rdy,
+    RX_DATA_DST_RDY_i          => gtp_rx_data_dst_rdy,
 
-    RX_MSG_o                => gtp_rx_msg,
-    RX_MSG_SRC_RDY_o        => gtp_rx_msg_src_rdy,
-    RX_MSG_DST_RDY_i        => gtp_rx_msg_dst_rdy,
-    
+    RX_MSG_o                   => gtp_rx_msg,
+    RX_MSG_SRC_RDY_o           => gtp_rx_msg_src_rdy,
+    RX_MSG_DST_RDY_i           => gtp_rx_msg_dst_rdy,
         
-    -- *** GTP CLOCK DOMAIN ***
-    -- Bare Control ports   
-    GCK_i                   => gck,       
-    RST_N_GCK_i             => rst_n_gck,
-    EN1MS_GCK_i             => en1ms_gck,
+    -- *****************************************************************************************
+    -- GTP Interface
+
+    SOFT_RESET_TX_o            => soft_reset_tx,
+    SOFT_RESET_RX_o            => soft_reset_rx,
+    DONT_RESET_ON_DATA_ERROR_o => dont_reset_on_data_error,
+
+    GTP_TX_FSM_RESET_DONE_i    => gtp_tx_fsm_reset_done,
+    GTP_RX_FSM_RESET_DONE_i    => gtp_rx_fsm_reset_done,
+    GTP_DATA_VALID_o           => gtp_data_valid,
+ 
+    GTP_RXUSRCLK2_i            => gtp_rxusrclk2,
+
+    --_________________________________________________________________________
+    -- GTP  (XxYy)
+    -- ____________________________CHANNEL PORTS________________________________
+    ---------------------------- Channel - DRP Ports  --------------------------
+    GTP_DRPADDR_o              => gtp_drpaddr,     
+    GTP_DRPDI_o                => gtp_drpdi,       
+    GTP_DRPDO_i                => gtp_drpdo,       
+    GTP_DRPEN_o                => gtp_drpen,       
+    GTP_DRPRDY_i               => gtp_drprdy,      
+    GTP_DRPWE_o                => gtp_drpwe,       
+    --------------------- RX Initialization and Reset Ports --------------------
+    GTP_EYESCANRESET_o         => gtp_eyescanreset,
+    GTP_RXUSERRDY_o            => gtp_rxuserrdy,   
+    -------------------------- RX Margin Analysis Ports ------------------------
+    GTP_EYESCANDATAERROR_i     => gtp_eyescandataerror,
+    GTP_EYESCANTRIGGER_o       => gtp_eyescantrigger,  
+    ------------------ Receive Ports - FPGA RX Interface Ports -----------------
+    GTP_RXDATA_i               => gtp_rxdata,
+    ------------------ Receive Ports - RX 8B/10B Decoder Ports -----------------
+    GTP_RXCHARISCOMMA_i        => gtp_rxchariscomma,  
+    GTP_RXCHARISK_i            => gtp_rxcharisk,      
+    GTP_RXDISPERR_i            => gtp_rxdisperr,      
+    GTP_RXNOTINTABLE_i         => gtp_rxnotintable,   
+    ------------------------ Receive Ports - RX AFE Ports ----------------------
     
-    -- Controls         
-    GTP_IS_ALIGNED_i        => gtp_is_aligned,
-    ALIGN_REQ_o             => align_req,
+    -------------- Receive Ports - RX Byte and Word Alignment Ports ------------
+    GTP_RXBYTEISALIGNED_i      => gtp_rxbyteisaligned,        
+    GTP_RXBYTEREALIGN_i        => gtp_rxbyterealign,          
+    ------------ Receive Ports - RX Decision Feedback Equalizer(DFE) -----------
+    GTP_DMONITOROUT_i          => gtp_dmonitorout,
+    -------------------- Receive Ports - RX Equailizer Ports -------------------
+    GTP_RXLPMHFHOLD_o          => gtp_rxlpmhfhold,
+    GTP_RXLPMLFHOLD_o          => gtp_rxlpmlfhold,
+    --------------- Receive Ports - RX Fabric Output Control Ports -------------
+    GTP_RXOUTCLKFABRIC_i       => gtp_rxoutclkfabric,
+    ------------- Receive Ports - RX Initialization and Reset Ports ------------
+    GTP_GTRXRESET_o            => gtp_gtrxreset,
+    GTP_RXLPMRESET_o           => gtp_rxlpmreset,
+    -------------- Receive Ports -RX Initialization and Reset Ports ------------
+    GTP_RXRESETDONE_i          => gtp_rxresetdone,
+    --------------------- TX Initialization and Reset Ports --------------------
+    GTP_GTTXRESET_o            => gtp_gttxreset,
+    GTP_TXUSERRDY_o            => gtp_txuserrdy,
+    ------------------ Transmit Ports - FPGA TX Interface Ports ----------------
+    GTP_TXDATA_o               => gtp_txdata,
+    --------------- Transmit Ports - TX Configurable Driver Ports --------------
 
-    -- Data in 
-    GTP_STREAM_IN_i         => gtp_stream, 
-    GTP_CHAR_IS_K_i         => gtp_char_is_k 
-    );    
+    ----------- Transmit Ports - TX Fabric Clock Output Control Ports ----------
+    GTP_TXOUTCLKFABRIC_i       => gtp_txoutclkfabric,
+    GTP_TXOUTCLKPCS_i          => gtp_txoutclkpcs,
+    ------------- Transmit Ports - TX Initialization and Reset Ports -----------
+    GTP_TXRESETDONE_i          => gtp_txresetdone,
 
-
+    --____________________________COMMON PORTS________________________________
+    GTP_PLL0RESET_i            => gtp_pll0reset,         
+    GTP_PLL0OUTCLK_i           => gtp_pll0outclk,        
+    GTP_PLL0OUTREFCLK_i        => gtp_pll0outrefclk,     
+    GTP_PLL0LOCK_i             => gtp_pll0lock,          
+    GTP_PLL0REFCLKLOST_i       => gtp_pll0refclklost,    
+    GTP_PLL1OUTCLK_i           => gtp_pll1outclk,        
+    GTP_PLL1OUTREFCLK_i        => gtp_pll1outrefclk      
+    -- *****************************************************************************************
+    );
 
 end Behavioral;
 

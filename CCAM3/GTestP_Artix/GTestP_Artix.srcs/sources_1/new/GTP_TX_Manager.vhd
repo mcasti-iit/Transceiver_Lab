@@ -37,14 +37,12 @@ library ieee;
 
 entity GTP_TX_Manager is
   generic ( 
-    TX_DATA_IN_WIDTH_g      : integer range 0 to 64 := 32;    -- Width of TX Data - Fabric side 
-    GTP_STREAM_WIDTH_g      : integer range 0 to 64 := 16     -- Width of TX Data - GTP side
+    TX_DATA_IN_WIDTH_g        : integer range 0 to 64 := 32;    -- Width of TX Data - Fabric side 
+    GTP_STREAM_WIDTH_g        : integer range 0 to 64 := 16;    -- Width of TX Data - GTP side
+    GTP_RXUSRCLK2_PERIOD_NS_g : real := 10.0;                   -- GTP User clock period
+    SIM_TIME_COMPRESSION_g    : in boolean := FALSE             -- When "TRUE", simulation time is "compressed": frequencies of internal clock enables are speeded-up 
     );
   port (
-    -- *** ASYNC PORTS  
-    GTP_PLL_LOCK_i          : in  std_logic;
-      
-    -- *** SYSTEM CLOCK DOMAIN ***
     -- Bare Control ports
     CLK_i                   : in  std_logic;   -- Input clock - Fabric side
     RST_N_i                 : in  std_logic;   -- Asynchronous active low reset (clk clock)
@@ -52,13 +50,9 @@ entity GTP_TX_Manager is
 
     -- Control in
     AUTO_ALIGN_i            : in  std_logic;
-    ALIGN_REQ_i             : in  std_logic;
+    ALIGN_REQUEST_i         : in  std_logic;
     ALIGN_KEY_i             : in  std_logic_vector((GTP_STREAM_WIDTH_g/8)-1 downto 0);
     TX_ERROR_INJECTION_i    : in  std_logic;
-    GTP_PLL_REFCLKLOST_i    : in  std_logic;
- 
-    -- Control out
-    GTP_SOFT_RESET_TX_o     : out std_logic;
     
     -- Status
     ALIGN_FLAG_o            : out std_logic;
@@ -72,21 +66,67 @@ entity GTP_TX_Manager is
     TX_MSG_SRC_RDY_i        : in   std_logic;
     TX_MSG_DST_RDY_o        : out  std_logic;
     
-        
-    -- *** GTP CLOCK DOMAIN ***
-    -- Bare Control ports  
-    GCK_i                   : in  std_logic;   -- Input clock - GTP side     
-    RST_N_GCK_i             : in  std_logic;   -- Asynchronous active low reset (gck clock)
-    EN100US_GCK_i           : in  std_logic;   -- Enable @ 100 us in gck domain    
-         
-    -- Data out
-    GTP_STREAM_OUT_o        : out std_logic_vector(GTP_STREAM_WIDTH_g-1 downto 0);
-    GTP_CHAR_IS_K_o         : out std_logic_vector((GTP_STREAM_WIDTH_g/8)-1 downto 0)              
+   
+    -- *****************************************************************************************
+    -- GTP Interface    
+    SOFT_RESET_TX_o             : out std_logic;
+    DONT_RESET_ON_DATA_ERROR_o  : out std_logic;
+
+    GTP_TX_FSM_RESET_DONE_i     : in  std_logic;
+    GTP_RX_FSM_RESET_DONE_i     : in  std_logic;
+    GTP_DATA_VALID_o            : out std_logic;
+ 
+    GTP_TXUSRCLK2_i             : in  std_logic;
+
+    --_________________________________________________________________________
+    --GTP  (X0Y0)
+    --____________________________CHANNEL PORTS________________________________
+    ---------------------------- Channel - DRP Ports  --------------------------
+    GTP_DRPADDR_o               : out std_logic_vector(8 downto 0);
+    GTP_DRPDI_o                 : out std_logic_vector(15 downto 0);
+    GTP_DRPDO_i                 : in  std_logic_vector(15 downto 0);
+    GTP_DRPEN_o                 : out std_logic;
+    GTP_DRPRDY_i                : in  std_logic;
+    GTP_DRPWE_o                 : out std_logic;
+    --------------------- RX Initialization and Reset Ports --------------------
+    GTP_EYESCANRESET_o          : out std_logic;
+    -------------------------- RX Margin Analysis Ports ------------------------
+    GTP_EYESCANDATAERROR_i      : in  std_logic;
+    GTP_EYESCANTRIGGER_o        : out std_logic;
+    ------------ Receive Ports - RX Decision Feedback Equalizer(DFE) -----------
+    GTP_DMONITOROUT_i           : in  std_logic_vector(14 downto 0);
+    ------------- Receive Ports - RX Initialization and Reset Ports ------------
+    GTP_GTRXRESET_o             : out std_logic;
+    GTP_RXLPMRESET_o            : out std_logic;
+    --------------------- TX Initialization and Reset Ports --------------------
+    GTP_GTTXRESET_o             : out std_logic;
+    GTP_TXUSERRDY_o             : out std_logic;
+    ------------------ Transmit Ports - FPGA TX Interface Ports ----------------
+    GTP_TXDATA_o                : out std_logic_vector(15 downto 0);
+    ------------------ Transmit Ports - TX 8B/10B Encoder Ports ----------------
+    GTP_TXCHARISk_o             : out std_logic_vector(1 downto 0);
+    --------------- Transmit Ports - TX Configurable Driver Ports --------------
+
+    ----------- Transmit Ports - TX Fabric Clock Output Control Ports ----------
+    GTP_TXOUTCLKFABRIC_i        : in  std_logic;
+    GTP_TXOUTCLKPCS_i           : in  std_logic;
+    ------------- Transmit Ports - TX Initialization and Reset Ports -----------
+    GTP_TXRESETDONe_i           : in  std_logic;
+
+    --____________________________COMMON PORTS________________________________
+    GTP_PLL0OUTCLK_i            : in  std_logic;
+    GTP_PLL0OUTREFCLK_i         : in  std_logic;
+    GTP_PLL0LOCK_i              : in  std_logic;
+    GTP_PLL0REFCLKLOST_i        : in  std_logic;    
+    GTP_PLL1OUTCLK_i            : in  std_logic;
+    GTP_PLL1OUTREFCLK_i         : in  std_logic                  
     );
 end GTP_TX_Manager;
 
 
 architecture Behavioral of GTP_TX_Manager is
+
+attribute ASYNC_REG : string;
 
 component DATA_SYNC_FIFO
   port (
@@ -121,6 +161,37 @@ component MSG_SYNC_FIFO
 end component;
 
 
+component time_machine is
+  generic ( 
+    CLK_PERIOD_NS_g         : real := 10.0;                   -- Main Clock period
+    CLEAR_POLARITY_g        : string := "LOW";                -- Active "HIGH" or "LOW"
+    PON_RESET_DURATION_MS_g : integer range 0 to 255 := 10;   -- Duration of Power-On reset  
+    SIM_TIME_COMPRESSION_g  : in boolean := FALSE             -- When "TRUE", simulation time is "compressed": frequencies of internal clock enables are speeded-up 
+    );
+  port (
+    -- Clock in port
+    CLK_i                   : in  std_logic;   -- Input clock @ 50 MHz,
+    CLEAR_i                 : in  std_logic;   -- Asynchronous active low reset
+  
+    -- Output reset
+    RESET_o                 : out std_logic;    -- Reset out (active high)
+    RESET_N_o               : out std_logic;    -- Reset out (active low)
+    PON_RESET_OUT_o         : out std_logic;	  -- Power on Reset out (active high)
+    PON_RESET_N_OUT_o       : out std_logic;	  -- Power on Reset out (active low)
+    
+    -- Output ports for generated clock enables
+    EN200NS_o               : out std_logic;	  -- Clock enable every 200 ns
+    EN1US_o                 : out std_logic;	  -- Clock enable every 1 us
+    EN10US_o                : out std_logic;	  -- Clock enable every 10 us
+    EN100US_o               : out std_logic;	  -- Clock enable every 100 us
+    EN1MS_o                 : out std_logic;	  -- Clock enable every 1 ms
+    EN10MS_o                : out std_logic;	  -- Clock enable every 10 ms
+    EN100MS_o               : out std_logic;	  -- Clock enable every 100 ms
+    EN1S_o                  : out std_logic 	  -- Clock enable every 1 s
+    );
+end component;
+
+
 -- ----------------------------------------------------------------------------------------------
 -- CONSTANTS
 --
@@ -143,6 +214,16 @@ constant IDLE_HEAD_c : std_logic_vector(15 downto 0) := K28_0 & K28_1;
 constant IDLE_TAIL_c : std_logic_vector(15 downto 0) := K28_2 & K28_3;
 constant ALIGN_c     : std_logic_vector(15 downto 0) := K28_5 & K28_5;
 constant MSG_c       : std_logic_vector( 7 downto 0) := K30_7; -- & K30_7;
+
+-- ----------------------------------------------------------------------------------------------
+-- SIGNALS
+
+signal rst_gck              : std_logic;
+signal rst_n_gck            : std_logic;
+signal pon_reset_n_gck      : std_logic;
+signal en100us_gck          : std_logic;
+
+-- --------------------------------------------------------------
 
 --  State Machine
 type state_type is (RESET_st, IDLE_HEAD_st, IDLE_TAIL_st, DATA_W1_st, DATA_W0_st, ALIGN_st, ERROR_st);
@@ -196,22 +277,26 @@ signal msg_flag             : std_logic;
 signal data_w0_flag         : std_logic;
 signal data_w1_flag         : std_logic;
 
-signal p_align_req          : std_logic;
+signal align_req_meta       : std_logic;
+attribute ASYNC_REG of align_req_meta : signal is "TRUE";
+signal align_req_sync       : std_logic;
+attribute ASYNC_REG of align_req_sync : signal is "TRUE";
 signal align_req            : std_logic;
+attribute ASYNC_REG of align_req : signal is "TRUE";
 signal align_req_r          : std_logic;
-signal send_error_req       : std_logic;
-
-
-signal msg_r                : std_logic_vector(7 downto 0);
-signal msg_src_rdy          : std_logic;
-signal msg_dst_rdy          : std_logic;
 
 signal gtp_pll_lock_meta    : std_logic;
+attribute ASYNC_REG of gtp_pll_lock_meta : signal is "TRUE";
 signal gtp_pll_lock_sync    : std_logic;
+attribute ASYNC_REG of gtp_pll_lock_sync : signal is "TRUE";
 signal gtp_pll_lock         : std_logic;
+attribute ASYNC_REG of gtp_pll_lock : signal is "TRUE";
 signal gtp_clk_lost_meta    : std_logic;
+attribute ASYNC_REG of gtp_clk_lost_meta : signal is "TRUE";
 signal gtp_clk_lost_sync    : std_logic;
+attribute ASYNC_REG of gtp_clk_lost_sync : signal is "TRUE";
 signal gtp_clk_lost         : std_logic;
+attribute ASYNC_REG of gtp_clk_lost : signal is "TRUE";
 
 signal gtp_pll_fail         : std_logic;
 signal gtp_pll_alarm_cnt    : std_logic_vector(1 downto 0);
@@ -221,9 +306,138 @@ signal gtp_reset_cnt        : std_logic_vector(3 downto 0);
 signal gtp_reset            : std_logic;
 signal gtp_reset_sent       : std_logic;
 
+signal msg_r                : std_logic_vector(7 downto 0);
+signal msg_src_rdy          : std_logic;
+signal msg_dst_rdy          : std_logic;
+
+signal send_error_req       : std_logic;
+-- ------------------------------------------------------------------------------
+
+signal soft_reset_tx            : std_logic;
+signal dont_reset_on_data_error : std_logic;
+ 
+signal gtp_tx_fsm_reset_done    : std_logic;
+signal gtp_rx_fsm_reset_done    : std_logic;
+signal gtp_data_valid           : std_logic;
+ 
+signal gtp_drpaddr              : std_logic_vector(8 downto 0);
+signal gtp_drpdi                : std_logic_vector(15 downto 0);
+signal gtp_drpdo                : std_logic_vector(15 downto 0);
+signal gtp_drpen                : std_logic;
+signal gtp_drprdy               : std_logic;
+signal gtp_drpwe                : std_logic;
+ 
+signal gtp_eyescanreset         : std_logic;
+ 
+signal gtp_eyescandataerror     : std_logic;
+signal gtp_eyescantrigger       : std_logic;
+ 
+signal gtp_dmonitorout          : std_logic_vector(14 downto 0);
+ 
+signal gtp_gtrxreset            : std_logic;
+signal gtp_rxlpmreset           : std_logic;
+
+signal gtp_gttxreset            : std_logic;
+signal gtp_txuserrdy            : std_logic;
+ 
+signal gtp_txdata               : std_logic_vector(15 downto 0);
+ 
+signal gtp_txcharisk            : std_logic_vector(1 downto 0);
+ 
+signal gtp_txoutclkfabric       : std_logic;
+signal gtp_txoutclkpcs          : std_logic;
+ 
+signal gtp_txresetdone          : std_logic;
+ 
+signal gtp_pll0outclk           : std_logic;
+signal gtp_pll0outrefclk        : std_logic;
+signal gtp_pll0lock             : std_logic;
+signal gtp_pll0refclklost       : std_logic;    
+signal gtp_pll1outclk           : std_logic;
+signal gtp_pll1outrefclk        : std_logic;
+
 begin
 
+-- ---------------------------------------------------------------------
+-- GTP Interface input ports
 
+gtp_tx_fsm_reset_done    <= GTP_TX_FSM_RESET_DONE_i;     
+gtp_rx_fsm_reset_done    <= GTP_RX_FSM_RESET_DONE_i;     
+gtp_drpdo                <= GTP_DRPDO_i;                 
+gtp_drprdy               <= GTP_DRPRDY_i;                
+gtp_eyescandataerror     <= GTP_EYESCANDATAERROR_i;      
+gtp_dmonitorout          <= GTP_DMONITOROUT_i;           
+gtp_txoutclkfabric       <= GTP_TXOUTCLKFABRIC_i;        
+gtp_txoutclkpcs          <= GTP_TXOUTCLKPCS_i;           
+gtp_txresetdone          <= GTP_TXRESETDONe_i;           
+gtp_pll0outclk           <= GTP_PLL0OUTCLK_i;            
+gtp_pll0outrefclk        <= GTP_PLL0OUTREFCLK_i;         
+gtp_pll0lock             <= GTP_PLL0LOCK_i;              
+gtp_pll0refclklost       <= GTP_PLL0REFCLKLOST_i;        
+gtp_pll1outclk           <= GTP_PLL1OUTCLK_i;            
+gtp_pll1outrefclk        <= GTP_PLL1OUTREFCLK_i;     
+
+process(CLK_i, RST_N_i)
+begin
+  if (RST_N_i = '0') then 
+    gtp_pll_lock_meta <= '0';
+    gtp_pll_lock_sync <= '0';
+    gtp_pll_lock <= '0';
+  elsif rising_edge(CLK_i) then
+    gtp_pll_lock_meta  <= GTP_PLL0LOCK_i;
+    gtp_pll_lock_sync  <= gtp_pll_lock_meta;
+    gtp_pll_lock       <= gtp_pll_lock_sync;
+  end if;
+end process;
+
+process(CLK_i, RST_N_i)
+begin
+  if (RST_N_i = '0') then 
+    gtp_clk_lost_meta <= '0';
+    gtp_clk_lost_sync <= '0';
+    gtp_clk_lost <= '0';
+  elsif rising_edge(CLK_i) then
+    gtp_clk_lost_meta  <= GTP_PLL0REFCLKLOST_i;
+    gtp_clk_lost_sync  <= gtp_clk_lost_meta;
+    gtp_clk_lost       <= gtp_clk_lost_sync;
+  end if;
+end process;
+
+
+-- ----------------------------------------------------------------------------------
+-- TIME MACHINE
+
+TIME_MACHINE_GCK_i : time_machine
+  generic map( 
+    CLK_PERIOD_NS_g         =>  GTP_RXUSRCLK2_PERIOD_NS_g,  -- Main Clock period
+    CLEAR_POLARITY_g        => "HIGH",                      -- Active "HIGH" or "LOW"
+    PON_RESET_DURATION_MS_g =>   10,                        -- Duration of Power-On reset (ms)
+    SIM_TIME_COMPRESSION_g  => SIM_TIME_COMPRESSION_g       -- When "TRUE", simulation time is "compressed": frequencies of internal clock enables are speeded-up 
+    )
+  port map(
+    -- Clock in port
+    CLK_i                   => GTP_TXUSRCLK2_i,
+    CLEAR_i                 => gtp_pll_alarm,
+  
+    -- Output reset
+    RESET_o                 => rst_gck,
+    RESET_N_o               => rst_n_gck,
+    PON_RESET_OUT_o         => open,
+    PON_RESET_N_OUT_o       => pon_reset_n_gck,
+    
+    -- Output ports for generated clock enables
+    EN200NS_o               => open,
+    EN1US_o                 => open,
+    EN10US_o                => open,
+    EN100US_o               => en100us_gck,
+    EN1MS_o                 => open,
+    EN10MS_o                => open,
+    EN100MS_o               => open,
+    EN1S_o                  => open
+    );
+
+
+-- ----------------------------------------------------------------------------------
 
 -- --------------------------------------------------------------------------
 -- FIFOES
@@ -234,7 +448,7 @@ TX_DATA_DST_RDY_o <= not data_fifo_full;
 data_fifo_wr_en <= not data_fifo_full and TX_DATA_SRC_RDY_i;
 
 data_fifo_rd_en <= data_w0_flag;
-data_fifo_rst <= not RST_N_i;
+data_fifo_rst <= rst_gck;
 
 data_fifo_din <= TX_DATA_i;
 
@@ -242,7 +456,7 @@ DATA_SYNC_FIFO_TX_i :  DATA_SYNC_FIFO
   port map (
     rst       => data_fifo_rst,               
     wr_clk    => CLK_i,        
-    rd_clk    => GCK_i,         
+    rd_clk    => GTP_TXUSRCLK2_i,         
     din       => TX_DATA_i,      
     wr_en     => data_fifo_wr_en,        
     rd_en     => data_fifo_rd_en,        
@@ -261,7 +475,7 @@ TX_MSG_DST_RDY_o <= not msg_fifo_full;
 msg_fifo_wr_en <= not msg_fifo_full and TX_MSG_SRC_RDY_i;
 
 msg_fifo_rd_en <= msg_flag;
-msg_fifo_rst <= not RST_N_i;
+msg_fifo_rst <= rst_gck;
 
 msg_fifo_din <= TX_MSG_i;
 
@@ -269,7 +483,7 @@ MSG_SYNC_FIFO_TX_i :  MSG_SYNC_FIFO
   port map (
     rst       => msg_fifo_rst,               
     wr_clk    => CLK_i,        
-    rd_clk    => GCK_i,         
+    rd_clk    => GTP_TXUSRCLK2_i,
     din       => msg_fifo_din,      
     wr_en     => msg_fifo_wr_en,        
     rd_en     => msg_fifo_rd_en,        
@@ -281,17 +495,17 @@ MSG_SYNC_FIFO_TX_i :  MSG_SYNC_FIFO
   );
   
   
-process(GCK_i, RST_N_GCK_i)
+process(GTP_TXUSRCLK2_i, rst_n_gck)
 begin
-  if (RST_N_GCK_i = '0') then
-    p_align_req  <= '0';
-    align_req    <= '0';
+  if (rst_n_gck = '0') then
+    align_req_meta  <= '0';
+    align_req_sync  <= '0';
     align_req_r  <= '0';
-  elsif rising_edge(GCK_i) then
-    p_align_req <= ALIGN_REQ_i;
-    align_req   <= p_align_req;
+  elsif rising_edge(GTP_TXUSRCLK2_i) then
+    align_req_meta <= ALIGN_REQUEST_i;
+    align_req_sync <= align_req_meta;
     if (data_w1_flag = '0') then
-      align_req_r  <= align_req;
+      align_req_r  <= align_req_sync;
     end if;    
   end if;
 end process;
@@ -301,11 +515,11 @@ data_w_enable    <= data_fifo_valid and not align_req_r;
 -- idle_w_enable    <= not data_w_enable;
 
 
-process(GCK_i, RST_N_GCK_i)
+process(GTP_TXUSRCLK2_i, rst_n_gck)
 begin
-  if (RST_N_GCK_i = '0') then
+  if (rst_n_gck = '0') then
     data_w_sel <= '1';
-  elsif rising_edge(GCK_i) then
+  elsif rising_edge(GTP_TXUSRCLK2_i) then
     if (data_w_enable = '1') then
       data_w_sel <= not data_w_sel;
     else
@@ -349,7 +563,7 @@ end process;
 -- idle_head_flag     <= idle_w_enable and     idle_w_sel and not msg_fifo_valid and not align_req;   
 -- idle_tail_flag     <= idle_w_enable and not idle_w_sel and not msg_fifo_valid;
 
-gtp_align_flag     <=     align_req_r                                              and EN100US_GCK_i;
+gtp_align_flag     <=     align_req_r                                              and en100us_gck;
 data_w1_flag       <= not align_req_r and     data_fifo_valid and     data_w_sel;
 data_w0_flag       <= not align_req_r and     data_fifo_valid and not data_w_sel;
 msg_flag           <= not align_req_r and not data_fifo_valid and msg_fifo_valid;
@@ -376,12 +590,12 @@ begin
 end process;
 
 
-SYNC_PROC: process (GCK_i, RST_N_GCK_i)
+SYNC_PROC: process (GTP_TXUSRCLK2_i, rst_n_gck)
 begin
-  if (RST_N_GCK_i = '0') then
+  if (rst_n_gck = '0') then
     gtp_stream_out   <= (others => '0');
     tx_char_is_k  <= "00";
-  elsif rising_edge(GCK_i) then
+  elsif rising_edge(GTP_TXUSRCLK2_i) then
     gtp_stream_out   <= p_gtp_stream_out;
     tx_char_is_k  <= p_tx_char_is_k;
   end if;
@@ -391,52 +605,33 @@ end process;
 -- ----------------------------------------------------------------------------------
 -- GTP RESET
 
-process(CLK_i, RST_N_i)
-begin
-  if (RST_N_i = '0') then 
-    gtp_pll_lock_meta <= '0';
-    gtp_pll_lock_sync <= '0';
-    gtp_pll_lock <= '0';
-  elsif rising_edge(CLK_i) then
-    gtp_pll_lock_meta  <= GTP_PLL_LOCK_i;
-    gtp_pll_lock_sync  <= gtp_pll_lock_meta;
-    gtp_pll_lock       <= gtp_pll_lock_sync;
-  end if;
-end process;
-
-process(CLK_i, RST_N_i)
-begin
-  if (RST_N_i = '0') then 
-    gtp_clk_lost_meta <= '0';
-    gtp_clk_lost_sync <= '0';
-    gtp_clk_lost <= '0';
-  elsif rising_edge(CLK_i) then
-    gtp_clk_lost_meta  <= GTP_PLL_REFCLKLOST_i;
-    gtp_clk_lost_sync  <= gtp_clk_lost_meta;
-    gtp_clk_lost       <= gtp_clk_lost_sync;
-  end if;
-end process;
-
-
 gtp_pll_fail <= (gtp_clk_lost or not gtp_pll_lock);
 
 process(CLK_i, RST_N_i)
 begin
   if (RST_N_i = '0') then 
     gtp_pll_alarm_cnt  <= "00";
+    gtp_pll_alarm      <= '0';
   elsif rising_edge(CLK_i) then
     if (gtp_pll_alarm_cnt /= "00" ) then
       if (EN1S_i = '1') then
-        gtp_pll_alarm_cnt <= gtp_pll_alarm_cnt - 1;
+        if (gtp_clk_lost = '1') then
+          gtp_pll_alarm_cnt <= "11";
+        else
+          gtp_pll_alarm_cnt <= gtp_pll_alarm_cnt - 1;
+        end if;
       end if;
     elsif (gtp_pll_fail = '1') then
       gtp_pll_alarm_cnt <= "11";      
     end if;
+   
+    if (gtp_pll_alarm_cnt /= "00" or gtp_pll_fail = '1') then
+      gtp_pll_alarm <= '1';
+    else
+      gtp_pll_alarm <= '0';
+    end if;
   end if;
 end process;
-
-
-
 
 process (CLK_i, RST_N_i)
 begin
@@ -458,11 +653,24 @@ end process;
 -- ----------------------------------------------------------------------------------
 -- OUTPUTs
 
+ALIGN_FLAG_o                  <= gtp_align_flag;
 
-GTP_STREAM_OUT_o     <= gtp_stream_out;
-GTP_CHAR_IS_K_o      <= tx_char_is_k;
-ALIGN_FLAG_o         <= gtp_align_flag;
+SOFT_RESET_TX_o               <= gtp_reset;             
+DONT_RESET_ON_DATA_ERROR_o    <= dont_reset_on_data_error;
 
-GTP_SOFT_RESET_TX_o  <= gtp_reset;
+GTP_DATA_VALID_o              <= '0';            
+GTP_DRPADDR_o                 <= (others => '0');              
+GTP_DRPDI_o                   <= (others => '0');                
+GTP_DRPEN_o                   <= '0';                 
+GTP_DRPWE_o                   <= '0';               
+GTP_EYESCANRESET_o            <= '0';          
+GTP_EYESCANTRIGGER_o          <= '0';       
+GTP_GTRXRESET_o               <= '0';             
+GTP_RXLPMRESET_o              <= '0';            
+GTP_GTTXRESET_o               <= '0';            
+GTP_TXUSERRDY_o               <= '1';       
+      
+GTP_TXDATA_o                  <= gtp_stream_out;               
+GTP_TXCHARISk_o               <= tx_char_is_k;             
 
 end Behavioral;
