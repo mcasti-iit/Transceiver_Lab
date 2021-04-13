@@ -10,7 +10,7 @@
    </db_ref_list>
    <zoom_setting>
       <ZoomStartTime time="0fs"></ZoomStartTime>
-      <ZoomEndTime time="1024001fs"></ZoomEndTime>
+      <ZoomEndTime time="15961fs"></ZoomEndTime>
       <Cursor1Time time="236000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
@@ -18,8 +18,6 @@
       <ValueColumnWidth column_width="58"></ValueColumnWidth>
    </column_width_setting>
    <WVObjectSize size="3" />
-   <wave_markers>
-   </wave_markers>
    <wvobject fp_name="ila_gtp_probe1" type="array">
       <obj_property name="DisplayName">FullPathName</obj_property>
       <obj_property name="ElementShortName">ila_gtp_probe1[15:0]</obj_property>
