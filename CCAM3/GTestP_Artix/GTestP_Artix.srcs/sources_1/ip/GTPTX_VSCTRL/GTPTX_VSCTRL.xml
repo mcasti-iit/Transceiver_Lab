@@ -2,30 +2,9 @@
 <spirit:component xmlns:xilinx="http://www.xilinx.com" xmlns:spirit="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1685-2009" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <spirit:vendor>xilinx.com</spirit:vendor>
   <spirit:library>customized_ip</spirit:library>
-  <spirit:name>GTP_Artix</spirit:name>
+  <spirit:name>GTPTX_VSCTRL</spirit:name>
   <spirit:version>1.0</spirit:version>
   <spirit:model>
-    <spirit:views>
-      <spirit:view>
-        <spirit:name>xilinx_vhdlinstantiationtemplate</spirit:name>
-        <spirit:displayName>VHDL Instantiation Template</spirit:displayName>
-        <spirit:envIdentifier>vhdlSource:vivado.xilinx.com:synthesis.template</spirit:envIdentifier>
-        <spirit:language>vhdl</spirit:language>
-        <spirit:fileSetRef>
-          <spirit:localName>xilinx_vhdlinstantiationtemplate_view_fileset</spirit:localName>
-        </spirit:fileSetRef>
-        <spirit:parameters>
-          <spirit:parameter>
-            <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Mon Jun 21 06:32:24 UTC 2021</spirit:value>
-          </spirit:parameter>
-          <spirit:parameter>
-            <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:31c216b6</spirit:value>
-          </spirit:parameter>
-        </spirit:parameters>
-      </spirit:view>
-    </spirit:views>
     <spirit:ports>
       <spirit:port>
         <spirit:name>dummy</spirit:name>
@@ -34,7 +13,7 @@
           <spirit:wireTypeDefs>
             <spirit:wireTypeDef>
               <spirit:typeName>std_logic</spirit:typeName>
-              <spirit:viewNameRef>xilinx_vhdlinstantiationtemplate</spirit:viewNameRef>
+              <spirit:viewNameRef>dummy_view</spirit:viewNameRef>
             </spirit:wireTypeDef>
           </spirit:wireTypeDefs>
         </spirit:wire>
@@ -43,7 +22,7 @@
     <spirit:modelParameters>
       <spirit:modelParameter xsi:type="spirit:nameValueTypeType" spirit:dataType="string">
         <spirit:name>component_name</spirit:name>
-        <spirit:value spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.component_name">GTP_Artix</spirit:value>
+        <spirit:value spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.component_name">GTPTX_VSCTRL</spirit:value>
       </spirit:modelParameter>
       <spirit:modelParameter spirit:dataType="string">
         <spirit:name>gt_type</spirit:name>
@@ -611,7 +590,7 @@
       </spirit:modelParameter>
       <spirit:modelParameter spirit:dataType="string">
         <spirit:name>gt0_val_rx_data_width</spirit:name>
-        <spirit:value spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.gt0_val_rx_data_width">20</spirit:value>
+        <spirit:value spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.gt0_val_rx_data_width">16</spirit:value>
       </spirit:modelParameter>
       <spirit:modelParameter spirit:dataType="string">
         <spirit:name>gt0_val_decoding</spirit:name>
@@ -619,7 +598,7 @@
       </spirit:modelParameter>
       <spirit:modelParameter spirit:dataType="string">
         <spirit:name>gt0_val_rx_int_datawidth</spirit:name>
-        <spirit:value spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.gt0_val_rx_int_datawidth">20</spirit:value>
+        <spirit:value spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.gt0_val_rx_int_datawidth">16</spirit:value>
       </spirit:modelParameter>
       <spirit:modelParameter spirit:dataType="string">
         <spirit:name>gt0_val_rx_reference_clock</spirit:name>
@@ -1171,7 +1150,7 @@
       </spirit:modelParameter>
       <spirit:modelParameter spirit:dataType="string">
         <spirit:name>gt0_val_clk_cor_seq_1_1</spirit:name>
-        <spirit:value spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.gt0_val_clk_cor_seq_1_1">0100000000</spirit:value>
+        <spirit:value spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.gt0_val_clk_cor_seq_1_1">00000000</spirit:value>
       </spirit:modelParameter>
       <spirit:modelParameter spirit:dataType="boolean">
         <spirit:name>gt0_val_clk_cor_seq_1_1_k</spirit:name>
@@ -1187,7 +1166,7 @@
       </spirit:modelParameter>
       <spirit:modelParameter spirit:dataType="string">
         <spirit:name>gt0_val_clk_cor_seq_1_2</spirit:name>
-        <spirit:value spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.gt0_val_clk_cor_seq_1_2">0000000000</spirit:value>
+        <spirit:value spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.gt0_val_clk_cor_seq_1_2">00000000</spirit:value>
       </spirit:modelParameter>
       <spirit:modelParameter spirit:dataType="boolean">
         <spirit:name>gt0_val_clk_cor_seq_1_2_k</spirit:name>
@@ -1203,7 +1182,7 @@
       </spirit:modelParameter>
       <spirit:modelParameter spirit:dataType="string">
         <spirit:name>gt0_val_clk_cor_seq_1_3</spirit:name>
-        <spirit:value spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.gt0_val_clk_cor_seq_1_3">0000000000</spirit:value>
+        <spirit:value spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.gt0_val_clk_cor_seq_1_3">00000000</spirit:value>
       </spirit:modelParameter>
       <spirit:modelParameter spirit:dataType="boolean">
         <spirit:name>gt0_val_clk_cor_seq_1_3_k</spirit:name>
@@ -1219,7 +1198,7 @@
       </spirit:modelParameter>
       <spirit:modelParameter spirit:dataType="string">
         <spirit:name>gt0_val_clk_cor_seq_1_4</spirit:name>
-        <spirit:value spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.gt0_val_clk_cor_seq_1_4">0000000000</spirit:value>
+        <spirit:value spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.gt0_val_clk_cor_seq_1_4">00000000</spirit:value>
       </spirit:modelParameter>
       <spirit:modelParameter spirit:dataType="boolean">
         <spirit:name>gt0_val_clk_cor_seq_1_4_k</spirit:name>
@@ -1235,7 +1214,7 @@
       </spirit:modelParameter>
       <spirit:modelParameter spirit:dataType="string">
         <spirit:name>gt0_val_clk_cor_seq_2_1</spirit:name>
-        <spirit:value spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.gt0_val_clk_cor_seq_2_1">0100000000</spirit:value>
+        <spirit:value spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.gt0_val_clk_cor_seq_2_1">00000000</spirit:value>
       </spirit:modelParameter>
       <spirit:modelParameter spirit:dataType="boolean">
         <spirit:name>gt0_val_clk_cor_seq_2_1_k</spirit:name>
@@ -1251,7 +1230,7 @@
       </spirit:modelParameter>
       <spirit:modelParameter spirit:dataType="string">
         <spirit:name>gt0_val_clk_cor_seq_2_2</spirit:name>
-        <spirit:value spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.gt0_val_clk_cor_seq_2_2">0000000000</spirit:value>
+        <spirit:value spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.gt0_val_clk_cor_seq_2_2">00000000</spirit:value>
       </spirit:modelParameter>
       <spirit:modelParameter spirit:dataType="boolean">
         <spirit:name>gt0_val_clk_cor_seq_2_2_k</spirit:name>
@@ -1267,7 +1246,7 @@
       </spirit:modelParameter>
       <spirit:modelParameter spirit:dataType="string">
         <spirit:name>gt0_val_clk_cor_seq_2_3</spirit:name>
-        <spirit:value spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.gt0_val_clk_cor_seq_2_3">0000000000</spirit:value>
+        <spirit:value spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.gt0_val_clk_cor_seq_2_3">00000000</spirit:value>
       </spirit:modelParameter>
       <spirit:modelParameter spirit:dataType="boolean">
         <spirit:name>gt0_val_clk_cor_seq_2_3_k</spirit:name>
@@ -1283,7 +1262,7 @@
       </spirit:modelParameter>
       <spirit:modelParameter spirit:dataType="string">
         <spirit:name>gt0_val_clk_cor_seq_2_4</spirit:name>
-        <spirit:value spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.gt0_val_clk_cor_seq_2_4">0000000000</spirit:value>
+        <spirit:value spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.gt0_val_clk_cor_seq_2_4">00000000</spirit:value>
       </spirit:modelParameter>
       <spirit:modelParameter spirit:dataType="boolean">
         <spirit:name>gt0_val_clk_cor_seq_2_4_k</spirit:name>
@@ -1327,7 +1306,7 @@
       </spirit:modelParameter>
       <spirit:modelParameter spirit:dataType="string">
         <spirit:name>c_xdevice</spirit:name>
-        <spirit:value spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.c_xdevice">xc7z015</spirit:value>
+        <spirit:value spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.c_xdevice">xc7a50t</spirit:value>
       </spirit:modelParameter>
       <spirit:modelParameter spirit:dataType="string">
         <spirit:name>gt_row</spirit:name>
@@ -2488,6 +2467,11 @@
       <spirit:enumeration>40</spirit:enumeration>
     </spirit:choice>
     <spirit:choice>
+      <spirit:name>choice_list_07c83d4f</spirit:name>
+      <spirit:enumeration>16</spirit:enumeration>
+      <spirit:enumeration>32</spirit:enumeration>
+    </spirit:choice>
+    <spirit:choice>
       <spirit:name>choice_list_0fbde0c1</spirit:name>
       <spirit:enumeration>20</spirit:enumeration>
     </spirit:choice>
@@ -2602,6 +2586,10 @@
       <spirit:enumeration>Programmable</spirit:enumeration>
     </spirit:choice>
     <spirit:choice>
+      <spirit:name>choice_list_af38333b</spirit:name>
+      <spirit:enumeration>16</spirit:enumeration>
+    </spirit:choice>
+    <spirit:choice>
       <spirit:name>choice_list_bcc5264e</spirit:name>
       <spirit:enumeration>LPM-Auto</spirit:enumeration>
     </spirit:choice>
@@ -2656,14 +2644,17 @@
       <spirit:enumeration spirit:text="REFCLK1 Q10">REFCLK1_Q10</spirit:enumeration>
     </spirit:choice>
     <spirit:choice>
-      <spirit:name>choice_pairs_070f48d6</spirit:name>
-      <spirit:enumeration spirit:text="Any Byte Boundary">Any_Byte_Boundary</spirit:enumeration>
-      <spirit:enumeration spirit:text="Two Byte Boundaries">Two_Byte_Boundaries</spirit:enumeration>
-    </spirit:choice>
-    <spirit:choice>
       <spirit:name>choice_pairs_07eb33bf</spirit:name>
       <spirit:enumeration spirit:text="REFCLK0 Q0">REFCLK0_Q0</spirit:enumeration>
       <spirit:enumeration spirit:text="REFCLK1 Q0">REFCLK1_Q0</spirit:enumeration>
+    </spirit:choice>
+    <spirit:choice>
+      <spirit:name>choice_pairs_08350a43</spirit:name>
+      <spirit:enumeration spirit:text="None">None</spirit:enumeration>
+      <spirit:enumeration spirit:text="None (MSB First)">None_(MSB_First)</spirit:enumeration>
+      <spirit:enumeration spirit:text="8B/10B">8B/10B</spirit:enumeration>
+      <spirit:enumeration spirit:text="64B/66B">64B/66B</spirit:enumeration>
+      <spirit:enumeration spirit:text="64B/67B">64B/67B</spirit:enumeration>
     </spirit:choice>
     <spirit:choice>
       <spirit:name>choice_pairs_0a1ce076</spirit:name>
@@ -2756,6 +2747,12 @@
       <spirit:enumeration spirit:text="REFCLK1 Q1">REFCLK1_Q1</spirit:enumeration>
     </spirit:choice>
     <spirit:choice>
+      <spirit:name>choice_pairs_55bc3414</spirit:name>
+      <spirit:enumeration spirit:text="Any Byte Boundary">Any_Byte_Boundary</spirit:enumeration>
+      <spirit:enumeration spirit:text="Two Byte Boundaries">Two_Byte_Boundaries</spirit:enumeration>
+      <spirit:enumeration spirit:text="Four Byte Boundaries">Four_Byte_Boundaries</spirit:enumeration>
+    </spirit:choice>
+    <spirit:choice>
       <spirit:name>choice_pairs_5d8a4689</spirit:name>
       <spirit:enumeration spirit:text="RXOUTCLK LANE0">RXOUTCLK_LANE0</spirit:enumeration>
       <spirit:enumeration spirit:text="RXOUTCLK LANE1">RXOUTCLK_LANE1</spirit:enumeration>
@@ -2765,11 +2762,6 @@
       <spirit:enumeration spirit:text="RXOUTCLK LANE5">RXOUTCLK_LANE5</spirit:enumeration>
       <spirit:enumeration spirit:text="RXOUTCLK LANE6">RXOUTCLK_LANE6</spirit:enumeration>
       <spirit:enumeration spirit:text="RXOUTCLK LANE7">RXOUTCLK_LANE7</spirit:enumeration>
-    </spirit:choice>
-    <spirit:choice>
-      <spirit:name>choice_pairs_623b42a7</spirit:name>
-      <spirit:enumeration spirit:text="None">None</spirit:enumeration>
-      <spirit:enumeration spirit:text="None (MSB First)">None_(MSB_First)</spirit:enumeration>
     </spirit:choice>
     <spirit:choice>
       <spirit:name>choice_pairs_642160bf</spirit:name>
@@ -2867,20 +2859,11 @@
       <spirit:enumeration spirit:text="K28.1">K28.1</spirit:enumeration>
     </spirit:choice>
   </spirit:choices>
-  <spirit:fileSets>
-    <spirit:fileSet>
-      <spirit:name>xilinx_vhdlinstantiationtemplate_view_fileset</spirit:name>
-      <spirit:file>
-        <spirit:name>gtp_artix.vho</spirit:name>
-        <spirit:userFileType>vhdlTemplate</spirit:userFileType>
-      </spirit:file>
-    </spirit:fileSet>
-  </spirit:fileSets>
   <spirit:description>Use the 7 Series FPGAs Transceivers Wizard to configure one or more Virtex-7/Kintex-7/Artix-7/Zynq FPGA transceivers. Start from scratch, or use an industry standard template. The Wizard generates a custom wrapper for the tranceivers you&apos;ve selected. In addition, it produces an example design, testbench, and scripts to observe the transceivers operating under simulation and in hardware.</spirit:description>
   <spirit:parameters>
     <spirit:parameter>
       <spirit:name>Component_Name</spirit:name>
-      <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.Component_Name" spirit:order="1">GTP_Artix</spirit:value>
+      <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.Component_Name" spirit:order="1">GTPTX_VSCTRL</spirit:value>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>identical_config</spirit:name>
@@ -3689,7 +3672,7 @@
     <spirit:parameter>
       <spirit:name>gt0_val_tx_data_width</spirit:name>
       <spirit:displayName>Gt0 Val Tx Data Width</spirit:displayName>
-      <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.gt0_val_tx_data_width" spirit:choiceRef="choice_list_077fb20b" spirit:order="245">16</spirit:value>
+      <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.gt0_val_tx_data_width" spirit:choiceRef="choice_list_07c83d4f" spirit:order="245">16</spirit:value>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>gt0_val_encoding</spirit:name>
@@ -3714,17 +3697,17 @@
     <spirit:parameter>
       <spirit:name>gt0_val_rx_data_width</spirit:name>
       <spirit:displayName>Gt0 Val Rx Data Width</spirit:displayName>
-      <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.gt0_val_rx_data_width" spirit:choiceRef="choice_list_077fb20b" spirit:order="250">20</spirit:value>
+      <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.gt0_val_rx_data_width" spirit:choiceRef="choice_list_077fb20b" spirit:order="250">16</spirit:value>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>gt0_val_decoding</spirit:name>
       <spirit:displayName>Gt0 Val Decoding</spirit:displayName>
-      <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.gt0_val_decoding" spirit:choiceRef="choice_pairs_623b42a7" spirit:order="251">None</spirit:value>
+      <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.gt0_val_decoding" spirit:choiceRef="choice_pairs_08350a43" spirit:order="251">None</spirit:value>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>gt0_val_rx_int_datawidth</spirit:name>
       <spirit:displayName>Gt0 Val Rx Int Datawidth</spirit:displayName>
-      <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.gt0_val_rx_int_datawidth" spirit:choiceRef="choice_list_0fbde0c1" spirit:order="252">20</spirit:value>
+      <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.gt0_val_rx_int_datawidth" spirit:choiceRef="choice_list_af38333b" spirit:order="252">16</spirit:value>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>gt0_val_rx_reference_clock</spirit:name>
@@ -3947,7 +3930,7 @@
     <spirit:parameter>
       <spirit:name>gt0_val_align_comma_word</spirit:name>
       <spirit:displayName>Gt0 Val Align Comma Word</spirit:displayName>
-      <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.gt0_val_align_comma_word" spirit:choiceRef="choice_pairs_070f48d6" spirit:order="306">Any_Byte_Boundary</spirit:value>
+      <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.gt0_val_align_comma_word" spirit:choiceRef="choice_pairs_55bc3414" spirit:order="306">Any_Byte_Boundary</spirit:value>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>gt0_val_port_rxpcommaalignen</spirit:name>
@@ -4362,7 +4345,7 @@
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>gt0_val_clk_cor_seq_1_1</spirit:name>
-      <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.gt0_val_clk_cor_seq_1_1" spirit:order="408">0100000000</spirit:value>
+      <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.gt0_val_clk_cor_seq_1_1" spirit:order="408">00000000</spirit:value>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>gt0_val_clk_cor_seq_1_1_k</spirit:name>
@@ -4378,7 +4361,7 @@
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>gt0_val_clk_cor_seq_1_2</spirit:name>
-      <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.gt0_val_clk_cor_seq_1_2" spirit:order="412">0000000000</spirit:value>
+      <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.gt0_val_clk_cor_seq_1_2" spirit:order="412">00000000</spirit:value>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>gt0_val_clk_cor_seq_1_2_k</spirit:name>
@@ -4394,7 +4377,7 @@
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>gt0_val_clk_cor_seq_1_3</spirit:name>
-      <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.gt0_val_clk_cor_seq_1_3" spirit:order="416">0000000000</spirit:value>
+      <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.gt0_val_clk_cor_seq_1_3" spirit:order="416">00000000</spirit:value>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>gt0_val_clk_cor_seq_1_3_k</spirit:name>
@@ -4410,7 +4393,7 @@
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>gt0_val_clk_cor_seq_1_4</spirit:name>
-      <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.gt0_val_clk_cor_seq_1_4" spirit:order="420">0000000000</spirit:value>
+      <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.gt0_val_clk_cor_seq_1_4" spirit:order="420">00000000</spirit:value>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>gt0_val_clk_cor_seq_1_4_k</spirit:name>
@@ -4426,7 +4409,7 @@
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>gt0_val_clk_cor_seq_2_1</spirit:name>
-      <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.gt0_val_clk_cor_seq_2_1" spirit:order="424">0100000000</spirit:value>
+      <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.gt0_val_clk_cor_seq_2_1" spirit:order="424">00000000</spirit:value>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>gt0_val_clk_cor_seq_2_1_k</spirit:name>
@@ -4442,7 +4425,7 @@
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>gt0_val_clk_cor_seq_2_2</spirit:name>
-      <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.gt0_val_clk_cor_seq_2_2" spirit:order="428">0000000000</spirit:value>
+      <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.gt0_val_clk_cor_seq_2_2" spirit:order="428">00000000</spirit:value>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>gt0_val_clk_cor_seq_2_2_k</spirit:name>
@@ -4458,7 +4441,7 @@
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>gt0_val_clk_cor_seq_2_3</spirit:name>
-      <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.gt0_val_clk_cor_seq_2_3" spirit:order="432">0000000000</spirit:value>
+      <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.gt0_val_clk_cor_seq_2_3" spirit:order="432">00000000</spirit:value>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>gt0_val_clk_cor_seq_2_3_k</spirit:name>
@@ -4474,7 +4457,7 @@
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>gt0_val_clk_cor_seq_2_4</spirit:name>
-      <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.gt0_val_clk_cor_seq_2_4" spirit:order="436">0000000000</spirit:value>
+      <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.gt0_val_clk_cor_seq_2_4" spirit:order="436">00000000</spirit:value>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>gt0_val_clk_cor_seq_2_4_k</spirit:name>
