@@ -1,10 +1,10 @@
--- Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
+-- Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
--- Tool Version: Vivado v.2019.1 (win64) Build 2552052 Fri May 24 14:49:42 MDT 2019
--- Date        : Tue Mar 16 19:47:20 2021
--- Host        : IITICUBLAP127 running 64-bit major release  (build 9200)
+-- Tool Version: Vivado v.2020.1 (win64) Build 2902540 Wed May 27 19:54:49 MDT 2020
+-- Date        : Tue Aug 31 08:58:54 2021
+-- Host        : IITICUBWS052 running 64-bit major release  (build 9200)
 -- Command     : write_vhdl -force -mode synth_stub
---               C:/Progetti/Transceiver_Lab/CCAM3/GTestP_Artix/GTestP_Artix.srcs/sources_1/ip/ila_1/ila_1_stub.vhdl
+--               d:/Projects/Transceiver_Lab/CCAM3/GTestP_Artix/GTestP_Artix.srcs/sources_1/ip/ila_1/ila_1_stub.vhdl
 -- Design      : ila_1
 -- Purpose     : Stub declaration of top-level module interface
 -- Device      : xc7a50tcpg236-1
@@ -29,6 +29,6 @@ attribute black_box_pad_pin : string;
 attribute syn_black_box of stub : architecture is true;
 attribute black_box_pad_pin of stub : architecture is "clk,probe0[31:0],probe1[1:0],probe2[7:0],probe3[1:0]";
 attribute x_core_info : string;
-attribute x_core_info of stub : architecture is "ila,Vivado 2019.1";
+attribute x_core_info of stub : architecture is "ila,Vivado 2020.1";
 begin
 end;
